@@ -19,32 +19,10 @@
 //     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 const server = require('./src/app.js');
 const { conn } = require('./src/db.js');
-const {Country} = require('./src/db');
-const axios = require('axios');
 
 // Syncing all the models at once.
-conn.sync({ force: false }).then(async() => {
-  const countries = await axios.get('https://restcountries.eu/rest/v2/all')
-  countries.data.forEach(async (country) => {
-    try {
-      await Country.findOrCreate({
-        where:{
-          id: country.alpha3Code,
-          name: country.name,
-          flagImg: country.flag,
-          continent: country.region,
-          capital: country.capital,
-          subregion: country.subregion,
-          area:country.area,
-          population: country.population,
-        }
-      });
-    } catch (error) {
-      console.log(error.message);
-    }
-  });
+conn.sync({ force: false }).then(() => {
   console.log("Loaded")
-  //return res.status(200)
   server.listen(3001, () => {
     console.log('%s listening at 3001'); // eslint-disable-line no-console
   });
