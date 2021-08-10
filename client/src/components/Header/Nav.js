@@ -5,18 +5,17 @@ export default function Nav(){
 
     return (
         <>
-        <AppBar></AppBar>
             <nav> 
                 <div>
                     <NavLink to="/home">
                         Home
                     </NavLink>
 
-                    <NavLink to="/login">
+                    <NavLink to="/log-in">
                         Login
                     </NavLink>
 
-                    <NavLink to="/signin">
+                    <NavLink to="/sign-in">
                         Sign in
                     </NavLink>
                 </div>   
