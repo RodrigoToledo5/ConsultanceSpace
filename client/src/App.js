@@ -3,7 +3,7 @@ import {Route,Switch} from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import SaveIcon from '@material-ui/icons/Save'
 import Nav from './components/Header/Nav';
-import Sign from './components/Sign/sign';
+import Sign from './components/Sign/Sign';
 import Log from './components/Log/Log';
 
 function App() {
