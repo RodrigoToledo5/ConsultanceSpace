@@ -1,13 +1,16 @@
 import './App.css';
+import {Route,Switch} from 'react-router-dom'
 import Button from '@material-ui/core/Button'
 import SaveIcon from '@material-ui/icons/Save'
+import Nav from './components/Header/nav';
 
 function App() {
   return (
-      <div>
-        proyecto grupal
-        <Button variant="contained" color="secondary" startIcon={<SaveIcon />}/>
-      </div>
+    <>
+      <Switch>
+        <Route path="/" component={Nav}/>
+      </Switch>
+    </>
   );
 }
 
