@@ -5,6 +5,7 @@ export default function Nav(){
 
     return (
         <>
+        <AppBar></AppBar>
             <nav> 
                 <div>
                     <NavLink to="/home">

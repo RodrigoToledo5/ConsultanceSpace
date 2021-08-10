@@ -9,6 +9,7 @@ function App() {
     <>
       <Switch>
         <Route path="/" component={Nav}/>
+        
       </Switch>
     </>
   );
