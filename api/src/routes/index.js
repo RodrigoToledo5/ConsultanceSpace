@@ -15,9 +15,7 @@ const router = Router();
 
 
 router.use(require('./NewUser'));
-router.get('/', (req, res) => {
-    res.send('Hola desde el index')
-})
+
 
 // router.use("/countries",countries);//aca puedo pasar midlewares
 // router.use("/activity",activity);
