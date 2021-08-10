@@ -32,13 +32,6 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING,
 			allowNull: false
 		},
-		email:{
-			type: DataTypes.STRING,
-			allowNull: false,
-			validate:{
-				isEmail: true
-			}
-		},
 		id_Historia_Clinica:{
 			type: DataTypes.BIGINT,
 			allowNull: false,
