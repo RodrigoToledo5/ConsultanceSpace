@@ -26,7 +26,7 @@ module.exports = (sequelize) => {
 		},
 		direccion:{
 			type: DataTypes.TEXT,
-			allowNull : false
+			allowNull : false,
 		},
 		pais:{
 			type: DataTypes.STRING,
