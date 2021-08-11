@@ -18,34 +18,34 @@ export default function Footer(){
                         <Grid item xs={12} sm={4}>
                             <Box borderBottom={1}>Help</Box>
                             <Box>
-                                <Link href="/" color="inherit">Contact</Link>
+                                <Link href="/contact" color="inherit">Contact</Link>
                             </Box>
                             <Box>
-                                <Link href="/" color="inherit">Support</Link>
+                                <Link href="/supprt" color="inherit">Support</Link>
                             </Box>
                             <Box>
-                                <Link href="/" color="inherit">Privacy</Link>
+                                <Link href="/privacy" color="inherit">Privacy</Link>
                             </Box>
                         </Grid>
                         <Grid item xs={12} sm={4}>
                             <Box borderBottom={1}>Account</Box>
                             <Box>
-                                <Link href="/" color="inherit">Login</Link>
+                                <Link href="/login" color="inherit">Login</Link>
                             </Box>
                             <Box>
-                                <Link href="/" color="inherit">Register</Link>
+                                <Link href="/sign-In" color="inherit">Register</Link>
                             </Box>
                         </Grid>
                         <Grid item xs={12} sm={4}>
                             <Box borderBottom={1}>Messages</Box>
                             <Box>
-                                <Link href="/" color="inherit">Backup</Link>
+                                <Link href="/backup" color="inherit">Backup</Link>
                             </Box>
                             <Box>
-                                <Link href="/" color="inherit">History</Link>
+                                <Link href="/history" color="inherit">History</Link>
                             </Box>
                             <Box>
-                                <Link href="/" color="inherit">Roll</Link>
+                                <Link href="/roll" color="inherit">Roll</Link>
                             </Box>
                         </Grid>
                     </Grid>

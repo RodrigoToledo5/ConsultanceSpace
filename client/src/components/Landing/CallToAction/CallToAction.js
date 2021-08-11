@@ -1,14 +1,17 @@
 // CallToAction export default, height can be passed by params, text
-// is not responsive 
+// is not responsive
 
-import { Box, Button, Paper, Grid, Typography } from "@material-ui/core";
+import { Box, Button, Paper, Grid, Typography, makeStyles } from "@material-ui/core";
 import React from "react";
-import { Link } from "react-router-dom";
+import {useHistory } from "react-router-dom";
 import CalendarIcon from "@material-ui/icons/CalendarToday";
+
+
 
 export default function CallToAction({ height }) {
   const itemHeight = height ? height : "400px";
-  const styles = {
+
+  const useStyle = makeStyles(theme=>( {
     paperContainer: {
       height: itemHeight,
       padding: "5% 5%",
@@ -23,23 +26,36 @@ export default function CallToAction({ height }) {
     button: {
       width: "200px",
     },
-  };
+  }));
 
+  let history = useHistory();
+
+  function handleClick(navlink) {
+    history.push(navlink);
+  }
+  const classes=useStyle();
   return (
     <Box>
-      <Paper elevation={3} style={styles.paperContainer}>
+      <Paper elevation={3} className={classes.paperContainer}>
         <Typography variant="h4">Somos ConsultanceSpace!</Typography>
         <Typography variant="body1">
-          <p>Una plataforma de reseva y gestion de turnos, pagos y stock que te va
-          a sorprender.
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut convallis justo. </p>
+          <p>
+            Una plataforma de reseva y gestion de turnos, pagos y stock que te
+            va a sorprender. Lorem ipsum dolor sit amet, consectetur adipiscing
+            elit. Vivamus ut convallis justo.{" "}
+          </p>
         </Typography>
-        <Grid container style={styles.grid}>
-          <Link to="/sign-In">
-            <Button style={styles.button} startIcon={<CalendarIcon />}>
-              Reserva ya
-            </Button>
-          </Link>
+        <Grid container className={classes.grid}>
+          <Button
+            color="primary"
+            className={classes.button}
+            startIcon={<CalendarIcon />}
+            onClick={() => {
+              handleClick("/sign-in");
+            }}
+          >
+            Reserva ya
+          </Button>
         </Grid>
       </Paper>
     </Box>
