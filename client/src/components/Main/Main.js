@@ -1,6 +1,6 @@
 import React from 'react'
 
-export default function Sign(){
+export default function Main(){
 
     return (
         <>
@@ -29,9 +29,6 @@ Cras consectetur neque elit, sed dignissim nibh pretium non. Curabitur ac urna s
 
 Vivamus eu nulla et sapien placerat blandit. Phasellus sagittis commodo nulla nec finibus. Sed sit amet lectus a augue rutrum vestibulum. Mauris nec tempus odio, ac sodales nibh. Vivamus porta diam eu nibh vulputate scelerisque. Nam convallis dignissim malesuada. Mauris eleifend, leo eu mollis volutpat, tortor ante fermentum ligula, et suscipit massa elit a dui.
 
-Nam sed rutrum elit, in ultricies nunc. Donec et dolor vitae arcu interdum ultricies quis vel magna. Duis eros enim, pretium id efficitur at, malesuada a neque. Donec maximus est vitae porta dictum. Ut gravida malesuada euismod. Sed ex lorem, bibendum sit amet urna eu, congue fringilla lorem. Proin a lectus vestibulum, consectetur nisl at, gravida massa. Suspendisse et lectus tincidunt, interdum justo a, vestibulum diam.
-        
-        
-        </>
+Nam sed rutrum elit, in ultricies nunc. Donec et dolor vitae arcu interdum ultricies quis vel magna. Duis eros enim, pretium id efficitur at, malesuada a neque. Donec maximus est vitae porta dictum. Ut gravida malesuada euismod. Sed ex lorem, bibendum sit amet urna eu, congue fringilla lorem. Proin a lectus vestibulum, consectetur nisl at, gravida massa. Suspendisse et lectus tincidunt, interdum justo a, vestibulum diam. </>
     )
 }
