@@ -3,7 +3,7 @@
 
 import React from "react";
 import Carousel from "react-material-ui-carousel";
-import { Paper} from "@material-ui/core";
+import { Paper, makeStyles} from "@material-ui/core";
 
 import img1 from "../../../assets/img/Carousel/test1.png";
 import img2 from "../../../assets/img/Carousel/test2.png";
@@ -43,7 +43,7 @@ export default function ReactCarousel({ height }) {
 }
 
 function Item(props) {
-  const styles = {
+  const useStyle = makeStyles(theme=>( {
     paperContainer: {
       backgroundImage: `url(${props.item.img})`,
       backgroundRepeat: "no-repeat",
@@ -62,11 +62,14 @@ function Item(props) {
     opaqueFilter: {
         zIndex: "3",
       },
-  };
+  }));
+
+  const classes=useStyle();
+
   return (
-    <Paper elevation={3} style={styles.paperContainer}>
-      {/* <div style={styles.textContainer}>
-        <div style={styles.opaqueFilter}>
+    <Paper elevation={3} className={classes.paperContainer}>
+      {/* <div className={classes.textContainer}>
+        <div className={classes.opaqueFilter}>
           <h2>{props.item.name}</h2>
           <p>{props.item.description}</p>
         </div>
