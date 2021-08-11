@@ -39,11 +39,9 @@ export default function CallToAction({ height }) {
       <Paper elevation={3} className={classes.paperContainer}>
         <Typography variant="h4">Somos ConsultanceSpace!</Typography>
         <Typography variant="body1">
-          <p>
             Una plataforma de reseva y gestion de turnos, pagos y stock que te
             va a sorprender. Lorem ipsum dolor sit amet, consectetur adipiscing
             elit. Vivamus ut convallis justo.{" "}
-          </p>
         </Typography>
         <Grid container className={classes.grid}>
           <Button

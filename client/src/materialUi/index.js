@@ -29,6 +29,7 @@ const theme = createTheme({
   },
   typography:{
     fontFamily: "Roboto",
+    h4:{marginBottom:"10px"},
   },
   
 });
