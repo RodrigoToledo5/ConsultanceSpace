@@ -16,14 +16,6 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING,
 			allowNull: false	
 		},
-		telefono: {
-			type: DataTypes.BIGINT,
-			allowNull: false	
-		},
-		direccion: {
-			type: DataTypes.STRING,
-			allowNull: false	
-		},
 	},{
 		timestamps: false,
 	});
