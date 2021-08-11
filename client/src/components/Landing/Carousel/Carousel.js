@@ -45,6 +45,7 @@ function Item(props) {
       backgroundImage: `url(${props.item.img})`,
       backgroundRepeat: "no-repeat",
       backgroundSize: "contain",
+      backgroundPosition: "center",
       height: props.item.height,
       display: "flex",
       flexDirection: "column",
@@ -61,12 +62,12 @@ function Item(props) {
   };
   return (
     <Paper elevation={3} style={styles.paperContainer}>
-      <div style={styles.textContainer}>
+      {/* <div style={styles.textContainer}>
         <div style={styles.opaqueFilter}>
           <h2>{props.item.name}</h2>
           <p>{props.item.description}</p>
         </div>
-      </div>
+      </div> */}
     </Paper>
   );
 }
