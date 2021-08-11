@@ -6,12 +6,17 @@ module.exports = (sequelize) => {
         email: {
 			type: DataTypes.STRING,
 			allowNull: false,
-			primaryKey: true
+			primaryKey: true,
+			validate:{
+				isEmail: true,
+			}
 		},
 		tipo_usuario: {
 			type: DataTypes.STRING,
 			allowNull: false	
 		}
 		
+	},{
+		timestamps: false,
 	});
 };

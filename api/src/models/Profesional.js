@@ -4,7 +4,7 @@ module.exports = (sequelize) => {
     //definimos el modelo.
     sequelize.define('profesional', {
         cedula: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.BIGINT,
 			allowNull: false,
 			primaryKey: true
 		},
@@ -16,14 +16,6 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING,
 			allowNull: false	
 		},
-        especialidad: {
-			type: DataTypes.STRING,
-			allowNull: false	
-		},
-        usuario_email: {
-			type: DataTypes.STRING,
-			allowNull: false	
-		}
 	},{
 		timestamps: false,
 	});
