@@ -10,7 +10,7 @@ const useStyle=makeStyles(theme=>({
     },
     menuButton:{
         margin: theme.spacing(1),
-        background:"white",
+        
     },
     fledDirection:{
         flexDirection:'row-reverse',

@@ -9,7 +9,7 @@ import {  Box } from '@material-ui/core';
 function Main() {
   return (
     <>
-        <Box display="flex" justifyContent="center" padding="10px" width="100%">
+        <Box display="flex" marginTop="100px" justifyContent="center" padding="10px" width="100%">
           <Box width="60%" margin="10px"><ReactCarousel height={400}/></Box>
           <Box width="30%" margin="10px"><CallToAction height={400}/></Box>
         </Box> 
