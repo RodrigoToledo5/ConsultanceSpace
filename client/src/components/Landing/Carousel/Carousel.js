@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+// ReactCarousel export default, height can be passed by params, 
+// items can be modified using items array, take all assigned width.
+
+import React from "react";
 import Carousel from "react-material-ui-carousel";
-import { Paper, Button, Card } from "@material-ui/core";
+import { Paper} from "@material-ui/core";
 
 import img1 from "../../../assets/img/Carousel/test1.png";
 import img2 from "../../../assets/img/Carousel/test2.png";

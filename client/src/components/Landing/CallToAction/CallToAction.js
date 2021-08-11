@@ -1,3 +1,6 @@
+// CallToAction export default, height can be passed by params, text
+// is not responsive 
+
 import { Box, Button, Paper, Grid, Typography } from "@material-ui/core";
 import React from "react";
 import { Link } from "react-router-dom";

@@ -7,7 +7,6 @@ const theme = createTheme({
       variant:"contained",
       color:"secondary",
     },
-    
   },
   palette: {
     type: "light",
