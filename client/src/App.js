@@ -1,6 +1,7 @@
 import './App.css';
 import {Route} from 'react-router-dom'
 import Nav from './components/Header/Nav';
+
 import Sign from './components/Sign/Sign';
 import Log from './components/Log/Log';
 import Lorem from './components/Main/Lorem';
