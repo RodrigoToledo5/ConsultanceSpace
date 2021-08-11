@@ -1,13 +1,22 @@
 import './App.css';
-import Button from '@material-ui/core/Button'
-import SaveIcon from '@material-ui/icons/Save'
+import {Route} from 'react-router-dom'
+import Nav from './components/Header/Nav';
+import Sign from './components/Sign/Sign';
+import Log from './components/Log/Log';
+import Lorem from './components/Main/Lorem';
+import Footer from './components/Footer/Footer';
+import Main from './components/Main/Main';
 
 function App() {
   return (
-      <div>
-        proyecto grupal
-        <Button variant="contained" color="secondary" startIcon={<SaveIcon />}/>
-      </div>
+    <> 
+      <Route path="/sign-in" component={Sign}/>
+      <Route path="/login" component={Log}/>
+      <Route path="/" component={Nav}/>
+      <Route path="/home" component={Main}/>
+      <Route exact path="/" component={Lorem}/>
+      <Route path="/" component={Footer}/>
+    </>
   );
 }
 
