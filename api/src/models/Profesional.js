@@ -4,7 +4,7 @@ module.exports = (sequelize) => {
     //definimos el modelo.
     sequelize.define('profesional', {
         cedula: {
-			type: DataTypes.INTEGER,
+			type: DataTypes.BIGINT,
 			allowNull: false,
 			primaryKey: true
 		},
@@ -27,4 +27,4 @@ module.exports = (sequelize) => {
 	},{
 		timestamps: false,
 	});
-};//,
+};
