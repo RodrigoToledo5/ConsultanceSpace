@@ -1,19 +1,21 @@
 import './App.css';
-import {Route,Switch} from 'react-router-dom'
-import Button from '@material-ui/core/Button'
-import SaveIcon from '@material-ui/icons/Save'
+import {Route} from 'react-router-dom'
 import Nav from './components/Header/Nav';
-import ReactCarousel from './components/Landing/Carousel/Carousel';
-import CallToAction from './components/Landing/CallToAction/CallToAction';
-import { Container, Box } from '@material-ui/core';
+// import Sign from './components/Sign/Sign';
+// // import Log from './components/Log/Log';
+// import Lorem from './components/Main/Lorem';
+// import Footer from './components/Footer/Footer';
+import Main from './components/Main/Main';
 
 function App() {
   return (
-    <>
-        <Box display="flex" justifyContent="center" padding="10px" width="100%">
-          <Box width="60%" margin="10px"><ReactCarousel height={400}/></Box>
-          <Box width="30%" margin="10px"><CallToAction height={400}/></Box>
-        </Box>
+    <> 
+      {/* <Route path="/sign-in" component={Sign}/>
+      <Route path="/login" component={Log}/> */}
+      <Route path="/" component={Nav}/>
+      <Route path="/home" component={Main}/>
+      {/* <Route exact path="/" component={Lorem}/>
+      <Route path="/" component={Footer}/> */}
     </>
   );
 }
