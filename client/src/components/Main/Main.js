@@ -1,7 +1,3 @@
-
-import {Route,Switch} from 'react-router-dom'
-import Button from '@material-ui/core/Button'
-import SaveIcon from '@material-ui/icons/Save'
 import ReactCarousel from '../Landing/Carousel/Carousel';
 import CallToAction from '../Landing/CallToAction/CallToAction';
 import {  Box } from '@material-ui/core';
