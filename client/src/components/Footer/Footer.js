@@ -1,5 +1,4 @@
 import { Container,Grid,Box, Link } from "@material-ui/core";
-import Nav from '../Header/Nav';
 
 export default function Footer(){
     return (
