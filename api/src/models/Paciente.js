@@ -34,7 +34,7 @@ module.exports = (sequelize) => {
 		},
 		id_Historia_Clinica:{
 			type: DataTypes.BIGINT,
-			allowNull: true,
+			allowNull: true
 		}
 	},{
 		timestamps: false,
