@@ -35,7 +35,7 @@ export default function CallToAction({ height }) {
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus ut convallis justo. </p>
         </Typography>
         <Grid container style={styles.grid}>
-          <Link to="/register">
+          <Link to="/sign-In">
             <Button style={styles.button} startIcon={<CalendarIcon />}>
               Reserva ya
             </Button>
