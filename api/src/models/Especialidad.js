@@ -3,11 +3,6 @@ const {Sequelize,DataTypes} = require('sequelize');
 module.exports = (sequelize) => {
     //definimos el modelo.
     sequelize.define('especialidad', {
-        id: {
-			type: DataTypes.INTEGER,
-			allowNull: false,
-			primaryKey: true
-		},
 		nombre: {
 			type: DataTypes.STRING,
 			allowNull: false	

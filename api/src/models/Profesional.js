@@ -16,13 +16,13 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING,
 			allowNull: false	
 		},
-        especialidad: {
+		telefono: {
+			type: DataTypes.BIGINT,
+			allowNull: false
+		},   
+		direccion: {
 			type: DataTypes.STRING,
-			allowNull: false	
-		},
-        usuario_email: {
-			type: DataTypes.STRING,
-			allowNull: false	
+			allowNull: false
 		}
 	},{
 		timestamps: false,

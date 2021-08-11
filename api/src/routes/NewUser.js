@@ -1,41 +1,60 @@
 const {Router} = require('express');
 const axios = require('axios');
+const {Paciente, Usuario, Profesional, Especialidad} = require('../db');
 const router = Router();
 
+//ROUTE TO CREATE PATIENTS AND PROFESSIONALS
 router.post('/newUser', async(req, res, next) => {
-    const {email, type, dni, name, lastname, phone, dateBirth, address, country, license, speciality }= req.body;
-
-    console.log(email, type, dni, name, lastname, phone, dateBirth, address, country, license, speciality);
+    
+    const {type, DNI, nombre, apellidos, telefono, fecha_de_nacimiento, direccion, pais, cedula, especialidad, id_Historia_Clinica, email } = req.body
+    try{
+        const createUser = await Usuario.create({
+            email,
+            tipo_usuario: type
+        })
+    }catch(err){
+        next(err);
+    }
 
     if(type==="paciente"){
         try {
             const createdPatient = await Paciente.create({
-                dni,
-                name, 
-                lastname, 
-                phone, 
-                dateBirth, 
-                address, 
-                country,
-                email
+                DNI,
+                nombre,
+                apellidos,
+                telefono,
+                fecha_de_nacimiento,
+                direccion,
+                pais
             });
+            await createdPatient.setUsuario(email);
             return res.status(200).json(createdPatient)
         } catch (err) {
-            console.log(err)
+            next(err);
         }
     }
     else if(type==="profesional"){
         try {
+            let allSpecialty = especialidad.map(esp => {
+                return Especialidad.findOrCreate({
+                    where:{
+                        nombre: esp
+                    }
+                })
+            })
+            let relSpecialties = await Promise.all(allSpecialty);
             const createdProfesional =  await Profesional.create({
-                license,
-                name,
-                lastname,
-                speciality,
-                email
+                cedula,
+                nombre,
+                apellidos,
+                telefono,
+                direccion               
             });
+            await createdProfesional.setUsuario(email);
+            relSpecialties.forEach(esp => createdProfesional.setEspecialidads(esp[0]));
+            return res.status(200).json(createdProfesional)
         } catch (err) {
-            console.log(err)
-            
+            next(err);            
         }
     }
     else{
@@ -43,8 +62,11 @@ router.post('/newUser', async(req, res, next) => {
     }
 })
 
-router.get('/newUser', (req, res, next)=>{
-    res.status(200).send('Get new')
+//ROUTE TO BRING THE SPECIALTIES
+
+router.get('/specialtys', async(req, res, next)=>{
+    const specialties = await Especialidad.findAll();
+    res.status(200).json(specialties)
 })
 
 module.exports = router;
