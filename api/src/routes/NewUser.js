@@ -1,6 +1,6 @@
 const {Router} = require('express');
 const axios = require('axios');
-const {Paciente, Usuario, Profesional, Especialidad} = require('../db');
+const {Paciente, Usuario, Profesional, Especialidad, Stock} = require('../db');
 const router = Router();
 
 //ROUTE TO CREATE PATIENTS AND PROFESSIONALS
@@ -52,6 +52,13 @@ router.post('/newUser', async(req, res, next) => {
             });
             await createdProfesional.setUsuario(email);
             relSpecialties.forEach(esp => createdProfesional.setEspecialidads(esp[0]));
+            //create stock and rel with professional
+            const emptyArr = [];
+            const stock =  await Stock.create({
+                emptyArr,
+                emptyArr,             
+            });
+            await stock.setUsuario(email);
             return res.status(200).json(createdProfesional)
         } catch (err) {
             next(err);            
