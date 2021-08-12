@@ -16,7 +16,7 @@ const router = Router();
 
 router.use(require('./NewUser'));
 router.use(require('./Stock'));
-
+router.use(require('./Login'));
 
 // router.use("/countries",countries);//aca puedo pasar midlewares
 // router.use("/activity",activity);
