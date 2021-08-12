@@ -26,6 +26,18 @@ export default function CallToAction({ height }) {
     button: {
       width: "200px",
     },
+    text:{
+      fontSize:'1rem',
+      '@media (max-width:600px)': {
+        fontSize: '0.8rem',
+      },
+      // [theme.breakpoints.up('md')]: {
+      //   fontSize: '2.4rem',
+      // },
+    },
+    container:{
+      flexDirection:"row",
+    }
   }));
 
   let history = useHistory();
@@ -35,10 +47,10 @@ export default function CallToAction({ height }) {
   }
   const classes=useStyle();
   return (
-    <Box>
+    <>
       <Paper elevation={3} className={classes.paperContainer}>
         <Typography variant="h4">Somos ConsultanceSpace!</Typography>
-        <Typography variant="body1">
+        <Typography variant="body1" className={classes.text}>
             Una plataforma de reseva y gestion de turnos, pagos y stock que te
             va a sorprender. Lorem ipsum dolor sit amet, consectetur adipiscing
             elit. Vivamus ut convallis justo.{" "}
@@ -56,6 +68,6 @@ export default function CallToAction({ height }) {
           </Button>
         </Grid>
       </Paper>
-    </Box>
+    </>
   );
 }

@@ -10,14 +10,14 @@ import Main from './components/Main/Main';
 
 function App() {
   return (
-    <div> 
+    <> 
       <Route path="/sign-in" component={Sign}/>
       <Route path="/login" component={Log}/>
       <Route path="/" component={Nav}/>
       <Route path="/home" component={Main}/>
       <Route exact path="/" component={Lorem}/>
       <Route path="/" component={Footer}/>
-    </div>
+    </>
   );
 }
 

@@ -12,9 +12,6 @@ describe('App', () => {
     it("should be a function", () => {
       expect(App).to.be.a("function")
     })
-    it("should render a div", () => {
-      expect(wrapper.find('div'));
-    }) 
     it("should render a route", () => {
       expect(wrapper.find('route'));
     }) 
