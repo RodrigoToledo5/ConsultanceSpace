@@ -62,18 +62,25 @@ function Item(props) {
     opaqueFilter: {
         zIndex: "3",
       },
+    fontSize: '1.2rem',
+    '@media (max-width:600px)': {
+      fontSize: '1.5rem',
+    },
+    [theme.breakpoints.up('md')]: {
+      fontSize: '2.4rem',
+    },
   }));
 
   const classes=useStyle();
 
   return (
-    <Paper elevation={3} className={classes.paperContainer}>
+    <div elevation={3} className={classes.paperContainer}>
       {/* <div className={classes.textContainer}>
         <div className={classes.opaqueFilter}>
           <h2>{props.item.name}</h2>
           <p>{props.item.description}</p>
         </div>
       </div> */}
-    </Paper>
+    </div>
   );
 }

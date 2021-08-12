@@ -1,8 +1,40 @@
+import React from 'react'
+import { useHistory } from 'react-router-dom';
+import AppBar from '@material-ui/core/AppBar'
+import Toolbar from '@material-ui/core/Toolbar'
+import Button from '@material-ui/core/Button'
+import { makeStyles,Typography} from '@material-ui/core';
 
+const useStyle=makeStyles(theme=>({
+    container:{
+        marginTop: theme.spacing(10),
+    },
+    menuButton:{
+        margin: theme.spacing(1),
+        
+    },
+    fledDirection:{
+        flexDirection:'row-reverse',
+    },
+    bar:{
+        background:"white",
+        borderRadius:"5px"
+    },
+    text:{
+        color:"#159DE9",
+        marginRight:theme.spacing(100),
+        marginLeft:theme.spacing(5)
+    },
+    form:{
+        
+    }
+
+}))
 
 export default function Lorem(){
+    const classes=useStyle();
     return(
-        <div>
+        <div className={classes.container}>
             <div>
             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean at massa volutpat, gravida velit ac, pulvinar leo. Donec iaculis, elit ut tincidunt mollis, urna lectus tempus enim, ut facilisis ipsum neque nec tellus. Cras eu orci at metus maximus pharetra. Nunc euismod consequat leo et efficitur. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; In hac habitasse platea dictumst. Maecenas imperdiet tristique turpis, et dignissim sapien sollicitudin non. Nulla ut orci dignissim, commodo enim a, rutrum ipsum. Suspendisse id tincidunt magna, ut mattis elit. Cras finibus scelerisque orci sed faucibus.
 

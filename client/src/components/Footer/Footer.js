@@ -21,7 +21,7 @@ export default function Footer(){
                                 <Link href="/contact" color="inherit">Contact</Link>
                             </Box>
                             <Box>
-                                <Link href="/supprt" color="inherit">Support</Link>
+                                <Link href="/support" color="inherit">Support</Link>
                             </Box>
                             <Box>
                                 <Link href="/privacy" color="inherit">Privacy</Link>
@@ -49,7 +49,7 @@ export default function Footer(){
                             </Box>
                         </Grid>
                     </Grid>
-                    <Box textAlign="center" pt={{xs:5,sm:10}} pb={{xs:5,sm:10}}>
+                    <Box textAlign="center" pt={{xs:5,sm:10}} pb={{xs:5,sm:2}}>
                         Consultance Space &reg; {new Date().getFullYear()}
                     </Box>
                 </Container>
