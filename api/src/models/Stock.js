@@ -6,7 +6,7 @@ module.exports = (sequelize) => {
 		itemsName: {
 			type: DataTypes.ARRAY(DataTypes.STRING),
 		},
-		ItemsCount:{
+		itemsCount:{
 			type: DataTypes.ARRAY(DataTypes.INTEGER),
 		}
 	},{
