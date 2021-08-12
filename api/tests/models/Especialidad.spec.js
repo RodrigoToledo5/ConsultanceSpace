@@ -1,5 +1,7 @@
-const { Especialidad, conn } = require('../src/db.js');
+const { Especialidad ,conn } = require('../../src/db.js');
 
+const app = require('../../src/app.js');
+const agent = session(app);
 
 
 describe('Especialidad model', () => {
