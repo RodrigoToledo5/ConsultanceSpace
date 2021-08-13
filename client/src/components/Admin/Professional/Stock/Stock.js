@@ -52,7 +52,7 @@ export default function Stock() {
 
   const classes = useStyle();
   return (
-    <Box paddingTop="100px">
+    <Box>
       <Box display="flex" width="100%" className={classes.paperContainer}>
         <Box width="35%" className={classes.item}>
           <Typography variant="h5">Item</Typography>
@@ -67,7 +67,7 @@ export default function Stock() {
         </Box>
       </Box>
       <Divider className={classes.divider} />
-      {stock === "not found" || stock.length < 1
+      {(stock === "not found" || stock.length < 1)
         ? ""
         : stock.map((s, i) => (
             <StockCard

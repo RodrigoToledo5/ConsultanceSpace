@@ -61,7 +61,7 @@ export default function Nav(){
                             HOME
                         </Button>
                     </Box>
-                    <Typography className={classes.text} variant="h6" color="#159DE9" marginLeft="100px" marginRight="100px">
+                    <Typography className={classes.text} variant="h6">
                         Consultance Space
                     </Typography> 
                 </Toolbar> 
