@@ -43,7 +43,7 @@ export default function Stock() {
 
   const editStock = (data = null, key = null) => {
     data && updateStock(data);
-    if (key) {
+    if (key !== null) {
       let newStock = [...stock];
       newStock.splice(key, 1);
       updateStock(newStock);
