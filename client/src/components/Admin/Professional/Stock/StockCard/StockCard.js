@@ -1,5 +1,5 @@
-// CallToAction export default, height can be passed by params, text
-// is not responsive
+// StockCard, Display one stock item and modify it
+
 import EditIcon from "@material-ui/icons/Edit";
 import SaveIcon from "@material-ui/icons/Save";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -11,7 +11,6 @@ import {
   makeStyles,
   Divider,
   TextField,
-  InputBase,
   CircularProgress,
 } from "@material-ui/core";
 import { useState } from "react";
@@ -39,7 +38,12 @@ export default function StockCard({ data, email, updateStock, index }) {
   const classes = useStyle();
 
   const onHandleChange = (e) => {
-    setValue(e.target.value);
+    const maxValue = 9999;
+    const minValue = 0;
+    if (e.target.value < maxValue) setValue(e.target.value);
+    else e.target.value = maxValue;
+    if (e.target.value > minValue) setValue(e.target.value);
+    else e.target.value = minValue;
   };
 
   const onHandleChangeItemName = (e) => {
@@ -151,7 +155,6 @@ export default function StockCard({ data, email, updateStock, index }) {
                 setMode("load");
                 objKey = itemName;
                 backReq("post");
-                
               }}
             ></Button>
           </Box>
@@ -167,9 +170,7 @@ export default function StockCard({ data, email, updateStock, index }) {
         <Box width="50%" display="flex">
           <Box width="70%" className={classes.item}>
             {mode === "new" ? (
-              <TextField
-                onChange={onHandleChangeItemName}
-              />
+              <TextField onChange={onHandleChangeItemName} />
             ) : (
               <Typography variant="h6">{`${objKey}`}</Typography>
             )}
@@ -182,9 +183,11 @@ export default function StockCard({ data, email, updateStock, index }) {
           <Box width="25%" display="flex" justifyContent="flex-end">
             {mode === "edit" || mode === "new" ? (
               <TextField
+                type="number"
+                inputProps={{ max: "999", min: "0" }}
                 onChange={onHandleChange}
                 inputRef={(input) => {
-                  if (input != null && mode !== 'new') {
+                  if (input != null && mode !== "new") {
                     input.focus();
                   }
                 }}
