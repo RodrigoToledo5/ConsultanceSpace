@@ -1,4 +1,8 @@
-const { Cita, conn } = require('../src/db.js');
+const { Cita ,conn } = require('../../src/db.js');
+const { expect } = require('chai');
+const session = require('supertest-session');
+const app = require('../../src/app.js');
+const agent = session(app);
 
 
 
