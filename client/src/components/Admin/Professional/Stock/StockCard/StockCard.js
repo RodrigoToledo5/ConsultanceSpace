@@ -47,7 +47,10 @@ export default function StockCard({ data, email, updateStock, index }) {
   };
 
   const onHandleChangeItemName = (e) => {
-    setItemName(e.target.value);
+    const maxChar = 10;
+    if(e.target.value.length < maxChar) {setItemName(e.target.value)}
+    else{  e.target.value = e.target.value.slice(0,10);}
+
   };
 
   const backReq = (method) => {
