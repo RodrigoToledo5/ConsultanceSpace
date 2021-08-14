@@ -4,7 +4,6 @@ import Nav from './components/Header/Nav';
 import Admin from './components/Admin/Professional/Admin';
 import Sign from './components/Sign/Sign';
 import Log from './components/Log/Log';
-import Lorem from './components/Main/Lorem';
 import Footer from './components/Footer/Footer';
 import Main from './components/Main/Main';
 

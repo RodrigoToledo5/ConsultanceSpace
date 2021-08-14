@@ -1,14 +1,15 @@
 const {Router} = require('express');
 const axios = require('axios');
-const {Paciente, Usuario, Profesional, Especialidad, Stock} = require('../db');
+const {Paciente, Usuario, Profesional, Especialidad} = require('../db');
 const router = Router();
 
 //ROUTE TO CREATE PATIENTS AND PROFESSIONALS
 router.post('/newUser', async(req, res, next) => {
     
-    const {type, DNI, nombre, apellidos, telefono, fecha_de_nacimiento, direccion, pais, cedula, especialidad, id_Historia_Clinica, email } = req.body
+    const {type, dni, name, lastName, phone, birth, address, country, cedula, especialidad, id_Historia_Clinica, email } = req.body
+    console.log(type, dni, name, lastName, phone, birth, address, country, cedula, especialidad, id_Historia_Clinica, email);
     try{
-        const createUser = await Usuario.create({
+        await Usuario.create({
             email,
             tipo_usuario: type
         })
@@ -19,16 +20,16 @@ router.post('/newUser', async(req, res, next) => {
     if(type==="paciente"){
         try {
             const createdPatient = await Paciente.create({
-                DNI,
-                nombre,
-                apellidos,
-                telefono,
-                fecha_de_nacimiento,
-                direccion,
-                pais
+                DNI: dni,
+                nombre: name,
+                apellidos: lastName,
+                telefono: phone,
+                fecha_de_nacimiento: birth,
+                direccion: address,
+                pais:country
             });
             await createdPatient.setUsuario(email);
-            return res.status(200).json(createdPatient)
+            return res.status(200).send('Registro exitoso')
         } catch (err) {
             next(err);
         }
@@ -45,20 +46,13 @@ router.post('/newUser', async(req, res, next) => {
             let relSpecialties = await Promise.all(allSpecialty);
             const createdProfesional =  await Profesional.create({
                 cedula,
-                nombre,
-                apellidos,
-                telefono,
-                direccion               
+                nombre: name,
+                apellidos: lastName,
+                telefono: phone,
+                direccion: address               
             });
             await createdProfesional.setUsuario(email);
             relSpecialties.forEach(esp => createdProfesional.setEspecialidads(esp[0]));
-            //create stock and rel with professional
-            const emptyArr = [];
-            const stock =  await Stock.create({
-                emptyArr,
-                emptyArr,             
-            });
-            await stock.setUsuario(email);
             return res.status(200).json(createdProfesional)
         } catch (err) {
             next(err);            

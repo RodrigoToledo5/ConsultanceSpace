@@ -57,7 +57,7 @@ export default function Nav(){
                         <Button type="button" variant='contained' className={classes.menuButton} onClick={()=>handleClick("/sign-In")}> 
                             Sign-In
                         </Button>
-                        <Button type="button" variant='contained' className={classes.menuButton} onClick={()=>handleClick("/home")}>
+                        <Button type="button" variant='contained' className={classes.menuButton} onClick={()=>handleClick("/")}>
                             HOME
                         </Button>
                     </Box>

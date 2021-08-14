@@ -1,6 +1,6 @@
 
 import React,{useState} from 'react'
-//import {auth, db} from '../../firebase.js'
+import {auth, db} from '../../firebase.js'
 import {withRouter} from 'react-router-dom'
 import {Link} from 'react-router-dom';
 import {makeStyles, Button, Box,TextField} from '@material-ui/core';
