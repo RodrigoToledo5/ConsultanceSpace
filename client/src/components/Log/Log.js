@@ -1,11 +1,13 @@
 
 import React,{useState} from 'react'
 import {auth, db} from '../../firebase.js'
+import {useSelector} from 'react-redux';
 import {withRouter} from 'react-router-dom'
 import {Link} from 'react-router-dom';
-import {makeStyles, Button, Box,TextField} from '@material-ui/core';
+import {makeStyles, Button, Box,TextField,Typography} from '@material-ui/core';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import GTranslateIcon from '@material-ui/icons/GTranslate';
+import Alert from '@material-ui/lab/Alert';
 
 const useStyle = makeStyles(theme =>({
     form:{
@@ -89,6 +91,12 @@ const useStyle = makeStyles(theme =>({
         backgroundColor: '#D93025',
         color: 'white',
         fontFamily: 'Roboto'
+    },
+    alert:{
+        display:"flex",
+        direction:"row",
+        justifyContent:"center",
+        textAlign:"center"
     }
 }))
 
@@ -97,10 +105,31 @@ const useStyle = makeStyles(theme =>({
 
 
 const Login = (props) => {
+    const classes = useStyle();
     const [input, setInput] = useState({
         email:'',
         password:''
     })
+    const postSingIn = useSelector((state)=> state.reducerSign.postSingIn);
+
+     const alertFunction =() => {
+         switch(postSingIn){
+             case "Registro exitoso":
+                 return (
+                    <Box width="100%" justifyContent="center">
+                        <Alert className={classes.alert} severity="success">      
+                        {postSingIn}
+                        </Alert>
+                    </Box>
+                 )
+             default :
+                     return(
+                        <Box width="100%" height="50px" justifyContent="center">
+                            
+                        </Box>
+                     )
+         }
+     }
     // const [email, setEmail] = React.useState('')
     // const [pass, setPass] = React.useState('')
     // const [error, setError] = React.useState(null)
@@ -192,79 +221,89 @@ const Login = (props) => {
             [event.target.name]:event.target.value
         })
     }
-    const classes = useStyle();
+   
     return (
-        <form className={classes.form}>
-            <Box className={classes.container}>
-                <Box className={classes.items}>
-                    <h2 className={classes.title}>
-                        Log In
-                    </h2>
-                </Box>
-                <Box className={classes.items}>
-                    <TextField
-                        className={classes.textfield}
-                        type="email"
-                        label="email"
-                        variant="outlined"
-                        color= "secondary"
-                        name= "email"
-                        InputProps={{
-                            className: classes.input
-                        }}
-                        value= {input.email}
-                        onChange={handleInput}
-                    />
-                </Box>
-                <Box mt={2} className={classes.items}>
-                    <TextField
-                        className={classes.textfield}
-                        type="password"
-                        label="password"
-                        variant="outlined"
-                        color="secondary"
-                        name= "password"
-                        InputProps={{
-                            className: classes.input
-                        }}
-                        onChange={  handleInput}
-                        value={input.password}
-                    />
-                </Box>
-                <Box className={classes.items}>
-                    <Button variant="contained" color="primary" className={classes.btn} >
-                        Login
-                    </Button>
-                </Box>
-                <Box className={classes.hr} pt={2}>
-                    <Box className={classes.position}>
-                        <hr/>
-                        <Box className={classes.relative}>
-                            or
+        <>
+            
+            <form className={classes.form}>
+                
+                <Box className={classes.container}>
+                    {alertFunction()}
+                    <Box className={classes.items}>
+                        <h2 className={classes.title}>
+                            Log In
+                        </h2>
+                    </Box>
+                    
+                    <Box className={classes.items}>
+                        <TextField
+                            className={classes.textfield}
+                            type="email"
+                            label="email"
+                            variant="outlined"
+                            color= "secondary"
+                            name= "email"
+                            InputProps={{
+                                className: classes.input
+                            }}
+                            value= {input.email}
+                            onChange={handleInput}
+                        />
+                    </Box>
+                    <Box mt={2} className={classes.items}>
+                        <TextField
+                            className={classes.textfield}
+                            type="password"
+                            label="password"
+                            variant="outlined"
+                            color="secondary"
+                            name= "password"
+                            InputProps={{
+                                className: classes.input
+                            }}
+                            onChange={  handleInput}
+                            value={input.password}
+                        />
+                    </Box>
+                    <Box className={classes.items}>
+                        <Button variant="contained" color="primary" className={classes.btn} >
+                            Login
+                        </Button>
+                    </Box>
+                    <Box className={classes.hr} pt={2}>
+                        <Box className={classes.position}>
+                            <hr/>
+                            <Box className={classes.relative}>
+                                or
+                            </Box>
                         </Box>
                     </Box>
+                    <Box className={classes.items}>
+                        <Button variant="contained" color="primary" startIcon={<GTranslateIcon/>} className={classes.btngoogle} >
+                            Login with Google
+                        </Button>
+                    </Box>
+                    <Box className={classes.items}>
+                        <Button variant="contained" color="primary" startIcon={<FacebookIcon/>} className={classes.btnfacebook} >
+                            Login with Facebook
+                        </Button>
+                    </Box>           
+                    <Box 
+                        pt={1} 
+                        fontFamily='Roboto'
+                        className={classes.items}>
+                        <span className={classes.span}>
+                            Do not have an account?  
+                        </span>
+                        <Link to='/sign-in'>Sign up</Link>  
+                    </Box>
+                    <Box width="100%" height="60px" justifyContent="center"/>
+                    
                 </Box>
-                <Box className={classes.items}>
-                    <Button variant="contained" color="primary" startIcon={<GTranslateIcon/>} className={classes.btngoogle} >
-                        Login with Google
-                    </Button>
-                </Box>
-                <Box className={classes.items}>
-                    <Button variant="contained" color="primary" startIcon={<FacebookIcon/>} className={classes.btnfacebook} >
-                        Login with Facebook
-                    </Button>
-                </Box>           
-                <Box 
-                    pt={1} 
-                    fontFamily='Roboto'
-                    className={classes.items}>
-                    <span className={classes.span}>
-                        Do not have an account?  
-                    </span>
-                    <Link to='/sign-in'>Sign up</Link>  
-                </Box>
-            </Box>
-        </form>
+                
+            </form>
+            
+        </>
     )
 }
 
