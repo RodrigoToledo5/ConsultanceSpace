@@ -14,8 +14,7 @@ function App() {
       <Route path="/login" component={Log}/>
       <Route path="/" component={Nav}/>
       <Route path="/admin" component={Admin}/>
-      <Route path="/home" component={Main}/>
-      <Route exact path="/" component={Lorem}/>
+      <Route exact path="/" component={Main}/>
       <Route path="/" component={Footer}/>
     </>
   );
