@@ -103,7 +103,6 @@ export default function Sign(){
     const [pass, setPass] = useState('');
     const [passconfirmation,setPassConfirmation]=useState('');
     const [errors, setErrors] = useState({});
-    const [tipoUsuario, setTipoUsuario] = useState("profesional");
     const [patient, setPatient] = useState({
         dni: '',
         name: '',
@@ -113,7 +112,7 @@ export default function Sign(){
         birth: '',
         address:'',
         country: '',
-        type:''
+        type:'profesional'
     });
 
 
@@ -164,10 +163,6 @@ export default function Sign(){
             patient.country
             ){
             setLoad("cargando");
-            setPatient({
-                ...patient,
-                type:tipoUsuario
-            })
             await firebase.auth().createUserWithEmailAndPassword(email, pass);
             dispatch(postSignIn(patient));
             setPatient({
@@ -222,10 +217,10 @@ export default function Sign(){
             <form onSubmit={onHandleSubmit}>
             <Box className={clsx(classes.margin, classes.boxSlider)}>
                 <Box className={classes.boxSliderText}>
-                    <Typography className={tipoUsuario === 'profesional'? classes.fontSelect : classes.fontNormal}>
+                    <Typography className={patient.type === 'profesional'? classes.fontSelect : classes.fontNormal}>
                      Profesional
                     </Typography>
-                    <Typography className={tipoUsuario === 'paciente'? classes.fontSelect : classes.fontNormal}>
+                    <Typography className={patient.type === 'paciente'? classes.fontSelect : classes.fontNormal}>
                         Paciente
                     </Typography>
                 </Box>
@@ -236,7 +231,7 @@ export default function Sign(){
                             step={100}
                             marks={marks}
                             selectionColor="green"
-                            onChange={(e, v)=>{ v === 0 ? setTipoUsuario("profesional"):setTipoUsuario("paciente")}}
+                            onChange={(e, v)=>{ v === 0 ? setPatient({...patient, type:"profesional"}):setPatient({...patient, type:"paciente"})}}
                             
                         />
                 </Box>
