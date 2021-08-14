@@ -155,9 +155,10 @@ export default function StockCard({ data, email, updateStock, index }) {
               className={classes.button}
               disableElevation={true}
               onClick={() => {
+                if(itemName.length > 0){
                 setMode("load");
                 objKey = itemName;
-                backReq("post");
+                backReq("post");}
               }}
             ></Button>
           </Box>

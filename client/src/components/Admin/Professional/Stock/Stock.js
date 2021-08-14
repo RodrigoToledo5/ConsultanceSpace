@@ -50,6 +50,24 @@ export default function Stock() {
     }
   };
 
+  const manageAddButton = () => {
+    if (stock.length > 0 && Object.keys(stock[0])[0].length === 0) {
+      return "";
+    } else {
+      return (
+        <Button
+          className={classes.button}
+          disableElevation={true}
+          onClick={() => {
+            updateStock([...stock, { "": 0 }]);
+          }}
+        >
+          <AddIcon />
+        </Button>
+      );
+    }
+  };
+
   const classes = useStyle();
   return (
     <Box>
@@ -67,7 +85,7 @@ export default function Stock() {
         </Box>
       </Box>
       <Divider className={classes.divider} />
-      {(stock === "not found" || stock.length < 1)
+      {stock === "not found" || stock.length < 1
         ? ""
         : stock.map((s, i) => (
             <StockCard
@@ -78,20 +96,8 @@ export default function Stock() {
               index={i}
             />
           ))}
-      <Box 
-      display="flex"
-      width= "100%"
-      justifyContent="center"
-      >
-        <Button
-          className={classes.button}
-          disableElevation={true}
-          onClick={() => {
-            updateStock([...stock, { "": 0 }]);
-          }}
-        >
-          <AddIcon />
-        </Button>
+      <Box display="flex" width="100%" justifyContent="center">
+        {manageAddButton()}
       </Box>
     </Box>
   );
