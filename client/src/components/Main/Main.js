@@ -1,6 +1,6 @@
 import ReactCarousel from '../Landing/Carousel/Carousel';
 import CallToAction from '../Landing/CallToAction/CallToAction';
-import {  Box, Grid,makeStyles,Typography } from '@material-ui/core';
+import {  Box,makeStyles} from '@material-ui/core';
 
 const useStyle=makeStyles(theme=>({
   magin:{
