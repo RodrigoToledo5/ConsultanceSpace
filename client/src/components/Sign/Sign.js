@@ -108,9 +108,6 @@ export default function Sign(){
         setPass('')
     }
 
-
-    console.log("CONSOLE.LOG COUNTRIES",countries)
-
     useEffect(()=>{
         dispatch(getCountries());
     },[dispatch])
@@ -194,6 +191,7 @@ export default function Sign(){
                                     type="password"
                                     onChange={(event)=>onHandleChange(event)}
                                     value={pass}
+                                    error={errors.pass}
                                     helperText={errors.pass}
                                 />
                             </FormControl>
@@ -208,6 +206,7 @@ export default function Sign(){
                                     type="password"
                                     onChange={(event)=>onHandleChange(event)}
                                     value={passconfirmation}
+                                    error={errors.pass}
                                     helperText={errors.pass}
                                 />
                             </FormControl>

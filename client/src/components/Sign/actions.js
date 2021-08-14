@@ -25,6 +25,5 @@ export const getCountries = () => {
     return async (dispatch) => {
         const countries = await axios.get("https://restcountries.eu/rest/v2/all")
         dispatch({ type: GET_COUNTRIES, payload: countries.data })
-        console.log(countries)
     }
 }
