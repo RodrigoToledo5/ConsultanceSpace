@@ -108,9 +108,6 @@ export default function Sign(){
         setPass('')
     }
 
-
-    console.log("CONSOLE.LOG COUNTRIES",countries)
-
     useEffect(()=>{
         dispatch(getCountries());
     },[dispatch])
@@ -131,7 +128,7 @@ export default function Sign(){
                                     name="dni"
                                     onChange={(event)=>onHandleChange(event)}
                                     value={patient.dni}
-                                    error={errors.dni}
+                                    error={errors.dni && errors.dni.length > 0}
                                     helperText={errors.dni}
                                     
                                 />
@@ -146,7 +143,7 @@ export default function Sign(){
                                     name="name"
                                     onChange={(event)=>onHandleChange(event)}
                                     value={patient.name}
-                                    error={errors.name}
+                                    error={errors.name && errors.name.length > 0}
                                     helperText={errors.name}
                                 />
                             </FormControl>
@@ -162,7 +159,7 @@ export default function Sign(){
                                     name="lastName"
                                     onChange={(event)=>onHandleChange(event)}
                                     value={patient.lastName}
-                                    error={errors.lastName}
+                                    error={errors.lastName && errors.lastName.length > 0}
                                     helperText={errors.lastName}
                                 />
                             </FormControl>
@@ -177,7 +174,7 @@ export default function Sign(){
                                     type="email"
                                     onChange={(event)=>onHandleChange(event)}
                                     value={email}
-                                    error={errors.email}
+                                    error={errors.email && errors.email.length > 0}
                                     helperText={errors.email}
                                 />
                             </FormControl>
@@ -194,6 +191,7 @@ export default function Sign(){
                                     type="password"
                                     onChange={(event)=>onHandleChange(event)}
                                     value={pass}
+                                    error={errors.pass && errors.pass.length > 0}
                                     helperText={errors.pass}
                                 />
                             </FormControl>
@@ -208,6 +206,7 @@ export default function Sign(){
                                     type="password"
                                     onChange={(event)=>onHandleChange(event)}
                                     value={passconfirmation}
+                                    error={errors.pass && errors.pass.length > 0}
                                     helperText={errors.pass}
                                 />
                             </FormControl>
@@ -224,7 +223,7 @@ export default function Sign(){
                                     name="phone"
                                     onChange={(event)=>onHandleChange(event)}
                                     value={patient.phone}
-                                    error={errors.phone}
+                                    error={errors.phone && errors.phone.length > 0}
                                     helperText={errors.phone}
                                 />
                             </FormControl>
@@ -238,7 +237,7 @@ export default function Sign(){
                                     name="birth"
                                     onChange={(event)=>onHandleChange(event)}
                                     value={patient.birth}
-                                    error={errors.birth}
+                                    error={errors.birth && errors.birth.length > 0}
                                     helperText={errors.birth}
                                 />
                             </FormControl>
@@ -254,7 +253,7 @@ export default function Sign(){
                                     name="address"
                                     onChange={(event)=>onHandleChange(event)}
                                     value={patient.address}
-                                    error={errors.address}
+                                    error={errors.address && errors.address.length > 0}
                                     helperText={errors.address}
                                 />
                             </FormControl>
@@ -269,7 +268,7 @@ export default function Sign(){
                                     name="country"
                                     onChange={(event)=>onHandleChange(event)}
                                     value={patient.country}
-                                    error={errors.country}
+                                    error={errors.country && errors.country.length > 0}
                                     helperText={errors.country}
                                 >
                                     { countries && countries.map( (country,i) => {
