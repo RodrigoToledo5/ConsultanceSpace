@@ -57,11 +57,11 @@ export default function Nav(){
                         <Button type="button" variant='contained' className={classes.menuButton} onClick={()=>handleClick("/sign-In")}> 
                             Sign-In
                         </Button>
-                        <Button type="button" variant='contained' className={classes.menuButton} onClick={()=>handleClick("/home")}>
+                        <Button type="button" variant='contained' className={classes.menuButton} onClick={()=>handleClick("/")}>
                             HOME
                         </Button>
                     </Box>
-                    <Typography className={classes.text} variant="h6" color="#159DE9" marginLeft="100px" marginRight="100px">
+                    <Typography className={classes.text} variant="h6">
                         Consultance Space
                     </Typography> 
                 </Toolbar> 
