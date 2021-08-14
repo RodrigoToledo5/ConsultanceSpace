@@ -1,11 +1,13 @@
 
+import {useSelector} from 'react-redux';
 import React,{useCallback, useState} from 'react'
 import { auth, firebase} from '../../firebase/firebase.js'
 import {withRouter} from 'react-router-dom'
 import {Link} from 'react-router-dom';
-import {makeStyles, Button, Box,TextField} from '@material-ui/core';
+import {makeStyles, Button, Box,TextField,Typography} from '@material-ui/core';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import GTranslateIcon from '@material-ui/icons/GTranslate';
+import Alert from '@material-ui/lab/Alert';
 
 const useStyle = makeStyles(theme =>({
     principal:{
@@ -115,15 +117,47 @@ const useStyle = makeStyles(theme =>({
         color: 'white',
         fontFamily: 'Roboto'
     },
+
+    alert:{
+        display:"flex",
+        direction:"row",
+        justifyContent:"center",
+        textAlign:"center"
+    }
+
+
 }))
 
 
 const Login = (props) => {
+    const classes = useStyle();
     // form status
     const [input, setInput] = useState({
         email:'',
         password:''
     })
+
+    const postSingIn = useSelector((state)=> state.reducerSign.postSingIn);
+
+     const alertFunction =() => {
+         switch(postSingIn){
+             case "Registro exitoso":
+                 return (
+                    <Box width="100%" justifyContent="center">
+                        <Alert className={classes.alert} severity="success">      
+                        {postSingIn}
+                        </Alert>
+                    </Box>
+                 )
+             default :
+                     return(
+                        <Box width="100%" height="50px" justifyContent="center">
+                            
+                        </Box>
+                     )
+         }
+     }
+
     //users errors
     const [error, setError] = useState(null)
     //styles
@@ -136,6 +170,7 @@ const Login = (props) => {
             [event.target.name]:event.target.value
         })
     }
+
     //logIn
     const logIn = useCallback(async() => {
         try {
@@ -201,6 +236,7 @@ const Login = (props) => {
                             <h2 className={classes.title}>
                                 Inicia Sesión
                             </h2>
+
                         </Box>
                         {
                             error && <Box className={classes.items}>
