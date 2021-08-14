@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import { useDispatch } from 'react-redux';
+import 'firebase/auth';
 import axios from 'axios';
-import { auth } from '../../firebase';
+import '../../firebase';
+import { useFirebaseApp, useUser } from 'reactfire';
 import { postSignIn } from './actions';
 import clsx from 'clsx';
 import { FormControl, InputLabel, makeStyles, Grid, Container, TextField, Select, MenuItem, Button} from '@material-ui/core';
@@ -50,13 +52,15 @@ const useStyles = makeStyles((theme)=>({
 export default function Sign(){
     const classes = useStyles();
     const dispatch = useDispatch();
+    const firebase = useFirebaseApp();
+    const user = useUser();
     const [email, setEmail] = useState('');
     const [pass, setPass] = useState('');
     const [patient, setPatient] = useState({
         dni: '',
         name: '',
         lastName: '',
-        email: email || '',
+        email: '',
         phone: '',
         birth: '',
         address:'',
@@ -64,25 +68,22 @@ export default function Sign(){
     });
     const [countries, setCountries]=useState([]);
 
-    const handleUser = (e) => {
+    const onHandleChange = (e) => {
         if(e.target.name === 'email'){
             setEmail(e.target.value)
-        }else{
+        }
+        if(e.target.name === 'password'){
             setPass(e.target.value)
         }
-    }
-
-    const onHandleChange = (e) => {
         setPatient({
             ...patient,
             [e.target.name]: e.target.value
         })
     }
 
-    const onHandleSubmit = (e) => {
+    const onHandleSubmit = async (e) => {
         e.preventDefault();
-        const user = auth.createUserWithEmailAndPassword(email, pass);
-        console.log(user);
+        await firebase.auth().createUserWithEmailAndPassword(email, pass);
         dispatch(postSignIn(patient));
         setPatient({
             dni: '',
@@ -98,6 +99,8 @@ export default function Sign(){
         setPass('')
     }
 
+    console.log(patient);
+
     const getCountries = async ()=>{
         await axios('https://restcountries.eu/rest/v2/all')
         .then(res=> {
@@ -110,7 +113,6 @@ export default function Sign(){
     useEffect(()=>{
         getCountries();
     },[])
-
 
     return (
         <>
@@ -165,7 +167,7 @@ export default function Sign(){
                                     InputProps={{className: classes.labelTextField}}
                                     name="email"
                                     type="email"
-                                    onChange={handleUser}
+                                    onChange={onHandleChange}
                                     value={email}
                                 />
                             </FormControl>
@@ -180,7 +182,7 @@ export default function Sign(){
                                     InputProps={{className: classes.labelTextField}}
                                     name="password"
                                     type="password"
-                                    onChange={handleUser}
+                                    onChange={onHandleChange}
                                     value={pass}
                                 />
                             </FormControl>
