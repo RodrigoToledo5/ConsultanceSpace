@@ -36,23 +36,23 @@ router.post('/newUser', async(req, res, next) => {
     }
     else if(type==="profesional"){
         try {
-            let allSpecialty = especialidad.map(esp => {
-                return Especialidad.findOrCreate({
-                    where:{
-                        nombre: esp
-                    }
-                })
-            })
-            let relSpecialties = await Promise.all(allSpecialty);
+            // let allSpecialty = especialidad.map(esp => {
+            //     return Especialidad.findOrCreate({
+            //         where:{
+            //             nombre: esp
+            //         }
+            //     })
+            // })
+            // let relSpecialties = await Promise.all(allSpecialty);
             const createdProfesional =  await Profesional.create({
-                cedula,
+                cedula: dni,
                 nombre: name,
                 apellidos: lastName,
                 telefono: phone,
                 direccion: address               
             });
             await createdProfesional.setUsuario(email);
-            relSpecialties.forEach(esp => createdProfesional.setEspecialidads(esp[0]));
+           // relSpecialties.forEach(esp => createdProfesional.setEspecialidads(esp[0]));
             return res.status(200).json(createdProfesional)
         } catch (err) {
             next(err);            
