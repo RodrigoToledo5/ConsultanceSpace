@@ -1,10 +1,12 @@
 
 import {useSelector} from 'react-redux';
-import React,{useCallback, useState} from 'react'
-import { auth, firebase} from '../../firebase/firebase.js'
+import React,{useCallback, useState} from 'react';
+import { useFirebaseApp} from 'reactfire';
+import 'firebase/auth';
+import '../../firebase';
 import {withRouter} from 'react-router-dom'
 import {Link} from 'react-router-dom';
-import {makeStyles, Button, Box,TextField,Typography} from '@material-ui/core';
+import {makeStyles, Button, Box,TextField} from '@material-ui/core';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import GTranslateIcon from '@material-ui/icons/GTranslate';
 import Alert from '@material-ui/lab/Alert';
@@ -131,6 +133,7 @@ const useStyle = makeStyles(theme =>({
 
 const Login = (props) => {
     const classes = useStyle();
+    const firebase = useFirebaseApp();
     // form status
     const [input, setInput] = useState({
         email:'',
@@ -139,29 +142,28 @@ const Login = (props) => {
 
     const postSingIn = useSelector((state)=> state.reducerSign.postSingIn);
 
-     const alertFunction =() => {
-         switch(postSingIn){
-             case "Registro exitoso":
-                 return (
+    const alertFunction =() => {
+        switch(postSingIn){
+            case "Registro exitoso":
+                return (
                     <Box width="100%" justifyContent="center">
                         <Alert className={classes.alert} severity="success">      
                         {postSingIn}
                         </Alert>
                     </Box>
-                 )
+                )
              default :
                      return(
                         <Box width="100%" height="50px" justifyContent="center">
                             
                         </Box>
-                     )
-         }
-     }
+                    )
+        }
+    }
 
     //users errors
     const [error, setError] = useState(null)
     //styles
-    const classes = useStyle();
 
     //handle Input
     const handleInput = (event)=>{
@@ -175,7 +177,7 @@ const Login = (props) => {
     const logIn = useCallback(async() => {
         try {
             console.log("email y contra",input.email,input.password)
-            const res = await auth.signInWithEmailAndPassword(input.email, input.password)
+            const res = await firebase.auth().signInWithEmailAndPassword(input.email, input.password)
             console.log('El res es ', res)
             //hariamos un llamado al back  con toda la informacion del usuario
             setInput({
@@ -202,7 +204,7 @@ const Login = (props) => {
 
     const logInGoogle = async()=>{
         const provider = new firebase.auth.GoogleAuthProvider();
-        const res = await auth.signInWithPopup(provider);
+        const res = await firebase.auth().signInWithPopup(provider);
         console.log(res);
         props.history.push('/home')
     }
@@ -217,7 +219,7 @@ const Login = (props) => {
     // log In with Facebook acount
     const logInFacebook = async()=>{
         const provider = new firebase.auth.FacebookAuthProvider();
-        const res = auth.signInWithPopup(provider)
+        const res = firebase.auth().signInWithPopup(provider)
         console.log(res)
         props.history.push('/home')
     };

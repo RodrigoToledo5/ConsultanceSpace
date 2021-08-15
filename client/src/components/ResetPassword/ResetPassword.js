@@ -1,5 +1,7 @@
 import React, { useCallback, useState } from 'react'
-import {auth} from '../../firebase/firebase.js'
+import { useFirebaseApp} from 'reactfire';
+import 'firebase/auth';
+import '../../firebase';
 import {Link} from 'react-router-dom'
 import {makeStyles, Button, Box,TextField, Container } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
@@ -123,7 +125,8 @@ const ResetPassword = () => {
 
     const [email, setEmail] = useState('')
     const [error, setError] = useState(null);
-    const [send, setSend] = useState(false)
+    const [send, setSend] = useState(false);
+    const firebase = useFirebaseApp();
     const styleClass = useStyle()
     const procesarDatos = e => {
         e.preventDefault()
@@ -140,7 +143,7 @@ const ResetPassword = () => {
 
     const recuperar = useCallback(async () => {
         try {
-            await auth.sendPasswordResetEmail(email)
+            await firebase.auth().sendPasswordResetEmail(email)
             console.log('correo enviado')
             setSend(true)
             setEmail('')
