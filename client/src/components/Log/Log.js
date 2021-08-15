@@ -2,6 +2,7 @@
 import {useSelector} from 'react-redux';
 import React,{useCallback, useState} from 'react';
 import { useFirebaseApp} from 'reactfire';
+import app from 'firebase/app';
 import 'firebase/auth';
 import '../../firebase';
 import {withRouter} from 'react-router-dom'
@@ -185,7 +186,7 @@ const Login = (props) => {
                 password: ''
             })
             setError(null)
-            props.history.push('/home')
+            props.history.push('/')
         } catch (error) {
             console.log('el error es',error)
             if(error.code === 'auth/invalid-email'){
@@ -203,10 +204,10 @@ const Login = (props) => {
     )
 
     const logInGoogle = async()=>{
-        const provider = new firebase.auth.GoogleAuthProvider();
+        const provider = new app.auth.GoogleAuthProvider();
         const res = await firebase.auth().signInWithPopup(provider);
         console.log(res);
-        props.history.push('/home')
+        props.history.push('/')
     }
     // log In with Google acount
     const handleLogInGoogle =()=>{
