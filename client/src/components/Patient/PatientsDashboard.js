@@ -35,7 +35,7 @@ const useStyle=makeStyles(theme=>({
 }))
 
 
-export default function Dashboard(){
+export default function PatientsDashboard(){
     const classes=useStyle();
     const [actComponent, updateComponent] = useState(null);
     return(

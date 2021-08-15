@@ -10,6 +10,7 @@ import Main from './components/Main/Main';
 import ResetPassword from './components/ResetPassword/ResetPassword';
 import PatientsRouter from './components/Log/privateroutes/Patientsrouter';
 import ProfesionalRouter from './components/Log/privateroutes/Profesionalrouter ';
+import GoogleSign from './components/Sign/googlesign';
 
 
 
@@ -17,10 +18,10 @@ function App() {
   return (
     <> 
       <Route path="/sign-in" component={Sign}/>
+      <Route path="/sign-ing" component={GoogleSign}/>
       <Route path="/login" component={Log}/>
       <Route path="/reset-password" component={ResetPassword}/>
       <Route path="/" component={Nav}/>
-     
       <ProfesionalRouter exact path="/profesional-dashboard" component={Dashboard}/> 
       <PatientsRouter exact path="/patient-dashboard" component={PatientsDashboard}/>
       <Route exact path="/" component={Main}/>

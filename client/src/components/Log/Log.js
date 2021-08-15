@@ -1,7 +1,7 @@
 
-import {useSelector} from 'react-redux';
+import {useSelector,useDispatch} from 'react-redux';
 import React,{useCallback, useState} from 'react';
-import { useFirebaseApp} from 'reactfire';
+import { useFirebaseApp, useUser} from 'reactfire';
 import app from 'firebase/app';
 import 'firebase/auth';
 import '../../firebase';
@@ -11,6 +11,7 @@ import {makeStyles, Button, Box,TextField} from '@material-ui/core';
 import FacebookIcon from '@material-ui/icons/Facebook';
 import GTranslateIcon from '@material-ui/icons/GTranslate';
 import Alert from '@material-ui/lab/Alert';
+import {postLogIn} from './actions'
 
 const useStyle = makeStyles(theme =>({
     principal:{
@@ -135,13 +136,16 @@ const useStyle = makeStyles(theme =>({
 const Login = (props) => {
     const classes = useStyle();
     const firebase = useFirebaseApp();
+    const user=useUser();
+    const dispatch=useDispatch();
     // form status
     const [input, setInput] = useState({
         email:'',
         password:''
     })
-
+    
     const postSingIn = useSelector((state)=> state.reducerSign.postSingIn);
+    const Login=useSelector(state=>state.reducerLog.user)
 
     const alertFunction =() => {
         switch(postSingIn){
@@ -173,23 +177,28 @@ const Login = (props) => {
             [event.target.name]:event.target.value
         })
     }
-
+    const waitingDb=async()=>{
+    
+    }
     //logIn
     const logIn = useCallback(async() => {
         try {
-            console.log("email y contra",input.email,input.password)
+            
             const res = await firebase.auth().signInWithEmailAndPassword(input.email, input.password)
-            console.log('El res es ', res)
+            
             //hariamos un llamado al back  con toda la informacion del usuario
+            dispatch(postLogIn(user.data.email))//pedimos a la base de datos que nos de los datos del usuario
+            const tipodeusuario=await waitingDb()
             setInput({
                 email: '',
                 password: ''
             })
             setError(null)
-            if(true){//si es profesional lo redirije a la dashboard de profesional
-                props.history.push('/profesional-dashboard')
+            console.log(tipodeusuario)
+            if(tipodeusuario==="profesional"){//si es profesional lo redirije a la dashboard de profesional
+                 props.history.push('/profesional-dashboard')
             }
-            else{// sino lo redirije a la dashboard de paciente
+            if(tipodeusuario==="paciente"){// sino lo redirije a la dashboard de paciente
                 props.history.push('/patient-dashboard')
             }
            

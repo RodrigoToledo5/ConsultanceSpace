@@ -1,10 +1,10 @@
 import { POST_LOG } from "./actions";
 
 const initialState = {
-    user={}
+    user:{}
 }
 
-export default function reducerSign (state = initialState, action){
+export default function reducerLog (state = initialState, action){
     switch (action.type) {
         case POST_LOG:
             return {
