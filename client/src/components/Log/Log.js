@@ -186,7 +186,13 @@ const Login = (props) => {
                 password: ''
             })
             setError(null)
-            props.history.push('/')
+            if(true){//si es profesional lo redirije a la dashboard de profesional
+                props.history.push('/profesional-dashboard')
+            }
+            else{// sino lo redirije a la dashboard de paciente
+                props.history.push('/patient-dashboard')
+            }
+           
         } catch (error) {
             console.log('el error es',error)
             if(error.code === 'auth/invalid-email'){
@@ -207,7 +213,12 @@ const Login = (props) => {
         const provider = new app.auth.GoogleAuthProvider();
         const res = await firebase.auth().signInWithPopup(provider);
         console.log(res);
-        props.history.push('/')
+        if(true){//si es profesional lo redirije a la dashboard de profesional
+            props.history.push('/profesional-dashboard')
+        }
+        else{// sino lo redirije a la dashboard de paciente
+            props.history.push('/patient-dashboard')
+        }
     }
     // log In with Google acount
     const handleLogInGoogle =()=>{
@@ -222,7 +233,12 @@ const Login = (props) => {
         const provider = new firebase.auth.FacebookAuthProvider();
         const res = firebase.auth().signInWithPopup(provider)
         console.log(res)
-        props.history.push('/home')
+        if(true){//si es profesional lo redirije a la dashboard de profesional
+            props.history.push('/profesional-dashboard')
+        }
+        else{// sino lo redirije a la dashboard de paciente
+            props.history.push('/patient-dashboard')
+        }
     };
     //handleSubmit
     const handleSubmit = (event) =>{
