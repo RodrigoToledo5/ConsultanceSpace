@@ -2,6 +2,7 @@
 import {useSelector} from 'react-redux';
 import React,{useCallback, useState} from 'react';
 import { useFirebaseApp} from 'reactfire';
+import app from 'firebase/app';
 import 'firebase/auth';
 import '../../firebase';
 import {withRouter} from 'react-router-dom'
@@ -203,7 +204,7 @@ const Login = (props) => {
     )
 
     const logInGoogle = async()=>{
-        const provider = new firebase.auth.GoogleAuthProvider();
+        const provider = new app.auth.GoogleAuthProvider();
         const res = await firebase.auth().signInWithPopup(provider);
         console.log(res);
         props.history.push('/home')
@@ -218,7 +219,7 @@ const Login = (props) => {
     }
     // log In with Facebook acount
     const logInFacebook = async()=>{
-        const provider = new firebase.auth.FacebookAuthProvider();
+        const provider = new app.auth.FacebookAuthProvider();
         const res = firebase.auth().signInWithPopup(provider)
         console.log(res)
         props.history.push('/home')
