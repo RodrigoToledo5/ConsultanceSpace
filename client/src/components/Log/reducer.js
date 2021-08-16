@@ -1,4 +1,4 @@
-import { POST_LOG } from "./actions";
+import { POST_LOG, DESLOG } from "./actions";
 
 const initialState = {
     user:{}
@@ -11,6 +11,12 @@ export default function reducerLog (state = initialState, action){
                 ...state,
                 user: action.payload
             }
+        case  DESLOG:{
+            return {
+                ...state,
+                user:'',
+            }
+        }
         default:
             return state;
     }

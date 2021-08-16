@@ -4,6 +4,8 @@ import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
 import Button from '@material-ui/core/Button'
 import { makeStyles,Typography,Box} from '@material-ui/core';
+import {useSelector,useDispatch} from 'react-redux';
+
 const useStyle=makeStyles(theme=>({
     magin:{
         margin: theme.spacing(2),
@@ -41,6 +43,7 @@ const useStyle=makeStyles(theme=>({
 
 export default function Nav(){
     const classes=useStyle();
+    
     let history = useHistory();
 
     function handleClick(navlink){

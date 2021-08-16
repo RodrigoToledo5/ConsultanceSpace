@@ -1,14 +1,15 @@
-import {Redirect, Route} from 'react-router-dom'
+import {Route, Redirect} from 'react-router-dom'
 import {useSelector} from 'react-redux';
-
+import PatientsDashboard from '../../Patient/PatientsDashboard';
 
 export default function PatientsRouter({component,...rest}){
-    const user = useSelector((store) => store.reducerSign.user)
-    const checkRool=()=>{
-        if(user&&user.tipo_usuario==="paciente")return true
-        else return false
+    const user = useSelector((store) => store.reducerLog.user)
+    function checkUser(){
+       if(user.tipo_usuario==="paciente")return true 
+       else return false
     }
     return(
-        <Route {...rest}>{checkRool()?component():<Redirect to="/login"/>}</Route>
+  
+        <Route {...rest}>{ checkUser()?<PatientsDashboard/>:<Redirect to="/login"/>}</Route>
     )
 }
