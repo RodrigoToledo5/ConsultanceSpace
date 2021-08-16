@@ -14,8 +14,6 @@ import AddIcon from "@material-ui/icons/Add";
 import { useSelector } from "react-redux";
 const axios = require("axios");
 
-const testEmail = "test@gmail.com";
-
 export default function Stock() {
   const [stock, updateStock] = useState([]);
   const user = useSelector((store) => store.reducerLog.user);
@@ -53,7 +51,7 @@ export default function Stock() {
   };
 
   const manageAddButton = () => {
-    if (stock.length > 0 && Object.keys(stock[0])[0].length === 0) {
+    if (stock.length > 0 && Object.keys(stock[stock.length-1])[0].length === 0) {
       return "";
     } else {
       return (
