@@ -43,17 +43,26 @@ const useStyle=makeStyles(theme=>({
 
 export default function Nav(){
     const classes=useStyle();
-    
+    const user=useSelector(state=>state.reducerLog)
     let history = useHistory();
 
     function handleClick(navlink){
         history.push(navlink)
     }
+
+    function checkLogin(){
+        if(user.tipo_usuario)return true
+        else return false 
+    }
+
     return (
         <nav className={classes.nav}>
             <AppBar className={classes.bar}>  
                 <Toolbar className={classes.toolbar} >
                     <Box className={classes.box}>
+                        <Button type="button" variant='contained' className={classes.menuButton} onClick={()=>handleClick("/login")}>
+                            Logout
+                        </Button>
                         <Button type="button" variant='contained' className={classes.menuButton} onClick={()=>handleClick("/login")}>
                             Login
                         </Button>

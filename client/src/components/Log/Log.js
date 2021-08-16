@@ -143,15 +143,15 @@ const Login = (props) => {
   const login = useSelector((state) => state.reducerLog.user);
 
   //login Handler
-  const loginHandler = useEffect(() => {
+useEffect(() => {
     if (login.tipo_usuario === "profesional") {
         //si es profesional lo redirije a la dashboard de profesional
         props.history.push("/profesional-dashboard");
       }
-      if (login.tipo_usuario === "paciente") {
+    if (login.tipo_usuario === "paciente") {
         // sino lo redirije a la dashboard de paciente
         props.history.push("/patient-dashboard");
-      }
+    }
   }, [login]);
 
   const alertFunction = () => {
@@ -186,6 +186,7 @@ const Login = (props) => {
       const res = await firebase
         .auth()
         .signInWithEmailAndPassword(input.email, input.password);
+        
 
       //hariamos un llamado al back  con toda la informacion del usuario
       dispatch(postLogIn(user.data.email)); //pedimos a la base de datos que nos de los datos del usuario
