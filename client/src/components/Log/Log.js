@@ -12,63 +12,24 @@ import GTranslateIcon from "@material-ui/icons/GTranslate";
 import Alert from "@material-ui/lab/Alert";
 import { postLogIn } from "./actions";
 
-const useStyle = makeStyles(theme =>({
-    principal:{
-        marginTop: '100px',
-        display: 'flex',
-        justifyContent: 'center',
-        // backgroundColor: 'blue',
-    },
-    box:{
-        display: 'flex',
-        flexDirection:'column',
-        alignItems: 'center',
-        // backgroundColor: 'aqua'
-    },
-    form:{
-        // backgroundColor: 'red',
-        width: '70%',
-        '@media (max-width : 900px)':{
-            width: '70%'
-        },
-        '@media (max-width : 320px)':{
-            width: '95%'
-        }
-    },
-    container:{
-        marginBottom: '20px',
-        width: '40%',
-        display: 'flex',
-        flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
-        background:'#E8EEF4',
-        borderRadius: '10px',
-        paddingBottom: '20px',
-        '@media (max-width : 900px)':{
-            width: '70%'
-        },
-        '@media (max-width : 500px)':{
-            width: '100%'
-        }
-
-    },
-    items:{
-        display: 'flex',
-        justifyContent: 'center',
-        width: '100%',
-    },
-    btn:{
-        marginTop: '10px',
-        width: '100%',
-        backgroundColor: '#1F6186',
-        color: 'white',
-        fontFamily: 'Roboto'
-    },
-    text:{
-        color: '#159DE9',
-        fontFamily: 'Roboto'
-
+const useStyle = makeStyles((theme) => ({
+  principal: {
+    marginTop: "100px",
+    display: "flex",
+    justifyContent: "center",
+    // backgroundColor: 'blue',
+  },
+  box: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    // backgroundColor: 'aqua'
+  },
+  form: {
+    // backgroundColor: 'red',
+    width: "70%",
+    "@media (max-width : 900px)": {
+      width: "70%",
     },
     "@media (max-width : 320px)": {
       width: "95%",
@@ -212,28 +173,19 @@ useEffect(() => {
   const [error, setError] = useState(null);
   //styles
 
-
-    const logInGoogle = async()=>{
-        const provider = new app.auth.GoogleAuthProvider();
-        const res = await firebase.auth().signInWithPopup(provider);
-        console.log(res);
-        props.history.push('/home')
-    }
-    // log In with Google acount
-    const handleLogInGoogle =()=>{
-        logInGoogle();
-        
-    };
-    const handleLogInFacebook =()=>{
-        logInFacebook()
-    }
-    // log In with Facebook acount
-    const logInFacebook = async()=>{
-        const provider = new app.auth.FacebookAuthProvider();
-        const res = firebase.auth().signInWithPopup(provider)
-
-        console.log(res)
-      //hariamos un llamado al back  con toda la informacion del usuario
+  //handle Input
+  const handleInput = (event) => {
+    setInput({
+      ...input,
+      [event.target.name]: event.target.value,
+    });
+  };
+  //logIn
+  const logIn = useCallback(async () => {
+    try {
+      const res = await firebase
+        .auth()
+        .signInWithEmailAndPassword(input.email, input.password);
       dispatch(postLogIn(res.user.email)); //pedimos a la base de datos que nos de los datos del usuario
       setInput({
         email: "",
