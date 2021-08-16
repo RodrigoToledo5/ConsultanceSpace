@@ -7,9 +7,13 @@ export default function validate(patient) {
     if(!patient.lastName){
         errors.lastName = 'Apellido es requerido *';
     }
-    if(patient.pass!==patient.passwordconfirmation){
+    if(patient.pass.length < 5){
+      errors.pass='Debe ser mayor a 6 caracteres'
+    }
+    else if(patient.pass!==patient.passwordconfirmation){
         errors.pass='Las contraseñas no coinciden'
     }
+    
     if(!patient.phone){
         errors.phone = 'Teléfono es requerido *';
       }
