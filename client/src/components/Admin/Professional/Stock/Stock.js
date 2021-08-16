@@ -11,17 +11,19 @@ import {
 import React, { useEffect, useState } from "react";
 import StockCard from "./StockCard/StockCard";
 import AddIcon from "@material-ui/icons/Add";
+import { useSelector } from "react-redux";
 const axios = require("axios");
 
 const testEmail = "test@gmail.com";
 
 export default function Stock() {
   const [stock, updateStock] = useState([]);
+  const user = useSelector((store) => store.reducerLog.user);
   const loadData = () => {
     axios({
       method: "get",
       url: `http://localhost:3001/stock`,
-      params: { email: testEmail },
+      params: { email: user.email },
     }).then(function (response) {
       updateStock([...response.data]);
     });
@@ -91,7 +93,7 @@ export default function Stock() {
             <StockCard
               updateStock={editStock}
               data={s}
-              email={testEmail}
+              email={user.email}
               key={i}
               index={i}
             />

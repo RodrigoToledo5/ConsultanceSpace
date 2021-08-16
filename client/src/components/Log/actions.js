@@ -9,7 +9,7 @@ export const postLogIn = (email)=>{
     const res = await axios({
             method: 'POST',
             url: `${api}/login`,
-            data: email
+            data: {email:email}
         })
     dispatch({ type: POST_LOG, payload:  res.data })
 }}

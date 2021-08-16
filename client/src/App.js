@@ -22,7 +22,7 @@ function App() {
       <Route path="/login" component={Log}/>
       <Route path="/reset-password" component={ResetPassword}/>
       <Route path="/" component={Nav}/>
-      <ProfesionalRouter exact path="/profesional-dashboard" component={Dashboard}/> 
+      <Route exact path="/profesional-dashboard" component={Dashboard}/> 
       <PatientsRouter exact path="/patient-dashboard" component={PatientsDashboard}/>
       <Route exact path="/" component={Main}/>
       <Route path="/" component={Footer}/>
