@@ -2,9 +2,15 @@ import React from 'react'
 import { useHistory } from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar'
 import Toolbar from '@material-ui/core/Toolbar'
-import Button from '@material-ui/core/Button'
-import { makeStyles,Typography,Box} from '@material-ui/core';
+import { makeStyles,Typography,Box, Button} from '@material-ui/core';
 import {useSelector,useDispatch} from 'react-redux';
+import ButtonLogout from './ButtonLogout';
+import ButtonLogin from './ButtonLogin';
+import ButtonSignIn from './ButtonSignIn';
+import ButtonHome from './ButtonHome';
+import { useFirebaseApp, useUser } from "reactfire";
+
+
 
 const useStyle=makeStyles(theme=>({
     magin:{
@@ -43,7 +49,8 @@ const useStyle=makeStyles(theme=>({
 
 export default function Nav(){
     const classes=useStyle();
-    const user=useSelector(state=>state.reducerLog)
+    const user = useUser();
+    //const user=useSelector(state=>state.reducerLog)
     let history = useHistory();
 
     function handleClick(navlink){
@@ -51,27 +58,24 @@ export default function Nav(){
     }
 
     function checkLogin(){
-        if(user.tipo_usuario)return true
-        else return false 
+        if(!user.data)return true
+        else return false
     }
+
 
     return (
         <nav className={classes.nav}>
             <AppBar className={classes.bar}>  
                 <Toolbar className={classes.toolbar} >
                     <Box className={classes.box}>
-                        <Button type="button" variant='contained' className={classes.menuButton} onClick={()=>handleClick("/login")}>
-                            Logout
-                        </Button>
-                        <Button type="button" variant='contained' className={classes.menuButton} onClick={()=>handleClick("/login")}>
-                            Login
-                        </Button>
-                        <Button type="button" variant='contained' className={classes.menuButton} onClick={()=>handleClick("/sign-In")}> 
-                            Sign-In
-                        </Button>
-                        <Button type="button" variant='contained' className={classes.menuButton} onClick={()=>handleClick("/")}>
-                            HOME
-                        </Button>
+                        {checkLogin()?
+                            <>
+                                <ButtonLogin/>
+                                <ButtonSignIn/>
+                            </>
+                            :<ButtonLogout/>}
+                        
+                        <ButtonHome/>
                     </Box>
                     <Typography className={classes.text} variant="h6">
                         Consultance Space

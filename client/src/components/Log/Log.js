@@ -187,9 +187,9 @@ useEffect(() => {
         .auth()
         .signInWithEmailAndPassword(input.email, input.password);
         
-
+        console.log(res)
       //hariamos un llamado al back  con toda la informacion del usuario
-      dispatch(postLogIn(user.data.email)); //pedimos a la base de datos que nos de los datos del usuario
+      dispatch(postLogIn(res.user.email)); //pedimos a la base de datos que nos de los datos del usuario
       setInput({
         email: "",
         password: "",

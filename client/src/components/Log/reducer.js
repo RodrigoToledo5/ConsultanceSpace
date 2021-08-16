@@ -14,7 +14,7 @@ export default function reducerLog (state = initialState, action){
         case  DESLOG:{
             return {
                 ...state,
-                user:'',
+                user:{},
             }
         }
         default:
