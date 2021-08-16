@@ -1,13 +1,19 @@
-import {Redirect, Route} from 'react-router-dom'
+import {useHistory, Route} from 'react-router-dom'
 import {useSelector} from 'react-redux';
+import {useEffect} from "react";
+import {useUser } from "reactfire";
+
 
 export default function ProfesionalRouter({component,...rest}){
     const user = useSelector((store) => store.reducerLog.user)
-    const checkRool=()=>{
-        if(user&&user.tipo_usuario==="profesional")return true
-        else return false
-    }
+    let history=useHistory()
+    var dashboard=function(){
+        return null
+    };
+    useEffect(() => {
+        if(user!=="profesional")history.push("./login")
+    },[])
     return(
-        <Route {...rest}>{checkRool()?component():<Redirect to="/login"/>}</Route>
+        <Route {...rest}>{component()}</Route>
     )
 }
