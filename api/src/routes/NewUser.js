@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const axios = require("axios");
 const {
   Paciente,
   Usuario,
@@ -66,6 +65,8 @@ router.post("/newUser", async (req, res, next) => {
     }
   } else if (type === "profesional") {
     try {
+      // ****** Creacion de especialidades bloqueada por crash ******** //
+      //
       // let allSpecialty = especialidad.map(esp => {
       //     return Especialidad.findOrCreate({
       //         where:{
@@ -74,6 +75,8 @@ router.post("/newUser", async (req, res, next) => {
       //     })
       // })
       // let relSpecialties = await Promise.all(allSpecialty);
+      //
+
       const createdProfesional = await Profesional.create({
         cedula: dni,
         nombre: name,
@@ -82,7 +85,12 @@ router.post("/newUser", async (req, res, next) => {
         direccion: address,
       });
       await createdProfesional.setUsuario(email);
+
+      // ****** Creacion de especialidades bloqueada por crash ******** //
+      //
       // relSpecialties.forEach(esp => createdProfesional.setEspecialidads(esp[0]));
+      //
+
       //create stock and rel with professional
       const emptyArr = [];
       const stock = await Stock.create({
