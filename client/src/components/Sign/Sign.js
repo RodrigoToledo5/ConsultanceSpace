@@ -9,7 +9,8 @@ import clsx from 'clsx';
 import { FormControl, InputLabel, makeStyles, Grid, Container, TextField, Select, MenuItem, Button, CircularProgress, Slider,Box, Typography} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { blue} from '@material-ui/core/colors';
-import validate from '../../functions/validate'
+import validate from '../../functions/validate';
+import app from "firebase/app";
 
 const useStyles = makeStyles((theme)=>({
     "& .MuiInputBase-root": {
@@ -197,6 +198,7 @@ export default function Sign(){
             ){
             setLoad("cargando");
             await firebase.auth().createUserWithEmailAndPassword(email, pass);
+            await app.auth().signOut();
             dispatch(postSignIn(patient));
             setPatient({
                 dni: '',
