@@ -49,6 +49,7 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     borderRadius: "10px",
+    maxHeight: "225px"
   },
   btn: {
     marginTop: "10px",
