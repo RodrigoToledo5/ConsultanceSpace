@@ -5,12 +5,20 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {Provider} from 'react-redux';
 import store from './redux/store/store'
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './materialUi/';
+import {FirebaseAppProvider} from 'reactfire';
+import firebaseConfig from './firebase';
 
 ReactDOM.render(
     <Provider store={store}> 
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+      <ThemeProvider theme={theme}>
+        <FirebaseAppProvider firebaseConfig={firebaseConfig}>
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
+          </FirebaseAppProvider>  
+      </ThemeProvider>
     </Provider>,
   document.getElementById('root')
 );
