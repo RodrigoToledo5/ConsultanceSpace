@@ -153,6 +153,9 @@ useEffect(() => {
         // sino lo redirije a la dashboard de paciente
         props.history.push("/patient-dashboard");
     }
+    if (login==='user not found'){
+      props.history.push("/sign-ing");
+    }
   }, [login]);
 
   const alertFunction = () => {
@@ -187,9 +190,10 @@ useEffect(() => {
       const res = await firebase
         .auth()
         .signInWithEmailAndPassword(input.email, input.password);
-        
-        console.log(res.user.email)
+
       //hariamos un llamado al back  con toda la informacion del usuario
+      
+      
       dispatch(postLogIn(res.user.email)); //pedimos a la base de datos que nos de los datos del usuario
       setInput({
         email: "",

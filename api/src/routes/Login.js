@@ -9,8 +9,8 @@ router.post('/login', async(req, res, next)=>{
     const {email} = req.body;
     console.log(email)
     try{
-        const user = email? await Usuario.findByPk(email) : null;
-        if (user===null) res.status(404).json("user not found")
+        const user = email? await Usuario.findByPk(email) : res.status(404).send("user not found");
+        if (user===null) res.status(200).send("user not found")
         else{
             res.status(200).json(user)
         }
