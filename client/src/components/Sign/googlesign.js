@@ -3,13 +3,14 @@ import { useDispatch, useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import 'firebase/auth';
 import '../../firebase';
-import { useFirebaseApp} from 'reactfire';
-import { postSignIn, getCountries } from './actions';
+import { useFirebaseApp,useUser} from 'reactfire';
+import { postSignIn, getCountries, logWithGooggle } from './actions';
 import clsx from 'clsx';
 import { FormControl, InputLabel, makeStyles, Grid, Container, TextField, Select, MenuItem, Button, CircularProgress, Slider,Box, Typography} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { blue} from '@material-ui/core/colors';
 import validate from '../../functions/validate'
+import { postLogIn } from '../Log/actions';
 
 const useStyles = makeStyles((theme)=>({
     "& .MuiInputBase-root": {
@@ -96,12 +97,9 @@ const useStyles = makeStyles((theme)=>({
 export default function GoogleSign(){
     let history=useHistory();
     const classes = useStyles();
+    const user=useUser();
     const dispatch = useDispatch();
-    const firebase = useFirebaseApp();
-    const [email, setEmail] = useState('');
     const [load, setLoad] = useState("");
-    const [pass, setPass] = useState('');
-    const [passconfirmation,setPassConfirmation]=useState('');
     const [errors, setErrors] = useState({});
     const [patient, setPatient] = useState({
         dni: '',
@@ -114,6 +112,7 @@ export default function GoogleSign(){
         country: '',
         type:'profesional'
     });
+    const login = useSelector((state) => state.reducerLog.user);
 
 
     const marks = [
@@ -131,21 +130,13 @@ export default function GoogleSign(){
     const postSingIn = useSelector((state)=> state.reducerSign.postSingIn);
 
     const onHandleChange = (e) => {
-        if(e.target.name === 'email'){
-            setEmail(e.target.value)//no carga el estado en email si no esta definida
-        }
-        if(e.target.name === 'password'){
-            setPass(e.target.value)//no carga el estado en passowrd si no esta definida
-        }
-        if(e.target.name === 'passwordconfirmation'){
-            setPassConfirmation(e.target.value)
-        }
+        
         setPatient({
             ...patient,
             [e.target.name]: e.target.value
         })
         setErrors(validate({
-            ...patient,pass,passconfirmation,
+            ...patient,
             [e.target.name]: e.target.value
           }));
     }
@@ -163,8 +154,8 @@ export default function GoogleSign(){
             patient.country
             ){
             setLoad("cargando");
-            await firebase.auth().createUserWithEmailAndPassword(email, pass);
             dispatch(postSignIn(patient));
+            dispatch(logWithGooggle(patient.email,patient.type))
             setPatient({
                 dni: '',
                 name: '',
@@ -175,15 +166,25 @@ export default function GoogleSign(){
                 address:'',
                 country: ''
             })
-            setEmail('');
-            setPass('');
-            setPassConfirmation('');
             setLoad("cargado");
-            history.push('/login');
         }else{
             setLoad("Faltan campos")
         }
     }
+    useEffect(() => {
+        console.log(login)
+        if (login.tipo_usuario === "profesional") {
+            //si es profesional lo redirije a la dashboard de profesional
+            history.push("/profesional-dashboard");
+          }
+        if (login.tipo_usuario === "paciente") {
+            // sino lo redirije a la dashboard de paciente
+            history.push("/patient-dashboard");
+        }
+        if (login==='user not found'){
+          history.push("/sign-ing");
+        }
+      }, [login]);
     const alertFunction =() => {
         if(
             load==="cargando"
@@ -209,6 +210,13 @@ export default function GoogleSign(){
     useEffect(()=>{
         dispatch(getCountries());
     },[dispatch])
+    useEffect(()=>{
+        
+        if(user.data){
+            setPatient({...patient,email:user.data.email})
+        }
+   
+    },[user.data,setPatient])
 
     return (
         <>
