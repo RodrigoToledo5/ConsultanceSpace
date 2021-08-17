@@ -2,6 +2,7 @@ import axios from "axios";
 
 export const POST_SIGN_IN = 'POST_SIGN_IN';
 export const GET_COUNTRIES = 'GET_COUNTRIES';
+export const POST_LOG = 'POST_LOG';
 
 const api = 'http://localhost:3001';
 
@@ -13,6 +14,11 @@ export const postSignIn = (user)=>{
             data: user
         })
     dispatch({ type: POST_SIGN_IN, payload:  res.data })
+}}
+
+export const logWithGooggle = (email,tipo_usuario)=>{//este reducer modifica el log
+    return (dispatch) => {
+    dispatch({ type: POST_LOG, payload: {email,tipo_usuario} })
 }}
 
 
