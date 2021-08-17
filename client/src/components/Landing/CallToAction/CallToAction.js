@@ -51,9 +51,11 @@ export default function CallToAction({ height }) {
       <Paper elevation={3} className={classes.paperContainer}>
         <Typography variant="h4">Somos ConsultanceSpace!</Typography>
         <Typography variant="body1" className={classes.text}>
-            Una plataforma de reseva y gestion de turnos, pagos y stock que te
-            va a sorprender. Lorem ipsum dolor sit amet, consectetur adipiscing
-            elit. Vivamus ut convallis justo.{" "}
+            Una plataforma de reserva y gestión de turnos, pagos y stock que te
+            va a sorprender. 
+            Facilitamos tu gestión, de tiempos, documentos, y pagos.
+            Pensada tanto para los profesionales de la salud como para los mismos pacientes.
+{" "}
         </Typography>
         <Grid container className={classes.grid}>
           <Button

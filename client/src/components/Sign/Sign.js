@@ -162,6 +162,7 @@ export default function Sign(){
     
 
     const onHandleChange = (e) => {
+        console.log(errors);
         if(e.target.name === 'email'){
             setEmail(e.target.value)//no carga el estado en email si no esta definida
         }
@@ -191,7 +192,8 @@ export default function Sign(){
             patient.phone&&
             patient.birth&&
             patient.address&&
-            patient.country
+            patient.country&&
+            (Object.keys(errors).length === 0)
             ){
             setLoad("cargando");
             await firebase.auth().createUserWithEmailAndPassword(email, pass);

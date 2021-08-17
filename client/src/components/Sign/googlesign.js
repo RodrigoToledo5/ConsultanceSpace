@@ -427,7 +427,7 @@ export default function GoogleSign(){
         {load==="cargando"? <Button variant="contained" color='secondary' disableElevation={true}>
               <CircularProgress size={20} />
             </Button> :  <Button type="submit" variant="contained" color='secondary'>
-                                Sign In
+                                Registrar
                             </Button> }
 
                         </Grid>

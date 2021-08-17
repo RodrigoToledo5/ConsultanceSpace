@@ -17,7 +17,7 @@ export default function ButtonHome(){
     }
     return(
         <Button type="button" variant='contained' className={classes.btn} onClick={()=>handleClick("/")}>
-            HOME
+            Inicio
         </Button>
     )
 }

@@ -36,7 +36,7 @@ const useStyle = makeStyles((theme) => ({
     },
   },
   container: {
-    marginBottom: "20px",
+    marginBottom: "60px",
     width: "40%",
     display: "flex",
     flexDirection: "column",
@@ -289,7 +289,7 @@ useEffect(() => {
                 color="primary"
                 className={classes.btn}
               >
-                Login
+                Iniciar sesión
               </Button>
             </Box>
             <Box pt={1} fontFamily="Roboto" className={classes.items}>
@@ -313,10 +313,11 @@ useEffect(() => {
             className={classes.btngoogle}
             onClick={handleLogInGoogle}
           >
-            Login with Google
+            Continuar con Google
           </Button>
         </Box>
-        <Box className={classes.form}>
+        {/* FACEBOOK BUTTON DISABLE*/}
+        {/* <Box className={classes.form}>
           <Button
             type="button"
             variant="contained"
@@ -327,7 +328,7 @@ useEffect(() => {
           >
             Login with Facebook
           </Button>
-        </Box>
+        </Box> */}
         <Box pt={1} fontFamily="Roboto" className={classes.items}>
           <span className={classes.span}>¿No tienes cuenta?</span>
           <Link to="/sign-in">Registrate</Link>
