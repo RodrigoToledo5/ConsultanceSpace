@@ -65,7 +65,6 @@ router.post("/newUser", async (req, res, next) => {
     }
   } else if (type === "profesional") {
     try {
-
       // ****** Creacion de especialidades bloqueada por crash ******** //
       //
       // let allSpecialty = especialidad.map(esp => {
@@ -86,7 +85,7 @@ router.post("/newUser", async (req, res, next) => {
         direccion: address,
       });
       await createdProfesional.setUsuario(email);
-  
+
       // ****** Creacion de especialidades bloqueada por crash ******** //
       //
       // relSpecialties.forEach(esp => createdProfesional.setEspecialidads(esp[0]));
