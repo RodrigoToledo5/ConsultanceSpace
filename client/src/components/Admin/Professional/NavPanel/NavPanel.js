@@ -14,7 +14,6 @@ import Patients from "../Patients";
 import Professionals from "../Professionals";
 import Managment from "../Managment";
 import Stock from "../Stock/Stock";
-
 const useStyle = makeStyles((theme) => ({
   magin: {
     margin: theme.spacing(2),
@@ -51,6 +50,7 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     borderRadius: "10px",
+    maxHeight: "335px",
   },
   btn: {
     marginTop: "10px",
