@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom';
 import 'firebase/auth';
 import '../../firebase';
 import { useFirebaseApp} from 'reactfire';
-import { postSignIn, getCountries } from './actions';
+import { postSignIn, getCountries, setFlagLog } from './actions';
 import clsx from 'clsx';
 import { FormControl, InputLabel, makeStyles, Grid, Container, TextField, Select, MenuItem, Button, CircularProgress, Slider,Box, Typography} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
@@ -197,8 +197,9 @@ export default function Sign(){
             (Object.keys(errors).length === 0)
             ){
             setLoad("cargando");
+            dispatch(setFlagLog(true));
             await firebase.auth().createUserWithEmailAndPassword(email, pass);
-            await app.auth().signOut();
+            await firebase.auth().signOut();
             dispatch(postSignIn(patient));
             setPatient({
                 dni: '',

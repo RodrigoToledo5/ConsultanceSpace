@@ -3,6 +3,7 @@ import axios from "axios";
 export const POST_SIGN_IN = 'POST_SIGN_IN';
 export const GET_COUNTRIES = 'GET_COUNTRIES';
 export const POST_LOG = 'POST_LOG';
+export const FLAG_LOG = 'FLAG_LOG';
 
 const api = 'http://localhost:3001';
 
@@ -20,6 +21,13 @@ export const logWithGooggle = (email,tipo_usuario)=>{//este reducer modifica el 
     return (dispatch) => {
     dispatch({ type: POST_LOG, payload: {email,tipo_usuario} })
 }}
+
+export const setFlagLog = (status)=>{
+    return {
+        type: FLAG_LOG,
+        payload: status,
+      };
+}
 
 
 export const getCountries = () => {

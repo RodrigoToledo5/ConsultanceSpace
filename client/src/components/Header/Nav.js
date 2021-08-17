@@ -11,6 +11,7 @@ import ButtonHome from "./ButtonHome";
 import { useFirebaseApp, useUser } from "reactfire";
 import ButtonDashboard from "./ButtonDashboard";
 import { postLogIn } from "../Log/actions";
+import reducerSign from "../Sign/reducer";
 
 const useStyle = makeStyles((theme) => ({
   magin: {
@@ -52,6 +53,7 @@ export default function Nav() {
 
   let history = useHistory();
   const userS = useSelector((store) => store.reducerLog.user);
+  const proFlag = useSelector((store) => store.reducerSign.flagLog);
   function handleClick(navlink) {
     history.push(navlink);
   }
@@ -62,7 +64,8 @@ export default function Nav() {
   }
 
   useEffect(()=>{
-    if(!userS.email && user.data&&user.data.email){
+    if(!userS.email && user.data && user.data.email && !proFlag){
+      console.log(user.data);
         if(!logFlag){
         dispatch(postLogIn(user.data.email));}
     }else{setLogFlag(false)}},[userS.email,user.data])
@@ -72,6 +75,7 @@ export default function Nav() {
       <AppBar className={classes.bar}>
         <Toolbar className={classes.toolbar}>
           <Box className={classes.box}>
+            <ButtonHome />
             {checkLogin() ? (
               <>
                 <ButtonLogin />
@@ -82,9 +86,7 @@ export default function Nav() {
                 <ButtonDashboard />
                 <ButtonLogout setLogFlag={setLogFlag} />
               </>
-            )}
-
-            <ButtonHome />
+            )}            
           </Box>
           <Typography className={classes.text} variant="h6">
             Consultance Space
