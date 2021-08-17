@@ -53,7 +53,7 @@ export default function Stock() {
   };
 
   const manageAddButton = () => {
-    if (stock.length > 0 && Object.keys(stock[0])[0].length === 0) {
+    if (stock.length > 0 && Object.keys(stock[stock.length-1])[0].length === 0) {
       return "";
     } else {
       return (

@@ -140,6 +140,7 @@ const Login = (props) => {
   });
 
   const postSingIn = useSelector((state) => state.reducerSign.postSingIn);
+
   const login = useSelector((state) => state.reducerLog.user);
 
   //login Handler
@@ -151,6 +152,9 @@ useEffect(() => {
     if (login.tipo_usuario === "paciente") {
         // sino lo redirije a la dashboard de paciente
         props.history.push("/patient-dashboard");
+    }
+    if (login==='user not found'){
+      props.history.push("/sign-ing");
     }
   }, [login]);
 
@@ -186,6 +190,10 @@ useEffect(() => {
       const res = await firebase
         .auth()
         .signInWithEmailAndPassword(input.email, input.password);
+
+      //hariamos un llamado al back  con toda la informacion del usuario
+      
+      
       dispatch(postLogIn(res.user.email)); //pedimos a la base de datos que nos de los datos del usuario
       setInput({
         email: "",
@@ -209,14 +217,8 @@ useEffect(() => {
   const logInGoogle = async () => {
     const provider = new app.auth.GoogleAuthProvider();
     const res = await firebase.auth().signInWithPopup(provider);
-    console.log(res);
-    if (true) {
-      //si es profesional lo redirije a la dashboard de profesional
-      props.history.push("/profesional-dashboard");
-    } else {
-      // sino lo redirije a la dashboard de paciente
-      props.history.push("/patient-dashboard");
-    }
+    console.log(res.user.email)
+    dispatch(postLogIn(res.user.email));
   };
   // log In with Google acount
   const handleLogInGoogle = () => {
@@ -227,16 +229,10 @@ useEffect(() => {
   };
   // log In with Facebook acount
   const logInFacebook = async () => {
-    const provider = new firebase.auth.FacebookAuthProvider();
-    const res = firebase.auth().signInWithPopup(provider);
-    console.log(res);
-    if (true) {
-      //si es profesional lo redirije a la dashboard de profesional
-      props.history.push("/profesional-dashboard");
-    } else {
-      // sino lo redirije a la dashboard de paciente
-      props.history.push("/patient-dashboard");
-    }
+    const provider = new app.auth.FacebookAuthProvider();
+    const res = app.auth().signInWithPopup(provider);
+    console.log(res)
+    dispatch(postLogIn(res.user.email));   
   };
   //handleSubmit
   const handleSubmit = (event) => {
