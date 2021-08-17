@@ -316,7 +316,8 @@ useEffect(() => {
             Login with Google
           </Button>
         </Box>
-        <Box className={classes.form}>
+        {/* FACEBOOK BUTTON DISABLE*/}
+        {/* <Box className={classes.form}>
           <Button
             type="button"
             variant="contained"
@@ -327,7 +328,7 @@ useEffect(() => {
           >
             Login with Facebook
           </Button>
-        </Box>
+        </Box> */}
         <Box pt={1} fontFamily="Roboto" className={classes.items}>
           <span className={classes.span}>¿No tienes cuenta?</span>
           <Link to="/sign-in">Registrate</Link>
