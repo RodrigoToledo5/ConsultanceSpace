@@ -12,7 +12,7 @@ export const postLogIn = (email)=>{
             url: `${api}/login`,
             data: {email}
         })
-    console.log(res.data)
+    console.log(res.data);
     dispatch({ type: POST_LOG, payload:  res.data })
 }}
 

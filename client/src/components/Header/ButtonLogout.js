@@ -15,20 +15,20 @@ const useStyle=makeStyles(theme=>({
     },
 }))
 
-export default function ButtonLogout(){
+export default function ButtonLogout({setLogFlag}){
     const classes=useStyle();
     const dispatch=useDispatch();
     let history = useHistory();
     
     const logOut = async ()=>{
-        console.log("paso")
-        dispatch(desLog())
+        setLogFlag(true);
+        dispatch(desLog());
         await app.auth().signOut();
         history.push('/login')
     }
     return(
         <Button type="button" variant='contained' className={classes.btn} onClick={()=>logOut()}>
-            Logout
+            Cerrar sesión
         </Button>
     )
 }

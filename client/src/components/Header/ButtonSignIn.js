@@ -17,7 +17,7 @@ export default function ButtonSignIn(){
     }
     return(
         <Button type="button" variant='contained' className={classes.btn} onClick={()=>handleClick("/sign-In")}> 
-            Sign-In
+            Regístrate
         </Button>
     )
 }
