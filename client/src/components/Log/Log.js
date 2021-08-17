@@ -229,7 +229,7 @@ useEffect(() => {
   // log In with Facebook acount
   const logInFacebook = async () => {
     const provider = new app.auth.FacebookAuthProvider();
-    const res = app.auth().signInWithPopup(provider);
+    const res = await firebase.auth().signInWithPopup(provider);
     console.log(res)
     dispatch(postLogIn(res.user.email));   
   };
