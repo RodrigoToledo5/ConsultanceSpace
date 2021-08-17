@@ -3,8 +3,6 @@ const axios = require('axios');
 const {Usuario} = require('../db');
 const router = Router();
 
-//Route for set and get Proff Stock
-
 router.post('/login', async(req, res, next)=>{
     const {email} = req.body;
     console.log(email)

@@ -1,5 +1,4 @@
 const { Router } = require("express");
-const axios = require("axios");
 const { Stock } = require("../db");
 const router = Router();
 
