@@ -217,7 +217,6 @@ useEffect(() => {
   const logInGoogle = async () => {
     const provider = new app.auth.GoogleAuthProvider();
     const res = await firebase.auth().signInWithPopup(provider);
-    console.log(res.user.email)
     dispatch(postLogIn(res.user.email));
   };
   // log In with Google acount

@@ -1,17 +1,20 @@
-import { Container,Grid,Box, Link } from "@material-ui/core";
+import { Container,Grid,Box, Link} from "@material-ui/core";
+
+
 
 export default function Footer(){
+   
     return (
         <>
         <footer>
             <Box 
-                px={ {xs:3, sm:10}} 
-                py={ {xs:5, sm:10}} 
-                bgcolor="#159DE9" 
-                color="primary"
+                px={ {xs:3, sm:3}} 
+                py={ {xs:5, sm:3}} 
+                bgcolor="#f5f5f7" 
+                color="#86868b"
                 border={1}
                 borderRadius="5px"
-                borderColor="#159DE9"
+                borderColor="#f5f5f7"
                 >
                 <Container maxWidth="lg">
                     <Grid container spacing={5}>
@@ -49,7 +52,7 @@ export default function Footer(){
                             </Box>
                         </Grid>
                     </Grid>
-                    <Box textAlign="center" pt={{xs:5,sm:10}} pb={{xs:5,sm:2}}>
+                    <Box textAlign="center" pt={{xs:5,sm:5}} pb={{xs:5,sm:2}}>
                         Consultance Space &reg; {new Date().getFullYear()}
                     </Box>
                 </Container>
