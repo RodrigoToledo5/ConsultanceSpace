@@ -5,7 +5,7 @@ import {useDispatch} from 'react-redux';
 import { desLog } from '../Log/actions';
 import app from "firebase/app";
 import "firebase/auth";
-import "../../firebase";
+import "../../firebase/firebase";
 
 const useStyle=makeStyles(theme=>({
     btn:{

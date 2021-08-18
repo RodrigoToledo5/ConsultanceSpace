@@ -6,7 +6,7 @@ import { desLog, postLogIn } from '../Log/actions';
 import { useFirebaseApp,useUser} from 'reactfire'
 import app from "firebase/app";
 import "firebase/auth";
-import "../../firebase";
+import "../../firebase/firebase";
 import { useEffect } from 'react';
 
 const useStyle=makeStyles(theme=>({

@@ -2,15 +2,14 @@ import React, {useEffect, useState} from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import 'firebase/auth';
-import '../../firebase';
-import { useFirebaseApp,useUser} from 'reactfire';
+import '../../firebase/firebase';
+import { useUser} from 'reactfire';
 import { postSignIn, getCountries, logWithGooggle } from './actions';
 import clsx from 'clsx';
 import { FormControl, InputLabel, makeStyles, Grid, Container, TextField, Select, MenuItem, Button, CircularProgress, Slider,Box, Typography} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { blue} from '@material-ui/core/colors';
-import validate from '../../functions/validate'
-import { postLogIn } from '../Log/actions';
+import validate from './functions/validate'
 
 const useStyles = makeStyles((theme)=>({
     "& .MuiInputBase-root": {

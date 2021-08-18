@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from 'react'
 import { useFirebaseApp} from 'reactfire';
 import 'firebase/auth';
-import '../../firebase';
+import '../../firebase/firebase';
 import {Link} from 'react-router-dom'
 import {makeStyles, Button, Box,TextField, Container } from '@material-ui/core';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';

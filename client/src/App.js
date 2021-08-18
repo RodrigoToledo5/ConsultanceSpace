@@ -1,4 +1,3 @@
-import './App.css';
 import {Route} from 'react-router-dom'
 import Nav from './components/Header/Nav';
 import Dashboard from './components/Admin/Professional/Dashboard';
