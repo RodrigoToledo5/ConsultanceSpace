@@ -57,6 +57,12 @@ export default function Nav() {
     if (!user.data) return true;
     else return false;
   }
+  function checkPath(){
+    if(window.location.pathname==="/"){
+      return false
+    }
+    else return true
+  }
 
   //handelea el AUTOLOGIN por cookies (no toquen los estados porque se rompe todo)
   useEffect(() => {
@@ -74,7 +80,7 @@ export default function Nav() {
       <AppBar className={classes.bar}>
         <Toolbar className={classes.toolbar}>
           <Box className={classes.box}>
-            <ButtonHome />
+            {checkPath()&&<ButtonHome />}
             {checkLogin() ? (
               <>
                 <ButtonLogin />
