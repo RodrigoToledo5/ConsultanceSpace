@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useFirebaseApp, useUser } from "reactfire";
 import app from "firebase/app";
 import "firebase/auth";
-import "../../firebase";
+import "../../firebase/firebase";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { makeStyles, Button, Box, TextField } from "@material-ui/core";
@@ -154,6 +154,7 @@ useEffect(() => {
         props.history.push("/patient-dashboard");
     }
     if (login==='user not found'){
+      
       props.history.push("/sign-ing");
     }
   }, [login]);
@@ -229,7 +230,7 @@ useEffect(() => {
   // log In with Facebook acount
   const logInFacebook = async () => {
     const provider = new app.auth.FacebookAuthProvider();
-    const res = app.auth().signInWithPopup(provider);
+    const res = await app.auth().signInWithPopup(provider);
     console.log(res)
     dispatch(postLogIn(res.user.email));   
   };
@@ -242,7 +243,7 @@ useEffect(() => {
   return (
     <Box className={classes.principal}>
       <Box className={classes.container}>
-        <form className={classes.form} onSubmit={handleSubmit}>
+        <form className={classes.form} onSubmit={(event)=>handleSubmit(event)}>
           <Box className={classes.box}>
             <Box className={classes.items}>
               <h2 className={classes.title}>Inicia Sesión</h2>
@@ -264,7 +265,7 @@ useEffect(() => {
                   className: classes.input,
                 }}
                 value={input.email}
-                onChange={handleInput}
+                onChange={(event)=>handleInput(event)}
               />
             </Box>
             <Box mt={2} className={classes.items}>
@@ -278,7 +279,7 @@ useEffect(() => {
                 InputProps={{
                   className: classes.input,
                 }}
-                onChange={handleInput}
+                onChange={(event)=>handleInput(event)}
                 value={input.password}
               />
             </Box>
@@ -311,24 +312,23 @@ useEffect(() => {
             color="primary"
             startIcon={<GTranslateIcon />}
             className={classes.btngoogle}
-            onClick={handleLogInGoogle}
+            onClick={(event)=>handleLogInGoogle(event)}
           >
             Continuar con Google
           </Button>
         </Box>
-        {/* FACEBOOK BUTTON DISABLE*/}
-        {/* <Box className={classes.form}>
+         <Box className={classes.form}>
           <Button
             type="button"
             variant="contained"
             color="primary"
             startIcon={<FacebookIcon />}
             className={classes.btnfacebook}
-            onClick={handleLogInFacebook}
+            onClick={(event)=>handleLogInFacebook(event)}
           >
             Login with Facebook
           </Button>
-        </Box> */}
+        </Box> 
         <Box pt={1} fontFamily="Roboto" className={classes.items}>
           <span className={classes.span}>¿No tienes cuenta?</span>
           <Link to="/sign-in">Registrate</Link>

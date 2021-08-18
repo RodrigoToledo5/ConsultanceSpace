@@ -23,7 +23,13 @@ module.exports = (sequelize) => {
 		direccion: {
 			type: DataTypes.STRING,
 			allowNull: false
-		}
+		},
+		fullName: {
+			type: DataTypes.VIRTUAL,
+			get:function(){
+				return `${this.nombre} ${this.apellidos}`;
+			},
+		},
 	},{
 		timestamps: false,
 

@@ -35,12 +35,15 @@ const useStyle=makeStyles(theme=>({
 }))
 
 
-export default function PatientsDashboard(){
+export default function Dashboard(){
     const classes=useStyle();
     const [actComponent, updateComponent] = useState(null);
+    const uC = (c) => {
+        updateComponent(c);
+    }
     return(
         <Box className={classes.box}>
-            <NavPanel updateComponent={updateComponent}/>
+            <NavPanel updateComponent={uC}/>
             <Box width="100%">{actComponent}</Box>
         </Box>
     )

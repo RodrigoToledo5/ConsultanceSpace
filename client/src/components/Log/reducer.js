@@ -1,7 +1,7 @@
 import { POST_LOG, DESLOG } from "./actions";
 
 const initialState = {
-    user:{}
+    user:{} // info del usuario logeado
 }
 
 export default function reducerLog (state = initialState, action){
