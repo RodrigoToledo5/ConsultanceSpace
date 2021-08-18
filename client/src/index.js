@@ -8,7 +8,7 @@ import store from './redux/store/store'
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './materialUi/';
 import {FirebaseAppProvider} from 'reactfire';
-import firebaseConfig from './firebase';
+import firebaseConfig from './firebase/firebase';
 
 ReactDOM.render(
     <Provider store={store}> 

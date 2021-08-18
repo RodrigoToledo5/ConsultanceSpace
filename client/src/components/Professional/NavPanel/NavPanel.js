@@ -1,14 +1,11 @@
-import {
-  Box,
-  Button,
-  makeStyles,
-} from "@material-ui/core";
-import { useEffect} from "react";
+import { Box, Button, makeStyles } from "@material-ui/core";
+import { useEffect } from "react";
 import Appointment from "../SubComponents/Appointment";
 import Attention from "../SubComponents/Attention";
+import Patients from "../SubComponents/Patients";
 import Professionals from "../SubComponents/Professionals";
 import Managment from "../SubComponents/Managment";
-
+import Stock from "../SubComponents/Stock/Stock";
 const useStyle = makeStyles((theme) => ({
   magin: {
     margin: theme.spacing(2),
@@ -45,7 +42,7 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     borderRadius: "10px",
-    maxHeight: "225px"
+    maxHeight: "335px",
   },
   btn: {
     marginTop: "10px",
@@ -57,14 +54,16 @@ const useStyle = makeStyles((theme) => ({
 export default function NavPanel({ updateComponent }) {
   const classes = useStyle();
 
-//Objeto de componentes y nombres
+  //Objeto de componentes y nombres
   const routes = [
     { Appointment: <Appointment /> },
     { Managment: <Managment /> },
+    { Patients: <Patients /> },
     { Attention: <Attention /> },
+    { Stock: <Stock /> },
     { Professionals: <Professionals /> },
-    
   ];
+  
   useEffect(() => {
     updateComponent(routes[0].Inicio);
   }, []);

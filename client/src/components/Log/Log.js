@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useFirebaseApp, useUser } from "reactfire";
 import app from "firebase/app";
 import "firebase/auth";
-import "../../firebase";
+import "../../firebase/firebase";
 import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import { makeStyles, Button, Box, TextField } from "@material-ui/core";

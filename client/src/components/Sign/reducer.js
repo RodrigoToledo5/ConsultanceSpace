@@ -1,9 +1,9 @@
 import { GET_COUNTRIES, POST_SIGN_IN, FLAG_LOG } from "./actions";
 
 const initialState = {
-  countries: [],
-  postSingIn: "",
-  flagLog: false,
+  countries: [],  // guarda paises traidos de la api
+  postSingIn: "", // info del user recien registrado
+  flagLog: false, // flag usado para evitar asincronismos despues de registrarse
 };
 
 export default function reducerSign(state = initialState, action) {
