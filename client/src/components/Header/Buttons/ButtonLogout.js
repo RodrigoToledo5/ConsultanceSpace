@@ -2,10 +2,10 @@ import Button from '@material-ui/core/Button'
 import { makeStyles} from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import {useDispatch} from 'react-redux';
-import { desLog } from '../Log/actions';
+import { desLog } from '../../Log/actions';
 import app from "firebase/app";
 import "firebase/auth";
-import "../../firebase/firebase";
+import "../../../firebase/firebase";
 
 const useStyle=makeStyles(theme=>({
     btn:{

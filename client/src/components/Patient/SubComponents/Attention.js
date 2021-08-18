@@ -1,5 +1,5 @@
-import { Container,Grid,Box, Link, Typography, makeStyles } from "@material-ui/core";
-import devImg from "../../assets/img/etc/inDev.png"
+import { Box, Typography, makeStyles } from "@material-ui/core";
+import devImg from "../../../assets/img/etc/inDev.png"
 
 const useStyle = makeStyles((theme) => ({
     text: {

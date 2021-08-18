@@ -1,7 +1,7 @@
 // CallToAction export default, height can be passed by params, text
 // is not responsive
 
-import { Box, Button, Paper, Grid, Typography, makeStyles } from "@material-ui/core";
+import { Button, Paper, Grid, Typography, makeStyles } from "@material-ui/core";
 import React from "react";
 import {useHistory } from "react-router-dom";
 import CalendarIcon from "@material-ui/icons/CalendarToday";

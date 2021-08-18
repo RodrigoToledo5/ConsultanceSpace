@@ -1,4 +1,4 @@
-import { Container,Grid,Box, Link, Typography, makeStyles } from "@material-ui/core";
+import { Box, Typography, makeStyles } from "@material-ui/core";
 import devImg from "../../../assets/img/etc/inDev.png"
 
 const useStyle = makeStyles((theme) => ({
@@ -19,11 +19,11 @@ const useStyle = makeStyles((theme) => ({
     },
   }));
 
-export default function Appointment(){
+export default function Attention(){
     const classes = useStyle();
     return(
         <Box className={classes.box}>
-            <Typography variant='h4' color='blue'>Appointment</Typography>
+            <Typography variant='h4' color='blue'>Attention</Typography>
             <img src={devImg} />
         </Box>
     )

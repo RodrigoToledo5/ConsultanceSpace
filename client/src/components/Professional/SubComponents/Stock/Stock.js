@@ -14,8 +14,6 @@ import AddIcon from "@material-ui/icons/Add";
 import { useSelector } from "react-redux";
 const axios = require("axios");
 
-const testEmail = "test@gmail.com";
-
 export default function Stock() {
   const [stock, updateStock] = useState([]);
   const user = useSelector((store) => store.reducerLog.user);

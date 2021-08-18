@@ -1,5 +1,5 @@
-import ReactCarousel from '../Landing/Carousel/Carousel';
-import CallToAction from '../Landing/CallToAction/CallToAction';
+import ReactCarousel from './Carousel/Carousel';
+import CallToAction from './CallToAction/CallToAction';
 import {  Box,makeStyles} from '@material-ui/core';
 
 const useStyle=makeStyles(theme=>({

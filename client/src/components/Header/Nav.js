@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { makeStyles, Typography, Box, Button } from "@material-ui/core";
+import { makeStyles, Typography, Box } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-import ButtonLogout from "./ButtonLogout";
-import ButtonLogin from "./ButtonLogin";
-import ButtonSignIn from "./ButtonSignIn";
-import ButtonHome from "./ButtonHome";
-import { useFirebaseApp, useUser } from "reactfire";
-import ButtonDashboard from "./ButtonDashboard";
+import ButtonLogout from "./Buttons/ButtonLogout";
+import ButtonLogin from "./Buttons/ButtonLogin";
+import ButtonSignIn from "./Buttons/ButtonSignIn";
+import ButtonHome from "./Buttons/ButtonHome";
+import { useUser } from "reactfire";
+import ButtonDashboard from "./Buttons/ButtonDashboard";
 import { postLogIn } from "../Log/actions";
-import reducerSign from "../Sign/reducer";
 
 const useStyle = makeStyles((theme) => ({
   magin: {
@@ -51,24 +49,25 @@ export default function Nav() {
 
   const [logFlag, setLogFlag] = useState(false);
 
-  let history = useHistory();
   const userS = useSelector((store) => store.reducerLog.user);
   const proFlag = useSelector((store) => store.reducerSign.flagLog);
-  function handleClick(navlink) {
-    history.push(navlink);
-  }
 
+  //handelea los cambios en el navbar al logearse o deslogearse
   function checkLogin() {
     if (!user.data) return true;
     else return false;
   }
 
-  useEffect(()=>{
-    if(!userS.email && user.data && user.data.email && !proFlag){
-      console.log(user.data);
-        if(!logFlag){
-        dispatch(postLogIn(user.data.email));}
-    }else{setLogFlag(false)}},[userS.email,user.data])
+  //handelea el AUTOLOGIN por cookies (no toquen los estados porque se rompe todo)
+  useEffect(() => {
+    if (!userS.email && user.data && user.data.email && !proFlag) {
+      if (!logFlag) {
+        dispatch(postLogIn(user.data.email));
+      }
+    } else {
+      setLogFlag(false);
+    }
+  }, [userS.email, user.data]);
 
   return (
     <nav className={classes.nav}>
@@ -86,7 +85,7 @@ export default function Nav() {
                 <ButtonDashboard />
                 <ButtonLogout setLogFlag={setLogFlag} />
               </>
-            )}            
+            )}
           </Box>
           <Typography className={classes.text} variant="h6">
             Consultance Space

@@ -3,7 +3,7 @@
 
 import React from "react";
 import Carousel from "react-material-ui-carousel";
-import { Paper, makeStyles} from "@material-ui/core";
+import { makeStyles} from "@material-ui/core";
 
 import img1 from "../../../assets/img/Carousel/test1.png";
 import img2 from "../../../assets/img/Carousel/test2.png";

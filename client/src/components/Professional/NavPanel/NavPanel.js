@@ -1,19 +1,11 @@
-import {
-  Container,
-  Grid,
-  Box,
-  Link,
-  Button,
-  Typography,
-  makeStyles,
-} from "@material-ui/core";
-import { useEffect, useState } from "react";
-import Appointment from "../Appointment";
-import Attention from "../Attention";
-import Patients from "../Patients";
-import Professionals from "../Professionals";
-import Managment from "../Managment";
-import Stock from "../Stock/Stock";
+import { Box, Button, makeStyles } from "@material-ui/core";
+import { useEffect } from "react";
+import Appointment from "../SubComponents/Appointment";
+import Attention from "../SubComponents/Attention";
+import Patients from "../SubComponents/Patients";
+import Professionals from "../SubComponents/Professionals";
+import Managment from "../SubComponents/Managment";
+import Stock from "../SubComponents/Stock/Stock";
 const useStyle = makeStyles((theme) => ({
   magin: {
     margin: theme.spacing(2),
@@ -58,9 +50,11 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
+//Administra el componente a renderizar y muestra los botones y opciones
 export default function NavPanel({ updateComponent }) {
   const classes = useStyle();
-  const [actComp, setaActComp] = useState("Inicio");
+
+  //Objeto de componentes y nombres
   const routes = [
     { Appointment: <Appointment /> },
     { Managment: <Managment /> },
@@ -68,8 +62,8 @@ export default function NavPanel({ updateComponent }) {
     { Attention: <Attention /> },
     { Stock: <Stock /> },
     { Professionals: <Professionals /> },
-    
   ];
+  
   useEffect(() => {
     updateComponent(routes[0].Inicio);
   }, []);
