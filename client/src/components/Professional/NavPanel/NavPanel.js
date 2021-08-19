@@ -1,6 +1,6 @@
 import { Box, Button, makeStyles } from "@material-ui/core";
 import { useEffect } from "react";
-import Appointment from "../SubComponents/Appointment";
+import Appointment from "../SubComponents/Appointment/Appointment";
 import Attention from "../SubComponents/Attention";
 import Patients from "../SubComponents/Patients/Patients";
 import Professionals from "../SubComponents/Professionals";
