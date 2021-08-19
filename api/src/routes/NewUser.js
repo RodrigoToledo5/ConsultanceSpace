@@ -51,8 +51,8 @@ router.post("/newUser", async (req, res, next) => {
     try {
       const createdPatient = await Paciente.create({
         DNI: dni,
-        nombre: name,
-        apellidos: lastName,
+        nombre: name.toUpperCase(),
+        apellidos: lastName.toUpperCase(),
         telefono: phone,
         fecha_de_nacimiento: birth,
         direccion: address,
@@ -80,8 +80,8 @@ router.post("/newUser", async (req, res, next) => {
 
       const createdProfesional = await Profesional.create({
         cedula: dni,
-        nombre: name,
-        apellidos: lastName,
+        nombre: name.toUpperCase(),
+        apellidos: lastName.toUpperCase(),
         telefono: phone,
         direccion: address,
       });
