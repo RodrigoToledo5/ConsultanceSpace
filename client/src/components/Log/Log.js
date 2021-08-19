@@ -231,7 +231,6 @@ useEffect(() => {
   const logInFacebook = async () => {
     const provider = new app.auth.FacebookAuthProvider();
     const res = await app.auth().signInWithPopup(provider);
-    console.log(res)
     dispatch(postLogIn(res.user.email));   
   };
   //handleSubmit
