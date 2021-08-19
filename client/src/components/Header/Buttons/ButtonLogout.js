@@ -10,8 +10,7 @@ import "../../../firebase/firebase";
 const useStyle=makeStyles(theme=>({
     btn:{
         margin: theme.spacing(1),
-        minWidth:'84px'
-        
+        minWidth:'84px',
     },
 }))
 
