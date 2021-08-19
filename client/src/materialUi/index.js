@@ -14,8 +14,8 @@ const theme = createTheme({
   palette: {
     type: "light",
     primary: {
-      main: "#ffff",
-      contrastText: blue[500]
+      main: blue[500],
+      contrastText: "#ffffff"
     },
     secondary: {
       main: blue[500],
