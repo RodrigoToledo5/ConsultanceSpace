@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import Appointment from "../SubComponents/Appointment/Appointment";
 import Attention from "../SubComponents/Attention";
 import Patients from "../SubComponents/Patients/Patients";
-import Professionals from "../SubComponents/Professionals";
+import Professionals from "../SubComponents/professionals/Professionals";
 import Managment from "../SubComponents/Managment";
 import Stock from "../SubComponents/Stock/Stock";
 const useStyle = makeStyles((theme) => ({
