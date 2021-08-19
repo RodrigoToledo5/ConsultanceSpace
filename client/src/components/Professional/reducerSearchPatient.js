@@ -7,6 +7,7 @@ const initialState={
 export default function reducerSearchPatients (state=initialState, action){
     switch (action.type) {
         case GET_PATIENT:
+            console.log(action.payload);
             return {
                 ...state,
                 patients: action.payload
