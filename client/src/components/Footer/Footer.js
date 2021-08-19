@@ -1,8 +1,46 @@
-import { Container,Grid,Box, Link} from "@material-ui/core";
+import { Container,Grid,Box, Link, makeStyles} from "@material-ui/core";
+import logo from './CONSULTANCE SPACE COMPLETO.png';
+import FacebookIcon from '@material-ui/icons/Facebook';
+import WhatsAppIcon from '@material-ui/icons/WhatsApp';
+import TwitterIcon from '@material-ui/icons/Twitter';
+import InstagramIcon from '@material-ui/icons/Instagram';
 
+
+
+const useStyle = makeStyles((theme) => ({
+  
+    img:{
+        width:"200px"
+    },
+    containerImg:{
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+    },
+    iconStyle:{
+        marginRight:"20px",
+        color: "#159DE9"
+    }, 
+    linksContainer:{
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+     
+    },
+
+    titles:{
+        fontWeight: "900",
+        marginBottom: "10px",
+        fontSize: "18px",
+    }
+
+
+  }));
 
 
 export default function Footer(){
+    const classes = useStyle();
    
     return (
         <>
@@ -12,14 +50,12 @@ export default function Footer(){
                 py={ {xs:5, sm:3}} 
                 bgcolor="#f5f5f7" 
                 color="#86868b"
-                border={1}
                 borderRadius="5px"
-                borderColor="#f5f5f7"
                 >
                 <Container maxWidth="lg">
                     <Grid container spacing={5}>
-                        <Grid item xs={12} sm={4}>
-                            <Box borderBottom={1}>Help</Box>
+                        <Grid className={classes.linksContainer} item xs={12} sm={4}>
+                            <Box className={classes.titles}>Sobre Consultance Space</Box>
                             <Box>
                                 <Link color="inherit">Contacto</Link>
                             </Box>
@@ -27,34 +63,43 @@ export default function Footer(){
                                 <Link color="inherit">Soporte</Link>
                             </Box>
                             <Box>
-                                <Link color="inherit">Privacidad</Link>
+                                <Link color="inherit">Politicas de Privacidad</Link>
+                            </Box>
+                            <Box>
+                                <Link color="inherit">Términos y Condiciones</Link>
                             </Box>
                         </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <Box borderBottom={1}>Cuenta</Box>
-                            <Box>
-                                <Link href="/login" color="inherit">Iniciar sesión</Link>
+                        <Grid className={classes.linksContainer} item xs={12} sm={4}>
+                            <Box className={classes.containerImg}> 
+                                <img className={classes.img} src={logo} alt="logo-Consultance"/>
                             </Box>
-                            <Box>
-                                <Link href="/sign-In" color="inherit">Registrarse</Link>
+                            <Box className={classes.containerImg} pt={{xs:5,sm:5}} pb={{xs:5,sm:2}}>
+                                {/* Consultance Space &reg; {new Date().getFullYear()} */}
+                                <Link><FacebookIcon className={classes.iconStyle}/></Link>
+                                <Link><WhatsAppIcon className={classes.iconStyle}/></Link>
+                                <Link><TwitterIcon className={classes.iconStyle}/></Link>
+                                <Link><InstagramIcon className={classes.iconStyle}/></Link>
                             </Box>
+                            
                         </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <Box borderBottom={1}>Messages</Box>
+                        <Grid  className={classes.linksContainer} item xs={12} sm={4}>
+                            <Box className={classes.titles}>Encuentranos en estos paises</Box>
                             <Box>
-                                <Link color="inherit">Importancia</Link>
+                                <Link color="inherit">Argentina</Link>
                             </Box>
                             <Box>
-                                <Link color="inherit">Historia</Link>
+                                <Link color="inherit">Colombia</Link>
                             </Box>
                             <Box>
-                                <Link color="inherit">Rolles</Link>
+                                <Link color="inherit">México</Link>
                             </Box>
+                            <Box>
+                                <Link color="inherit">Perú</Link>
+                            </Box>
+                            
                         </Grid>
                     </Grid>
-                    <Box textAlign="center" pt={{xs:5,sm:5}} pb={{xs:5,sm:2}}>
-                        Consultance Space &reg; {new Date().getFullYear()}
-                    </Box>
+                   
                 </Container>
             </Box>
         </footer>
