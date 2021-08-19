@@ -4,7 +4,7 @@ const initialState = {
   profesionales: [],  // guarda paises traidos de la api
 };
 
-export default function reducerSearch(state = initialState, action) {
+export default function reducerSearchProfesional(state = initialState, action) {
   switch (action.type) {
     case GET_PROFESIONAL:
       return {

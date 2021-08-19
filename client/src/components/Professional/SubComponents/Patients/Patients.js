@@ -1,6 +1,7 @@
 import {Box, Typography, makeStyles } from "@material-ui/core";
 import { blue } from "@material-ui/core/colors";
 import { DataGrid } from '@material-ui/data-grid';
+import SearchBar from "../../SearchBar";
 
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -91,9 +92,7 @@ export default function Patients(){
         <Box className={classes.box}>
 
             <Typography variant='h4' color='blue'>Patients</Typography>
-            <Box>
-
-            </Box>
+            <SearchBar/>
             <div style={{ height: 400, width: '100%' }}>
               <DataGrid className={classes.grid}
                 rows={rows}

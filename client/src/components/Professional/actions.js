@@ -1,6 +1,8 @@
 import axios from "axios";
 const api = 'http://localhost:3001';
 export const GET_PROFESIONAL = 'GET_PROFESIONAL';
+export const GET_PATIENT = 'GET_PATIENT';
+export const POST_SIGN_IN = 'POST_SIGN_IN';
 
 export const searchprofesional = (fullname)=>{
     return async (dispatch) => {

@@ -4,17 +4,15 @@ const initialState={
     patients:[]
 }
 
-export default function reducerProfesional (state=initialState, action){
+export default function reducerSearchPatients (state=initialState, action){
     switch (action.type) {
         case GET_PATIENT:
             return {
                 ...state,
                 patients: action.payload
             }
-       
-    
         default:
-           return state
+            return state
     }
 
 }
