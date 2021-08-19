@@ -34,7 +34,7 @@ export default function Patients(){
 
     const columns = [
       { field: 'id', headerName: 'ID', width: 110 },
-      { field: 'dni', headerName: 'DNI', width: 110 },
+      { field: 'dni', headerName: 'Cedula', width: 120 },
       {
         field: 'name',
         headerName: 'Nombre',
@@ -84,7 +84,7 @@ export default function Patients(){
     const rows = patients && patients.map(patient => {
       return {
         id: patient.id,
-        dni: patient.DNI,
+        dni: patient.cedula,
         name: patient.nombre,
         lastName: patient.apellidos,
         phone: patient.telefono,
@@ -98,7 +98,7 @@ export default function Patients(){
     return(
         <Box className={classes.box}>
 
-            <Typography variant='h4' color='blue'>Patients</Typography>
+            <Typography variant='h4' color='blue'>Pacientes</Typography>
             <SearchBar getAction={getPatient}/>
             <div style={{ height: 400, width: '100%' }}>
               <DataGrid className={classes.grid}
