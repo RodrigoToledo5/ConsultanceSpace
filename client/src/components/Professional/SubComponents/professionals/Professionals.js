@@ -1,9 +1,10 @@
-import {Box, Typography, makeStyles } from "@material-ui/core";
-import { blue } from "@material-ui/core/colors";
-import { DataGrid } from '@material-ui/data-grid';
+import { Box, Typography, makeStyles} from "@material-ui/core";
+import { blue } from '@material-ui/core/colors';
+import { DataGrid } from "@material-ui/data-grid";
 import { useSelector } from "react-redux";
 import SearchBar from "../../SearchBar";
-import {getPatient} from '../../actions';
+import { searchprofesional } from '../../actions';
+
 
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -26,90 +27,89 @@ const useStyle = makeStyles((theme) => ({
       
     }
 }));
-  
-export default function Patients(){
+
+
+export default function Professionals(){
     const classes = useStyle();
-    const patients = useSelector(store => store.reducerSearchPatients.patients);
-    console.log(patients);
+    const professionals = useSelector(store => store.reducerSearchProfesional.profesionales);
 
     const columns = [
-      { field: 'id', headerName: 'ID', width: 110 },
-      { field: 'dni', headerName: 'DNI', width: 110 },
-      {
+        { field: 'id', headerName: 'ID', width: 110 },
+        { field: 'dni', headerName: 'DNI', width: 110 },
+        {
         field: 'name',
         headerName: 'Nombre',
         width: 150,
         editable: true,
-      },
-      {
+        },
+        {
         field: 'lastName',
         headerName: 'Apellido',
         width: 150,
         editable: true,
-      },
-      {
+        },
+        {
         field: 'phone',
         headerName: 'Telefono',
         width: 150,
         editable: true,
-      },
-      {
+        },
+        {
         field: 'birth',
         headerName: 'Fecha de nacimiento',
         type: 'date',
         width: 150,
         editable: true,
-      },
-      {
+        },
+        {
         field: 'address',
         headerName: 'Direccion',
         width: 150,
         editable: true,
-      },
-      {
+        },
+        {
         field: 'country',
         headerName: 'Pais',
         width: 150,
         editable: true,
-      },
-      {
+        },
+        {
         field: 'email',
         headerName: 'Correo electronico',
         width: 150,
         editable: true,
-      },
+        },
     ];
     
     // const rows = [];
-    const rows = patients && patients.map(patient => {
-      return {
-        id: patient.id,
-        dni: patient.DNI,
-        name: patient.nombre,
-        lastName: patient.apellidos,
-        phone: patient.telefono,
-        birth: patient.fecha_de_nacimiento,
-        address: patient.direccion,
-        country: patient.pais,
-        email: patient.usuarioEmail
-      }
+    const rows = professionals && professionals.map(professional => {
+        return {
+            id: professional.id,
+            dni: professional.DNI,
+            name: professional.nombre,
+            lastName: professional.apellidos,
+            phone: professional.telefono,
+            birth: professional.fecha_de_nacimiento,
+            address: professional.direccion,
+            country: professional.pais,
+            email: professional.usuarioEmail
+        }
     });
     
     return(
         <Box className={classes.box}>
 
             <Typography variant='h4' color='blue'>Patients</Typography>
-            <SearchBar getAction={getPatient}/>
+            <SearchBar getAction={searchprofesional}/>
             <div style={{ height: 400, width: '100%' }}>
-              <DataGrid className={classes.grid}
+                <DataGrid className={classes.grid}
                 rows={rows}
                 columns={columns}
                 pageSize={5}
                 checkboxSelection
                 disableSelectionOnClick
-              />
+                />
             </div>
-
         </Box>
     )
 }
