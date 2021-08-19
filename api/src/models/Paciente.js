@@ -6,7 +6,6 @@ module.exports = (sequelize) => {
 		DNI: {
 			type: DataTypes.BIGINT,
 			allowNull: false,
-			primaryKey: true,
 		},
 		nombre: {
 			type: DataTypes.STRING,
