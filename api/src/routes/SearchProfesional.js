@@ -12,8 +12,8 @@ router.get('/profesional', async(req, res, next)=>{
             else{
                 let profesionalFilterByFullName=profesional;
                  profesionalFilterByFullName=profesional.filter((profesional)=>{
-                 if(profesional.fullName.includes(fullName))return profesional.fullName
-                 return profesional.fullName===fullName
+                 if(profesional.fullName.includes(fullName.toUpperCase()))return profesional.fullName
+                 return profesional.fullName===fullName.toUpperCase()
                  })
                 res.status(200).json(profesionalFilterByFullName)
             }
