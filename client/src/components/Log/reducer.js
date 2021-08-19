@@ -1,7 +1,8 @@
-import { POST_LOG, DESLOG } from "./actions";
+import { POST_LOG, DESLOG, INFO_USER } from "./actions";
 
 const initialState = {
-    user:{} // info del usuario logeado
+    user:{}, // mail y tipo del usuario logeado
+    info:{}, // hard info del user creado
 }
 
 export default function reducerLog (state = initialState, action){
@@ -15,6 +16,12 @@ export default function reducerLog (state = initialState, action){
             return {
                 ...state,
                 user:{},
+            }
+        }
+        case  INFO_USER:{
+            return {
+                ...state,
+                info: action.payload
             }
         }
         default:
