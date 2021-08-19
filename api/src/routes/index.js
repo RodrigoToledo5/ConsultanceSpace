@@ -5,6 +5,10 @@ const router = Router();
 router.use(require("./NewUser"));
 router.use(require("./Stock"));
 router.use(require("./Login"));
+
 router.use(require("./SearchProfesional"));
+
+router.use(require("./Patients"));
+
 
 module.exports = router;
