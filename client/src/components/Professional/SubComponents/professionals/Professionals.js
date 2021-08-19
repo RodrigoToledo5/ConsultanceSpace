@@ -85,7 +85,7 @@ export default function Professionals(){
     const rows = professionals && professionals.map(professional => {
         return {
             id: professional.id,
-            dni: professional.DNI,
+            dni: professional.cedula,
             name: professional.nombre,
             lastName: professional.apellidos,
             phone: professional.telefono,

@@ -4,7 +4,7 @@ const {Profesional} = require('../db');
 const router = Router();
 
 router.get('/profesional', async(req, res, next)=>{
-    const {fullName,email} = req.body;
+    const {fullName,email} = req.query;
     if(fullName){
         try{
             const profesional = fullName? await Profesional.findAll() : res.status(404).send("profesional not found");

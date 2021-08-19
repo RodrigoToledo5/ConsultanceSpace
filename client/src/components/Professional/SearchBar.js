@@ -40,6 +40,7 @@ const useStyle = makeStyles((theme) => ({
     }
     const handleSubmit = (e)=>{
         e.preventDefault();
+        console.log(props.getAction);
         dispatch(props.getAction(name)) 
     }
 
@@ -50,7 +51,7 @@ const useStyle = makeStyles((theme) => ({
         <div className={classes.searchContainer}>
         
         <TextField
-        placeholder="Busca un paciente"
+        placeholder="Buscar"
         className={classes.searchInput}
         inputProps={{className: classes.inputLabel}}
         onChange={(e)=>handleChange(e)}
