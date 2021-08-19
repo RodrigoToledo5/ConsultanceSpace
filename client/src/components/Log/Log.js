@@ -191,6 +191,7 @@ useEffect(() => {
       const res = await firebase
         .auth()
         .signInWithEmailAndPassword(input.email, input.password);
+        console.log(firebase.auth().currentUser);
 
       //hariamos un llamado al back  con toda la informacion del usuario
       
@@ -218,6 +219,7 @@ useEffect(() => {
   const logInGoogle = async () => {
     const provider = new app.auth.GoogleAuthProvider();
     const res = await firebase.auth().signInWithPopup(provider);
+    await firebase.auth().currentUser.sendEmailVerification();
     dispatch(postLogIn(res.user.email));
   };
   // log In with Google acount

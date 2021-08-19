@@ -198,6 +198,7 @@ export default function Sign(){
             setLoad("cargando");
             dispatch(setFlagLog(true));
             await firebase.auth().createUserWithEmailAndPassword(email, pass);
+            await firebase.auth().currentUser.sendEmailVerification();
             await firebase.auth().signOut();
             dispatch(postSignIn(patient));
             setPatient({
