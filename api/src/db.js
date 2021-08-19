@@ -61,12 +61,12 @@ Usuario.hasOne(Stock);
 Stock.belongsTo(Usuario);
 
 //cita-profesional
-Profesional.belongsToMany(Cita, {through: 'profesional_cita'});
-Cita.belongsToMany(Profesional, {through: 'profesional_cita'});
+Profesional.hasMany(Cita);
+Cita.belongsTo(Profesional);
 
 // cita-paciente
-Paciente.belongsToMany(Cita, {through: 'paciente_cita'});
-Cita.belongsToMany(Paciente, {through: 'paciente_cita'});
+Paciente.hasMany(Cita);
+Cita.belongsTo(Paciente);
 
 
 module.exports = {

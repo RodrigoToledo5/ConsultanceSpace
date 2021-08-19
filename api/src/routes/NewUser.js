@@ -59,6 +59,7 @@ router.post("/newUser", async (req, res, next) => {
         pais: country,
       });
       await createdPatient.setUsuario(email);
+      console.log(createdPatient);
       return res.status(200).send("Registro exitoso");
     } catch (err) {
       next(err);
