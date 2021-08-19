@@ -50,7 +50,7 @@ router.post("/newUser", async (req, res, next) => {
   if (type === "paciente") {
     try {
       const createdPatient = await Paciente.create({
-        DNI: dni,
+        cedula: dni,
         nombre: name.toUpperCase(),
         apellidos: lastName.toUpperCase(),
         telefono: phone,
@@ -84,6 +84,8 @@ router.post("/newUser", async (req, res, next) => {
         apellidos: lastName.toUpperCase(),
         telefono: phone,
         direccion: address,
+        fecha_de_nacimiento: birth,
+        pais: country,
       });
       await createdProfesional.setUsuario(email);
 

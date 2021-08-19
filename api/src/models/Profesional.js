@@ -15,6 +15,15 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING,
 			allowNull: false	
 		},
+		fecha_de_nacimiento:{
+			type: DataTypes.DATE,
+			allowNull: false,
+		},
+		
+		pais:{
+			type: DataTypes.STRING,
+			allowNull: false
+		},
 		telefono: {
 			type: DataTypes.BIGINT,
 			allowNull: false
@@ -22,6 +31,10 @@ module.exports = (sequelize) => {
 		direccion: {
 			type: DataTypes.STRING,
 			allowNull: false
+		},
+		especialidad:{
+			type: DataTypes.STRING,
+			allowNull: true
 		},
 		fullName: {
 			type: DataTypes.VIRTUAL,
