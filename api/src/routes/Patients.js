@@ -7,7 +7,10 @@ router.get('/patients', async (req, res, next) => {
     try {
         const {nombre} = req.query;
         const patient = await Paciente.findAll()
-        const patientFound = patient.filter((elemento)=>elemento.fullName === nombre.toUpperCase())
+        const patientFound = patient.filter((elemento)=> {
+            if(elemento.fullName.includes(nombre.toUpperCase())) return true
+            return false  
+        })
         return patient ? res.json(patientFound) : res.send("Paciente no encontrado")
         
     } catch (err) {
