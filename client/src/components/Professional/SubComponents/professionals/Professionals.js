@@ -1,5 +1,4 @@
 import { Box, Typography, makeStyles} from "@material-ui/core";
-import { blue } from '@material-ui/core/colors';
 import { DataGrid } from "@material-ui/data-grid";
 import { useSelector } from "react-redux";
 import SearchBar from "../../SearchBar";
