@@ -18,10 +18,14 @@ const useStyle = makeStyles((theme) => ({
       borderRadius: "10px",
       color: "#159DE9",
     },
-  }));
+    grid:{
+      color:"black",
+      
+    }
+}));
 
   const columns = [
-    { field: 'id', headerName: 'ID', width: 90 },
+    { field: 'DNI', headerName: 'DNI', width: 110 },
     {
       field: 'Nombre',
       headerName: 'Nombre',
@@ -64,7 +68,7 @@ const useStyle = makeStyles((theme) => ({
       headerName: 'Email',
       width: 150,
       editable: true,
-    }
+    },
   ];
   
 
@@ -79,23 +83,27 @@ const useStyle = makeStyles((theme) => ({
     { id: 8, lastName: 'Frances', firstName: 'Rossini', age: 36 },
     { id: 9, lastName: 'Roxie', firstName: 'Harvey', age: 65 },
   ];
-
+  
 export default function Patients(){
     const classes = useStyle();
 
     return(
         <Box className={classes.box}>
+
             <Typography variant='h4' color='blue'>Patients</Typography>
+            <Box>
+
+            </Box>
             <div style={{ height: 400, width: '100%' }}>
-              <DataGrid
+              <DataGrid className={classes.grid}
                 rows={rows}
                 columns={columns}
                 pageSize={5}
-                color='blue'
                 checkboxSelection
                 disableSelectionOnClick
               />
             </div>
+
         </Box>
     )
 }
