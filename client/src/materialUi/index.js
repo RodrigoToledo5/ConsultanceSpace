@@ -7,6 +7,9 @@ const theme = createTheme({
       variant:"contained",
       color:"secondary",
     },
+    "MuiDataGrid-root":{
+      color: "secondary"
+    },
   },
   palette: {
     type: "light",
