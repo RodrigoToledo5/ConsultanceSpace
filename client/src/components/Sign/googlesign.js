@@ -9,7 +9,8 @@ import clsx from 'clsx';
 import { FormControl, InputLabel, makeStyles, Grid, Container, TextField, Select, MenuItem, Button, CircularProgress, Slider,Box, Typography} from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
 import { blue} from '@material-ui/core/colors';
-import validate from './functions/validate'
+import validate from './functions/validate';
+import { useFirebaseApp} from 'reactfire';
 
 const useStyles = makeStyles((theme)=>({
     "& .MuiInputBase-root": {
@@ -139,6 +140,7 @@ export default function GoogleSign(){
     const classes = useStyles();
     const user=useUser();
     const dispatch = useDispatch();
+    const firebase=useFirebaseApp();
     const [load, setLoad] = useState("");
     const [errors, setErrors] = useState({});
     const [patient, setPatient] = useState({
@@ -167,7 +169,6 @@ export default function GoogleSign(){
       ];
 
     const countries = useSelector((state)=> state.reducerSign.countries);
-    const postSingIn = useSelector((state)=> state.reducerSign.postSingIn);
 
     const onHandleChange = (e) => {
         
@@ -195,6 +196,7 @@ export default function GoogleSign(){
             ){
             setLoad("cargando");
             dispatch(postSignIn(patient));
+            await firebase.auth().currentUser.sendEmailVerification();
             dispatch(logWithGooggle(patient.email,patient.type))
             setPatient({
                 dni: '',
@@ -212,7 +214,6 @@ export default function GoogleSign(){
         }
     }
     useEffect(() => {
-        console.log(login)
         if (login.tipo_usuario === "profesional") {
             //si es profesional lo redirije a la dashboard de profesional
             history.push("/profesional-dashboard");

@@ -21,6 +21,10 @@ const theme = createTheme({
       main: blue[500],
       contrastText: "#ffffff"
     },
+    default: {
+      main:"#ffffff" ,
+      contrastText: blue[500]
+    },
     text: {
       primary: "#ffffff",
       secondary: blue[500],

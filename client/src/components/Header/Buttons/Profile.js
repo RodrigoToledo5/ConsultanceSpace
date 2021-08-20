@@ -1,8 +1,11 @@
-import {Button,Box, FormControl} from '@material-ui/core/'
+import {Button,Box, FormControl,MenuItem,InputLabel,Select} from '@material-ui/core/'
 import { makeStyles,TextField} from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { blue, red} from '@material-ui/core/colors';
 import { useFirebaseApp, useUser } from "reactfire";
+import { getCountries } from '../../Sign/actions';
+import { useDispatch, useSelector } from 'react-redux';
+import { useEffect } from 'react';
 const useStyle=makeStyles(theme=>({
     btn:{
         margin: theme.spacing(1),
@@ -46,19 +49,41 @@ const useStyle=makeStyles(theme=>({
     padding:"2px",
     color: "#159DE9",
     width: "100%",
-  },
-  form:{
+    },
+     form:{
       height:"50px"
-  }
+    },
+    formControl: {
+    margin: theme.spacing(2),
+    minWidth: 120,
+    },
+    selectEmpty:{
+    width: "230px",
+    main: "#2196f3 !important",
+    },
+    labelTextField:{
+    color: "#2196f3 !important",
+},
+    menuItem:{
+    position:"fixed",
+    left:"-500px"
+}
 }))
 
 
 export default function Profile({onClick}){
     let history=useHistory();
     const classes=useStyle();
-    const user=useUser() 
+    const user=useUser();
+    const countries = useSelector((state)=> state.reducerSign.countries);
+    const dispatch = useDispatch();
     
     
+    
+    useEffect(()=>{
+        dispatch(getCountries());
+    },[dispatch])
+ 
     return(
         <Box className={classes.menu}>
                 <FormControl className={classes.form}>
@@ -144,6 +169,26 @@ export default function Profile({onClick}){
                         }}
                         autoComplete="off"
                         />
+                </FormControl>
+                <FormControl variant="outlined" className={classes.formControl}>
+                     <InputLabel  id="demo-simple-select-outlined-label">Selecciona tu pais</InputLabel>
+                        <Select className={classes.menuItem}
+                            label="Selecciona tu pais"
+                            labelId="countries"
+                            id="country"
+                            className={classes.selectEmpty}
+                            inputProps={{ className: classes.labelTextField}}
+                            name="country"
+                            
+                            >
+                                {countries && countries.map( (country,i) => {
+                                    return (
+                                        <MenuItem key={i} value={country.name} >
+                                            <em>{country.name}</em>
+                                        </MenuItem>
+                                        )
+                                    })}                           
+                        </Select>
                 </FormControl>
                 <Button className={classes.head}>
                     Aceptar
