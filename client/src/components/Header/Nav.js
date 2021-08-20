@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { makeStyles, Typography, Box } from "@material-ui/core";
+import { makeStyles, Box } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import ButtonLogout from "./Buttons/ButtonLogout";
 import ButtonLogin from "./Buttons/ButtonLogin";
@@ -10,6 +10,8 @@ import ButtonHome from "./Buttons/ButtonHome";
 import { useUser } from "reactfire";
 import ButtonDashboard from "./Buttons/ButtonDashboard";
 import { postLogIn } from "../Log/actions";
+import logo from './CONSULTANCE SPACE TIPO.png'
+import { Link } from "react-router-dom";
 
 const useStyle = makeStyles((theme) => ({
   magin: {
@@ -40,6 +42,13 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
   },
+  img:{
+    width:"200px",
+    '@media (max-width : 500px)':{
+      marginTop: "20px",
+  }
+    
+},
 }));
 
 export default function Nav() {
@@ -93,9 +102,10 @@ export default function Nav() {
               </>
             )}
           </Box>
-          <Typography className={classes.text} variant="h6">
+          <Link to="/"><img className={classes.img} src={logo} alt="logo consultance"/></Link>
+          {/* <Typography className={classes.text} variant="h6">
             Consultance Space
-          </Typography>
+          </Typography> */}
         </Toolbar>
       </AppBar>
     </nav>
