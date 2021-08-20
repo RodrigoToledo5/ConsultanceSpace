@@ -6,6 +6,7 @@ router.use(require("./NewUser"));
 router.use(require("./Stock"));
 router.use(require("./Login"));
 router.use(require("./Cita"));
+router.use(require("./Info"));
 
 router.use(require("./SearchProfesional"));
 

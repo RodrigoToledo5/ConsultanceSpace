@@ -7,6 +7,9 @@ module.exports = (sequelize) => {
 			type: DataTypes.DATE,
 			allowNull: false,
 		},
+		note:{
+			type: DataTypes.STRING,
+		},
 		status:{
 			type: DataTypes.STRING,
 		}

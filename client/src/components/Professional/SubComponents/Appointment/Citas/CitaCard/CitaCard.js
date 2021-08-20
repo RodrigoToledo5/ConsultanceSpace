@@ -1,4 +1,4 @@
-import { Box, Typography, makeStyles } from "@material-ui/core";
+import { Box, Typography, makeStyles, Paper } from "@material-ui/core";
 
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -16,13 +16,28 @@ const useStyle = makeStyles((theme) => ({
       borderRadius: "10px",
       color: "#159DE9",
     },
+    paper:{
+      color: "white",
+      padding: "10px",
+      width: "300px",
+      height: "300px",
+    },
+    mainContainer:{
+      display:"flex",
+      flexDirection:"column",
+    }
   }));
 
-export default function CitaCard(){
+export default function CitaCard({cita}){
     const classes = useStyle();
     return(
-        <Box className={classes.box}>
-            <Typography variant='body1' color='blue'>Cita Card</Typography>
+        <Box className = {classes.box}>
+          <Paper className = {classes.paper}>
+          <Box className = {classes.mainContainer}>
+            {cita.pacienteFullName}
+            {cita.date}
+          </Box>
+          </Paper>
         </Box>
     )
 }
