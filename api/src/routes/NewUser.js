@@ -99,6 +99,7 @@ router.post("/newUser", async (req, res, next) => {
         emptyArr,
       });
       await stock.setUsuario(email);
+      console.log("el profesional creado es",createdProfesional);
       return res.status(200).json(createdProfesional);
     } catch (err) {
       next(err);

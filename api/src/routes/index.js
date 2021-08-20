@@ -11,5 +11,7 @@ router.use(require("./SearchProfesional"));
 
 router.use(require("./Patients"));
 
+router.use(require("./AddPatients"));
+
 
 module.exports = router;
