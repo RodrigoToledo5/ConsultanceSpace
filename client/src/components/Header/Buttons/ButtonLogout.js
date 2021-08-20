@@ -6,6 +6,7 @@ import { desLog } from '../../Log/actions';
 import app from "firebase/app";
 import "firebase/auth";
 import "../../../firebase/firebase";
+import { clearMypatients } from '../../Professional/actions'
 
 const useStyle=makeStyles(theme=>({
     btn:{
@@ -22,6 +23,7 @@ export default function ButtonLogout({setLogFlag}){
     const logOut = async ()=>{
         setLogFlag(true);
         dispatch(desLog());
+        dispatch(clearMypatients());
         await app.auth().signOut();
         history.push('/login')
     }

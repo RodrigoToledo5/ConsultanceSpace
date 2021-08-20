@@ -4,6 +4,7 @@ export const GET_PROFESIONAL = 'GET_PROFESIONAL';
 export const GET_PATIENT = 'GET_PATIENT';
 export const ADD_PATIENT = 'ADD_PATIENT';
 export const GET_MYPATIENTS = 'GET_MYPATIENTS';
+export const CLEAR_MY_PATIENTS = 'CLEAR_MY_PATIENTS'
 
 export const searchprofesional = (input)=>{
     if(input.includes('@')){
@@ -34,7 +35,6 @@ export const addPatient = (data) => {
             url: `${api}/add-patients`,
             data: data
         })
-        console.log("el patient.data es",patients.data)
         dispatch({type: ADD_PATIENT, payload: patients.data})
     }
 }
@@ -42,7 +42,11 @@ export const addPatient = (data) => {
 export const getMyPatients = (data) =>{
     return async(dispatch) =>{
         const patients = await axios.get(`${api}/my-patients?email=${data}`)
-        console.log("el patient.data tiene que ser",patients.data)
         dispatch({type: GET_MYPATIENTS, payload: patients.data})
+    }
+}
+export const clearMypatients = ()=>{
+    return{
+        type: CLEAR_MY_PATIENTS,
     }
 }
