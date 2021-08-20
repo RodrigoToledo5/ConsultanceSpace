@@ -19,10 +19,10 @@ const theme = createTheme({
     },
     secondary: {
       main: blue[500],
-      contrastText: "#ffffff"
+      contrastText: "#ffff"
     },
     text: {
-      primary: "#ffffff",
+      primary: "#00000",
       secondary: blue[500],
     },
     background:{

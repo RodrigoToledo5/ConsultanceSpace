@@ -1,4 +1,3 @@
-
 import {Box, Typography, makeStyles, Button } from "@material-ui/core";
 import { DataGrid } from '@material-ui/data-grid';
 import { useState } from "react";
@@ -26,6 +25,7 @@ const useStyle = makeStyles((theme) => ({
     grid:{
       color:"black",
       
+
     },
     btnBox:{
       marginTop: '10px'
@@ -144,3 +144,4 @@ export default function Patients(){
         </Box>
     )
 }
+
