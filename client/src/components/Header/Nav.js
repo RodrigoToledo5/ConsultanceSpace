@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { makeStyles, Box } from "@material-ui/core";
+import { makeStyles, Typography, Box, Button } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
 import ButtonLogout from "./Buttons/ButtonLogout";
 import ButtonLogin from "./Buttons/ButtonLogin";
@@ -10,6 +10,8 @@ import ButtonHome from "./Buttons/ButtonHome";
 import { useUser } from "reactfire";
 import ButtonDashboard from "./Buttons/ButtonDashboard";
 import { postLogIn } from "../Log/actions";
+import ButtonProfile from "./Buttons/ButtonProfile";
+import ButtonProfileActive from "./Buttons/ButtonProfileActive";
 import logo from './CONSULTANCE SPACE TIPO.png'
 import { Link } from "react-router-dom";
 
@@ -55,6 +57,7 @@ export default function Nav() {
   const classes = useStyle();
   const user = useUser();
   const dispatch = useDispatch();
+  const [profile,setProfile]=useState(false)
 
   const [logFlag, setLogFlag] = useState(false);
 
@@ -73,6 +76,12 @@ export default function Nav() {
     else return true
   }
 
+  function handleProfile(){
+    if(user.data.emailVerified){
+      setProfile(!profile)
+    }
+    
+  }
   //handelea el AUTOLOGIN por cookies (no toquen los estados porque se rompe todo)
   useEffect(() => {
     if (!userS.email && user.data && user.data.email && !proFlag) {
@@ -98,7 +107,14 @@ export default function Nav() {
             ) : (
               <>
                 <ButtonDashboard />
-                <ButtonLogout setLogFlag={setLogFlag} />
+                {profile?<ButtonProfile 
+                  onClick={(event)=>handleProfile(event)}
+                  
+                  >Desactivado</ButtonProfile>
+                :<ButtonProfileActive
+                  onClick={(event)=>handleProfile(event)}
+                  setLogFlag={setLogFlag}
+                  >Activo</ButtonProfileActive>}
               </>
             )}
           </Box>
