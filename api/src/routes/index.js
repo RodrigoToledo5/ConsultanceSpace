@@ -9,6 +9,7 @@ router.use(require("./Cita"));
 router.use(require("./SearchProfesional"));
 router.use(require("./Patients"));
 router.use(require("./Treatments"))
+router.use(require("./UpdateUser"))
 
 
 router.use(require("./AddPatients"));
