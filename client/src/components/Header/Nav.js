@@ -12,6 +12,8 @@ import ButtonDashboard from "./Buttons/ButtonDashboard";
 import { postLogIn } from "../Log/actions";
 import ButtonProfile from "./Buttons/ButtonProfile";
 import ButtonProfileActive from "./Buttons/ButtonProfileActive";
+import logo from './CONSULTANCE SPACE TIPO.png'
+import { Link } from "react-router-dom";
 
 const useStyle = makeStyles((theme) => ({
   magin: {
@@ -42,6 +44,13 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "row",
   },
+  img:{
+    width:"200px",
+    '@media (max-width : 500px)':{
+      marginTop: "20px",
+  }
+    
+},
 }));
 
 export default function Nav() {
@@ -109,9 +118,10 @@ export default function Nav() {
               </>
             )}
           </Box>
-          <Typography className={classes.text} variant="h6">
+          <Link to="/"><img className={classes.img} src={logo} alt="logo consultance"/></Link>
+          {/* <Typography className={classes.text} variant="h6">
             Consultance Space
-          </Typography>
+          </Typography> */}
         </Toolbar>
       </AppBar>
     </nav>

@@ -1,5 +1,4 @@
 import { Box, Typography, makeStyles} from "@material-ui/core";
-import { blue } from '@material-ui/core/colors';
 import { DataGrid } from "@material-ui/data-grid";
 import { useSelector } from "react-redux";
 import SearchBar from "../../SearchBar";
@@ -35,7 +34,7 @@ export default function Professionals(){
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 110 },
-        { field: 'dni', headerName: 'DNI', width: 110 },
+        { field: 'dni', headerName: 'Cedula', width: 120 },
         {
         field: 'name',
         headerName: 'Nombre',
@@ -99,7 +98,7 @@ export default function Professionals(){
     return(
         <Box className={classes.box}>
 
-            <Typography variant='h4' color='blue'>Patients</Typography>
+            <Typography variant='h4' color='blue'>Profesionales</Typography>
             <SearchBar getAction={searchprofesional}/>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid className={classes.grid}
