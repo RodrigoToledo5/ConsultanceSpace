@@ -107,14 +107,15 @@ export default function Nav() {
             ) : (
               <>
                 <ButtonDashboard />
-                {profile?<ButtonProfile 
-                  onClick={(event)=>handleProfile(event)}
-                  
-                  >Desactivado</ButtonProfile>
-                :<ButtonProfileActive
+                {profile?
+                  <ButtonProfileActive
                   onClick={(event)=>handleProfile(event)}
                   setLogFlag={setLogFlag}
-                  >Activo</ButtonProfileActive>}
+                  setProfile={setProfile}
+                  >Activo</ButtonProfileActive>
+                :<ButtonProfile 
+                onClick={(event)=>handleProfile(event)}
+                >Desactivado</ButtonProfile>}
               </>
             )}
           </Box>

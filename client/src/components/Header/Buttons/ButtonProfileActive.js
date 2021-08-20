@@ -2,7 +2,7 @@ import {Button,Box} from '@material-ui/core/'
 import { makeStyles} from '@material-ui/core';
 import { useHistory } from 'react-router-dom';
 import { blue, red} from '@material-ui/core/colors';
-import { useFirebaseApp, useUser } from "reactfire";
+import {useUser } from "reactfire";
 import Profile from './Profile';
 import { useState } from 'react';
 import ButtonLogout from './ButtonLogout';
@@ -45,7 +45,7 @@ const useStyle=makeStyles(theme=>({
 }))
 
 
-export default function ButtonProfileActive({onClick,setLogFlag:setLogFlag}){
+export default function ButtonProfileActive({onClick,setLogFlag:setLogFlag,setProfile:setProfile}){
     const [editprofile, setEditProfile] = useState(false);
     let history=useHistory();
     const classes=useStyle();
@@ -61,14 +61,14 @@ export default function ButtonProfileActive({onClick,setLogFlag:setLogFlag}){
             </Button>
             <Box className={classes.menu}>
                 <Button className={classes.head}>
-                   <img className={classes.pick} src={user.data.photoURL}></img>
+                   <img className={classes.pick} src={user.data&&user.data.photoURL}></img>
                 </Button>
                 <Button className={classes.head}>
-                    {user.data.displayName}
+                    {user.data&&user.data.displayName}
                 </Button>
                 <Button className={classes.head}>
                     <div className={classes.text}>
-                        {user.data.email}
+                        {user.data&&user.data.email}
                     </div>
                 </Button>
                 
@@ -76,7 +76,7 @@ export default function ButtonProfileActive({onClick,setLogFlag:setLogFlag}){
                     {editprofile?"Cerrar":"Editar"}
                 </Button>
                 {editprofile&&<Profile/>}
-                <ButtonLogout setLogFlag={setLogFlag} ></ButtonLogout>
+                <ButtonLogout setLogFlag={setLogFlag} setProfile={setProfile} ></ButtonLogout>
             </Box>
         </>
         

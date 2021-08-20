@@ -5,6 +5,8 @@ import { Button, Paper, Grid, Typography, makeStyles } from "@material-ui/core";
 import React from "react";
 import {useHistory } from "react-router-dom";
 import CalendarIcon from "@material-ui/icons/CalendarToday";
+import { blue, red} from '@material-ui/core/colors';
+
 
 
 
@@ -25,6 +27,10 @@ export default function CallToAction({ height }) {
     },
     button: {
       width: "200px",
+      color:blue[500],
+      '&:hover':{
+        color:blue[500]
+      }
     },
     text:{
       fontSize:'1rem',
@@ -59,7 +65,7 @@ export default function CallToAction({ height }) {
         </Typography>
         <Grid container className={classes.grid}>
           <Button
-            color="primary"
+            color="default"
             className={classes.button}
             startIcon={<CalendarIcon />}
             onClick={() => {

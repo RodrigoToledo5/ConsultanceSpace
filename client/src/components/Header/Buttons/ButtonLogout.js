@@ -15,16 +15,18 @@ const useStyle=makeStyles(theme=>({
     },
 }))
 
-export default function ButtonLogout({setLogFlag}){
+export default function ButtonLogout({setLogFlag,setProfile}){
     const classes=useStyle();
     const dispatch=useDispatch();
     let history = useHistory();
     
     const logOut = async ()=>{
         setLogFlag(true);
+        setProfile(false);
         dispatch(desLog());
         dispatch(clearMypatients());
         await app.auth().signOut();
+
         history.push('/login')
     }
     return(
