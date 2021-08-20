@@ -140,7 +140,6 @@ const Login = (props) => {
   });
 
   const postSingIn = useSelector((state) => state.reducerSign.postSingIn);
-
   const login = useSelector((state) => state.reducerLog.user);
 
   //login Handler
@@ -219,7 +218,10 @@ useEffect(() => {
   const logInGoogle = async () => {
     const provider = new app.auth.GoogleAuthProvider();
     const res = await firebase.auth().signInWithPopup(provider);
-    await firebase.auth().currentUser.sendEmailVerification();
+    console.log(res);
+    if(!res.user.emailVerified){
+      await firebase.auth().currentUser.sendEmailVerification();
+    }
     dispatch(postLogIn(res.user.email));
   };
   // log In with Google acount
