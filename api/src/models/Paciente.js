@@ -3,7 +3,7 @@ const {DataTypes,Sequelize} = require('sequelize');
 module.exports = (sequelize) => {
 	//* defino el modelo
 	sequelize.define('paciente', {
-		DNI: {
+		cedula: {
 			type: DataTypes.BIGINT,
 			allowNull: false,
 		},

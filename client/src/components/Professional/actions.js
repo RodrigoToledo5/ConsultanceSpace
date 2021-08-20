@@ -2,16 +2,21 @@ import axios from "axios";
 const api = 'http://localhost:3001';
 export const GET_PROFESIONAL = 'GET_PROFESIONAL';
 export const GET_PATIENT = 'GET_PATIENT';
-export const POST_SIGN_IN = 'POST_SIGN_IN';
+export const ADD_PATIENT = 'ADD_PATIENT';
+export const GET_MYPATIENTS = 'GET_MYPATIENTS';
 
-export const searchprofesional = (fullname)=>{
-    return async (dispatch) => {
-    const res = await axios({
-            method: 'GET',
-            url: `${api}/profesional`,
-            data: {nombre:fullname}
-        })
-    dispatch({ type: POST_SIGN_IN, payload:  res.data })
+export const searchprofesional = (input)=>{
+    if(input.includes('@')){
+        return async (dispatch) => {
+            const res = await axios.get(`${api}/profesional?email=${input}`)
+            dispatch({ type: GET_PROFESIONAL, payload:  res.data })
+        }
+    }
+    else{
+        return async (dispatch) => {
+        const res = await axios.get(`${api}/profesional?fullName=${input}`)
+        dispatch({ type: GET_PROFESIONAL, payload:  res.data })
+        }
 }}
 
 export const getPatient = (name) => {
@@ -21,4 +26,23 @@ export const getPatient = (name) => {
         console.log(patient)
     }
 
+}
+export const addPatient = (data) => {
+    return async(dispatch) =>{
+        const patients = await axios({
+            method: 'POST',
+            url: `${api}/add-patients`,
+            data: data
+        })
+        console.log("el patient.data es",patients.data)
+        dispatch({type: ADD_PATIENT, payload: patients.data})
+    }
+}
+
+export const getMyPatients = (data) =>{
+    return async(dispatch) =>{
+        const patients = await axios.get(`${api}/my-patients?email=${data}`)
+        console.log("el patient.data tiene que ser",patients.data)
+        dispatch({type: GET_MYPATIENTS, payload: patients.data})
+    }
 }

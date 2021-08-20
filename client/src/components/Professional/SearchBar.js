@@ -2,7 +2,6 @@ import React, {useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Button, makeStyles, TextField, Toolbar} from "@material-ui/core";
 import SearchIcon from '@material-ui/icons/Search';
-import {getPatient} from './actions'
 
 const useStyle = makeStyles((theme) => ({
   
@@ -30,7 +29,7 @@ const useStyle = makeStyles((theme) => ({
   }));
 
 
-  export default function SearchBar(){
+  export default function SearchBar(props){
     
     const [name, setName]=useState('');
     const classes = useStyle();
@@ -41,7 +40,8 @@ const useStyle = makeStyles((theme) => ({
     }
     const handleSubmit = (e)=>{
         e.preventDefault();
-        dispatch(getPatient(name)) 
+        console.log(props.getAction);
+        dispatch(props.getAction(name)) 
     }
 
    
@@ -51,7 +51,7 @@ const useStyle = makeStyles((theme) => ({
         <div className={classes.searchContainer}>
         
         <TextField
-        placeholder="Busca un paciente"
+        placeholder="Buscar"
         className={classes.searchInput}
         inputProps={{className: classes.inputLabel}}
         onChange={(e)=>handleChange(e)}

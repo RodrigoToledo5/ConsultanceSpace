@@ -1,10 +1,8 @@
-import {Box, Typography, makeStyles, Button } from "@material-ui/core";
+import {Box, Typography, makeStyles } from "@material-ui/core";
 import { DataGrid } from '@material-ui/data-grid';
-import { useState } from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {addPatient} from '../../actions'
-import SearchBar from "../../SearchBar";
-import {getPatient} from '../../actions';
+import { getMyPatients } from '../../actions'
 
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -25,24 +23,24 @@ const useStyle = makeStyles((theme) => ({
     grid:{
       color:"black",
       
-
-    },
-    btnBox:{
-      marginTop: '10px'
     }
 }));
   
-export default function Patients(){
+export default function MyPatients(){
     const classes = useStyle();
-    const patients = useSelector(store => store.reducerSearchPatients.patients);
-    const professional = useSelector(store => store.reducerLog.user);
-    console.log("el professional es", professional);
+    const patients = useSelector(store => store.reducerAddPatients.MyPatientsList);
+    const user = useSelector(store => store.reducerLog.user);
+    console.log("el user en mis pacientes es ", user);
+    const dispatch = useDispatch();
     console.log(patients);
-    const dispatch = useDispatch()
+
+    useEffect(() => {
+      if(user.tipo_usuario === "profesional") dispatch(getMyPatients(user.email))
+    }, [])
 
     const columns = [
       { field: 'id', headerName: 'ID', width: 110 },
-      { field: 'dni', headerName: 'Cedula', width: 120 },
+      { field: 'dni', headerName: 'DNI', width: 110 },
       {
         field: 'name',
         headerName: 'Nombre',
@@ -92,7 +90,7 @@ export default function Patients(){
     const rows = patients && patients.map(patient => {
       return {
         id: patient.id,
-        dni: patient.cedula,
+        dni: patient.DNI,
         name: patient.nombre,
         lastName: patient.apellidos,
         phone: patient.telefono,
@@ -102,46 +100,24 @@ export default function Patients(){
         email: patient.usuarioEmail
       }
     });
-    const [select,setSelect] = useState([]);
 
-    const handleAdd = () =>{
-      const data = {
-        email: professional.email,
-        idPatients : select
-      }
-      dispatch(addPatient(data))
-      console.log("agregado a pacientes")
-      setSelect([]);
-      
+    const handleChange = (items) =>{
+        console.log("los items son",items);
     }
     
     return(
         <Box className={classes.box}>
 
-            <Typography variant='h4' color='blue'>Pacientes</Typography>
-            <SearchBar getAction={getPatient}/>
+            <Typography variant='h4' color='blue'>Patients</Typography>
             <div style={{ height: 400, width: '100%' }}>
               <DataGrid className={classes.grid}
                 rows={rows}
                 columns={columns}
                 pageSize={5}
                 checkboxSelection
-                disableSelectionOnClick
-                onSelectionModelChange={(items) => setSelect(items)}
               />
             </div>
-            {select.length > 0 && 
-              <Box className={classes.btnBox}>
-                <Button
-                  type="button"
-                  variant="contained"
-                  color="secondary"
-                  onClick={handleAdd}
-                >
-                  AGREGAR PACIENTES
-                </Button>
-              </Box>}
+
         </Box>
     )
 }
-

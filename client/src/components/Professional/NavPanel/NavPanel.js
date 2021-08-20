@@ -3,9 +3,10 @@ import { useEffect } from "react";
 import Appointment from "../SubComponents/Appointment/Appointment";
 import Attention from "../SubComponents/Attention";
 import Patients from "../SubComponents/Patients/Patients";
-import Professionals from "../SubComponents/Professionals";
+import Professionals from "../SubComponents/professionals/Professionals";
 import Managment from "../SubComponents/Managment";
 import Stock from "../SubComponents/Stock/Stock";
+import MyPatients from "../SubComponents/MyPatients/MyPatients";
 const useStyle = makeStyles((theme) => ({
   magin: {
     margin: theme.spacing(2),
@@ -42,7 +43,7 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     borderRadius: "10px",
-    maxHeight: "335px",
+    maxHeight: "400px",
   },
   btn: {
     marginTop: "10px",
@@ -59,6 +60,7 @@ export default function NavPanel({ updateComponent }) {
     { Appointment: <Appointment /> },
     { Managment: <Managment /> },
     { Patients: <Patients /> },
+    { Mis_Pacientes: <MyPatients /> },
     { Attention: <Attention /> },
     { Stock: <Stock /> },
     { Professionals: <Professionals /> },
