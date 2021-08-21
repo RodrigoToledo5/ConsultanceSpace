@@ -21,7 +21,7 @@ router.put("/updateUser", async (req, res, next) => {
     address,
     country,
   } = req.body;
-
+  console.log(name)
   console.log(address)
   console.log(email)
   fecha=(birth.substring(0,birth.length-14))
@@ -81,58 +81,60 @@ router.put("/updateUser", async (req, res, next) => {
       const profesional=await Profesional.findByPk(id);
       res.status(200).json(profesional)
     }
+    
     if(user.tipo_usuario==="paciente"){
       if(name&&typeof name ==="string"){
-        await Profesional.update({
+        console.log(user.tipo_usuario)
+        await Paciente.update({
           nombre:name
         },{where:{
           id:id,
         }});
       }
       if(lastName&&typeof lastName ==="string"){
-        await Profesional.update({
+        await Paciente.update({
           apellidos:lastName,
         },{where:{
           id:id,
         }});
       }
       if(dni){
-        await Profesional.update({
+        await Paciente.update({
           cedula:dni,
         },{where:{
           id:id,
         }});
       }
       if(fecha){
-        await Profesional.update({
+        await Paciente.update({
           fecha_de_nacimiento:fecha,
         },{where:{
           id:id,
         }});
       }
       if(address&&typeof address ==="string"){
-        await Profesional.update({
+        await Paciente.update({
           direccion:address,
         },{where:{
           id:id,
         }});
       }
       if(phone&&typeof phone ==="number"){
-        await Profesional.update({
+        await Paciente.update({
           telefono:phone,
         },{where:{
           id:id,
         }});
       }
       if(country&&typeof country ==="string"){
-        await Profesional.update({
+        await Paciente.update({
           pais:country,
         },{where:{
           id:id,
         }});
       }
-      const profesional=await Profesional.findByPk(id);
-      res.status(200).json(profesional)
+      const paciente=await Paciente.findByPk(id);
+      res.status(200).json(paciente)
     }
   }
  catch(error){
