@@ -1,5 +1,6 @@
 import {Button,Box, FormControl,MenuItem,InputLabel,Select} from '@material-ui/core/'
 import { makeStyles,TextField,Typography} from '@material-ui/core';
+import { DatePicker } from '@material-ui/pickers';
 import { useHistory } from 'react-router-dom';
 import { blue, red} from '@material-ui/core/colors';
 import { useFirebaseApp, useUser } from "reactfire";
@@ -8,6 +9,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import validate from '../../Sign/functions/validate';
 import { updateProfile } from './redux/actionUpdate';
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
 
 const useStyle=makeStyles(theme=>({
     btn:{
@@ -54,23 +61,50 @@ const useStyle=makeStyles(theme=>({
     width: "100%",
     },
      form:{
-      height:"50px"
+      height:"50px",
+      margin: theme.spacing(0.5),
+      color: "#2196f3 !important",
+      border:"1px solid",
+      borderRadius:"5px"
     },
     formControl: {
     margin: theme.spacing(2),
-    minWidth: 120,
+    minWidth: "120px",
+    height:"50px"
+    
     },
     selectEmpty:{
     width: "230px",
     main: "#2196f3 !important",
+    height:"130px"
     },
     labelTextField:{
     color: "#2196f3 !important",
+    padding:"2px",
+    margin:"2px",
 },
     menuItem:{
     position:"fixed",
-    left:"-500px"
-}
+},
+    date:{
+    color: "#2196f3 !important",
+    
+    paddingLeft:theme.spacing(1.8),
+    paddingTop:theme.spacing(0.6),    
+},
+
+    datebox:{
+    height:"40px",
+    marginTop: theme.spacing(0.8),
+    marginBottom: theme.spacing(0.8),
+    marginLeft:theme.spacing(0.6),
+    marginRight:theme.spacing(0.6),
+    color: "#2196f3 !important",
+    padding:"5px",
+    border:"1px solid",
+    borderRadius:"5px"
+  }
+
 }))
 
 
@@ -97,7 +131,7 @@ export default function Profile({onClick}){
         lastName: '',
         email: user.data.email,
         phone: '',
-        birth: '',
+        birth:profile.fecha_de_nacimiento ,
         address:'',
         country: '',
         id:'',
@@ -121,9 +155,15 @@ export default function Profile({onClick}){
             [e.target.name]: e.target.value
           }));
     }
+    const onHandleDate=(date)=>{
+        console.log({...patient,birth:date})
+        setPatient({
+            ...patient,
+            birth: date
+        })
+    }
 
     const onHandleSubmit = async (e) => {
-        
         
         dispatch(updateProfile({...patient,email:profile.usuarioEmail,id:profile.id}));
         setPatient({
@@ -132,7 +172,6 @@ export default function Profile({onClick}){
                 lastName: '',
                 email:'',
                 phone: '',
-                birth: '',
                 address:'',
                 country: '',
                 id:'',
@@ -143,8 +182,9 @@ export default function Profile({onClick}){
     }
     
     return(
+        <MuiPickersUtilsProvider utils={DateFnsUtils}>
         <form onSubmit={onHandleSubmit}>
-            
+          
         <Box className={classes.menu}>
             <Typography className={classes.labelTextField}>
                      Datos personales
@@ -219,35 +259,34 @@ export default function Profile({onClick}){
                         autoComplete="off"
                         />
                 </FormControl>
-                <FormControl className={classes.form}>
-                    <TextField
-                        className={classes.textfield}
+               
+                 <FormControl className={classes.datebox}> 
+                     <KeyboardDatePicker
+                        //className={classes.date}
                         value={patient.birth}
-                        onChange={(event)=>onHandleChange(event)}
-                        //label={!onfocusbirth?profile.fecha_de_nacimiento.substring(0,profile.fecha_de_nacimiento.length-14):""}
-                        // onBlur={()=>setOnFocusBirth(!onfocusbirth)}
-                        onFocus={()=>setOnFocusBirth(false)}
-                        onBlur={()=>setOnFocusBirth(true)}
-                        id="birth"
-                        type="date"
-                        variant="outlined"
-                        color="secondary"
-                        name="birth"
-                        placeholder="sadasdsad"
-                        InputProps={{
-                        className: classes.input,
-                        }}
-                        autoComplete="off"
-                        />
+                        onChange={(event)=>onHandleDate(event)}
+                        label="Fecha de nacimiento"
+                        id="datepicker"
+                        format="MM/dd/yyyy"
+                        
+                        //color="default"  
+                       //name="birth"
+                        
+                        /> 
                 </FormControl>
+                
                 <FormControl className={classes.form}>
                     <TextField
                         className={classes.textfield}
-                        label="Dirección"
+                        onChange={(event)=>onHandleChange(event)}
+                        label={!onfocusaddres?profile.direccion:"Direccion"}
+                        onFocus={()=>setOnFocusAdress(!onfocusaddres)}
+                        onBlur={()=>setOnFocusAdress(!onfocusaddres)}
+                        
                         id="address"
                         variant="outlined"
                         color="secondary"
-                        name="Dirección"
+                        name="address"
                         InputProps={{
                         className: classes.input,
                         }}
@@ -255,14 +294,15 @@ export default function Profile({onClick}){
                         />
                 </FormControl>
                 <FormControl variant="outlined" className={classes.formControl}>
-                     <InputLabel  id="demo-simple-select-outlined-label">Selecciona tu pais</InputLabel>
-                        <Select className={classes.menuItem}
-                            label="Selecciona tu pais"
+                     <InputLabel  id="demo-simple-select-outlined-label">{profile.pais.substring(0,27)}</InputLabel>
+                        <Select 
+                            label={profile.pais}
                             labelId="countries"
                             id="country"
                             className={classes.selectEmpty}
                             inputProps={{ className: classes.labelTextField}}
                             name="country"
+                            onChange={(event)=>onHandleChange(event)}
                             
                             >
                                 {countries && countries.map( (country,i) => {
@@ -278,6 +318,8 @@ export default function Profile({onClick}){
                     Aceptar
                 </Button>
         </Box>
+        
         </form>
+        </MuiPickersUtilsProvider>  
     )
 }

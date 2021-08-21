@@ -22,8 +22,10 @@ router.put("/updateUser", async (req, res, next) => {
     country,
   } = req.body;
 
-  console.log(name)
+  console.log(address)
   console.log(email)
+  fecha=(birth.substring(0,birth.length-14))
+ 
   try{
     const user=await Usuario.findByPk(email);
     if(user.tipo_usuario==="profesional"){
@@ -41,14 +43,14 @@ router.put("/updateUser", async (req, res, next) => {
           id:id,
         }});
       }
-      if(dni&&typeof dni ==="number"){
+      if(dni){
         await Profesional.update({
           cedula:dni,
         },{where:{
           id:id,
         }});
       }
-      if(birth&&bird instanceof Date){
+      if(birth){
         await Profesional.update({
           fecha_de_nacimiento:birth,
         },{where:{
@@ -62,7 +64,7 @@ router.put("/updateUser", async (req, res, next) => {
           id:id,
         }});
       }
-      if(phone&&typeof phone ==="number"){
+      if(phone){
         await Profesional.update({
           telefono:phone,
         },{where:{
@@ -94,16 +96,16 @@ router.put("/updateUser", async (req, res, next) => {
           id:id,
         }});
       }
-      if(dni&&typeof dni ==="number"){
+      if(dni){
         await Profesional.update({
           cedula:dni,
         },{where:{
           id:id,
         }});
       }
-      if(birth&&bird instanceof Date){
+      if(fecha){
         await Profesional.update({
-          fecha_de_nacimiento:birth,
+          fecha_de_nacimiento:fecha,
         },{where:{
           id:id,
         }});
