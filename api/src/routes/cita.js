@@ -10,6 +10,7 @@ const router = Router();
 
 router.post("/cita", async (req, res, next) => {
   const { profesionalId, pacienteId, date, get, note } = req.body;
+  console.log(pacienteId)
   try {
     if (get) {
       if (profesionalId) {
@@ -26,7 +27,7 @@ router.post("/cita", async (req, res, next) => {
       }
       if (pacienteId) {
         const citas = await Cita.findAll({ where: { pacienteId: pacienteId } });
-        citas = citas = citas.map((c) => c.dataValues);
+        citas = citas.map((c) => c.dataValues);
         const pros = await Profesional.findAll();
         citas = citas.map((c) => {
           const fn = pros.find((p) => p.id === c.profesionalId).fullName;

@@ -1,5 +1,6 @@
 import { Box, Typography, makeStyles } from "@material-ui/core";
-import devImg from "../../../assets/img/etc/inDev.png"
+import Appointments from './Appointment/Appointments'
+import NewAppointment from './Appointment/NewAppointment'
 
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -23,8 +24,9 @@ export default function Appointment(){
     const classes = useStyle();
     return(
         <Box className={classes.box}>
-            <Typography variant='h4' color='blue'>Appointment</Typography>
-            <img src={devImg} />
+            <Typography variant='h4' color='blue'>Mis citas</Typography>
+            <NewAppointment/>
+            <Appointments/>
         </Box>
     )
 }
