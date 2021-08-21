@@ -116,11 +116,9 @@ export default function Patients(){
     });
     const [select,setSelect] = useState([]);
     const [added, setAdded] = useState(false);
-    const apiref = useRef();
 
-    console.log("el api ref es",apiref.current)
     const handleAdd = () =>{
-      console.log("el api ref es",apiref.current)
+      
       const data = {
         email: professional.email,
         idPatients : select
@@ -130,8 +128,8 @@ export default function Patients(){
       setAdded(true)
       setTimeout(() => {
         setAdded(false)
-      }, 3000);
-      dispatch(redirect(3));
+        dispatch(redirect(3));
+      }, 2000);
     }
     
     return(
@@ -146,7 +144,6 @@ export default function Patients(){
                 checkboxSelection
                 disableSelectionOnClick
                 onSelectionModelChange={(items) => setSelect(items)}
-                ref = {apiref}
               />
             </div>
             {select.length > 0 && 
