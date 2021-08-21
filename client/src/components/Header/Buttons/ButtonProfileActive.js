@@ -8,6 +8,8 @@ import { useSelector,useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import ButtonLogout from './ButtonLogout';
 import { getInfo } from '../../Log/actions';
+import Alert from '@material-ui/lab/Alert';
+import notpick from './notpick.png'
 const useStyle=makeStyles(theme=>({
     btn:{
         margin: theme.spacing(1),
@@ -60,7 +62,13 @@ export default function ButtonProfileActive({onClick,setLogFlag:setLogFlag,setPr
     useEffect(()=>{
         dispatch(getInfo({...profile}));
     },[])
-    
+    function checkpick(){
+        if(user.data){
+            if(user.data.photoURL) return user.data.photoURL
+            else return notpick
+        }
+        
+    }
     return(
         <>
            <Button onClick={(event)=>onClick(event)} type="button" variant='contained' className={classes.btn} >
@@ -68,7 +76,7 @@ export default function ButtonProfileActive({onClick,setLogFlag:setLogFlag,setPr
             </Button>
             <Box className={classes.menu}>
                 <Button className={classes.head}>
-                   <img className={classes.pick} src={user.data&&user.data.photoURL}></img>
+                   <img className={classes.pick} src={checkpick()}></img>
                 </Button>
                 <Button className={classes.head}>
                     {info&&info.fullName}
