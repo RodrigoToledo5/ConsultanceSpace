@@ -199,7 +199,7 @@ export default function Sign(){
             dispatch(setFlagLog(true));
             await firebase.auth().createUserWithEmailAndPassword(email, pass);
             await firebase.auth().currentUser.sendEmailVerification();
-            await firebase.auth().signOut();
+            //await firebase.auth().signOut();
             dispatch(postSignIn(patient));
             setPatient({
                 dni: '',
