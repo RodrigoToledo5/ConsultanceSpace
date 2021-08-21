@@ -2,9 +2,8 @@ const {Router} = require('express');
 const router = Router();
 const {Tratamientos} = require('../db')
 
-
+//Route for create treatments
 router.post("/treatments", async(req, res, next) => {
-    
     try {
     const {treatmentName, description, price, citumId} = req.body
         const treatment = await Tratamientos.create({
@@ -20,7 +19,17 @@ router.post("/treatments", async(req, res, next) => {
     
 });
 
-router.get("/treatments", async(req, res, next)=>{
+
+//Route for get tratments by citumId and name
+router.get("/treatments", async (req, res, next)=>{
+    try {
+        const {id}= req.query;
+        const treatment = await Tratamientos.findByPk(id)
+        return treatment ? res.json(treatment) : res.send("No se encontró registro");
+        
+    } catch (err) {
+        next(err)  
+    }
   res.sendStatus(200);
 
 })
