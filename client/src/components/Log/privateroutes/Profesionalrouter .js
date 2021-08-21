@@ -1,6 +1,6 @@
 import  {Route, Redirect} from 'react-router-dom'
 import {useSelector} from 'react-redux';
-import Dashboard from '../../Professional/ProfessionalDashboard';
+//import Dashboard from '../../Professional/ProfessionalDashboard';
 
 export default function ProfesionalRouter({component:Component,...rest}){
     const user = useSelector((store) => store.reducerLog.user)

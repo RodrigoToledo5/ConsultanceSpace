@@ -8,10 +8,10 @@ import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const useStyle = makeStyles(theme =>({
     container:{
-        marginTop: '85px',
+        marginTop: '120px',
         background: '#E8EEF4',
         width:'50%',
-        marginBottom: '20px',
+        marginBottom: '120px',
         fontFamily: 'Roboto',
         borderRadius: '10px',
         display: 'flex',
