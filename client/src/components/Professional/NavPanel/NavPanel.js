@@ -7,6 +7,9 @@ import Professionals from "../SubComponents/professionals/Professionals";
 import Managment from "../SubComponents/Managment";
 import Stock from "../SubComponents/Stock/Stock";
 import MyPatients from "../SubComponents/MyPatients/MyPatients";
+import NuevaCita from "../SubComponents/Appointment/NuevaCita/NuevaCita";
+import { useDispatch, useSelector } from "react-redux";
+import { redirect } from "../../Log/actions";
 const useStyle = makeStyles((theme) => ({
   magin: {
     margin: theme.spacing(2),
@@ -54,14 +57,16 @@ const useStyle = makeStyles((theme) => ({
 //Administra el componente a renderizar y muestra los botones y opciones
 export default function NavPanel({ updateComponent }) {
   const classes = useStyle();
+  const rerender = useSelector((store) => store.reducerLog.redirect);
+  const dispatch = useDispatch();
 
   //Objeto de componentes y nombres
   const routes = [
-    { Appointment: <Appointment /> },
+    { Appointment: <Appointment withoutTitle={false} /> },
     { Managment: <Managment /> },
     { Patients: <Patients /> },
     { Mis_Pacientes: <MyPatients /> },
-    { Attention: <Attention /> },
+    { Attention: <NuevaCita patient={{fullName:"nombre paciente", id:"1"}}/> },
     { Stock: <Stock /> },
     { Professionals: <Professionals /> },
   ];
@@ -69,6 +74,15 @@ export default function NavPanel({ updateComponent }) {
   useEffect(() => {
     updateComponent(routes[0].Inicio);
   }, []);
+
+  useEffect(() => {
+    if(Number.isInteger(rerender)){
+      const key = Object.keys(routes[rerender])[0];
+      updateComponent(routes[rerender][key]);
+      dispatch(redirect(null));
+    };
+  }, [rerender]);
+
   const update = (r) => {
     updateComponent(r[Object.keys(r)[0]]);
   };

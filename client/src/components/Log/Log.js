@@ -131,7 +131,6 @@ const useStyle = makeStyles((theme) => ({
 const Login = (props) => {
   const classes = useStyle();
   const firebase = useFirebaseApp();
-  const user = useUser();
   const dispatch = useDispatch();
   // form status
   const [input, setInput] = useState({
@@ -139,7 +138,7 @@ const Login = (props) => {
     password: "",
   });
 
-  const postSingIn = useSelector((state) => state.reducerSign.postSingIn);
+  //const postSingIn = useSelector((state) => state.reducerSign.postSingIn);
   const login = useSelector((state) => state.reducerLog.user);
 
   //login Handler
@@ -156,22 +155,22 @@ useEffect(() => {
       
       props.history.push("/sign-ing");
     }
-  }, [login]);
+  }, [login,props.history]);
 
-  const alertFunction = () => {
-    switch (postSingIn) {
-      case "Registro exitoso":
-        return (
-          <Box width="100%" justifyContent="center">
-            <Alert className={classes.alert} severity="success">
-              {postSingIn}
-            </Alert>
-          </Box>
-        );
-      default:
-        return <Box width="100%" height="50px" justifyContent="center"></Box>;
-    }
-  };
+  // const alertFunction = () => {
+  //   switch (postSingIn) {
+  //     case "Registro exitoso":
+  //       return (
+  //         <Box width="100%" justifyContent="center">
+  //           <Alert className={classes.alert} severity="success">
+  //             {postSingIn}
+  //           </Alert>
+  //         </Box>
+  //       );
+  //     default:
+  //       return <Box width="100%" height="50px" justifyContent="center"></Box>;
+  //   }
+  // };
 
   //users errors
   const [error, setError] = useState(null);
@@ -213,7 +212,7 @@ useEffect(() => {
         setError("Contraseña incorrecta");
       }
     }
-  }, [input.email, input.password, props.history]);
+  }, [input.email, input.password,dispatch,firebase]);
 
   const logInGoogle = async () => {
     const provider = new app.auth.GoogleAuthProvider();

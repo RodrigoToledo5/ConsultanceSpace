@@ -1,9 +1,10 @@
 import {Box, Typography, makeStyles, Button } from "@material-ui/core";
 import { DataGrid } from '@material-ui/data-grid';
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {addPatient,getPatient} from '../../actions'
 import SearchBar from "../../SearchBar";
+import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -29,14 +30,25 @@ const useStyle = makeStyles((theme) => ({
     btnBox:{
       marginTop: '10px'
     }
+    ,
+    success:{
+      display: 'flex',
+      alignItems: 'center'
+    },
+    alert:{
+      marginLeft: '7px',
+      fontFamily: 'Roboto',
+      fontSize: '18px',
+
+    }
 }));
   
 export default function Patients(){
     const classes = useStyle();
     const patients = useSelector(store => store.reducerSearchPatients.patients);
     const professional = useSelector(store => store.reducerLog.user);
-    console.log("el professional es", professional);
-    console.log(patients);
+    //console.log("el professional es", professional);
+    //console.log(patients);
     const dispatch = useDispatch()
 
     const columns = [
@@ -102,15 +114,22 @@ export default function Patients(){
       }
     });
     const [select,setSelect] = useState([]);
+    const [added, setAdded] = useState(false);
+    const apiref = useRef();
 
+    console.log("el api ref es",apiref.current)
     const handleAdd = () =>{
+      console.log("el api ref es",apiref.current)
       const data = {
         email: professional.email,
         idPatients : select
       }
       dispatch(addPatient(data))
-      console.log("agregado a pacientes")
       setSelect([]);
+      setAdded(true)
+      setTimeout(() => {
+        setAdded(false)
+      }, 3000);
       
     }
     
@@ -126,6 +145,7 @@ export default function Patients(){
                 checkboxSelection
                 disableSelectionOnClick
                 onSelectionModelChange={(items) => setSelect(items)}
+                ref = {apiref}
               />
             </div>
             {select.length > 0 && 
@@ -139,6 +159,16 @@ export default function Patients(){
                   AGREGAR PACIENTES
                 </Button>
               </Box>}
+            {added && 
+              <Box className={classes.success}>
+                <CheckCircleIcon className={classes.icon}/>
+                <Box className={classes.alert}>
+                  <p>
+                      Pacientes agregados.
+                  </p>            
+                </Box>
+              </Box>}
+
         </Box>
     )
 }

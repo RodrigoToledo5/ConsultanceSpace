@@ -16,7 +16,7 @@ const useStyle = makeStyles((theme) => ({
     },
   }));
 
-export default function Appointment(){
+export default function Appointment({withoutTitle}){
     const api = 'http://localhost:3001';
     const classes = useStyle();
     const user = useSelector((store) => store.reducerLog.info);
@@ -32,7 +32,7 @@ export default function Appointment(){
     useEffect(()=>{loadData()},[]);
     return(
         <Box className={classes.box}>
-            <Typography variant='h4'>Appointment</Typography>
+            {withoutTitle? null : <Typography variant='h4'>Appointment</Typography>}
             <Citas citas={citas}/>
         </Box>
     )

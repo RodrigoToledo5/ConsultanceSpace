@@ -3,6 +3,7 @@ import axios from "axios";
 export const POST_LOG = 'POST_LOG';
 export const INFO_USER = 'INFO_USER';
 export const DESLOG = 'DESLOG';
+export const REDIRECT = 'REDIRECT';
 
 const api = 'http://localhost:3001';
 
@@ -25,6 +26,10 @@ export const getInfo = (user)=>{
         })
     dispatch({ type: INFO_USER, payload:  res.data })
 }}
+
+export const redirect=(route)=>(dispatch)=>{
+    dispatch({ type: REDIRECT, payload:route})
+}
 
 export const desLog=()=>(dispatch)=>{
     dispatch({ type: DESLOG})

@@ -1,4 +1,4 @@
-import { ADD_PATIENT, GET_MYPATIENTS, REMOVE_MYPATIENTS } from "./actions";
+import { ADD_PATIENT, GET_MYPATIENTS, REMOVE_MYPATIENTS, CLEAR_MY_PATIENTS } from "./actions";
 
 const initialState={
     MyPatientsList:[],
@@ -23,6 +23,11 @@ export default function reducerAddPatients (state=initialState, action){
             return {
                 ...state,
                 reset: state.reset + 1
+            }
+        case CLEAR_MY_PATIENTS:
+            return {
+                ...state,
+                MyPatientsList: []
             }
         default:
             return state
