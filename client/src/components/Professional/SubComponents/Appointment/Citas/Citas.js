@@ -120,7 +120,6 @@ const renderPatientButton = (params) => {
   useEffect(() => {
     setRows(
       actCitas.map((c) => {
-        console.log(c);
         return {
           id: c.id,
           horario: "" + c.date.substring(12, 16) + "hs",
