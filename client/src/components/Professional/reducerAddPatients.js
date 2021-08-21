@@ -10,7 +10,7 @@ export default function reducerAddPatients (state=initialState, action){
         case ADD_PATIENT:
             return {
                 ...state,
-                reset: 0,
+                reset: state.reset + 1,
                 MyPatientsList: action.payload.pacientes
             }
         case GET_MYPATIENTS:

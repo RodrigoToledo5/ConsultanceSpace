@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {addPatient,getPatient} from '../../actions'
 import SearchBar from "../../SearchBar";
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
+import { redirect } from '../../../Log/actions';
 
 const useStyle = makeStyles((theme) => ({
     text: {
@@ -130,7 +131,7 @@ export default function Patients(){
       setTimeout(() => {
         setAdded(false)
       }, 3000);
-      
+      dispatch(redirect(3));
     }
     
     return(
