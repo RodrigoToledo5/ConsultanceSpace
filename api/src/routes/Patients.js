@@ -1,8 +1,9 @@
 const { Router } = require("express");
 const router = Router();
-const {Paciente} = require("../db");
+const {Paciente, profesional_paciente} = require("../db");
 const { Op} = require("sequelize");
 
+//filter patients
 router.get('/patients', async (req, res, next) => { 
     try {
         const {nombre} = req.query;
@@ -18,6 +19,21 @@ router.get('/patients', async (req, res, next) => {
         next(err) 
     }
     
+})
+
+//delete mypatients
+router.delete('/del-mypatients/:idPatient', async(req, res, next) => {
+    const {idPatient} = req.params;
+    try{
+        await profesional_paciente.destroy({
+            where: {
+                pacienteId: idPatient
+            }
+        });
+        res.sendStatus(200);
+    }catch(err){
+        next(err);
+    }
 })
 
 module.exports = router;

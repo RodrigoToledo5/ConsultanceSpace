@@ -4,7 +4,9 @@ export const GET_PROFESIONAL = 'GET_PROFESIONAL';
 export const GET_PATIENT = 'GET_PATIENT';
 export const ADD_PATIENT = 'ADD_PATIENT';
 export const GET_MYPATIENTS = 'GET_MYPATIENTS';
-export const CLEAR_MY_PATIENTS = 'CLEAR_MY_PATIENTS'
+export const REMOVE_MYPATIENTS = 'REMOVE_MYPATIENTS';
+export const CLEAR_MY_PATIENTS = 'CLEAR_MY_PATIENTS';
+
 
 export const searchprofesional = (input)=>{
     if(input.includes('@')){
@@ -38,6 +40,16 @@ export const addPatient = (data) => {
         dispatch({type: ADD_PATIENT, payload: patients.data})
     }
 }
+
+export const removeMyPatient = (id) => {
+    return async(dispatch) => {
+        const res = axios({
+            method: 'DELETE',
+            url: `${api}/del-mypatients/${id}`
+        })
+        dispatch({type: REMOVE_MYPATIENTS})
+    }
+} 
 
 export const getMyPatients = (data) =>{
     return async(dispatch) =>{

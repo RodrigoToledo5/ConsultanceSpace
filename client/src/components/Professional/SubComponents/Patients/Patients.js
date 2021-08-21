@@ -2,9 +2,8 @@ import {Box, Typography, makeStyles, Button } from "@material-ui/core";
 import { DataGrid } from '@material-ui/data-grid';
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {addPatient} from '../../actions'
+import {addPatient,getPatient} from '../../actions'
 import SearchBar from "../../SearchBar";
-import {getPatient} from '../../actions';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 
 const useStyle = makeStyles((theme) => ({
@@ -136,7 +135,6 @@ export default function Patients(){
     
     return(
         <Box className={classes.box}>
-
             <Typography variant='h4' color='blue'>Pacientes</Typography>
             <SearchBar getAction={getPatient}/>
             <div style={{ height: 400, width: '100%' }}>
