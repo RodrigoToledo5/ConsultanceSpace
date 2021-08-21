@@ -46,7 +46,7 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     borderRadius: "10px",
-    maxHeight: "400px",
+    maxHeight: "280px",
   },
   btn: {
     marginTop: "10px",
@@ -66,11 +66,14 @@ export default function NavPanel({ updateComponent }) {
     { Managment: <Managment /> },
     { Patients: <Patients /> },
     { Mis_Pacientes: <MyPatients /> },
-    { Attention: <NuevaCita patient={{fullName:"nombre paciente", id:"1"}}/> },
+    { Attention: <Attention /> },
     { Stock: <Stock /> },
     { Professionals: <Professionals /> },
+    { NuevaCita: <NuevaCita /> },
   ];
   
+  const indexPrivateRoutes = 5; // a partir de este indice loa botones se ocultan
+
   useEffect(() => {
     updateComponent(routes[0].Inicio);
   }, []);
@@ -88,7 +91,7 @@ export default function NavPanel({ updateComponent }) {
   };
   return (
     <Box className={classes.box}>
-      {routes.map((r, i) => (
+      {routes.map((r, i) => (i < indexPrivateRoutes? (
         <Button
           key={i}
           className={classes.btn}
@@ -97,8 +100,8 @@ export default function NavPanel({ updateComponent }) {
           }}
         >
           {Object.keys(r)[0]}
-        </Button>
-      ))}
+        </Button>) : "")
+      )}
     </Box>
   );
 }

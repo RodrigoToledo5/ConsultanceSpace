@@ -2,6 +2,7 @@ import {Box, Typography, makeStyles, Button } from "@material-ui/core";
 import { DataGrid } from '@material-ui/data-grid';
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { redirect, setPatient } from "../../../Log/actions";
 import { getMyPatients, removeMyPatient} from '../../actions'
 
 const useStyle = makeStyles((theme) => ({
@@ -31,18 +32,39 @@ export default function MyPatients(){
     const patients = useSelector(store => store.reducerAddPatients.MyPatientsList);
     const reset = useSelector(store => store.reducerAddPatients.reset);
     const user = useSelector(store => store.reducerLog.user);
-    console.log("el user en mis pacientes es ", user);
+    const actPatient = useSelector(store => store.reducerLog.actPatient);
     const dispatch = useDispatch();
     const [select, setSelect] = useState([]);
-    console.log(patients);
+    const [firstRender, setFirstRender] = useState(true);
 
     useEffect(() => {
       if(user.tipo_usuario === "profesional") dispatch(getMyPatients(user.email))
     }, [reset])
     
+    useEffect(()=>{
+      if(!firstRender){
+      dispatch(redirect(7));} else {setFirstRender(false);}
+    },[actPatient])
+
+    //button for columns
+    const renderPatientButton = (params) => {
+      return (
+          <strong>
+              <Button
+                  size="small"
+                  style={{ marginLeft: 16 }}
+                  onClick={() => {
+                      const patient = patients.find((p)=>p.id === params.id)
+                      dispatch(setPatient(patient));
+                  }}
+              >
+                  Reservar
+              </Button>
+          </strong>
+      )
+    }
 
     const columns = [
-      { field: 'id', headerName: 'ID', width: 110 },
       { field: 'dni', headerName: 'Cedula', width: 120 },
       {
         field: 'name',
@@ -87,6 +109,13 @@ export default function MyPatients(){
         width: 150,
         editable: true,
       },
+      {
+        field: 'b1',
+        headerName: 'Hacer Cita',
+        width: 150,
+        renderCell: renderPatientButton,
+        disableClickEventBubbling: true,
+    },
     ];
     
     // const rows = [];

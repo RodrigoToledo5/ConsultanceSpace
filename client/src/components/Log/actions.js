@@ -4,6 +4,7 @@ export const POST_LOG = 'POST_LOG';
 export const INFO_USER = 'INFO_USER';
 export const DESLOG = 'DESLOG';
 export const REDIRECT = 'REDIRECT';
+export const SET_PATIENT = 'SET_PATIENT';
 
 const api = 'http://localhost:3001';
 
@@ -29,6 +30,10 @@ export const getInfo = (user)=>{
 
 export const redirect=(route)=>(dispatch)=>{
     dispatch({ type: REDIRECT, payload:route})
+}
+
+export const setPatient=(patient)=>(dispatch)=>{
+    dispatch({ type: SET_PATIENT, payload:patient})
 }
 
 export const desLog=()=>(dispatch)=>{

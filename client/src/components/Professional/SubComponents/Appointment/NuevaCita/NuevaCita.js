@@ -54,16 +54,17 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-export default function NuevaCita({ patient }) {
+export default function NuevaCita() {
   const api = "http://localhost:3001";
   const classes = useStyle();
   const user = useSelector((store) => store.reducerLog.info);
+  const patient = useSelector((store) => store.reducerLog.actPatient);
   const [date, setDate] = useState(new Date());
   const [motivo, setMotivo] = useState("Consulta");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [finalMsg, setFinalMsg] = useState("");
- const dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   const sendData = () => {
     setOpen(false);
@@ -78,13 +79,9 @@ export default function NuevaCita({ patient }) {
         note: motivo,
       },
     }).then((res) => {
-      setFinalMsg( res.status === 200? "Cita creada" : "" );
+      setFinalMsg(res.status === 200 ? "Cita creada" : "");
     });
   };
-
-  //   useEffect(() => {
-  //     loadData();
-  //   }, []);
 
   const handleMotivo = (e) => {
     if (e.target.value.length < 10) setMotivo(e.target.value);
