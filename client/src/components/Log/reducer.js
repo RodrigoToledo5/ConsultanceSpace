@@ -1,8 +1,9 @@
-import { POST_LOG, DESLOG, INFO_USER } from "./actions";
+import { POST_LOG, DESLOG, INFO_USER, REDIRECT } from "./actions";
 
 const initialState = {
-    user:{}, // mail y tipo del usuario logeado
-    info:{}, // hard info del user creado
+    user:{},        // mail y tipo del usuario logeado
+    info:{},        // hard info del user creado
+    redirect: null    // string para cambiar el renderizada de componentes de NavPanel
 }
 
 export default function reducerLog (state = initialState, action){
@@ -22,6 +23,12 @@ export default function reducerLog (state = initialState, action){
             return {
                 ...state,
                 info: action.payload
+            }
+        }
+        case  REDIRECT:{
+            return {
+                ...state,
+                redirect: action.payload
             }
         }
         default:
