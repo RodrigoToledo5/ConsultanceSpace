@@ -20,15 +20,21 @@ router.put("/updateUser", async (req, res, next) => {
     birth,
     address,
     country,
+    speciality,
   } = req.body;
-  console.log(name)
-  console.log(address)
-  console.log(email)
+
   fecha=(birth.substring(0,birth.length-14))
  
   try{
     const user=await Usuario.findByPk(email);
     if(user.tipo_usuario==="profesional"){
+      if(speciality){
+        await Profesional.update({
+          especialidad:speciality,
+        },{where:{
+          id:id,
+        }});
+      }
       if(name&&typeof name ==="string"){
         await Profesional.update({
           nombre:name

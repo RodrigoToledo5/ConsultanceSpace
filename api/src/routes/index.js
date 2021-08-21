@@ -12,6 +12,7 @@ router.use(require("./Patients"));
 router.use(require("./Treatments"))
 router.use(require("./UpdateUser"))
 router.use(require("./Profesional_patient"))
+router.use(require("./Specialities"))
 
 
 router.use(require("./AddPatients"));
