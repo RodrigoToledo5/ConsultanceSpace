@@ -4,8 +4,10 @@ import { useHistory } from 'react-router-dom';
 import { blue, red} from '@material-ui/core/colors';
 import {useUser } from "reactfire";
 import Profile from './Profile';
-import { useState } from 'react';
+import { useSelector,useDispatch } from 'react-redux';
+import { useEffect, useState } from 'react';
 import ButtonLogout from './ButtonLogout';
+import { getInfo } from '../../Log/actions';
 const useStyle=makeStyles(theme=>({
     btn:{
         margin: theme.spacing(1),
@@ -28,7 +30,7 @@ const useStyle=makeStyles(theme=>({
         padding:"10px",
         marginLeft:"15px",
         marginRight:"15px",
-        backgroundColor:"#C4C4C4",
+        backgroundColor:"rgb(232, 240, 254)",
         borderRadius:"10px",
         transitionDuration:"3s"
     
@@ -47,13 +49,18 @@ const useStyle=makeStyles(theme=>({
 
 export default function ButtonProfileActive({onClick,setLogFlag:setLogFlag,setProfile:setProfile}){
     const [editprofile, setEditProfile] = useState(false);
-    let history=useHistory();
+    const profile = useSelector(state => state.reducerLog.user)
+    const info=useSelector(state => state.reducerLog.info)
     const classes=useStyle();
+    const dispatch = useDispatch()
     const user=useUser();
     function handleEdit(){
         setEditProfile(!editprofile)
-    } 
-    console.log(setLogFlag)
+    }
+    useEffect(()=>{
+        dispatch(getInfo({...profile}));
+    },[])
+    
     return(
         <>
            <Button onClick={(event)=>onClick(event)} type="button" variant='contained' className={classes.btn} >
@@ -64,7 +71,7 @@ export default function ButtonProfileActive({onClick,setLogFlag:setLogFlag,setPr
                    <img className={classes.pick} src={user.data&&user.data.photoURL}></img>
                 </Button>
                 <Button className={classes.head}>
-                    {user.data&&user.data.displayName}
+                    {info&&info.fullName}
                 </Button>
                 <Button className={classes.head}>
                     <div className={classes.text}>

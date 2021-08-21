@@ -13,7 +13,6 @@ router.put("/updateUser", async (req, res, next) => {
   const {
     email,//pedimos el email
     id,//id
-    type,
     dni,
     name,
     lastName,
@@ -22,6 +21,9 @@ router.put("/updateUser", async (req, res, next) => {
     address,
     country,
   } = req.body;
+
+  console.log(name)
+  console.log(email)
   try{
     const user=await Usuario.findByPk(email);
     if(user.tipo_usuario==="profesional"){
