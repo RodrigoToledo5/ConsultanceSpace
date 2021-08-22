@@ -1,4 +1,4 @@
-import "date-fns";
+import es from "date-fns/locale/es";
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
@@ -10,12 +10,20 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-import { Button, Container, makeStyles } from "@material-ui/core";
+import { Button, Container, makeStyles, Typography } from "@material-ui/core";
 import EventAvailableIcon from "@material-ui/icons/EventAvailable";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 
 const useStyles = makeStyles((theme) => ({
+  container:{
+    marginBottom: "5%",
+    marginTop: "2%",
+  },
+  titleh4:{
+    textAlign:"center"
+  },
+  
   button: {
     margin: theme.spacing(1),
   },
@@ -27,10 +35,14 @@ const useStyles = makeStyles((theme) => ({
     verticalAlign: "top",
     flexDirection: "row",
     marginBottom: "8px",
+    width: "100px"
   },
   title: {
     top: "10px",
   },
+  input:{
+    width: "100px"
+  }
 }));
 
 export default function NewAppointment() {
@@ -78,16 +90,21 @@ export default function NewAppointment() {
     });
   };
 
+  console.log(selectedDate)
+
   return (
     <div>
-      <Container>
-        <MuiPickersUtilsProvider utils={DateFnsUtils}>
+      <Container className={classes.container}>
+        <Typography variant="h5" component="h5" className={classes.titleh4}>
+          Agendar una cita
+        </Typography>
+        <MuiPickersUtilsProvider utils={DateFnsUtils} locale={es}>
           <Grid container justifyContent="space-around">
             <KeyboardDatePicker
               margin="normal"
               id="date-picker-dialog"
               label="Elegir Fecha"
-              format="MM/dd/yyyy"
+              format="dd/MMMM/yyyy"
               value={selectedDate}
               onChange={handleDateChange}
               KeyboardButtonProps={{
@@ -107,6 +124,7 @@ export default function NewAppointment() {
             <TextField
               id="standard-basic"
               className={classes.label}
+              inputProps={{className: classes.input}}
               label="Motivo"
               value={note}
               onChange={handleNoteChange}
@@ -114,6 +132,7 @@ export default function NewAppointment() {
             <TextField
               id="standard-select-currency"
               className={classes.label}
+              inputProps={{className: classes.input}}
               select
               label="Médico"
               value={professionalId}
