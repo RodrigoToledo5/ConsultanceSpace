@@ -4,15 +4,18 @@ import {
   makeStyles,
   TextField,
   Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
 } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import CitaCard from "./CitaCard/CitaCard";
-import {
-  DataGrid,
-  GridColDef,
-  GridApi,
-  GridCellValue,
-} from "@material-ui/data-grid";
+import { DataGrid } from "@material-ui/data-grid";
+import DeleteIcon from "@material-ui/icons/Delete";
+import { redirect } from "../../../../Log/actions";
+import { useDispatch } from "react-redux";
+import axios from "axios";
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -27,11 +30,15 @@ const useStyle = makeStyles((theme) => ({
     borderRadius: "10px",
     color: "#159DE9",
   },
+  button: {
+    color: "brown",
+    borderColor: "brown",
+  },
 }));
 
-export default function Citas({ citas }) {
+export default function Citas({ citas, reLoad }) {
   const classes = useStyle();
-
+  const api = "http://localhost:3001";
   //const Data a traer por fetch/redux
   const arrHorarios = ["9:00hs", "10:00hs", "11:00hs"];
 
@@ -63,66 +70,112 @@ export default function Citas({ citas }) {
     );
     setActCitas([...arr]);
   }, [input.date, citas]);
-
+  const [actCita, setActCita] = useState({
+    pacienteFullName: "",
+    date: "",
+    note: "",
+  });
   const [rows, setRows] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [finalMsg, setFinalMsg] = useState("");
+  const dispatch = useDispatch();
 
   const renderCompleteButton = (params) => {
     return (
-        <strong>
-            <Button
-                style={{ marginLeft: 16 }}
-                onClick={() => {
-                    console.log(params.row.col6)
-                }}
-            >
-                Completar
-            </Button>
-        </strong>
-    )
-}
-
-const renderPatientButton = (params) => {
-  return (
       <strong>
-          <Button
-              size="small"
-              style={{ marginLeft: 16 }}
-              onClick={() => {
-                  console.log(params.row.col6)
-              }}
-          >
-              Ficha
-          </Button>
+        <Button
+          style={{ marginLeft: 16 }}
+          onClick={() => {
+            console.log(params.row.col6);
+          }}
+        >
+          Completar
+        </Button>
       </strong>
-  )
-}
+    );
+  };
+
+  const renderPatientButton = (params) => {
+    return (
+      <strong>
+        <Button
+          size="small"
+          style={{ marginLeft: 16 }}
+          onClick={() => {
+            console.log(params.row.col6);
+          }}
+        >
+          Ficha
+        </Button>
+      </strong>
+    );
+  };
+
+  const renderDeleteButton = (params) => {
+    return (
+      <strong>
+        <Button
+          className={classes.button}
+          variant="outlined"
+          size="small"
+          style={{ marginLeft: 16 }}
+          onClick={() => {
+            setActCita(actCitas.find((c) => (c.id = params.id)));
+            setOpen(true);
+          }}
+        >
+          <DeleteIcon />
+        </Button>
+      </strong>
+    );
+  };
 
   const columns = [
     { field: "horario", headerName: "Horario", width: 170 },
     { field: "pacienteName", headerName: "Paciente", width: 170 },
     { field: "note", headerName: "Motivo", width: 170 },
     {
-      field: 'b1',
-      headerName: 'Ver paciente',
+      field: "b1",
+      headerName: "Ver paciente",
       width: 150,
       renderCell: renderPatientButton,
       disableClickEventBubbling: true,
-  },
-  {
-    field: 'b2',
-    headerName: 'Completar cita',
-    width: 150,
-    renderCell: renderCompleteButton,
-    disableClickEventBubbling: true,
-},
+    },
+    {
+      field: "b2",
+      headerName: "Completar cita",
+      width: 150,
+      renderCell: renderCompleteButton,
+      disableClickEventBubbling: true,
+    },
+    {
+      field: "b3",
+      headerName: "Eliminar",
+      width: 150,
+      renderCell: renderDeleteButton,
+      disableClickEventBubbling: true,
+    },
   ];
+
+  const sendData = () => {
+    setOpen(false);
+    axios({
+      method: "DELETE",
+      url: `${api}/cita`,
+      data: {
+        id: actCita.id,
+      },
+    }).then((res) => {
+      setFinalMsg(res.status === 200 ? "Cita eliminada" : "Error");
+    });
+  };
 
   useEffect(() => {
     setRows(
       actCitas.map((c) => {
         return {
           id: c.id,
-          horario: "" + c.date.substring(12, 16) + "hs",
+          horario: "" + c.date.substring(11, 16) + "hs",
           pacienteName: c.pacienteFullName,
           note: c.note,
         };
@@ -158,6 +211,49 @@ const renderPatientButton = (params) => {
           />
         </div>
       </Box>
+      <Dialog
+        open={open}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{`Desea eliminar ${actCita.note} con ${actCita.pacienteFullName} agendada para ${actCita.date}`}</DialogTitle>
+        <DialogContent>
+          <DialogContentText id="alert-dialog-description">
+            texto p editar
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              setOpen(false);
+            }}
+            color="primary"
+          >
+            Cancelar
+          </Button>
+          <Button onClick={sendData} color="primary" autoFocus>
+            Eliminar
+          </Button>
+        </DialogActions>
+      </Dialog>
+      <Dialog
+        open={finalMsg.length > 0}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{`${finalMsg}`}</DialogTitle>
+        <DialogActions>
+          <Button
+            onClick={() => {
+              reLoad();
+              setFinalMsg("");
+            }}
+            color="primary"
+          >
+            Cerrar
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 }

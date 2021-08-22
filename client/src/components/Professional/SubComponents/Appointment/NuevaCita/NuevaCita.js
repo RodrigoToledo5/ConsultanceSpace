@@ -17,7 +17,7 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-import { useEffect, useState } from "react";
+import {  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Appointment from "../Appointment";
@@ -79,7 +79,7 @@ export default function NuevaCita() {
         note: motivo,
       },
     }).then((res) => {
-      setFinalMsg(res.status === 200 ? "Cita creada" : "");
+      setFinalMsg(res.status === 200 ? "Cita creada" : "Error");
     });
   };
 

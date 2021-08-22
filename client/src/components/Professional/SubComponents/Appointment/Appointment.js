@@ -33,7 +33,7 @@ export default function Appointment({withoutTitle}){
     return(
         <Box className={classes.box}>
             {withoutTitle? null : <Typography variant='h4'>Appointment</Typography>}
-            <Citas citas={citas}/>
+            <Citas citas={citas} reLoad={loadData}/>
         </Box>
     )
 }
