@@ -29,7 +29,7 @@ const useStyle=makeStyles(theme=>({
     },
     box:{
         marginTop:theme.spacing(1),
-        marginBottom:theme.spacing(10),
+        marginBottom:theme.spacing(8),
         display:'flex',
         flexDirection:'row'
     },
