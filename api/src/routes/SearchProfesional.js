@@ -1,45 +1,90 @@
-const {Router} = require('express');
-const {Op} = require('sequelize');
-const {Profesional} = require('../db');
+const { Router } = require('express');
+const { Op } = require('sequelize');
+const { Profesional } = require('../db');
 const router = Router();
 
-router.get('/profesional', async(req, res, next)=>{
-    const {fullName,email} = req.query;
-    if(fullName){
-        try{
-            const profesional = fullName? await Profesional.findAll() : res.status(404).send("profesional not found");
-            if (profesional===null) res.status(200).send("user not found")
-            else{
-                let profesionalFilterByFullName=profesional;
-                 profesionalFilterByFullName=profesional.filter((profesional)=>{
-                 if(profesional.fullName.includes(fullName.toUpperCase()))return profesional.fullName
-                 return profesional.fullName===fullName.toUpperCase()
-                 })
-                res.status(200).json(profesionalFilterByFullName)
+router.get('/profesional', async (req, res, next) => {
+    const { fullName, email, speciality } = req.query;
+
+    if (fullName) {
+
+        try {
+            let profesional = fullName ? await Profesional.findAll() : null;
+
+            if (profesional) {
+                //console.log(profesional)
+                let profesionalFilterByFullName = profesional;
+                profesionalFilterByFullName = profesional.filter((profesional) => {
+                    if (profesional.fullName.includes(fullName.toUpperCase())) return profesional.fullName
+                    return profesional.fullName === fullName.toUpperCase()
+                })
+
+                if (profesionalFilterByFullName.length) {
+                    res.status(200).json(profesionalFilterByFullName)
+                }
+                else {
+                    let profesional = await Profesional.findAll(
+                        {
+                            where: {
+                                especialidad: speciality,
+                            }
+                        }
+                    )
+                    res.status(200).json(profesional)
+                }
             }
-        }catch(err){
+
+            // if (speciality) {
+
+            //     try {
+            //         let profesional = speciality ? await Profesional.findAll(
+            //             {
+            //                 where: {
+            //                     especialidad: speciality,
+            //                 }
+            //             }
+            //         ) : null;
+            //         if (profesional.dataValue) res.status(200).send("user not found")
+            //         else {
+            //             //console.log(profesional[0].dataValues)
+            //             // var profesionalbyspeciality = profesional[0].dataValues
+            //             const profesionalbyspeciality = profesional.map((dataValue) => {
+            //                 return (dataValue.dataValues)
+            //             })
+            //             console.log(profesionalbyspeciality)
+            //             res.status(200).json(profesionalbyspeciality)
+            //         }
+            //     } catch (err) {
+            //         console.log(err)
+            //     }
+            // }
+
+
+            if (profesional === null) res.status(200).send(`{user not found}`)
+        } catch (err) {
             next(err)
         }
     }
 
-    else if(email){
-        try{
-            const profesional = email? await Profesional.findAll(
-            {
-                where: {
-                    usuarioEmail:email,
+    else if (email) {
+        try {
+            const profesional = email ? await Profesional.findAll(
+                {
+                    where: {
+                        usuarioEmail: email,
+                    }
                 }
-            }
-                ) : res.status(404).send("profesional not found");
-            if (profesional===null) res.status(200).send("user not found")
-            else{
+            ) : res.status(404).send("profesional not found");
+            if (profesional === null) res.status(200).send("user not found")
+            else {
                 res.status(200).json(profesional)
             }
-        }catch(err){
+        } catch (err) {
             next(err)
         }
     }
-    
+
+
 })
 
 module.exports = router;
