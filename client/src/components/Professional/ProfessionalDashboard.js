@@ -28,12 +28,19 @@ const useStyle=makeStyles(theme=>({
         display:'flex'
     },
     box:{
-        marginTop:theme.spacing(10),
-        marginBottom:theme.spacing(50),
+        marginTop:theme.spacing(1),
+        marginBottom:theme.spacing(10),
         display:'flex',
         flexDirection:'row'
+    },
+    banner:{
+        display:'flex',
+        color:"#159DE9",
+        marginTop:theme.spacing(9),
+        justifyContent: "center",
+        fontFamily:"lato",
+        fontSize:"20px",
     }
-
 }))
 
 
@@ -48,10 +55,19 @@ export default function Dashboard(){
     const uC = (c) => {
         updateComponent(c);
     }
+    const especialidad = useSelector(state => state.reducerLog.info.especialidad)
     return(
-        <Box className={classes.box}>
-            <NavPanel updateComponent={uC}/>
-            <Box width="100%">{actComponent}</Box>
+        <>
+        <Box className={classes.banner}>
+            {especialidad?especialidad:"Bienvenido"}
         </Box>
+        <Box className={classes.box}>
+            
+            <NavPanel updateComponent={uC}/>
+
+            <Box width="100%">{actComponent}</Box>
+            
+        </Box>
+        </>
     )
 }

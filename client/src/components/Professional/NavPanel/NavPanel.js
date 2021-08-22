@@ -36,8 +36,9 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
   },
   box: {
-    backgroundColor: "#C4C4C4",
+    backgroundColor: "rgb(232, 240, 254)",
     padding: "10px",
+    paddingTop: "20px",
     paddingLeft: "50px",
     paddingRight: "50px",
     marginLeft: "10px",
@@ -46,7 +47,7 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     borderRadius: "10px",
-    maxHeight: "280px",
+    minHeight: "90vh",
   },
   btn: {
     marginTop: "10px",
