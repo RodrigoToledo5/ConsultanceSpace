@@ -63,17 +63,17 @@ export default function NavPanel({ updateComponent }) {
 
   //Objeto de componentes y nombres
   const routes = [
-    { Appointment: <Appointment withoutTitle={false} /> },
-    { Managment: <Managment /> },
-    { Patients: <Patients /> },
-    { Mis_Pacientes: <MyPatients /> },
-    { Attention: <Attention /> },
-    { Stock: <Stock /> },
-    { Professionals: <Professionals /> },
-    { NuevaCita: <NuevaCita /> },
+    { "Citas": <Appointment withoutTitle={false} /> },
+    { "Finzanzas": <Managment /> },
+    { "Pacientes": <Patients /> },
+    { "Mis Pacientes": <MyPatients /> },
+    { "Atención": <Attention /> },
+    { "Inventario": <Stock /> },
+    { "Profesionales": <Professionals /> },
+    { "Nueva Cita": <NuevaCita /> },
   ];
   
-  const indexPrivateRoutes = 5; // a partir de este indice loa botones se ocultan
+  const indexPrivateRoutes = 8; // a partir de este indice loa botones se ocultan
 
   useEffect(() => {
     updateComponent(routes[0].Inicio);
