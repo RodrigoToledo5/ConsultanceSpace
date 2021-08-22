@@ -24,7 +24,6 @@ export default function Appointment(){
     const classes = useStyle();
     return(
         <Box className={classes.box}>
-            <Typography variant='h4' color='blue'>Mis citas</Typography>
             <NewAppointment/>
             <Appointments/>
         </Box>

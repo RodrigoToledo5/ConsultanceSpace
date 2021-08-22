@@ -17,7 +17,7 @@ router.post("/cita", async (req, res, next) => {
         let citas = await Cita.findAll({
           where: { profesionalId: profesionalId },
         });
-        citas = citas = citas.map((c) => c.dataValues);
+        citas  = citas.map((c) => c.dataValues);
         const pacs = await Paciente.findAll();
         citas = citas.map((c) => {
           const fn = pacs.find((p) => p.id === c.pacienteId).fullName;
@@ -27,9 +27,9 @@ router.post("/cita", async (req, res, next) => {
       }
       if (pacienteId) {
         const citas = await Cita.findAll({ where: { pacienteId: pacienteId } });
-        citas = citas.map((c) => c.dataValues);
+        citas.map((c) => c.dataValues);
         const pros = await Profesional.findAll();
-        citas = citas.map((c) => {
+        citas.map((c) => {
           const fn = pros.find((p) => p.id === c.profesionalId).fullName;
           return { ...c, profesionalFullName: fn };
         });
@@ -91,5 +91,6 @@ router.put("/cita", async (req, res, next) => {
   }
   return res.status(400);
 });
+
 
 module.exports = router;
