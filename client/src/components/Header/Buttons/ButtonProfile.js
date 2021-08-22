@@ -34,7 +34,7 @@ export default function ButtonProfile({onClick:onClick}){
     return(
         <>
         <Button onClick={(event)=>handleClick(event)} type="button" variant='contained' className={classes.btn} >
-            {user.data.emailVerified?"Perfil":"Enviar de nuevo"}
+            {user.data.emailVerified?"Mi Perfil":"Enviar de nuevo"}
         </Button>
         <Box className={classes.alert}>
             {!user.data.emailVerified&&

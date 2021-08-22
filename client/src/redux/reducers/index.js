@@ -5,6 +5,7 @@ import reducerSearchPatients from '../../components/Professional/reducerSearchPa
 import reducerSearchProfesional from '../../components/Professional/reducerSearchProfesional';
 import reducerAddPatients from '../../components/Professional/reducerAddPatients';
 import reducerPatient from '../../components/Patient/ReducersPatients'
+import reducerUpdate from '../../components/Header/Buttons/redux/reducerUpdate';
 
 const rootReducer=combineReducers(
     {reducerSign,
@@ -12,7 +13,8 @@ const rootReducer=combineReducers(
     reducerSearchPatients,
     reducerSearchProfesional,
     reducerAddPatients,
-    reducerPatient
+    reducerPatient,
+    reducerUpdate,
 })
 
 export default rootReducer;
