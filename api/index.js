@@ -17,14 +17,15 @@ const {especialidadesjson}  = require("./especialidades.js");
 const {Especialidad} = require('./src/db');
 
 
+
 conn.sync({ force: false}).then(() => {
   especialidadesjson.forEach(async (especialidad)=>{
     try{
-      await Especialidad.create(
-          {
+      await Especialidad.findOrCreate({
+          where:{
               nombre:especialidad
           }
-      );
+        });
     }
     catch(error){
       console.log(error);

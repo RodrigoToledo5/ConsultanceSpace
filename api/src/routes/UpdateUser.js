@@ -24,7 +24,7 @@ router.put("/updateUser", async (req, res, next) => {
   } = req.body;
 
   fecha=(birth.substring(0,birth.length-14))
- 
+  console.log(speciality)
   try{
     const user=await Usuario.findByPk(email);
     if(user.tipo_usuario==="profesional"){
