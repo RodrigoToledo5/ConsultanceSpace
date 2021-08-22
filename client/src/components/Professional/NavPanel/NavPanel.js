@@ -76,7 +76,7 @@ export default function NavPanel({ updateComponent }) {
   const indexPrivateRoutes = 5; // a partir de este indice loa botones se ocultan
 
   useEffect(() => {
-    updateComponent(routes[0].Inicio);
+    updateComponent(routes[1].Managment);
   }, []);
 
   useEffect(() => {

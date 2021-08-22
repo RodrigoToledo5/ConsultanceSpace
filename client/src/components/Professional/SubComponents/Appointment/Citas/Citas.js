@@ -1,21 +1,14 @@
 import {
   Box,
-  Typography,
   makeStyles,
   TextField,
   Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
 } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { DataGrid } from "@material-ui/data-grid";
 import DeleteIcon from "@material-ui/icons/Delete";
-import { redirect } from "../../../../Log/actions";
-import { useDispatch } from "react-redux";
 import axios from "axios";
+import DialogRequestButton from "../../../../Templates/DialogRequestButton";
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -39,8 +32,6 @@ const useStyle = makeStyles((theme) => ({
 export default function Citas({ citas, reLoad }) {
   const classes = useStyle();
   const api = "http://localhost:3001";
-  //const Data a traer por fetch/redux
-  const arrHorarios = ["9:00hs", "10:00hs", "11:00hs"];
 
   // si generar un date limpio es este quilombo
   const dateObj = new Date();
@@ -55,7 +46,6 @@ export default function Citas({ citas, reLoad }) {
   const [actCitas, setActCitas] = useState(citas);
   const [input, setInput] = useState({ date: newdate });
   const handleInput = (e) => {
-    console.log(input);
     setInput({
       ...input,
       [e.target.name]: e.target.value,
@@ -76,9 +66,6 @@ export default function Citas({ citas, reLoad }) {
     note: "",
   });
   const [rows, setRows] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [finalMsg, setFinalMsg] = useState("");
-  const dispatch = useDispatch();
 
   const renderCompleteButton = (params) => {
     return (
@@ -112,20 +99,25 @@ export default function Citas({ citas, reLoad }) {
   };
 
   const renderDeleteButton = (params) => {
+    const props = {
+      styles: {
+        color: "brown",
+        borderColor: "brown",
+      },
+      title: <DeleteIcon />,
+      buttonOk: "Eliminar",
+      onClick: () => {
+        setActCita(actCitas.find((c) => (c.id = params.id)));
+      },
+      req: sendData,
+      quest: `Desea eliminar ${actCita.note} con ${actCita.pacienteFullName} agendada para ${actCita.date}`,
+      msgOk: "Cita eliminada",
+      msgFalse: "Error",
+      redirect: reLoad,
+    };
     return (
       <strong>
-        <Button
-          className={classes.button}
-          variant="outlined"
-          size="small"
-          style={{ marginLeft: 16 }}
-          onClick={() => {
-            setActCita(actCitas.find((c) => (c.id = params.id)));
-            setOpen(true);
-          }}
-        >
-          <DeleteIcon />
-        </Button>
+        <DialogRequestButton props={props} />
       </strong>
     );
   };
@@ -158,15 +150,14 @@ export default function Citas({ citas, reLoad }) {
   ];
 
   const sendData = () => {
-    setOpen(false);
-    axios({
+    return axios({
       method: "DELETE",
       url: `${api}/cita`,
       data: {
         id: actCita.id,
       },
     }).then((res) => {
-      setFinalMsg(res.status === 200 ? "Cita eliminada" : "Error");
+      return res.status === 200 ? true : false;
     });
   };
 
@@ -211,49 +202,6 @@ export default function Citas({ citas, reLoad }) {
           />
         </div>
       </Box>
-      <Dialog
-        open={open}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{`Desea eliminar ${actCita.note} con ${actCita.pacienteFullName} agendada para ${actCita.date}`}</DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            texto p editar
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            onClick={() => {
-              setOpen(false);
-            }}
-            color="primary"
-          >
-            Cancelar
-          </Button>
-          <Button onClick={sendData} color="primary" autoFocus>
-            Eliminar
-          </Button>
-        </DialogActions>
-      </Dialog>
-      <Dialog
-        open={finalMsg.length > 0}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">{`${finalMsg}`}</DialogTitle>
-        <DialogActions>
-          <Button
-            onClick={() => {
-              reLoad();
-              setFinalMsg("");
-            }}
-            color="primary"
-          >
-            Cerrar
-          </Button>
-        </DialogActions>
-      </Dialog>
     </Box>
   );
 }
