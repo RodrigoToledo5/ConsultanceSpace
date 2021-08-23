@@ -49,6 +49,8 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "column",
     borderRadius: '10px',
     minHeight: "90vh",
+    alignContent: "center",
+    justifyContent: "space-evenly",
     "@media (max-width:900px)": {
       borderTopLeftRadius: '0px',
       borderTopRightRadius: '10px',
