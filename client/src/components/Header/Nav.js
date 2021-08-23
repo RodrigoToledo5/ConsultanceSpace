@@ -12,7 +12,7 @@ import ButtonDashboard from "./Buttons/ButtonDashboard";
 import { postLogIn } from "../Log/actions";
 import ButtonProfile from "./Buttons/ButtonProfile";
 import ButtonProfileActive from "./Buttons/ButtonProfileActive";
-import logo from './CONSULTANCE SPACE TIPO.png'
+import logo from './CONSULTANCESPACETIPO.png'
 import { Link } from "react-router-dom";
 
 const useStyle = makeStyles((theme) => ({
