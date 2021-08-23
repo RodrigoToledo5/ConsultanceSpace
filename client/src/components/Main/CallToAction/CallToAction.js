@@ -26,6 +26,7 @@ export default function CallToAction({ height }) {
     },
     button: {
       width: "200px",
+      backgroundColor:"#ffffff",
       color:blue[500],
       '&:hover':{
         color:blue[500]
@@ -34,6 +35,9 @@ export default function CallToAction({ height }) {
     text:{
       fontSize:'1.3rem',
       color:"white",
+      fontFamily:"Lato",
+      fontWeight: "300",
+      textAlign: "justify",
       '@media (max-width:600px)': {
         fontSize: '0.8rem',
       },
@@ -46,7 +50,9 @@ export default function CallToAction({ height }) {
     },
     title: {
       color:'white',
-      marginBottom:"50px"
+      marginBottom:"50px",
+      fontFamily:"Lato",
+      fontWeight: "600"
     }
   }));
 
@@ -76,7 +82,7 @@ export default function CallToAction({ height }) {
               handleClick("/sign-in");
             }}
           >
-            Reserva ya
+            AGENDA UNA CITA
           </Button>
         </Grid>
       </Paper>
