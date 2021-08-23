@@ -33,7 +33,17 @@ export default function Appointments() {
     date: "",
     note: "",
   });
+
+  const dateLinda = (date) => {
+    let month = (new Date(date)).getMonth() + 1;
+    month = month > 9? month.toString() : "0" + month.toString();
+    return date.substring(8,10) + "/" + month + "/" + date.substring(11,16);
+    //cita.date.substring(16,21)
+  }
+  
+
   const renderDeleteButton = (params) => {
+    const dateStr = dateLinda(actCita.date) + " a las " + actCita.date.substring(16,21) + "hs";
     const props = {
       styles: {
         color: "brown",
@@ -45,7 +55,7 @@ export default function Appointments() {
         setActCita(appointment.find((a) => (a.id = params.id)));
       },
       req: sendData,
-      quest: `Desea eliminar ${actCita.note} con ${actCita.profesionalFullName} agendada para ${actCita.date}`,
+      quest: `Desea eliminar ${actCita.note} con ${actCita.profesionalFullName} agendada para el ${dateStr}`,
       msgOk: "Cita eliminada",
       msgFalse: "Error",
       redirect: reLoad,
@@ -77,17 +87,22 @@ export default function Appointments() {
   };
 
   const columns = [
-    { field: "id", headerName: "ID", width: 200 },
     {
       field: "date",
       headerName: "Fecha",
-      width: 300,
+      width: 150,
+      editable: true,
+    },
+    {
+      field: "hour",
+      headerName: "Horario",
+      width: 150,
       editable: true,
     },
     {
       field: "note",
       headerName: "Motivo",
-      width: 300,
+      width: 200,
       editable: true,
     },
     {
@@ -104,13 +119,14 @@ export default function Appointments() {
       disableClickEventBubbling: true,
     },
   ];
-  
+
   const rows =
     appointment &&
     appointment.map((cita) => {
       return {
         id: cita.id,
-        date: cita.date,
+        date:  dateLinda(cita.date),
+        hour: cita.date.substring(16,21),
         note: cita.note,
         status: cita.status,
       };

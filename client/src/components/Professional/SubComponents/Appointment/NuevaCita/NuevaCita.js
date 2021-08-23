@@ -17,7 +17,7 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-import {  useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Appointment from "../Appointment";
@@ -60,13 +60,12 @@ export default function NuevaCita() {
   const classes = useStyle();
   const user = useSelector((store) => store.reducerLog.info);
   const patient = useSelector((store) => store.reducerLog.actPatient);
-  const [date, setDate] = useState(new Date());
+  const [date, setDate] = useState(new Date().toString().substr(0, 21));
   const [motivo, setMotivo] = useState("Consulta");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [finalMsg, setFinalMsg] = useState("");
   const dispatch = useDispatch();
-
   const sendData = () => {
     setOpen(false);
     setLoading(true);
@@ -84,12 +83,19 @@ export default function NuevaCita() {
     });
   };
 
+  const dateLinda = (date) => {
+    let month = new Date(date).getMonth() + 1;
+    month = month > 9 ? month.toString() : "0" + month.toString();
+    return date.substring(8, 10) + "/" + month + "/" + date.substring(11, 16);
+    //cita.date.substring(16,21)
+  };
+
   const handleMotivo = (e) => {
     if (e.target.value.length < 10) setMotivo(e.target.value);
   };
 
   const handleDateChange = (newDate) => {
-    setDate(newDate);
+    setDate(newDate.toString().substr(0, 21));
   };
 
   const handleHourChange = (time) => {
@@ -170,19 +176,22 @@ export default function NuevaCita() {
           open={open}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
+          PaperProps={{
+            style: {
+              backgroundColor: "white",
+              color: "#159DE9",
+            },
+          }}
         >
-          <DialogTitle id="alert-dialog-title">{`Desea crear cita con ${patient.fullName} el ${date}`}</DialogTitle>
-          <DialogContent>
-            <DialogContentText id="alert-dialog-description">
-              texto p editar
-            </DialogContentText>
-          </DialogContent>
+          <DialogTitle id="alert-dialog-title">{`¿Desea agendar ${motivo} con ${
+            patient.fullName
+          } el ${dateLinda(date)} ?`}</DialogTitle>
           <DialogActions>
             <Button
               onClick={() => {
                 setOpen(false);
               }}
-              color="primary"
+              color="secondary"
             >
               Cancelar
             </Button>
@@ -195,12 +204,18 @@ export default function NuevaCita() {
           open={finalMsg.length > 0}
           aria-labelledby="alert-dialog-title"
           aria-describedby="alert-dialog-description"
+          PaperProps={{
+            style: {
+              backgroundColor: "white",
+              color: "#159DE9",
+            },
+          }}
         >
           <DialogTitle id="alert-dialog-title">{`${finalMsg}`}</DialogTitle>
           <DialogActions>
             <Button
               onClick={() => {
-                dispatch(redirect(0));
+                dispatch(redirect(2));
                 setFinalMsg("");
               }}
               color="primary"
