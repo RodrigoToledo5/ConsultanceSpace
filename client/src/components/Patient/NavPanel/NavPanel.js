@@ -47,11 +47,13 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     borderRadius: "10px",
-    minHeight: "90vh",
+    minHeight: "120vh",
+    alignContent: "center"
+    
   },
   btn: {
-    marginTop: "10px",
-    marginBottom: "10px",
+    marginTop: "25px",
+    marginBottom: "25px",
   },
 }));
 //Administra el componente a renderizar y muestra los botones y opciones

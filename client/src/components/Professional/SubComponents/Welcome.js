@@ -3,31 +3,62 @@ import Carousel from "react-material-ui-carousel";
 import img1 from "../../../assets/img/etc/welcome.jpg";
 import img2 from "../../../assets/img/etc/welcome1.jpg";
 import img3 from "../../../assets/img/etc/welcome2.jpg";
-
+import img4 from "../../../assets/img/etc/welcome3.jpg";
+import img5 from "../../../assets/img/etc/welcome4.jpg";
+import img6 from "../../../assets/img/etc/welcome5.jpg";
+import img7 from "../../../assets/img/etc/welcome6.jpg";
 
 export default function Welcome(){
   const itemHeight = "85vh";
 
   const items = [
-    {
-      name: "Busca un profesional ",
-      description: "Puede hacerlo a traves de su email,nombre o por su especialidad",
+    {//1
+      name: "Lleva un control de tus pacientes ",
+      description: "Puedes buscar a los pacientes registrados y agregarlos a mis pacientes para llevar un control más personalizado",
       img: img1,
       height: itemHeight,
       
 
     },
-    {
+    {//2
+      name: "Lleva el control de tu inventario",
+      description: "Puedes llevar el control de tu inventario para tener una mejor administración de tus insumos médicos",
+      img: img4,
+      height: itemHeight,
+
+    },
+    {//3
       name: "Revisa tus citas agendadas",
-      description: "Lleva el control de tus citas medicas en la seccion de citas agendadas",
+      description: "Lleva el control de tus citas médicas en la sección de citas agendadas control de citas agendadas",
       img: img2,
+      height: itemHeight,
+
+    },   
+    {//4
+      name: "Busca pacientes registrados en la plataforma",
+      description: "En la sección pacientes podrás buscar a las personas registradas como pacientes y agregarlos a tu consultorio en la sección mis pacientes",
+      img: img3,
+      height: itemHeight,
+
+    },
+    {//5
+      name: "Lleva el control de citas agendadas",
+      description: "Podrás buscar las citas agendadas con tus pacientes para tener un mejor control de tu agenda",
+      img: img6,
       height: itemHeight,
 
     },
     {
+      name: "Podrás buscar a otros profesionales",
+      description: "Agregamos la sección de profesionales, donde podrás buscar a los profesionales registrados en la plataforma para hacer para trabajos colaborativos.",
+      img: img5,
+      height: itemHeight,
+
+    },
+    {//
       name: "Perfil personalizado",
-      description: "Si te equivocaste en algun dato cuando hiciste el registro puedes editarlo en la seccion de Mi Perfil",
-      img: img3,
+      description: "Si te equivocaste en algun dato cuando hiciste el registro puedes editar tu perfil en la seccón seccion de Mi Perfil en la esquina superior derecha",
+      img: img7,
       height: itemHeight,
 
     },

@@ -10,6 +10,7 @@ import MyPatients from "../SubComponents/MyPatients/MyPatients";
 import NuevaCita from "../SubComponents/Appointment/NuevaCita/NuevaCita";
 import { useDispatch, useSelector } from "react-redux";
 import { redirect } from "../../Log/actions";
+import Welcome from "../SubComponents/Welcome";
 const useStyle = makeStyles((theme) => ({
   magin: {
     margin: theme.spacing(2),
@@ -61,17 +62,21 @@ const useStyle = makeStyles((theme) => ({
   },
   box: {
     backgroundColor: "rgb(232, 240, 254)",
-    padding: "10px",
-    paddingTop: "20px",
     paddingLeft: "50px",
     paddingRight: "50px",
     marginRight: "10px",
+
     marginBottom: "10px",
     marginTop: theme.spacing(4),
+
     display: "flex",
     flexDirection: "column",
     borderRadius: '10px',
     minHeight: "90vh",
+
+    alignContent: "center",
+    justifyContent: "space-evenly"
+
     "@media (max-width:900px)": {
       borderTopLeftRadius: '0px',
       borderTopRightRadius: '10px',
@@ -82,10 +87,11 @@ const useStyle = makeStyles((theme) => ({
       left: '-260px',
       transition: '1s ease all'
     },
+
   },
   btn: {
-    marginTop: "10px",
-    marginBottom: "10px",
+    marginTop: "-5px",
+    marginBottom: "-5px",
   },
 }));
 
@@ -110,7 +116,9 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
   const indexPrivateRoutes = 6; // a partir de este indice loa botones se ocultan
 
   useEffect(() => {
-    updateComponent(routes[1].Managment);
+
+    updateComponent(<Welcome/>);
+
   }, []);
 
   useEffect(() => {

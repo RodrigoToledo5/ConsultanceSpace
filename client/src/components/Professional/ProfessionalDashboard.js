@@ -3,8 +3,12 @@ import NavPanel from "./NavPanel/NavPanel";
 import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { getInfo } from "../Log/actions";
+
+import Alert from "@material-ui/lab/Alert";
+
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
+
 
 const useStyle=makeStyles(theme=>({
     menu:{
@@ -113,6 +117,7 @@ export default function Dashboard(){
     }
     const especialidad = useSelector(state => state.reducerLog.info.especialidad)
     return(
+
         <Container className ={classes.container}>
             <NavPanel updateComponent={uC} showMenu = {showMenu} setShowMenu={setShowMenu}/>
             <Box className={classes.box}>
@@ -123,6 +128,7 @@ export default function Dashboard(){
                                 <CloseIcon onClick ={() => setShowMenu(!showMenu)}/> 
 
                                 : 
+
 
                                 <MenuIcon onClick ={() => setShowMenu(!showMenu)}/>
                         }
