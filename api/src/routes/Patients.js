@@ -22,13 +22,15 @@ router.get('/patients', async (req, res, next) => {
 })
 
 //delete mypatients
-router.delete('/del-mypatients/:idPatient', async(req, res, next) => {
-    const {idPatient} = req.params;
+router.delete('/del-mypatients', async(req, res, next) => {
+    const {idPatients} = req.body;
     try{
-        await profesional_paciente.destroy({
-            where: {
-                pacienteId: idPatient
-            }
+        idPatients.forEach(async patient => {
+            await profesional_paciente.destroy({
+                where: {
+                    pacienteId: patient
+                }
+            });            
         });
         res.sendStatus(200);
     }catch(err){
