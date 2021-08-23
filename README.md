@@ -65,10 +65,10 @@ PostgreSQL
 ## Imágenes del proyecto
 
 ### Home
-![img1](/client/src/assets/img/readme/1.png)
+![img1](/client/src/assets/img/readme/1.PNG)
 
 ### Login
-![img2](/client/src/assets/img/readme/2.png)
+![img2](/client/src/assets/img/readme/2.PNG)
 
 ### Responsive Admin Dashboard
 
