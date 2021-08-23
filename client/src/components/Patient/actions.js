@@ -10,8 +10,8 @@ export const getAppointment =  (pacienteId, get)=>{
             url: `${api}/cita`,
             data: 
             { 
-            pacienteId, 
-            get
+            pacienteId: pacienteId, 
+            get: get
             }
         }).then((res)=> dispatch({type:GET_APPOINTMENT_PATIENT, payload: res.data})) 
    }

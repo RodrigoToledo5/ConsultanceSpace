@@ -126,7 +126,7 @@ export default function MyPatients(){
         name: patient.nombre,
         lastName: patient.apellidos,
         phone: patient.telefono,
-        birth: patient.fecha_de_nacimiento,
+        birth: patient.fecha_de_nacimiento.substring(0,10),
         address: patient.direccion,
         country: patient.pais,
         email: patient.usuarioEmail
@@ -135,8 +135,6 @@ export default function MyPatients(){
 
     const handleDelete = (e) =>{
       e.preventDefault();
-      console.log('eliminado')
-      console.log(select)
       dispatch(removeMyPatient(select))
     }
     

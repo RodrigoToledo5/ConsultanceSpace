@@ -108,7 +108,7 @@ export default function Patients(){
         name: patient.nombre,
         lastName: patient.apellidos,
         phone: patient.telefono,
-        birth: patient.fecha_de_nacimiento,
+        birth: patient.fecha_de_nacimiento.substring(0,10),
         address: patient.direccion,
         country: patient.pais,
         email: patient.usuarioEmail
@@ -128,7 +128,7 @@ export default function Patients(){
       setAdded(true)
       setTimeout(() => {
         setAdded(false)
-        dispatch(redirect(3));
+        dispatch(redirect(0));
       }, 2000);
     }
     

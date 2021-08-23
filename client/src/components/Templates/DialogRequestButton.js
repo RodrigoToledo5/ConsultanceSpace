@@ -11,8 +11,7 @@ import {
   DialogActions,
   DialogTitle,
 } from "@material-ui/core";
-import {  useState } from "react";
-
+import { useState } from "react";
 
 export default function DialogRequestButton({ props }) {
   /* *************** PROPS OBJECT ********************* /
@@ -26,6 +25,7 @@ export default function DialogRequestButton({ props }) {
                     msgOk: ""
                     msgFalse: ""
                     redirect: ()=>{}
+                    disable: true
     }
     // styles => styles for button can be null
     // title => contenido del boton
@@ -36,6 +36,7 @@ export default function DialogRequestButton({ props }) {
     // msgOk => String para promesa TRUE
     // msgFalse => String para promesa FALSE 
     // redirect => CallBack a ejecutar cuando finaliza el ciclo vital
+    // disable +> disable button, can be null
     */
 
   const useStyle = makeStyles((theme) => ({
@@ -70,6 +71,7 @@ export default function DialogRequestButton({ props }) {
       <Button
         className={classes.button}
         variant="outlined"
+        disabled={props.disabled}
         size="small"
         style={{ marginLeft: 16 }}
         onClick={() => {
@@ -83,6 +85,12 @@ export default function DialogRequestButton({ props }) {
         open={open}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        PaperProps={{
+          style: {
+            backgroundColor: "white",
+            color: "#159DE9",
+          },
+        }}
       >
         <DialogTitle id="alert-dialog-title">{props.quest}</DialogTitle>
 
@@ -96,7 +104,7 @@ export default function DialogRequestButton({ props }) {
             Cancelar
           </Button>
           <Button onClick={sendData} color="primary" autoFocus>
-            {props.buttonOK? props.buttonOK : "Aceptar"}
+            {props.buttonOk ? props.buttonOk : "Aceptar"}
           </Button>
         </DialogActions>
       </Dialog>
@@ -104,6 +112,12 @@ export default function DialogRequestButton({ props }) {
         open={finalMsg.length > 0}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
+        PaperProps={{
+          style: {
+            backgroundColor: "white",
+            color: "#159DE9",
+          },
+        }}
       >
         <DialogTitle id="alert-dialog-title">{`${finalMsg}`}</DialogTitle>
         <DialogActions>

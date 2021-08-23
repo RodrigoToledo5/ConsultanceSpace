@@ -33,14 +33,13 @@ export default function Professionals(){
     const professionals = useSelector(store => store.reducerSearchProfesional.profesionales);
 
     const columns = [
-        { field: 'id', headerName: 'ID', width: 110 },
         { field: 'dni', headerName: 'Cedula', width: 120 },
         {
-        field: 'name',
-        headerName: 'Nombre',
-        width: 150,
-        editable: true,
-        },
+            field: 'name',
+            headerName: 'Nombre',
+            width: 150,
+            editable: true,
+            },
         {
         field: 'lastName',
         headerName: 'Apellido',
@@ -88,7 +87,7 @@ export default function Professionals(){
             name: professional.nombre,
             lastName: professional.apellidos,
             phone: professional.telefono,
-            birth: professional.fecha_de_nacimiento,
+            birth: professional.fecha_de_nacimiento.substring(0,10),
             address: professional.direccion,
             country: professional.pais,
             email: professional.usuarioEmail

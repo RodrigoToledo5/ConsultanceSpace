@@ -37,7 +37,7 @@ export default function ReactCarousel({ height }) {
     <Carousel>
       {items.map((item, i) => (
         <Item key={i} item={item} />
-      ))}
+      ))} 
     </Carousel>
   );
 }
