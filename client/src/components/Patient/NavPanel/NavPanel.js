@@ -35,21 +35,55 @@ const useStyle = makeStyles((theme) => ({
   nav: {
     display: "flex",
   },
-  box: {
+  boxActive: {
     backgroundColor: "rgb(232, 240, 254)",
     padding: "10px",
     paddingTop: "20px",
     paddingLeft: "50px",
     paddingRight: "50px",
-    marginLeft: "10px",
+    marginLeft: "0",
     marginRight: "10px",
     marginBottom: "10px",
     display: "flex",
     flexDirection: "column",
     borderRadius: "10px",
     minHeight: "120vh",
-    alignContent: "center"
-    
+    alignContent: "center",
+    "@media (max-width:900px)": {
+      borderTopLeftRadius: '0px',
+      borderTopRightRadius: '10px',
+      borderBottomLeftRadius: '10px',
+      borderBottomRightRadius: '10px',
+      position: 'absolute',
+      left: '6px',
+      zIndex: '2',
+      transition: '1s ease all'
+    },
+  },
+  box: {
+    backgroundColor: "rgb(232, 240, 254)",
+    padding: "10px",
+    paddingTop: "20px",
+    paddingLeft: "50px",
+    paddingRight: "50px",
+    marginLeft: "0",
+    marginRight: "10px",
+    marginBottom: "10px",
+    display: "flex",
+    flexDirection: "column",
+    borderRadius: "10px",
+    minHeight: "120vh",
+    alignContent: "center",
+    "@media (max-width:900px)": {
+      borderTopLeftRadius: '0px',
+      borderTopRightRadius: '10px',
+      borderBottomLeftRadius: '10px',
+      borderBottomRightRadius: '10px',
+      position: 'absolute',
+      left: '-300px',
+      zIndex: '2',
+      transition: '1s ease all'
+    },
   },
   btn: {
     marginTop: "25px",
@@ -57,7 +91,7 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 //Administra el componente a renderizar y muestra los botones y opciones
-export default function NavPanel({ updateComponent }) {
+export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
   const classes = useStyle();
 
 //Objeto de componentes y nombres
@@ -72,11 +106,12 @@ export default function NavPanel({ updateComponent }) {
   useEffect(() => {
     updateComponent(<Welcome/>);
   }, []);
-  const update = (r) => {
-    updateComponent(r[Object.keys(r)[0]]);
+  const update = async(r) => {
+    await updateComponent(r[Object.keys(r)[0]]);
+    setShowMenu(false)
   };
   return (
-    <Box className={classes.box}>
+    <Box className={showMenu ? classes.boxActive : classes.box }>
       {routes.map((r, i) => (
         <Button
           key={i}

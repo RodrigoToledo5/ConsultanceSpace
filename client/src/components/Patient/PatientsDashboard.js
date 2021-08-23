@@ -3,6 +3,8 @@ import NavPanel from "./NavPanel/NavPanel";
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { getInfo } from "../Log/actions";
+import MenuIcon from '@material-ui/icons/Menu';
+import CloseIcon from '@material-ui/icons/Close';
 
 const useStyle=makeStyles(theme=>({
     menu:{
@@ -20,7 +22,12 @@ const useStyle=makeStyles(theme=>({
         '@media (max-width:600px)':{
             flexDirection:'column-reverse'
         }
-       
+    },
+    container:{
+        marginTop: theme.spacing(9),
+        "@media (max-width: 600px)":{
+            marginTop: '110px'
+        }
     },
     text:{
         color:"#159DE9",
@@ -28,8 +35,34 @@ const useStyle=makeStyles(theme=>({
     nav:{
         display:'flex'
     },
+    icon:{
+        display: 'none',
+        "@media (max-width:900px)": {
+            color: "#159DE9",
+            margin: '0',
+            padding: "0 10px 0px 10px",
+            display: 'flex',
+            justifyContent: 'flexStart',
+            position: 'relative'
+        },
+    },
+    iconActive:{
+        display: 'none',
+        "@media (max-width:900px)": {
+            color: "#159DE9",
+            background: 'rgb(232, 240, 254)',
+            margin: '0',
+            padding: "0 10px 0px 10px",
+            borderTopLeftRadius: '10px',
+            borderTopRightRadius: '10px',
+            display: 'flex',
+            position: 'relative',
+            justifyContent: 'flexStart',
+            width: '50px',
+            transition: '3s ease all'
+        },
+    },
     box:{
-        marginTop:theme.spacing(10),
         marginBottom:theme.spacing(8),
         display:'flex',
         flexDirection:'row'
@@ -41,15 +74,26 @@ const useStyle=makeStyles(theme=>({
 export default function PatientsDashboard(){
     const classes=useStyle();
     const [actComponent, updateComponent] = useState(null);
+    const [showMenu, setShowMenu] = useState(false);
     const user = useSelector((store) => store.reducerLog.user);
     const dispatch = useDispatch();
     useEffect(()=>{
         dispatch(getInfo({...user}));
     },[])
     return(
-        <Box className={classes.box}>
-            <NavPanel updateComponent={updateComponent}/>
-            <Box width="100%">{actComponent}</Box>
+        <Box className ={classes.container} >
+            <Box className= { showMenu? classes.iconActive : classes.icon }>
+                        {
+                            showMenu ? 
+                                <CloseIcon onClick ={() => setShowMenu(!showMenu)}/> 
+                                : 
+                                <MenuIcon onClick ={() => setShowMenu(!showMenu)}/>
+                        }
+            </Box>
+            <Box className={classes.box}>
+                <NavPanel updateComponent={updateComponent} showMenu = {showMenu} setShowMenu={setShowMenu}/>
+                <Box width="100%">{actComponent}</Box>
+            </Box>
         </Box>
     )
 }
