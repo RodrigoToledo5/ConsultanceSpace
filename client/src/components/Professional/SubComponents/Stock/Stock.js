@@ -83,7 +83,7 @@ export default function Stock() {
   const classes = useStyle();
   return (
     <Box className={classes.mainBox}>
-    <Typography variant='h4'>Stock</Typography>
+    <Typography variant='h3'>Inventario</Typography>
       <Box display="flex" width="100%" className={classes.paperContainer}>
         <Box width="35%" className={classes.item}>
           <Typography variant="h5">Item</Typography>

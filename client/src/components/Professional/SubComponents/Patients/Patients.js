@@ -53,7 +53,7 @@ export default function Patients(){
     const dispatch = useDispatch()
 
     const columns = [
-      { field: 'id', headerName: 'ID', width: 110 },
+     
       { field: 'dni', headerName: 'Cedula', width: 120 },
       {
         field: 'name',
@@ -134,7 +134,7 @@ export default function Patients(){
     
     return(
         <Box className={classes.box}>
-            <Typography variant='h4' color='blue'>Pacientes</Typography>
+            <Typography variant='h3' color='blue'>Pacientes</Typography>
             <SearchBar getAction={getPatient}/>
             <div style={{ height: 400, width: '100%' }}>
               <DataGrid className={classes.grid}

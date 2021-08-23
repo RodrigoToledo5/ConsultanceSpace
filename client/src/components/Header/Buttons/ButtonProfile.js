@@ -14,9 +14,15 @@ const useStyle=makeStyles(theme=>({
         position:"fixed",
         left:theme.spacing(40),
         right:theme.spacing(40),
-        top:theme.spacing(2)
+        top:theme.spacing(2),
+        "@media (max-width:900px)": {
+            left:theme.spacing(1),
+            right:theme.spacing(1),
+            top:theme.spacing(20)
+        }
 
     }
+
 }))
 
 export default function ButtonProfile({onClick:onClick}){
@@ -39,7 +45,7 @@ export default function ButtonProfile({onClick:onClick}){
         <Box className={classes.alert}>
             {!user.data.emailVerified&&
                 <Alert severity="info">
-                    Mensaje de confirmación de email enviado, por favor checkea tu mail, puede que se encuentre en la casilla de spam, si el correo no fue recibido hay click en “Enviar de nuevo” para enviar el correo de confirmación nuevamente.
+                    Mensaje de confirmación de email enviado, por favor checkea tu mail, puede que se encuentre en la casilla de spam, si el correo no fue recibido hay click en “Enviar de nuevo” para enviar el correo de confirmación nuevamente, recarga la página despues de confirmar.
                 </Alert>
             }
         </Box>

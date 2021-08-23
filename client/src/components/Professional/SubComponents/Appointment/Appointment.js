@@ -7,6 +7,7 @@ import axios from "axios";
 const useStyle = makeStyles((theme) => ({
     text: {
       color: "#159DE9",
+      marginLeft:"8vh"
     },
     box: {
       display: "flex",
@@ -32,7 +33,7 @@ export default function Appointment({withoutTitle}){
     useEffect(()=>{loadData()},[]);
     return(
         <Box className={classes.box}>
-            {withoutTitle? null : <Typography variant='h4'>Appointment</Typography>}
+            {withoutTitle? null : <Typography className={classes.text} variant='h3'>Citas</Typography>}
             <Citas citas={citas} reLoad={loadData}/>
         </Box>
     )

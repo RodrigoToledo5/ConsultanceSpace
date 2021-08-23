@@ -141,7 +141,7 @@ export default function MyPatients(){
     return(
         <Box className={classes.box}>
 
-            <Typography variant='h4' color='blue'>Mis Patients</Typography>
+            <Typography variant='h3' color='blue'>Mis Pacientes</Typography>
             <div style={{ height: 400, width: '100%' }}>
               <DataGrid className={classes.grid}
                 rows={rows}

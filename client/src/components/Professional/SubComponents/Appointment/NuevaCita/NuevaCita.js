@@ -110,7 +110,7 @@ export default function NuevaCita() {
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
       <Box className={classes.box}>
-        <Typography variant="h4">Nueva Cita</Typography>
+        <Typography variant="h3">Nueva Cita</Typography>
         <Box className={classes.appDate}>
           <Box className={classes.componentContainer}>
             <FormControl className={classes.form}>

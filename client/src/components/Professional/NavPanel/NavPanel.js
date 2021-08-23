@@ -75,6 +75,7 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "column",
     borderRadius: '10px',
     minHeight: "90vh",
+    maxHeight: "90vh",
 
     alignContent: "center",
     justifyContent: "space-evenly",
@@ -107,7 +108,7 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
   const routes = [
     { "Mis Pacientes": <MyPatients />  },
     { "Pacientes": <Patients /> },
-    { "Citas agendadas": <Appointment withoutTitle={true} /> },
+    { "Citas agendadas": <Appointment withoutTitle={false} /> },
     { "Inventario": <Stock />},
     { "Profesionales": <Professionals />},
     { "Finzanzas": <Managment />},

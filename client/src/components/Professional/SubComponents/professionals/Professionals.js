@@ -97,7 +97,7 @@ export default function Professionals(){
     return(
         <Box className={classes.box}>
 
-            <Typography variant='h4' color='blue'>Profesionales</Typography>
+            <Typography variant='h3' color='blue'>Profesionales</Typography>
             <SearchBar getAction={searchprofesional}/>
             <div style={{ height: 400, width: '100%' }}>
                 <DataGrid className={classes.grid}
