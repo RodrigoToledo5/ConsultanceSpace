@@ -75,7 +75,7 @@ const useStyle = makeStyles((theme) => ({
     minHeight: "90vh",
 
     alignContent: "center",
-    justifyContent: "space-evenly"
+    justifyContent: "space-evenly",
 
     "@media (max-width:900px)": {
       borderTopLeftRadius: '0px',

@@ -41,11 +41,12 @@ export const addPatient = (data) => {
     }
 }
 
-export const removeMyPatient = (id) => {
+export const removeMyPatient = (data) => {
     return async(dispatch) => {
-        const res = axios({
+        axios({
             method: 'DELETE',
-            url: `${api}/del-mypatients/${id}`
+            url: `${api}/del-mypatients`,
+            data: data
         })
         dispatch({type: REMOVE_MYPATIENTS})
     }

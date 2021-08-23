@@ -135,7 +135,12 @@ export default function MyPatients(){
 
     const handleDelete = (e) =>{
       e.preventDefault();
-      dispatch(removeMyPatient(select))
+      console.log(select);
+      const data = {
+        idPatients: select
+      }
+      dispatch(removeMyPatient(data));
+      setSelect([]);
     }
     
     return(
