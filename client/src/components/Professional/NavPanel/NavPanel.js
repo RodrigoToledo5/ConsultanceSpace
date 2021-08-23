@@ -10,6 +10,7 @@ import MyPatients from "../SubComponents/MyPatients/MyPatients";
 import NuevaCita from "../SubComponents/Appointment/NuevaCita/NuevaCita";
 import { useDispatch, useSelector } from "react-redux";
 import { redirect } from "../../Log/actions";
+import Welcome from "../SubComponents/Welcome";
 const useStyle = makeStyles((theme) => ({
   magin: {
     margin: theme.spacing(2),
@@ -37,21 +38,20 @@ const useStyle = makeStyles((theme) => ({
   },
   box: {
     backgroundColor: "rgb(232, 240, 254)",
-    padding: "10px",
-    paddingTop: "20px",
     paddingLeft: "50px",
     paddingRight: "50px",
     marginLeft: "10px",
     marginRight: "10px",
-    marginBottom: "10px",
     display: "flex",
     flexDirection: "column",
     borderRadius: "10px",
     minHeight: "90vh",
+    alignContent: "center",
+    justifyContent: "space-evenly"
   },
   btn: {
-    marginTop: "10px",
-    marginBottom: "10px",
+    marginTop: "-5px",
+    marginBottom: "-5px",
   },
 }));
 
@@ -76,7 +76,7 @@ export default function NavPanel({ updateComponent }) {
   const indexPrivateRoutes = 6; // a partir de este indice loa botones se ocultan
 
   useEffect(() => {
-    updateComponent(routes[0].Inicio);
+    updateComponent(<Welcome/>);
   }, []);
 
   useEffect(() => {

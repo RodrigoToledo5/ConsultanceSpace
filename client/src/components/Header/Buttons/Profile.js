@@ -208,7 +208,7 @@ export default function Profile({ onClick }) {
                             className={classes.textfield}
                             value={patient.lastName}
                             onChange={(event) => onHandleChange(event)}
-                            label={!onfocuslastname ? profile.apellidos : "Nombre"}
+                            label={!onfocuslastname ? profile.apellidos : "Apellido"}
                             onFocus={() => setOnFocusLastName(!onfocuslastname)}
                             onBlur={() => setOnFocusLastName(!onfocuslastname)}
                             size="small"

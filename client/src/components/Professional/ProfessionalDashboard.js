@@ -3,6 +3,8 @@ import NavPanel from "./NavPanel/NavPanel";
 import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { getInfo } from "../Log/actions";
+import Alert from "@material-ui/lab/Alert";
+
 const useStyle=makeStyles(theme=>({
     menu:{
         margin: theme.spacing(1),
@@ -59,7 +61,7 @@ export default function Dashboard(){
     return(
         <>
         <Box className={classes.banner}>
-            {especialidad?especialidad:"Bienvenido"}
+            {especialidad?especialidad:<Alert  severity="warning">Por favor configure su especialidad en la sección Mi Perfil para que los pacientes puedan buscarlo por su especialidad</Alert>}
         </Box>
         <Box className={classes.box}>
             
