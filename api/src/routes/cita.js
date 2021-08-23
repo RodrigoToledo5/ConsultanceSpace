@@ -10,6 +10,7 @@ const router = Router();
 
 router.post("/cita", async (req, res, next) => {
   const { profesionalId, pacienteId, date, get, note } = req.body;
+  console.log(date);
   try {
     if (get) {
       if (profesionalId) {
@@ -20,6 +21,7 @@ router.post("/cita", async (req, res, next) => {
         const pacs = await Paciente.findAll();
         citas = citas.map((c) => {
           const fn = pacs.find((p) => p.id === c.pacienteId).fullName;
+          console.log(c.date);
           return { ...c, pacienteFullName: fn };
         });
         return res.status(200).send(citas);

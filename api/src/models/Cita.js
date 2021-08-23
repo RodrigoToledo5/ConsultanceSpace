@@ -4,7 +4,7 @@ module.exports = (sequelize) => {
 	//* defino el modelo
 	sequelize.define('cita', {
 		date: {
-			type: DataTypes.DATE,
+			type: DataTypes.STRING,
 			allowNull: false,
 		},
 		note:{

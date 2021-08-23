@@ -126,7 +126,7 @@ export default function MyPatients(){
         name: patient.nombre,
         lastName: patient.apellidos,
         phone: patient.telefono,
-        birth: patient.fecha_de_nacimiento,
+        birth: patient.fecha_de_nacimiento.substring(0,10),
         address: patient.direccion,
         country: patient.pais,
         email: patient.usuarioEmail
@@ -135,15 +135,18 @@ export default function MyPatients(){
 
     const handleDelete = (e) =>{
       e.preventDefault();
-      console.log('eliminado')
-      console.log(select)
-      dispatch(removeMyPatient(select))
+      console.log(select);
+      const data = {
+        idPatients: select
+      }
+      dispatch(removeMyPatient(data));
+      setSelect([]);
     }
     
     return(
         <Box className={classes.box}>
 
-            <Typography variant='h4' color='blue'>Mis Patients</Typography>
+            <Typography variant='h3' color='blue'>Mis Pacientes</Typography>
             <div style={{ height: 400, width: '100%' }}>
               <DataGrid className={classes.grid}
                 rows={rows}

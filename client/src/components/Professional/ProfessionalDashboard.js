@@ -134,7 +134,7 @@ export default function Dashboard(){
                         }
                     </Box>
                     <Box className={classes.title}>
-                        {especialidad?especialidad:"Bienvenido"}
+                    {especialidad?especialidad:<Alert  severity="warning">Por favor configure su especialidad en la sección Mi Perfil para que los pacientes puedan buscarlo por su especialidad</Alert>}
                     </Box>
                 </Box>
                 <Box className ={classes.field}>{actComponent}</Box>

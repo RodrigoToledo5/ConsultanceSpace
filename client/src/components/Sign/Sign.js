@@ -124,6 +124,7 @@ const useStyles = makeStyles((theme) => ({
   },
   fontNormal: {
     fontSize: "20px",
+    color:"black",
     "@media (max-width : 500px)": {
       fontSize: "15px",
     },

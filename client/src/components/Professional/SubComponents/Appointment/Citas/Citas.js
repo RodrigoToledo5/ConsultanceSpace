@@ -98,7 +98,15 @@ export default function Citas({ citas, reLoad }) {
     );
   };
 
+  const dateLinda = (date) => {
+    let month = (new Date(date)).getMonth() + 1;
+    month = month > 9? month.toString() : "0" + month.toString();
+    return date.substring(8,10) + "/" + month + "/" + date.substring(11,16);
+    //cita.date.substring(16,21)
+  }
+
   const renderDeleteButton = (params) => {
+    const dateStr = dateLinda(actCita.date) + " a las " + actCita.date.substring(16,21) + "hs";
     const props = {
       styles: {
         color: "brown",
@@ -110,7 +118,7 @@ export default function Citas({ citas, reLoad }) {
         setActCita(actCitas.find((c) => (c.id = params.id)));
       },
       req: sendData,
-      quest: `Desea eliminar ${actCita.note} con ${actCita.pacienteFullName} agendada para ${actCita.date}`,
+      quest: `Desea eliminar ${actCita.note} con ${actCita.pacienteFullName} agendada para el ${dateStr}`,
       msgOk: "Cita eliminada",
       msgFalse: "Error",
       redirect: reLoad,
@@ -164,9 +172,10 @@ export default function Citas({ citas, reLoad }) {
   useEffect(() => {
     setRows(
       actCitas.map((c) => {
+        const newDate = c.date.includes("T")? c.date.substring(11, 16) :  c.date.substring(16, 21);
         return {
           id: c.id,
-          horario: "" + c.date.substring(11, 16) + "hs",
+          horario: newDate + "hs",
           pacienteName: c.pacienteFullName,
           note: c.note,
         };

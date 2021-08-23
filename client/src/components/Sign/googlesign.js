@@ -152,7 +152,7 @@ export default function GoogleSign(){
         birth: '',
         address:'',
         country: '',
-        type:'profesional'
+        type:null
     });
     const login = useSelector((state) => state.reducerLog.user);
 
@@ -163,6 +163,10 @@ export default function GoogleSign(){
           label: '',
         },
         {
+            value: 50,
+            label: "",
+          },
+        {
           value: 100,
           label: '',
         },
@@ -171,7 +175,6 @@ export default function GoogleSign(){
     const countries = useSelector((state)=> state.reducerSign.countries);
 
     const onHandleChange = (e) => {
-        
         setPatient({
             ...patient,
             [e.target.name]: e.target.value
@@ -192,7 +195,9 @@ export default function GoogleSign(){
             patient.phone&&
             patient.birth&&
             patient.address&&
-            patient.country
+            patient.country&&
+            patient.type &&
+            Object.keys(errors).length === 0
             ){
             setLoad("cargando");
             dispatch(postSignIn(patient));
@@ -229,7 +234,7 @@ export default function GoogleSign(){
     const alertFunction =() => {
         
         if(patient.name && patient.dni && patient.lastName && patient.phone &&
-            patient.birth && patient.address && patient.country){
+            patient.birth && patient.address && patient.country && patient.type){
             return (
                <Box width="100%" justifyContent="center">
                    <Alert className={classes.alert} severity="success">      
@@ -267,6 +272,18 @@ export default function GoogleSign(){
    
     },[user.data,setPatient])
 
+    const sliderErrorHandler = () => {
+        switch(patient.type){
+            case "profesional":
+                return (<Typography className={classes.labelTextField}>Usted es Profesional</Typography>)
+            case "paciente":
+                return (<Typography className={classes.labelTextField}>Usted es Paciente</Typography>)    
+            default:
+                return (<Typography className={classes.redTextField}>Seleccione si usted es profesional o paciente</Typography>)
+        }
+    }
+  
+
     return (
         <>
             <Container className={classes.divStyle}>
@@ -275,23 +292,47 @@ export default function GoogleSign(){
             <form onSubmit={onHandleSubmit}>
             <Box className={clsx(classes.margin, classes.boxSlider)}>
                 <Box className={classes.boxSliderText}>
-                    <Typography className={patient.type === 'profesional'? classes.fontSelect : classes.fontNormal}>
-                     Profesional
-                    </Typography>
-                    <Typography className={patient.type === 'paciente'? classes.fontSelect : classes.fontNormal}>
-                        Paciente
-                    </Typography>
+                <Typography
+                  className={
+                    patient.type === "profesional"
+                      ? classes.fontSelect
+                      : classes.fontNormal
+                  }
+                >
+                  Profesional
+                </Typography>
+                <Typography
+                  className={
+                    patient.type === "paciente"
+                      ? classes.fontSelect
+                      : classes.fontNormal
+                  }
+                >
+                  Paciente
+                </Typography>
                 </Box>
                 <Slider
-                            className={clsx(classes.margin, classes.slider)}
-                            defaultValue={0}
-                            aria-labelledby="discrete-slider-small-steps"
-                            step={100}
-                            marks={marks}
-                            selectionColor="green"
-                            onChange={(e, v)=>{ v === 0 ? setPatient({...patient, type:"profesional"}):setPatient({...patient, type:"paciente"})}}
-                            
-                        />
+                className={clsx(classes.margin, classes.slider)}
+                defaultValue={50}
+                aria-labelledby="discrete-slider-small-steps"
+                step={50}
+                marks={marks}
+                selectionColor="green"
+                onChange={(e, v) => {
+                  switch (v) {
+                    case 0:
+                      setPatient({ ...patient, type: "profesional" });
+                      break;
+                    case 100:
+                      setPatient({ ...patient, type: "paciente" });
+                      break;
+                    default:
+                      setPatient({ ...patient, type: null });
+                      break;
+                  }
+                }}
+              />
+              {sliderErrorHandler()}
                 </Box>
                 <Grid className={classes.firstGrid}>
                     

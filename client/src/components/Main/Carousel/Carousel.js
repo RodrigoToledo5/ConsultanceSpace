@@ -5,9 +5,11 @@ import React from "react";
 import Carousel from "react-material-ui-carousel";
 import { makeStyles} from "@material-ui/core";
 
-import img1 from "../../../assets/img/Carousel/test1.png";
-import img2 from "../../../assets/img/Carousel/test2.png";
-import img3 from "../../../assets/img/Carousel/test3.png";
+
+import img1 from "../../../assets/img/Carousel/medicoLap.webp";
+import img2 from "../../../assets/img/Carousel/medicoSpace.webp";
+import img3 from "../../../assets/img/Carousel/terapeutaSpace.webp";
+
 
 export default function ReactCarousel({ height }) {
   const itemHeight = height ? height : "400px";
@@ -37,7 +39,7 @@ export default function ReactCarousel({ height }) {
     <Carousel>
       {items.map((item, i) => (
         <Item key={i} item={item} />
-      ))}
+      ))} 
     </Carousel>
   );
 }

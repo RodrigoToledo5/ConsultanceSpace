@@ -49,6 +49,8 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "column",
     borderRadius: '10px',
     minHeight: "90vh",
+    alignContent: "center",
+    justifyContent: "space-evenly",
     "@media (max-width:900px)": {
       borderTopLeftRadius: '0px',
       borderTopRightRadius: '10px',
@@ -71,6 +73,7 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "column",
     borderRadius: '10px',
     minHeight: "90vh",
+    maxHeight: "90vh",
     alignContent: "center",
     justifyContent: "space-evenly",
     "@media (max-width:900px)": {
@@ -99,14 +102,14 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
 
   //Objeto de componentes y nombres
   const routes = [
-    {"Mis Pacientes": <MyPatients />  },
+    { "Mis Pacientes": <MyPatients />  },
+    { "Pacientes": <Patients /> },
+    { "Citas agendadas": <Appointment withoutTitle={false} /> },
     { "Inventario": <Stock />},
-    { "Agendar Cita": <NuevaCita /> },
-    {  "Pacientes": <Patients /> },
-    { "Citas agendadas": <Appointment withoutTitle={true} /> },
     { "Profesionales": <Professionals />},
+    { "Finzanzas": <Managment />},
     { "Atención": <Attention />},
-    {  "Finzanzas": <Managment />},
+    { "Agendar Cita": <NuevaCita /> },
   ];
   
   const indexPrivateRoutes = 6; // a partir de este indice loa botones se ocultan

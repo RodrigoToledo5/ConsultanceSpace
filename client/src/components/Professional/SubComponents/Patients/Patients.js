@@ -53,7 +53,7 @@ export default function Patients(){
     const dispatch = useDispatch()
 
     const columns = [
-      { field: 'id', headerName: 'ID', width: 110 },
+     
       { field: 'dni', headerName: 'Cedula', width: 120 },
       {
         field: 'name',
@@ -108,7 +108,7 @@ export default function Patients(){
         name: patient.nombre,
         lastName: patient.apellidos,
         phone: patient.telefono,
-        birth: patient.fecha_de_nacimiento,
+        birth: patient.fecha_de_nacimiento.substring(0,10),
         address: patient.direccion,
         country: patient.pais,
         email: patient.usuarioEmail
@@ -128,13 +128,13 @@ export default function Patients(){
       setAdded(true)
       setTimeout(() => {
         setAdded(false)
-        dispatch(redirect(3));
+        dispatch(redirect(0));
       }, 2000);
     }
     
     return(
         <Box className={classes.box}>
-            <Typography variant='h4' color='blue'>Pacientes</Typography>
+            <Typography variant='h3' color='blue'>Pacientes</Typography>
             <SearchBar getAction={getPatient}/>
             <div style={{ height: 400, width: '100%' }}>
               <DataGrid className={classes.grid}

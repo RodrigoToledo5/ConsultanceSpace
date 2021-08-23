@@ -66,7 +66,11 @@ const useStyle=makeStyles(theme=>({
         minWidth: "100px",
         height: "50px",
         position:"relavive",
-        left:"20%"
+        left:"20%",
+        "@media (max-width:900px)": {
+            left:"-10%",
+            Width: "50px",
+        }
     
     },
     selectEmpty:{
