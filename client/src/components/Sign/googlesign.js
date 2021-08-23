@@ -412,7 +412,7 @@ export default function GoogleSign(){
                                     type="date"
                                     className={clsx(classes.margin, classes.textField)}
                                     variant="outlined"
-                                    InputProps={{className: classes.labelTextField}}
+                                    InputProps={{className: classes.labelTextField, inputProps:{ min: "1900-01-01", max: new Date().toISOString().split("T")[0]}}}
                                     name="birth"
                                     onChange={(event)=>onHandleChange(event)}
                                     value={patient.birth}

@@ -143,6 +143,7 @@ export default function NewAppointment() {
         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={es}>
           <Grid container justifyContent="space-around">
             <KeyboardDatePicker
+              minDate={new Date()}
               margin="normal"
               id="date-picker-dialog"
               label="Elegir Fecha"
