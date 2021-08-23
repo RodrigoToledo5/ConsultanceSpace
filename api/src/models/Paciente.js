@@ -3,10 +3,9 @@ const {DataTypes,Sequelize} = require('sequelize');
 module.exports = (sequelize) => {
 	//* defino el modelo
 	sequelize.define('paciente', {
-		DNI: {
+		cedula: {
 			type: DataTypes.BIGINT,
 			allowNull: false,
-			primaryKey: true,
 		},
 		nombre: {
 			type: DataTypes.STRING,
@@ -31,6 +30,13 @@ module.exports = (sequelize) => {
 		pais:{
 			type: DataTypes.STRING,
 			allowNull: false
+		},
+		fullName: {
+			type: DataTypes.VIRTUAL,
+			get: function() {
+				// return `${this.nombre} ${this.apellidos}`;
+				return this.nombre + ' ' + this.apellidos;
+			},
 		},
 		id_Historia_Clinica:{
 			type: DataTypes.BIGINT,

@@ -1,11 +1,16 @@
 import { Box, Button, makeStyles } from "@material-ui/core";
 import { useEffect } from "react";
-import Appointment from "../SubComponents/Appointment";
+import Appointment from "../SubComponents/Appointment/Appointment";
 import Attention from "../SubComponents/Attention";
-import Patients from "../SubComponents/Patients";
-import Professionals from "../SubComponents/Professionals";
+import Patients from "../SubComponents/Patients/Patients";
+import Professionals from "../SubComponents/professionals/Professionals";
 import Managment from "../SubComponents/Managment";
 import Stock from "../SubComponents/Stock/Stock";
+import MyPatients from "../SubComponents/MyPatients/MyPatients";
+import NuevaCita from "../SubComponents/Appointment/NuevaCita/NuevaCita";
+import { useDispatch, useSelector } from "react-redux";
+import { redirect } from "../../Log/actions";
+import Welcome from "../SubComponents/Welcome";
 const useStyle = makeStyles((theme) => ({
   magin: {
     margin: theme.spacing(2),
@@ -31,48 +36,105 @@ const useStyle = makeStyles((theme) => ({
   nav: {
     display: "flex",
   },
-  box: {
-    backgroundColor: "#C4C4C4",
+  boxActive: {
+    backgroundColor: "rgb(232, 240, 254)",
     padding: "10px",
+    paddingTop: "20px",
     paddingLeft: "50px",
     paddingRight: "50px",
-    marginLeft: "10px",
     marginRight: "10px",
     marginBottom: "10px",
+    marginTop: theme.spacing(4),
     display: "flex",
     flexDirection: "column",
-    borderRadius: "10px",
-    maxHeight: "335px",
+    borderRadius: '10px',
+    minHeight: "90vh",
+    alignContent: "center",
+    justifyContent: "space-evenly",
+    "@media (max-width:900px)": {
+      borderTopLeftRadius: '0px',
+      borderTopRightRadius: '10px',
+      borderBottomLeftRadius: '10px',
+      borderBottomRightRadius: '10px',
+      position: 'absolute',
+      left: '8px',
+      zIndex: '2',
+      transition: '1s ease all'
+    },
+  },
+  box: {
+    backgroundColor: "rgb(232, 240, 254)",
+    paddingLeft: "50px",
+    paddingRight: "50px",
+    marginRight: "10px",
+    marginBottom: "10px",
+    marginTop: theme.spacing(4),
+    display: "flex",
+    flexDirection: "column",
+    borderRadius: '10px',
+    minHeight: "90vh",
+    maxHeight: "90vh",
+    alignContent: "center",
+    justifyContent: "space-evenly",
+    "@media (max-width:900px)": {
+      borderTopLeftRadius: '0px',
+      borderTopRightRadius: '10px',
+      borderBottomLeftRadius: '10px',
+      borderBottomRightRadius: '10px',
+      position: 'absolute',
+      zIndex: '2',
+      left: '-260px',
+      transition: '1s ease all'
+    },
+
   },
   btn: {
-    marginTop: "10px",
-    marginBottom: "10px",
+    marginTop: "-5px",
+    marginBottom: "-5px",
   },
 }));
 
 //Administra el componente a renderizar y muestra los botones y opciones
-export default function NavPanel({ updateComponent }) {
+export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
   const classes = useStyle();
+  const rerender = useSelector((store) => store.reducerLog.redirect);
+  const dispatch = useDispatch();
 
   //Objeto de componentes y nombres
   const routes = [
-    { Appointment: <Appointment /> },
-    { Managment: <Managment /> },
-    { Patients: <Patients /> },
-    { Attention: <Attention /> },
-    { Stock: <Stock /> },
-    { Professionals: <Professionals /> },
+    { "Mis Pacientes": <MyPatients />  },
+    { "Pacientes": <Patients /> },
+    { "Citas agendadas": <Appointment withoutTitle={false} /> },
+    { "Inventario": <Stock />},
+    { "Profesionales": <Professionals />},
+    { "Finzanzas": <Managment />},
+    { "Atención": <Attention />},
+    { "Agendar Cita": <NuevaCita /> },
   ];
   
+  const indexPrivateRoutes = 6; // a partir de este indice loa botones se ocultan
+
   useEffect(() => {
-    updateComponent(routes[0].Inicio);
+
+    updateComponent(<Welcome/>);
+
   }, []);
-  const update = (r) => {
-    updateComponent(r[Object.keys(r)[0]]);
+
+  useEffect(() => {
+    if(Number.isInteger(rerender)){
+      const key = Object.keys(routes[rerender])[0];
+      updateComponent(routes[rerender][key]);
+      dispatch(redirect(null));
+    };
+  }, [rerender]);
+
+  const update = async(r) => {
+    await updateComponent(r[Object.keys(r)[0]]);
+    setShowMenu(false)
   };
   return (
-    <Box className={classes.box}>
-      {routes.map((r, i) => (
+    <Box className={showMenu ? classes.boxActive : classes.box }>
+      {routes.map((r, i) => (i < indexPrivateRoutes? (
         <Button
           key={i}
           className={classes.btn}
@@ -81,8 +143,8 @@ export default function NavPanel({ updateComponent }) {
           }}
         >
           {Object.keys(r)[0]}
-        </Button>
-      ))}
+        </Button>) : "")
+      )}
     </Box>
   );
 }

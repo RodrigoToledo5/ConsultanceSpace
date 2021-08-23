@@ -50,15 +50,16 @@ router.post("/newUser", async (req, res, next) => {
   if (type === "paciente") {
     try {
       const createdPatient = await Paciente.create({
-        DNI: dni,
-        nombre: name,
-        apellidos: lastName,
+        cedula: dni,
+        nombre: name.toUpperCase(),
+        apellidos: lastName.toUpperCase(),
         telefono: phone,
         fecha_de_nacimiento: birth,
         direccion: address,
         pais: country,
       });
       await createdPatient.setUsuario(email);
+      console.log(createdPatient);
       return res.status(200).send("Registro exitoso");
     } catch (err) {
       next(err);
@@ -79,10 +80,12 @@ router.post("/newUser", async (req, res, next) => {
 
       const createdProfesional = await Profesional.create({
         cedula: dni,
-        nombre: name,
-        apellidos: lastName,
+        nombre: name.toUpperCase(),
+        apellidos: lastName.toUpperCase(),
         telefono: phone,
         direccion: address,
+        fecha_de_nacimiento: birth,
+        pais: country,
       });
       await createdProfesional.setUsuario(email);
 
@@ -98,6 +101,7 @@ router.post("/newUser", async (req, res, next) => {
         emptyArr,
       });
       await stock.setUsuario(email);
+      console.log("el profesional creado es",createdProfesional);
       return res.status(200).json(createdProfesional);
     } catch (err) {
       next(err);

@@ -1,7 +1,10 @@
-import {Box, Typography, makeStyles } from "@material-ui/core";
-import devImg from "../../../assets/img/etc/inDev.png"
+import {Box, Typography, makeStyles} from "@material-ui/core";
+import SearchBar from "../SearchBar";
+
+
 
 const useStyle = makeStyles((theme) => ({
+  
     text: {
       color: "#159DE9",
     },
@@ -17,14 +20,17 @@ const useStyle = makeStyles((theme) => ({
       borderRadius: "10px",
       color: "#159DE9",
     },
+
   }));
 
 export default function Patients(){
     const classes = useStyle();
     return(
+      <>
         <Box className={classes.box}>
             <Typography variant='h4' color='blue'>Patients</Typography>
-            <img src={devImg} />
         </Box>
+        <SearchBar/>
+        </>
     )
 }

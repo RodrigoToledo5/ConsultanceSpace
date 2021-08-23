@@ -6,24 +6,28 @@ import { desLog } from '../../Log/actions';
 import app from "firebase/app";
 import "firebase/auth";
 import "../../../firebase/firebase";
+import { clearMypatients } from '../../Professional/actions'
 
 const useStyle=makeStyles(theme=>({
     btn:{
         margin: theme.spacing(1),
-        minWidth:'84px'
-        
+        minWidth:'84px',
+        zIndex:'-1',
     },
 }))
 
-export default function ButtonLogout({setLogFlag}){
+export default function ButtonLogout({setLogFlag,setProfile}){
     const classes=useStyle();
     const dispatch=useDispatch();
     let history = useHistory();
     
     const logOut = async ()=>{
         setLogFlag(true);
+        setProfile(false);
         dispatch(desLog());
+        dispatch(clearMypatients());
         await app.auth().signOut();
+
         history.push('/login')
     }
     return(

@@ -5,7 +5,7 @@ export const GET_COUNTRIES = 'GET_COUNTRIES';
 export const POST_LOG = 'POST_LOG';
 export const FLAG_LOG = 'FLAG_LOG';
 
-const api = 'http://localhost:3001';
+export const api = 'http://localhost:3001';
 
 export const postSignIn = (user)=>{
     return async (dispatch) => {

@@ -11,7 +11,7 @@ const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}
   native: false, // lets Sequelize know we can use pg-native for ~30% more speed
   define:{
     freezeTableName: true
-  }
+  },
 });
 const basename = path.basename(__filename);
 
@@ -36,7 +36,7 @@ sequelize.models = Object.fromEntries(capsEntries);
 // En sequelize.models están todos los modelos importados como propiedades
 // Para relacionarlos hacemos un destructuring
 
-const { Usuario, Profesional, Paciente, Especialidad, Cita, Stock } = sequelize.models;
+const { Usuario, Profesional, Paciente, Especialidad, Cita, Stock, Tratamientos} = sequelize.models;
 
 
 
@@ -61,12 +61,16 @@ Usuario.hasOne(Stock);
 Stock.belongsTo(Usuario);
 
 //cita-profesional
-Profesional.belongsToMany(Cita, {through: 'profesional_cita'});
-Cita.belongsToMany(Profesional, {through: 'profesional_cita'});
+Profesional.hasMany(Cita);
+Cita.belongsTo(Profesional);
 
 // cita-paciente
-Paciente.belongsToMany(Cita, {through: 'paciente_cita'});
-Cita.belongsToMany(Paciente, {through: 'paciente_cita'});
+Paciente.hasMany(Cita);
+Cita.belongsTo(Paciente);
+
+//tratamientos profesional
+Cita.hasOne(Tratamientos);
+Tratamientos.belongsTo(Cita)
 
 
 module.exports = {

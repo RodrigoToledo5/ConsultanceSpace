@@ -7,19 +7,26 @@ const theme = createTheme({
       variant:"contained",
       color:"secondary",
     },
+    "MuiDataGrid-root":{
+      color: "secondary"
+    },
   },
   palette: {
     type: "light",
     primary: {
-      main: "#ffff",
-      contrastText: blue[500]
-    },
-    secondary: {
       main: blue[500],
       contrastText: "#ffffff"
     },
+    secondary: {
+      main: blue[500],
+      contrastText: "#ffff"
+    },
+    default: {
+      main:"#ffffff" ,
+      contrastText: blue[500]
+    },
     text: {
-      primary: "#ffffff",
+      primary: "#00000",
       secondary: blue[500],
     },
     background:{
@@ -29,7 +36,7 @@ const theme = createTheme({
   },
   typography:{
     fontFamily: "Roboto",
-    h4:{marginBottom:"10px"},
+    h4:{marginBottom:"10px", color:"white", textAlign:"center"},
   },
   
 });

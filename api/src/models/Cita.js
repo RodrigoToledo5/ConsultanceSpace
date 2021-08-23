@@ -3,17 +3,15 @@ const {DataTypes,Sequelize} = require('sequelize');
 module.exports = (sequelize) => {
 	//* defino el modelo
 	sequelize.define('cita', {
-		fecha: {
-			type: DataTypes.DATE,
+		date: {
+			type: DataTypes.STRING,
 			allowNull: false,
 		},
-		hora: {
-			type: DataTypes.DATE,
-			allowNull : false,
+		note:{
+			type: DataTypes.STRING,
 		},
 		status:{
 			type: DataTypes.STRING,
-			allowNull: false,
 		}
 	},{
 		timestamps: false,

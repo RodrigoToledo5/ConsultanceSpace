@@ -1,15 +1,19 @@
 import {Route, Redirect} from 'react-router-dom'
 import {useSelector} from 'react-redux';
 import PatientsDashboard from '../../Patient/PatientsDashboard';
+import {useUser,useFirebaseApp } from "reactfire";
 
-export default function PatientsRouter({component,...rest}){
+export default function PatientsRouter({component:Component,...rest}){
     const user = useSelector((store) => store.reducerLog.user)
+    const userFire=useUser();
     function checkUser(){
-       if(user.tipo_usuario==="paciente")return true 
-       else return false
+       if(user.tipo_usuario==="paciente"){
+           if(userFire.data.emailVerified)return true
+        } 
+       else return false;
     }
     return(
   
-        <Route {...rest}>{ checkUser()?<PatientsDashboard/>:<Redirect to="/login"/>}</Route>
+        <Route {...rest}>{ checkUser()?<Component/>:<Redirect to="/"/>}</Route>
     )
 }
