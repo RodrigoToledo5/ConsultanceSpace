@@ -32,7 +32,8 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "column",
     borderRadius: "10px",
     color: "#159DE9",
-    marginLeft: "50px",
+    paddingLeft: '30px',
+    paddingRight: '0',
   },
   componentContainer: {
     display: "flex",
@@ -44,7 +45,7 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
   },
   app: {
-    width: "1000px",
+    width: "100%",
   },
   labelTextField: {
     margin: "10px",

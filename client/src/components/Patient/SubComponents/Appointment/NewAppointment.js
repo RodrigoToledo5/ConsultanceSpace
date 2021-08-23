@@ -90,8 +90,6 @@ export default function NewAppointment() {
     });
   };
 
-  console.log(selectedDate)
-
   return (
     <div>
       <Container className={classes.container}>
