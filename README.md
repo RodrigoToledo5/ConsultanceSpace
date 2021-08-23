@@ -1,5 +1,5 @@
 
-# ![](/client/src/components/header/CONSULTANCESPACETIPO.png)
+# ![logo](/client/src/components/header/CONSULTANCESPACETIPO.png)
 
 
 
@@ -65,13 +65,13 @@ PostgreSQL
 ## Imágenes del proyecto
 
 ### Home
- ![logo](/client/src/assets/img/readme/1.png)
+![img1](/client/src/assets/img/readme/1.png)
 
 ### Login
- ![logo](/client/src/assets/img/readme/2.png)
+![img2](/client/src/assets/img/readme/2.png)
 
 ### Responsive Admin Dashboard
 
-![logo](/client/src/assets/img/readme/responsive.gif)
+![gif](/client/src/assets/img/readme/responsive.gif)
 
 [![Hits](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2FRodrigoToledo5%2FConsultanceSpace&count_bg=%2333988E&title_bg=%23555555&icon=&icon_color=%23E7E7E7&title=views&edge_flat=false)](https://hits.seeyoufarm.com)
