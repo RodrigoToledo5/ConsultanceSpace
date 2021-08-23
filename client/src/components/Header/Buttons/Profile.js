@@ -43,6 +43,13 @@ const useStyle = makeStyles(theme => ({
         marginRight: "50px",
         backgroundColor: "rgb(232, 240, 254) ",
         borderRadius: "10px",
+        "@media (max-width:900px)": {
+            right: "0px",
+            minWidth: "150px",
+            maxWidth: "200px",
+             top: "20px",
+             fontSize:"10px"
+        }
     },
     pick: {
         height: "90px",
@@ -72,7 +79,10 @@ const useStyle = makeStyles(theme => ({
         minWidth: "100px",
         height: "50px",
         position:"relavive",
-        left:"20%"
+        left:"20%",
+        "@media (max-width:900px)": {
+            left:"-10%"
+        }
 
     },
     selectEmpty: {
@@ -100,12 +110,19 @@ const useStyle = makeStyles(theme => ({
         margin: theme.spacing(0.6),
         color: "#2196f3 !important",
         borderRadius: "5px",
+        
+    },
+    btn_container:{
+        display:"flex",
+        flexDirection:"row",
+        justifyContent:"flex-end"
     }
+
 
 }))
 
 
-export default function Profile({ onClick }) {
+export default function Profile({ onClick ,handleEdit:handleEdit}) {
     let history = useHistory();
     const classes = useStyle();
     const user = useUser();
@@ -181,6 +198,9 @@ export default function Profile({ onClick }) {
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
             <form onSubmit={onHandleSubmit}>
                 <Box className={classes.menu}>
+                    <Box className={classes.btn_container}>
+                    <Button onClick={()=>handleEdit()}>X</Button>
+                    </Box>
                     <Typography className={classes.labelTextField}>
                         Datos personales
                     </Typography>

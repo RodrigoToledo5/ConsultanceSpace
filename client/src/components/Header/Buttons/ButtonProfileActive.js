@@ -34,7 +34,10 @@ const useStyle = makeStyles(theme => ({
         marginRight: "15px",
         backgroundColor: "rgb(232, 240, 254)",
         borderRadius: "10px",
-        transitionDuration: "3s"
+        transitionDuration: "3s",
+        "@media (max-width:900px)": {
+            top:"110px",
+        }
 
     },
     pick: {
@@ -44,7 +47,7 @@ const useStyle = makeStyles(theme => ({
     },
     text: {
         padding: "1px",
-        fontSize: "1.5vh"
+        fontSize: "10px"
     }
 }))
 
@@ -88,9 +91,12 @@ export default function ButtonProfileActive({ onClick, setLogFlag: setLogFlag, s
                 </Button>
 
                 <Button className={classes.head} onClick={() => handleEdit()}>
-                    {editprofile ? "Cerrar" : "Editar"}
+                    <div className={classes.text}>
+                        {editprofile ? "Cerrar" : "Editar"}
+                    </div>
                 </Button>
-                {editprofile && <Profile />}
+                {editprofile && <Profile handleEdit={handleEdit}/>}
+                
                 <ButtonLogout setLogFlag={setLogFlag} setProfile={setProfile} ></ButtonLogout>
             </Box>
         </>
