@@ -10,7 +10,7 @@ router.post('/disablePatients', async (req, res, next) => {
         pacienteIds.forEach(async (pacienteId)=>{
         const relation = await ProfesionalPaciente.findOne({where:{profesionalId: profesionalId, pacienteId: pacienteId}})
         relation.disable = disable;
-        relation.save();})
+        await relation.save();})
         return res.send("Disable cambiado")
         
     } catch (err) {
