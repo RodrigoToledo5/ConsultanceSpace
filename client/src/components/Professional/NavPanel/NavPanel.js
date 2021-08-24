@@ -11,6 +11,7 @@ import NuevaCita from "../SubComponents/Appointment/NuevaCita/NuevaCita";
 import { useDispatch, useSelector } from "react-redux";
 import { redirect } from "../../Log/actions";
 import Welcome from "../SubComponents/Welcome";
+import AntecedentesPatologicos from "../SubComponents/HistoriaClinica/AntecedentesPatologicos";
 const useStyle = makeStyles((theme) => ({
   magin: {
     margin: theme.spacing(2),
@@ -110,9 +111,9 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     { "Finzanzas": <Managment />},
     { "Atención": <Attention />},
     { "Agendar Cita": <NuevaCita /> },
+    { "AntecedentesPatologicos": <AntecedentesPatologicos /> },
   ];
-  
-  const indexPrivateRoutes = 6; // a partir de este indice loa botones se ocultan
+  const indexPrivateRoutes = 9; // a partir de este indice loa botones se ocultan
 
   useEffect(() => {
 
