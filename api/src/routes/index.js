@@ -14,7 +14,7 @@ router.use(require("./UpdateUser"))
 router.use(require("./Profesional_patient"))
 router.use(require("./Specialities"))
 router.use(require("./Mailing"))
-
+router.use(require("./DisablePatients"))
 
 router.use(require("./AddPatients"));
 

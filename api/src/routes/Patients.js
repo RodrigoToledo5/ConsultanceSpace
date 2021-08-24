@@ -7,7 +7,6 @@ const { Op} = require("sequelize");
 router.get('/patients', async (req, res, next) => { 
     try {
         const {nombre} = req.query;
-        console.log(nombre)
         const patient = await Paciente.findAll()
         const patientFound = patient.filter((elemento)=> {
             if(elemento.fullName.includes(nombre.toUpperCase())) return true
