@@ -28,12 +28,7 @@ router.get('/profesional', async (req, res, next) => {
                         }
                     )
                     profesionals=profesionals.filter((profesional)=>{
-                        //console.log(profesional.especialidads)
-                        if(profesional.especialidads.forEach((especialidad)=>{
-                            console.log(especialidad.nombre)
-                            if(especialidad.nombre===speciality)return true
-                        }))return true;
-                        
+                        if(profesional.especialidads.find((especialidad)=>especialidad.nombre===(speciality[0].toUpperCase()+speciality.substring(1,speciality.length).toLowerCase())))return true;
                         else return false
                     })
                     res.status(200).json(profesionals)
