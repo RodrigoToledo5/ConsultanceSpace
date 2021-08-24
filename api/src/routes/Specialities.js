@@ -1,10 +1,28 @@
 const {Router} = require('express');
 const router = Router();
-const {Especialidad} = require('../db')
+const {Especialidad,Profesional} = require('../db')
 
 //Route for create treatments
 router.get("/specialities", async(req, res, next) => {
     const {all}=req.query
+    const {id}=req.query
+    if(id){
+        try{
+            const especialidades=await Especialidad.findOne({
+                where:{
+                    id:id
+                },
+                include:{
+                    model: Profesional
+                }
+            });
+            res.status(200).json(especialidades)
+        }
+        catch(error){
+            res.status(404).json(error)
+        }
+       
+    }
     if(all==="all"){
         try{
             const especialidades=await Especialidad.findAll();

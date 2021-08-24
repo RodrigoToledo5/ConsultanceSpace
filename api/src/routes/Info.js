@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Profesional, Paciente } = require("../db");
+const { Profesional, Paciente,Especialidad } = require("../db");
 const router = Router();
 
 // Usar de la siguiente manera
@@ -9,7 +9,7 @@ router.post("/info", async (req, res, next) => {
   const { email, tipo_usuario} = req.body;
   try {
     if(tipo_usuario === "profesional"){
-        const prof = await Profesional.findOne({ where: { usuarioEmail: email } })
+        const prof = await Profesional.findOne({ where: { usuarioEmail: email },include:{model:Especialidad} })
         return res.status(200).send(prof);
     }
     if(tipo_usuario === "paciente"){

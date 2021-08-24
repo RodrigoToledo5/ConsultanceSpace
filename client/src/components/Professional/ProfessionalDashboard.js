@@ -115,7 +115,8 @@ export default function Dashboard(){
     const uC = (c) => {
         updateComponent(c);
     }
-    const especialidad = useSelector(state => state.reducerLog.info.especialidad)
+    //por ahora no vamos a usar mas esto
+    const especialidad = useSelector(state => state.reducerLog.info.especialidads)
     return(
 
         <Container className ={classes.container}>
@@ -134,7 +135,18 @@ export default function Dashboard(){
                         }
                     </Box>
                     <Box className={classes.title}>
-                    {especialidad?especialidad:<Alert  severity="warning">Por favor configure su especialidad en la sección Mi Perfil para que los pacientes puedan buscarlo por su especialidad</Alert>}
+                    {especialidad?especialidad.map((spect,i)=>{
+                        return (
+                            <>
+                             {i>0&&<a> </a>}
+                            <a key={i}>{spect.nombre}</a>
+                               
+                            </>
+                        )
+                    })
+                    :<Alert  severity="warning">
+                        Por favor configure su especialidad en la sección Mi Perfil para que los pacientes puedan buscarlo por su especialidad
+                    </Alert>}
                     </Box>
                 </Box>
                 <Box className ={classes.field}>{actComponent}</Box>
