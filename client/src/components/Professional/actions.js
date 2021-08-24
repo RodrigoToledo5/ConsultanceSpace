@@ -17,7 +17,7 @@ export const searchprofesional = (input)=>{
     }
     else{
         return async (dispatch) => {
-        const res = await axios.get(`${api}/profesional?fullName=${input}&speciality=Neumología`)
+        const res = await axios.get(`${api}/profesional?fullName=${input}&speciality=${input}`)
         dispatch({ type: GET_PROFESIONAL, payload:  res.data })
         }
 }}

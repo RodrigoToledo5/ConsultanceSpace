@@ -37,14 +37,14 @@ router.put("/updateUser", async (req, res, next) => {
       }
       if(name&&typeof name ==="string"){
         await Profesional.update({
-          nombre:name
+          nombre:name.toUpperCase()
         },{where:{
           id:id,
         }});
       }
       if(lastName&&typeof lastName ==="string"){
         await Profesional.update({
-          apellidos:lastName,
+          apellidos:lastName.toUpperCase(),
         },{where:{
           id:id,
         }});
@@ -92,14 +92,14 @@ router.put("/updateUser", async (req, res, next) => {
       if(name&&typeof name ==="string"){
         console.log(user.tipo_usuario)
         await Paciente.update({
-          nombre:name
+          nombre:name.toUpperCase()
         },{where:{
           id:id,
         }});
       }
       if(lastName&&typeof lastName ==="string"){
         await Paciente.update({
-          apellidos:lastName,
+          apellidos:lastName.toUpperCase(),
         },{where:{
           id:id,
         }});
