@@ -1,6 +1,6 @@
 const { Router } = require('express');
 const { Op } = require('sequelize');
-const { Profesional } = require('../db');
+const { Profesional,Especialidad } = require('../db');
 const router = Router();
 
 router.get('/profesional', async (req, res, next) => {
@@ -12,25 +12,31 @@ router.get('/profesional', async (req, res, next) => {
             let profesional = fullName ? await Profesional.findAll() : null;
 
             if (profesional) {
-                //console.log(profesional)
                 let profesionalFilterByFullName = profesional;
                 profesionalFilterByFullName = profesional.filter((profesional) => {
                     if (profesional.fullName.includes(fullName.toUpperCase())) return profesional.fullName
                     return profesional.fullName === fullName.toUpperCase()
                 })
-
                 if (profesionalFilterByFullName.length) {
                     res.status(200).json(profesionalFilterByFullName)
                 }
                 else {
-                    let profesional = await Profesional.findAll(
+                    let profesionals = await Profesional.findAll(
                         {
-                            where: {
-                                especialidad: speciality,
-                            }
+                            
+                            include:{model: Especialidad}
                         }
                     )
-                    res.status(200).json(profesional)
+                    profesionals=profesionals.filter((profesional)=>{
+                        //console.log(profesional.especialidads)
+                        if(profesional.especialidads.forEach((especialidad)=>{
+                            console.log(especialidad.nombre)
+                            if(especialidad.nombre===speciality)return true
+                        }))return true;
+                        
+                        else return false
+                    })
+                    res.status(200).json(profesionals)
                 }
             }
 
@@ -72,7 +78,8 @@ router.get('/profesional', async (req, res, next) => {
                 {
                     where: {
                         usuarioEmail: email,
-                    }
+                    },
+                    include:{model:Especialidad}
                 }
             ) : res.status(404).send("profesional not found");
             if (profesional === null) res.status(200).send("user not found")
