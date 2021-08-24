@@ -282,6 +282,7 @@ export default function Profile({ onClick ,handleEdit:handleEdit}) {
 
                     <FormControl className={classes.datebox}>
                         <KeyboardDatePicker
+                            minDate="1900-01-01"
                             value={patient.birth}
                             onChange={(event) => onHandleDate(event)}
                             label="Fecha de nacimiento"
