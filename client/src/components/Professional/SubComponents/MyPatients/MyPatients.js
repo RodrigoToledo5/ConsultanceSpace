@@ -65,6 +65,13 @@ export default function MyPatients(){
     }
 
     const columns = [
+      {
+        field: 'b1',
+        headerName: 'Hacer Cita',
+        width: 150,
+        renderCell: renderPatientButton,
+        disableClickEventBubbling: true,
+      },
       { field: 'dni', headerName: 'Cedula', width: 120 },
       {
         field: 'name',
@@ -109,13 +116,6 @@ export default function MyPatients(){
         width: 150,
         editable: true,
       },
-      {
-        field: 'b1',
-        headerName: 'Hacer Cita',
-        width: 150,
-        renderCell: renderPatientButton,
-        disableClickEventBubbling: true,
-    },
     ];
     
     // const rows = [];
