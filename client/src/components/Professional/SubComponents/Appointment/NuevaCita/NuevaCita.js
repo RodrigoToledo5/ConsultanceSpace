@@ -171,6 +171,7 @@ export default function NuevaCita() {
               />
             </FormControl>
             <KeyboardDatePicker
+              minDate={new Date()}
               name="date"
               margin="normal"
               id="date-picker-dialog"
