@@ -41,8 +41,6 @@ const { Usuario, Profesional, Paciente, ProfesionalPaciente, Especialidad, Cita,
 
 
 ///aqui van las relaciones
-/* Country.belongsToMany(Activity, {through: 'CountryActivity'});
-Activity.belongsToMany(Country, {through: 'CountryActivity'}); */
 Usuario.hasOne(Profesional);
 Profesional.belongsTo(Usuario);
 //Relacion Usuario- Paciente
