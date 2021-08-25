@@ -15,6 +15,7 @@ router.use(require("./Profesional_patient"))
 router.use(require("./Specialities"))
 router.use(require("./Mailing"))
 router.use(require("./DisablePatients"))
+router.use(require("./Horarios"))
 router.use(require("./AddPatients"));
 router.use(require("./MedicalRecord"));
 
