@@ -18,7 +18,6 @@ import {
   KeyboardTimePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-import { alpha } from '@material-ui/core/styles';
 import { getInfo } from "../../../Log/actions";
 import axios from "axios";
 
@@ -54,55 +53,145 @@ export default function SetHorario() {
   ];
   const [turno, setTurno] = useState({
     dia: dias[0],
-    hora: new Date("December 17, 1995 13:00:00"),
+    horaInicio: new Date("December 17, 1995 13:00:00"),
+    horaFin: new Date("December 17, 1995 14:00:00"),
   });
   const user = useSelector((store) => store.reducerLog.info);
   const log = useSelector((store) => store.reducerLog.user);
   const [rows, setRows] = useState([]);
 
+  const renderDeleteButton = (params) => {
+    return (
+      <div style={{ display: "flex", width: "130px", flexDirection: "row" , alignItems:"center", justifyContent:"space-around"}}>
+        <div style={{}}>{params.value}</div>
+        { params.value.length > 0?
+        <button
+          style={{
+            height: "20px",
+            width: "20px",
+            color: "brown",
+            backgroundColor: "transparent",
+            border: "brown solid 1px",
+            borderRadius: "30%",
+            cursor:"pointer"
+          }}
+          onClick = {()=>{deleteData({day:params.field,value:params.value})}}
+        >
+          {" "}
+          X{" "}
+        </button> : ""}
+      </div>
+    );
+  };
+
   const columns = [
-    { field: "lunes", headerName: "Lunes", width: 170 },
-    { field: "martes", headerName: "Martes", width: 170 },
-    { field: "miercoles", headerName: "Miercoles", width: 170 },
-    { field: "jueves", headerName: "Jueves", width: 170 },
-    { field: "viernes", headerName: "Viernes", width: 170 },
-    { field: "sabado", headerName: "Sabado", width: 170 },
-    { field: "domingo", headerName: "Domingo", width: 170 }
+    {
+      field: "lunes",
+      headerName: "Lunes",
+      width: 150,
+      renderCell: renderDeleteButton,
+      disableClickEventBubbling: true,
+    },
+    {
+      field: "martes",
+      headerName: "Martes",
+      width: 150,
+      renderCell: renderDeleteButton,
+      disableClickEventBubbling: true,
+    },    {
+      field: "miercoles",
+      headerName: "Miercoles",
+      width: 150,
+      renderCell: renderDeleteButton,
+      disableClickEventBubbling: true,
+    },    {
+      field: "jueves",
+      headerName: "Jueves",
+      width: 150,
+      renderCell: renderDeleteButton,
+      disableClickEventBubbling: true,
+    },    {
+      field: "viernes",
+      headerName: "Viernes",
+      width: 150,
+      renderCell: renderDeleteButton,
+      disableClickEventBubbling: true,
+    },    {
+      field: "sabado",
+      headerName: "Sabado",
+      width: 150,
+      renderCell: renderDeleteButton,
+      disableClickEventBubbling: true,
+    },    {
+      field: "domingo",
+      headerName: "Domingo",
+      width: 150,
+      renderCell: renderDeleteButton,
+      disableClickEventBubbling: true,
+    },
   ];
 
   useEffect(() => {
-      let arr = [];
-      let length = 0;
-      let forRows = [];
-      for (const key in user.horario){
-          if(key !== 'id' && key !== 'profesionalId'){
-        let aux  = user.horario[key] ? user.horario[key] : [];
+    let arr = [];
+    let length = 0;
+    let forRows = [];
+    for (const key in user.horario) {
+      if (key !== "id" && key !== "profesionalId") {
+        let aux = user.horario[key] ? user.horario[key] : [];
         if (aux.length > length) length = aux.length;
         aux = aux.sort();
-        arr.push(aux);}
+        arr.push(aux);
+      }
     }
-    for (let i = 0;i<length;i++){
-        let obj = {};
-        for(let j = 0 ; j < 7 ; j++){
-            if(arr[j][i]) {obj[dias[j]] = arr[j][i]} else {obj[dias[j]] = "" } ;
+    for (let i = 0; i < length; i++) {
+      let obj = {};
+      for (let j = 0; j < 7; j++) {
+        if (arr[j][i]) {
+          obj[dias[j]] = arr[j][i];
+        } else {
+          obj[dias[j]] = "";
         }
-        forRows.push(obj);
+      }
+      forRows.push(obj);
     }
     setRows(
-      forRows.map((h,i) => {
+      forRows.map((h, i) => {
         return {
-            ...h,
+          ...h,
           id: i,
         };
       })
     );
   }, [user]);
 
+  const deleteData = (toKill) => {
+    let actDay = user.horario[toKill.day];
+    actDay = actDay ? actDay : [];
+    const index = actDay.findIndex(e => e === toKill.value);
+    if (index > -1) actDay.splice(index,1);
+    let forSend = {};
+    forSend[toKill.day] = [...actDay];
+    axios({
+      method: "POST",
+      url: "http://localhost:3001/horarios",
+      data: {
+        profesionalId: user.id,
+        days: forSend,
+      },
+    }).then(() => {
+      dispatch(getInfo(log));
+    });
+  } 
+
   const sendData = () => {
     let actDay = user.horario[turno.dia];
     actDay = actDay ? actDay : [];
     let forSend = {};
-    forSend[turno.dia] = [...actDay, turno.hora.toTimeString().substring(0, 5)];
+    const cleanStr =
+      turno.horaInicio.toTimeString().substring(0, 5) +
+      " - " +
+      turno.horaFin.toTimeString().substring(0, 5);
+    forSend[turno.dia] = [...actDay, cleanStr];
     axios({
       method: "POST",
       url: "http://localhost:3001/horarios",
@@ -118,9 +207,7 @@ export default function SetHorario() {
   return (
     <Box className={classes.box}>
       <MuiPickersUtilsProvider utils={DateFnsUtils} locale={es}>
-        <Typography variant="h3">
-          Set Horarios
-        </Typography>
+        <Typography variant="h3">Set Horarios</Typography>
         <FormControl variant="outlined" className={classes.formControl}>
           <TextField
             id="standard-select-currency"
@@ -142,10 +229,22 @@ export default function SetHorario() {
           <KeyboardTimePicker
             margin="normal"
             id="time-picker"
-            label="Elegir Horario"
-            value={turno.hora}
+            label="Horario de inicio"
+            value={turno.horaInicio}
             onChange={(time) => {
-              setTurno({ ...turno, hora: time });
+              setTurno({ ...turno, horaInicio: time });
+            }}
+            KeyboardButtonProps={{
+              "aria-label": "change time",
+            }}
+          />
+          <KeyboardTimePicker
+            margin="normal"
+            id="time-picker2"
+            label="Horario de finalizacion"
+            value={turno.horaFin}
+            onChange={(time) => {
+              setTurno({ ...turno, horaFin: time });
             }}
             KeyboardButtonProps={{
               "aria-label": "change time",
@@ -154,9 +253,7 @@ export default function SetHorario() {
         </FormControl>
         <Button onClick={sendData}> Agregar Horario </Button>
       </MuiPickersUtilsProvider>
-      <Typography variant="h6">
-        Horarios
-      </Typography>
+      <Typography variant="h6">Horarios</Typography>
       <Box>
         <div style={{ height: 400, width: "100%" }}>
           <DataGrid
