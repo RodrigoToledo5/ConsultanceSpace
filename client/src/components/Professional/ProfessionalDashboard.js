@@ -99,7 +99,9 @@ const useStyle=makeStyles(theme=>({
     },
     field:{
         padding: '0'
-    }
+    },
+    
+    
 }))
 
 
@@ -135,7 +137,7 @@ export default function Dashboard(){
                         }
                     </Box>
                     <Box className={classes.title}>
-                    {especialidad?especialidad.map((spect,i)=>{
+                    {especialidad&&especialidad.length>0?especialidad.map((spect,i)=>{
                         return (
                             <>
                              {i>0&&<a> </a>}

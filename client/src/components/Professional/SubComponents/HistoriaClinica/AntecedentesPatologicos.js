@@ -8,6 +8,7 @@ const useStyle = makeStyles((theme) => ({
 
     text: {
         color: "#159DE9",
+        marginTop:"3px"
     },
     box: {
         padding: "10px",
@@ -29,7 +30,8 @@ const useStyle = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "row",
         justifyContent: "flex-start",
-        minWidth: "120px"
+        minWidth: "120px",
+        alignItems:"center"
     },
     asides: {
         display: "flex",
@@ -46,7 +48,8 @@ const useStyle = makeStyles((theme) => ({
         resize: "none",
         minWidth:"350px",
         maxWidth:"350px",
-        minHeight:"80px"
+        minHeight:"80px",
+        padding:"5px"
     },
     btn:{
         maxWidth:"150px",
@@ -56,6 +59,17 @@ const useStyle = makeStyles((theme) => ({
     btn_container:{
         display:"flex",
         justifyContent:"flex-end"
+    },
+    checkbox:{
+        cursor:"pointer",
+        width:"20px",
+        height:"20px",
+    },
+    title:{
+        margin:"10px",
+        textAlign:"center",
+        fontFamily:"Lato",
+        fontSize:"20px"
     }
 
 }));
@@ -113,11 +127,12 @@ export default function AntecedentesPatogolicos() {
             >
                 {() => (
                     <Form >
+                        <Typography className={classes.title}>Antecedente patológico </Typography>
                         {/* bolean starts */}
                         <div className={classes.asides}>
                             <div className={classes.box}>
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="diabetes"
                                         name="diabetes"
@@ -130,52 +145,52 @@ export default function AntecedentesPatogolicos() {
                                 </div>
 
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="embarazo"
                                         name="embarazo"
                                     >
                                     </Field>
-                                    <label htmlFor="embarazo">
+                                    <label className={classes.text} htmlFor="embarazo">
                                         Embarazo
                                     </label>
 
                                 </div>
 
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="parasitos"
                                         name="parasitos"
                                     >
                                     </Field>
-                                    <label htmlFor="parasitos">
+                                    <label className={classes.text} htmlFor="parasitos">
                                         Parasitos
                                     </label>
 
                                 </div>
 
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="sarampion"
                                         name="sarampion"
                                     >
                                     </Field>
-                                    <label htmlFor="sarampion">
+                                    <label className={classes.text} htmlFor="sarampion">
                                         Sarampión
                                     </label>
 
                                 </div>
 
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="amigdalitis"
                                         name="amigdalitis"
                                     >
                                     </Field>
-                                    <label htmlFor="amigdalitis">
+                                    <label className={classes.text} htmlFor="amigdalitis">
                                         Amigdalitis
                                     </label>
 
@@ -184,13 +199,13 @@ export default function AntecedentesPatogolicos() {
                             <div className={classes.box}>
 
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="epilepsia"
                                         name="epilepsia"
                                     >
                                     </Field>
-                                    <label htmlFor="epilepsia">
+                                    <label className={classes.text} htmlFor="epilepsia">
                                         Epilepsia
                                     </label>
 
@@ -199,53 +214,53 @@ export default function AntecedentesPatogolicos() {
 
 
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="hepatitis"
                                         name="hepatitis"
                                     >
                                     </Field>
-                                    <label htmlFor="hepatitis">
+                                    <label className={classes.text} htmlFor="hepatitis">
                                         Hepatitis
                                     </label>
 
                                 </div>
 
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="tosferina"
                                         name="tosferina"
 
                                     >
                                     </Field>
-                                    <label htmlFor="tosferina">
+                                    <label className={classes.text} htmlFor="tosferina">
                                         Tosferina
                                     </label>
 
                                 </div>
 
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="hemorragias"
                                         name="hemorragias"
                                     >
                                     </Field>
-                                    <label htmlFor="hemorragias">
+                                    <label className={classes.text} htmlFor="hemorragias">
                                         Hemorragias
                                     </label>
 
                                 </div>
 
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="cardiopatias"
                                         name="cardiopatias"
                                     >
                                     </Field>
-                                    <label htmlFor="cardiopatias">
+                                    <label className={classes.text} htmlFor="cardiopatias">
                                         Cardiopatías
                                     </label>
 
@@ -253,65 +268,65 @@ export default function AntecedentesPatogolicos() {
                             </div>
                             <div className={classes.box}>
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="hipotension"
                                         name="hipotension"
                                     >
                                     </Field>
-                                    <label htmlFor="hipotension">
+                                    <label className={classes.text} htmlFor="hipotension">
                                         Hipotensión
                                     </label>
 
                                 </div>
 
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.text} className={classes.checkbox}
                                         type="checkbox"
                                         id="hipertension"
                                         name="hipertension"
                                     >
                                     </Field>
-                                    <label htmlFor="hipertension">
+                                    <label className={classes.text} htmlFor="hipertension">
                                         Hipertensión
                                     </label>
 
                                 </div>
 
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="fiebre_reumatica"
                                         name="fiebre_reumatica"
                                     >
                                     </Field>
-                                    <label htmlFor="fiebre_reumatica">
+                                    <label className={classes.text} htmlFor="fiebre_reumatica">
                                         Fiebre reumática
                                     </label>
 
                                 </div>
 
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="paludismo"
                                         name="paludismo"
                                     >
                                     </Field>
-                                    <label htmlFor="paludismo">
+                                    <label className={classes.text} htmlFor="paludismo">
                                         Paludismo
                                     </label>
 
                                 </div>
 
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="VIH"
                                         name="VIH"
                                     >
                                     </Field>
-                                    <label htmlFor="VIH">
+                                    <label className={classes.text} htmlFor="VIH">
                                         VIH/SIDA
                                     </label>
 
@@ -321,39 +336,39 @@ export default function AntecedentesPatogolicos() {
 
 
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="coperador"
                                         name="coperador"
                                     >
                                     </Field>
-                                    <label htmlFor="coperador">
+                                    <label className={classes.text} htmlFor="coperador">
                                         Es coperador?
                                     </label>
 
                                 </div>
 
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="orientado"
                                         name="orientado"
                                     >
                                     </Field>
-                                    <label htmlFor="orientado">
+                                    <label className={classes.text} htmlFor="orientado">
                                         Esta bien orientado?
                                     </label>
 
                                 </div>
 
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="bajo_tratamiento"
                                         name="bajo_tratamiento"
                                     >
                                     </Field>
-                                    <label htmlFor="bajo_tratamiento">
+                                    <label className={classes.text} htmlFor="bajo_tratamiento">
                                         Está bajo algún tratamiento médico?
                                     </label>
 
@@ -361,27 +376,27 @@ export default function AntecedentesPatogolicos() {
                             </div>
                             <div className={classes.box}>
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="pildoras_anticonceptivas"
                                         name="pildoras_anticonceptivas"
                                     >
                                     </Field>
-                                    <label htmlFor="pildoras_anticonceptivas">
+                                    <label className={classes.text} htmlFor="pildoras_anticonceptivas">
                                         Toma píldoras anticonceptivas?
                                     </label>
 
                                 </div>
 
                                 <div className={classes.label}>
-                                    <Field
+                                    <Field className={classes.checkbox}
                                         type="checkbox"
                                         id="transfusion"
                                         name="transfusion"
 
                                     >
                                     </Field>
-                                    <label htmlFor="transfusion">
+                                    <label className={classes.text} htmlFor="transfusion">
                                         Recibió  una transfusión de sangre?
                                     </label>
 
