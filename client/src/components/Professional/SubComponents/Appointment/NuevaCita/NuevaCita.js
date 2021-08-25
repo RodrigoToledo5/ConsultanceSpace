@@ -17,7 +17,7 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Appointment from "../Appointment";
@@ -65,6 +65,9 @@ export default function NuevaCita() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [finalMsg, setFinalMsg] = useState("");
+  const [patientName, setPatientName] = useState("")
+  const [professionalName, setProfessionalName] = useState("")
+  const [email, setEmail] = useState("")
   const dispatch = useDispatch();
   const sendData = () => {
     setOpen(false);
@@ -81,6 +84,7 @@ export default function NuevaCita() {
     }).then((res) => {
       setFinalMsg(res.status === 200 ? "Cita creada" : "Error");
     });
+    sendMail(patientName, professionalName, email, date )
   };
 
   const dateLinda = (date) => {
@@ -106,6 +110,32 @@ export default function NuevaCita() {
   const handleSubmit = () => {
     setOpen(true);
   };
+
+  useEffect(()=>{
+    if(user && user.fullName && patient && patient.fullName ){
+      setProfessionalName (user.fullName);
+      setEmail(patient.usuarioEmail);
+      setPatientName(patient.fullName);
+    }
+  },[user, patient])
+
+  console.log(user.fullName)
+
+  const sendMail = ( patientName, professionalName, email, date ) => {
+    return axios({
+      method: "POST",
+      url: "http://localhost:3001/sendEmail",
+      data:{
+        profesional: true,
+        patient: email,
+        subject: "Cita agendada por: " + professionalName,
+        text: "Hola " + patientName + "," + professionalName + " ha agendado una cita para la fecha " + dateLinda(date) +
+        " a las " +
+        date.substring(16, 21) +
+        "hs"
+      }
+    })
+  }
 
   return (
     <MuiPickersUtilsProvider utils={DateFnsUtils}>
@@ -141,6 +171,7 @@ export default function NuevaCita() {
               />
             </FormControl>
             <KeyboardDatePicker
+              minDate={new Date()}
               name="date"
               margin="normal"
               id="date-picker-dialog"

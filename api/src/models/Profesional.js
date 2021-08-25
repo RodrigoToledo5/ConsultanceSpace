@@ -32,10 +32,6 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING,
 			allowNull: false
 		},
-		especialidad:{
-			type: DataTypes.STRING,
-			allowNull: true
-		},
 		fullName: {
 			type: DataTypes.VIRTUAL,
 			get:function(){

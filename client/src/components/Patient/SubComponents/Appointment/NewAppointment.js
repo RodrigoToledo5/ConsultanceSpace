@@ -54,6 +54,9 @@ export default function NewAppointment() {
   );
   const user = useSelector((store) => store.reducerLog.info);
   const pacienteId = user.id;
+  const [patientName, setPatientName] = useState("")
+  const [professionalName, setProfessionalName] = useState("")
+  const [email, setEmail] = useState("")
   const [professionalId, setProf] = useState("");
   const [selectedDate, setSelectedDate] = useState(
     new Date().toString().substr(0, 21)
@@ -71,8 +74,19 @@ export default function NewAppointment() {
     setNote(e.target.value);
   };
 
+  
+  
+  useEffect(()=>{
+    if(professionals && professionals.profesionals && professionalId ){
+      setProfessionalName (professionals.profesionals.find((profesional) => profesional.id === professionalId).fullName);
+      setEmail(professionals.profesionals.find((profesional) => profesional.id === professionalId).usuarioEmail);
+      setPatientName(professionals.fullName);
+    }
+  },[professionalId])
+  
+
   const handleSubmit = () => {
-    if (professionalId && selectedDate && note) {
+    if ( professionalId && selectedDate && note) {
       return false;
     }
     return true;
@@ -80,8 +94,10 @@ export default function NewAppointment() {
   useEffect(() => {
     dispatch(getProfessional(pacienteId));
   }, [dispatch, pacienteId]);
+
   const reLoad = () => {
     dispatch(getAppointment(pacienteId, true));
+    sendMail(patientName, professionalName, email, selectedDate )
   };
   const createAppointment = (profesionalId, pacienteId, date, note) => {
     return axios({
@@ -96,6 +112,21 @@ export default function NewAppointment() {
     }).then((res) => (res.status === 200 ? true : false));
   };
 
+  const sendMail = ( patientName, professionalName, email, selectedDate ) => {
+    return axios({
+      method: "POST",
+      url: "http://localhost:3001/sendEmail",
+      data:{
+        paciente: true,
+        professional: email,
+        subject: "Cita agendada por: " + patientName,
+        text: "Hola " + professionalName + "," + patientName + " ha agendado una cita para la fecha " + dateLinda(selectedDate) +
+        " a las " +
+        selectedDate.substring(16, 21) +
+        "hs"
+      }
+    })
+  }
   const dateLinda = (date) => {
     let month = new Date(date).getMonth() + 1;
     month = month > 9 ? month.toString() : "0" + month.toString();
@@ -143,6 +174,7 @@ export default function NewAppointment() {
         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={es}>
           <Grid container justifyContent="space-around">
             <KeyboardDatePicker
+              minDate={new Date()}
               margin="normal"
               id="date-picker-dialog"
               label="Elegir Fecha"

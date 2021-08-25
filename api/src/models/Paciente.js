@@ -37,10 +37,6 @@ module.exports = (sequelize) => {
 				// return `${this.nombre} ${this.apellidos}`;
 				return this.nombre + ' ' + this.apellidos;
 			},
-		},
-		id_Historia_Clinica:{
-			type: DataTypes.BIGINT,
-			allowNull: true,
 		}
 	},{
 		timestamps: false,

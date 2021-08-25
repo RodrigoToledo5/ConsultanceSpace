@@ -1,17 +1,15 @@
 import { Button, Box, FormControl, MenuItem, InputLabel, Select } from '@material-ui/core/'
 import { makeStyles, TextField, Typography } from '@material-ui/core';
-import { DatePicker } from '@material-ui/pickers';
 import { useHistory } from 'react-router-dom';
-import { blue, red } from '@material-ui/core/colors';
-import { useFirebaseApp, useUser } from "reactfire";
+import { blue} from '@material-ui/core/colors';
+import { useUser } from "reactfire";
 import { getCountries } from '../../Sign/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import validate from '../../Sign/functions/validate';
-import { getSpecialities, updateProfile } from './redux/actionUpdate';
+import { updateProfile } from './redux/actionUpdate';
 import DateFnsUtils from "@date-io/date-fns";
 import {
-    KeyboardTimePicker,
     KeyboardDatePicker,
     MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
@@ -41,14 +39,15 @@ const useStyle = makeStyles(theme => ({
         paddingTop: "10px",
         marginLeft: "20px",
         marginRight: "50px",
+        zIndex: '3',
         backgroundColor: "rgb(232, 240, 254) ",
         borderRadius: "10px",
         "@media (max-width:900px)": {
             right: "0px",
             minWidth: "150px",
             maxWidth: "200px",
-             top: "20px",
-             fontSize:"10px"
+            top: "20px",
+            fontSize:"10px"
         }
     },
     pick: {
@@ -282,6 +281,7 @@ export default function Profile({ onClick ,handleEdit:handleEdit}) {
 
                     <FormControl className={classes.datebox}>
                         <KeyboardDatePicker
+                            minDate="1900-01-01"
                             value={patient.birth}
                             onChange={(event) => onHandleDate(event)}
                             label="Fecha de nacimiento"
@@ -306,19 +306,13 @@ export default function Profile({ onClick ,handleEdit:handleEdit}) {
                         >
                             {especialidades && especialidades.map((speciality, i) => {
                                 return (
-                                   
-    
-                                        <MenuItem key={i} value={speciality.nombre}  >
+                                    <MenuItem key={i} value={speciality.nombre}  >
                                             <em>{speciality.nombre}</em>
-                                        </MenuItem>
-                                    
+                                    </MenuItem>
                                 )
                             })}
                         </Select>
                     </FormControl> */}
-
-
-                    
                     <FormControl variant="outlined" className={classes.formControl}>
                         <InputLabel  id="demo-simple-select-outlined-label">{profile.pais.substring(0, 27)}</InputLabel>
                         <Select
@@ -344,7 +338,6 @@ export default function Profile({ onClick ,handleEdit:handleEdit}) {
                         Aceptar
                     </Button>
                 </Box>
-
             </form>
         </MuiPickersUtilsProvider>
     )

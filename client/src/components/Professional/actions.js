@@ -7,7 +7,6 @@ export const GET_MYPATIENTS = 'GET_MYPATIENTS';
 export const REMOVE_MYPATIENTS = 'REMOVE_MYPATIENTS';
 export const CLEAR_MY_PATIENTS = 'CLEAR_MY_PATIENTS';
 
-
 export const searchprofesional = (input)=>{
     if(input.includes('@')){
         return async (dispatch) => {
@@ -17,7 +16,7 @@ export const searchprofesional = (input)=>{
     }
     else{
         return async (dispatch) => {
-        const res = await axios.get(`${api}/profesional?fullName=${input}&speciality=Neumología`)
+        const res = await axios.get(`${api}/profesional?fullName=${input}&speciality=${input}`)
         dispatch({ type: GET_PROFESIONAL, payload:  res.data })
         }
 }}
@@ -26,7 +25,6 @@ export const getPatient = (name) => {
     return async (dispatch) =>{
         const patient = await axios.get(`${api}/patients?nombre=${name}`)
         dispatch({type:GET_PATIENT, payload: patient.data})
-        console.log(patient)
     }
 
 }
@@ -58,6 +56,7 @@ export const getMyPatients = (data) =>{
         dispatch({type: GET_MYPATIENTS, payload: patients.data})
     }
 }
+
 export const clearMypatients = ()=>{
     return{
         type: CLEAR_MY_PATIENTS,

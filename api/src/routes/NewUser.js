@@ -5,6 +5,7 @@ const {
   Profesional,
   Especialidad,
   Stock,
+  Horario
 } = require("../db");
 const router = Router();
 
@@ -66,17 +67,6 @@ router.post("/newUser", async (req, res, next) => {
     }
   } else if (type === "profesional") {
     try {
-      // ****** Creacion de especialidades bloqueada por crash ******** //
-      //
-      // let allSpecialty = especialidad.map(esp => {
-      //     return Especialidad.findOrCreate({
-      //         where:{
-      //             nombre: esp
-      //         }
-      //     })
-      // })
-      // let relSpecialties = await Promise.all(allSpecialty);
-      //
 
       const createdProfesional = await Profesional.create({
         cedula: dni,
@@ -89,10 +79,10 @@ router.post("/newUser", async (req, res, next) => {
       });
       await createdProfesional.setUsuario(email);
 
-      // ****** Creacion de especialidades bloqueada por crash ******** //
-      //
-      // relSpecialties.forEach(esp => createdProfesional.setEspecialidads(esp[0]));
-      //
+      //create horario and rel with professional
+      const horario = await Horario.create({
+      });
+      await horario.setProfesional(createdProfesional.id);
 
       //create stock and rel with professional
       const emptyArr = [];
