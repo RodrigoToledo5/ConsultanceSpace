@@ -3,18 +3,16 @@ import NavPanel from "./NavPanel/NavPanel";
 import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { getInfo } from "../Log/actions";
-
 import Alert from "@material-ui/lab/Alert";
-
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
+import Profile from '../Header/Buttons/Profile';
 
 
 const useStyle=makeStyles(theme=>({
     menu:{
         margin: theme.spacing(1),
         minWidth:'84px'
-        
     },
     bar:{
         background:"white",
@@ -24,9 +22,8 @@ const useStyle=makeStyles(theme=>({
         flexDirection:'row-reverse',
         justifyContent:'space-between',
         '@media (max-width:600px)':{
-            flexDirection:'column-reverse'
-        }
-       
+        flexDirection:'column-reverse'
+    }
     },
     text:{
         color:"#159DE9",
@@ -37,6 +34,7 @@ const useStyle=makeStyles(theme=>({
     container:{
         marginTop:theme.spacing(9),
         display: 'flex',
+        zIndex: '3',
         // background: 'green',
         padding: "0",
         "@media (max-width:600px)": {
@@ -106,19 +104,26 @@ const useStyle=makeStyles(theme=>({
 export default function Dashboard(){
     const classes=useStyle();
     const [actComponent, updateComponent] = useState(null);
-    const [showMenu, setShowMenu] = useState(false)
+    const [showMenu, setShowMenu] = useState(false);
+    const [editprofile, setEditProfile] = useState(false);
     const user = useSelector((store) => store.reducerLog.user);
     const dispatch = useDispatch();
+
     useEffect(()=>{
         dispatch(getInfo({...user}));
     },[])
+
     const uC = (c) => {
         updateComponent(c);
     }
+
+    function handleEdit() {
+        setEditProfile(!editprofile)
+    }
+
     //por ahora no vamos a usar mas esto
     const especialidad = useSelector(state => state.reducerLog.info.especialidads)
     return(
-
         <Container className ={classes.container}>
             <NavPanel updateComponent={uC} showMenu = {showMenu} setShowMenu={setShowMenu}/>
             <Box className={classes.box}>
@@ -127,30 +132,29 @@ export default function Dashboard(){
                         {
                             showMenu ? 
                                 <CloseIcon onClick ={() => setShowMenu(!showMenu)}/> 
-
                                 : 
-
-
                                 <MenuIcon onClick ={() => setShowMenu(!showMenu)}/>
                         }
                     </Box>
                     <Box className={classes.title}>
-                    {especialidad?especialidad.map((spect,i)=>{
+                    {especialidad && especialidad.length?especialidad.map((spect,i)=>{
                         return (
                             <>
-                             {i>0&&<a> </a>}
-                            <a key={i}>{spect.nombre}</a>
-                               
+                                {i>0&&<a> </a>}
+                                <a key={i}>{spect.nombre}</a>
                             </>
                         )
                     })
-                    :<Alert  severity="warning">
-                        Por favor configure su especialidad en la sección Mi Perfil para que los pacientes puedan buscarlo por su especialidad
-                    </Alert>}
+                    :
+                    <>
+                        <Alert  severity="warning">
+                            Por favor configure su especialidad en la sección Mi Perfil para que los pacientes puedan buscarlo por su especialidad <a href="#" onClick={() => handleEdit()}>Aquí</a>
+                        </Alert>
+                        {editprofile && <Profile handleEdit={handleEdit}/>}
+                    </>}
                     </Box>
                 </Box>
                 <Box className ={classes.field}>{actComponent}</Box>
-                
             </Box>
         </Container>
     )
