@@ -52,7 +52,7 @@ Crear una plataforma 100% responsive dónde los profesionales de la salud puedan
 
 ### Front End:
 
-HTML, CSS, Javascript, Recat, Material-ui, Redux
+HTML, CSS, Javascript, React, Material-ui, Redux
 
 ### Back End:
 
