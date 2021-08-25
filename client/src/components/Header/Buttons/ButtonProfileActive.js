@@ -1,14 +1,12 @@
 import { Button, Box } from '@material-ui/core/'
 import { makeStyles } from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
-import { blue, red } from '@material-ui/core/colors';
+import { blue } from '@material-ui/core/colors';
 import { useUser } from "reactfire";
 import Profile from './Profile';
 import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
 import ButtonLogout from './ButtonLogout';
 import { getInfo } from '../../Log/actions';
-import Alert from '@material-ui/lab/Alert';
 import notpick from './notpick.png'
 const useStyle = makeStyles(theme => ({
     btn: {
@@ -50,8 +48,6 @@ const useStyle = makeStyles(theme => ({
         fontSize: "10px"
     }
 }))
-
-
 export default function ButtonProfileActive({ onClick, setLogFlag: setLogFlag, setProfile: setProfile }) {
     const [editprofile, setEditProfile] = useState(false);
     const profile = useSelector(state => state.reducerLog.user)
@@ -59,19 +55,22 @@ export default function ButtonProfileActive({ onClick, setLogFlag: setLogFlag, s
     const classes = useStyle();
     const dispatch = useDispatch()
     const user = useUser();
+    
     function handleEdit() {
         setEditProfile(!editprofile)
     }
+
     useEffect(() => {
         dispatch(getInfo({ ...profile }));
     }, [])
+
     function checkpick() {
         if (user.data) {
             if (user.data.photoURL) return user.data.photoURL
             else return notpick
         }
-
     }
+    
     return (
         <>
             <Button onClick={(event) => onClick(event)} type="button" variant='contained' className={classes.btn} >
@@ -89,17 +88,14 @@ export default function ButtonProfileActive({ onClick, setLogFlag: setLogFlag, s
                         {user.data && user.data.email}
                     </div>
                 </Button>
-
                 <Button className={classes.head} onClick={() => handleEdit()}>
                     <div className={classes.text}>
                         {editprofile ? "Cerrar" : "Editar"}
                     </div>
                 </Button>
                 {editprofile && <Profile handleEdit={handleEdit}/>}
-                
                 <ButtonLogout setLogFlag={setLogFlag} setProfile={setProfile} ></ButtonLogout>
             </Box>
         </>
-
     )
 }

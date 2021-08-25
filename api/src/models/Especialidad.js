@@ -6,7 +6,9 @@ module.exports = (sequelize) => {
 		nombre: {
 			type: DataTypes.STRING,
 			allowNull: false	
-		}
-		
-	});
+		},
+	},{
+		timestamps: false,
+	}
+	);
 };

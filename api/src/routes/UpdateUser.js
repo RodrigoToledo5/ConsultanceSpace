@@ -21,30 +21,55 @@ router.put("/updateUser", async (req, res, next) => {
     address,
     country,
     speciality,
+    clearespeciality,
   } = req.body;
-
-  fecha=(birth.substring(0,birth.length-14))
-  console.log(speciality)
+  console.log(clearespeciality)
+  //fecha=(birth.substring(0,birth.length-14))
+  //console.log(speciality)
   try{
     const user=await Usuario.findByPk(email);
     if(user.tipo_usuario==="profesional"){
-      if(speciality){
+      if(clearespeciality==="true"){
+        console.log("paso")
         await Profesional.update({
-          especialidad:speciality,
+          especialidad:'',
         },{where:{
           id:id,
         }});
       }
+      if(speciality){
+        //console.log("paso ")
+        var profe=await Profesional.findByPk(id);
+        console.log(profe.especialidad)
+        const espec=await Especialidad.findOne({ where: {nombre: speciality } })
+        espec.addProfesional(id)
+        //deprecated
+        // if(profe.especialidad){
+        //   await Profesional.update({
+        //     especialidad:profe.especialidad+' '+speciality,
+        //   },{where:{
+        //     id:id,
+        //   }});
+        // }
+        // else{
+        //   await Profesional.update({
+        //     especialidad:speciality,
+        //   },{where:{
+        //     id:id,
+        //   }});
+        // }
+        
+      }
       if(name&&typeof name ==="string"){
         await Profesional.update({
-          nombre:name
+          nombre:name.toUpperCase()
         },{where:{
           id:id,
         }});
       }
       if(lastName&&typeof lastName ==="string"){
         await Profesional.update({
-          apellidos:lastName,
+          apellidos:lastName.toUpperCase(),
         },{where:{
           id:id,
         }});
@@ -92,14 +117,14 @@ router.put("/updateUser", async (req, res, next) => {
       if(name&&typeof name ==="string"){
         console.log(user.tipo_usuario)
         await Paciente.update({
-          nombre:name
+          nombre:name.toUpperCase()
         },{where:{
           id:id,
         }});
       }
       if(lastName&&typeof lastName ==="string"){
         await Paciente.update({
-          apellidos:lastName,
+          apellidos:lastName.toUpperCase(),
         },{where:{
           id:id,
         }});
