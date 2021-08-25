@@ -27,13 +27,13 @@ router.get('/profesional', async (req, res, next) => {
                             include:{model: Especialidad}
                         }
                     )
-                    profesionals=profesionals.filter((profesional)=>{
-                        //console.log(profesional.especialidads)
-                        if(profesional.especialidads.forEach((especialidad)=>{
-                            console.log(especialidad.nombre)
-                            if(especialidad.nombre===speciality)return true
-                        }))return true;
-                        
+                    profesionals=profesionals.filter((profesional)=>{//Buscamos profesional por especialidad ahora no hace falta que escriba toda la especialidad
+                        if(profesional.especialidads.find(
+                            (especialidad)=>especialidad.nombre.includes(
+                                speciality[0].toUpperCase()+speciality.substring(1,speciality.length).toLowerCase()
+                                )
+                            )
+                        )return true;
                         else return false
                     })
                     res.status(200).json(profesionals)
