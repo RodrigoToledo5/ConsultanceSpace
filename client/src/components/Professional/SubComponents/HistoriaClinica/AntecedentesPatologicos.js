@@ -2,6 +2,8 @@ import { Box, Typography, makeStyles, InputLabel,Button } from "@material-ui/cor
 import { Formik, Field, Form } from 'formik'
 import Alert from '@material-ui/lab/Alert';
 import { useState } from "react";
+import axios from "axios";
+const api = 'http://localhost:3001';
 
 
 const useStyle = makeStyles((theme) => ({
@@ -90,7 +92,7 @@ export default function AntecedentesPatogolicos() {
                     amigdalitis: null,
                     epilepsia: null,
                     transfusion: null,
-                    coperador: null,//si es el paciente es coperador
+                    cooperador: null,//si es el paciente es coperador
                     orientado: null,//si esta orientado con lo que tiene, tuvo un buen seguimiento
                     bajo_tratamiento: null,
                     pildoras_anticonceptivas: null,
@@ -115,10 +117,19 @@ export default function AntecedentesPatogolicos() {
                     marcha_patologicas: "",
                     ETS: "",//explayese 
                     comentarios: "",
+                    antecedentesPatologicos:true,
+                    idPaciente:1,
                 }}
                 onSubmit={
-                    (values, { resetForm }) => {
-                        console.log(values,);
+                    async (values, { resetForm }) => {
+                        
+                        const send = await axios({
+                            method: 'POST',
+                            url: `${api}/medicalRecord`,
+                            data: values
+                        })
+                        
+                        console.log(send);
                         resetForm();
                         setHasSend(true);
                         setTimeout(() => setHasSend(false), 5000)
@@ -338,12 +349,12 @@ export default function AntecedentesPatogolicos() {
                                 <div className={classes.label}>
                                     <Field className={classes.checkbox}
                                         type="checkbox"
-                                        id="coperador"
-                                        name="coperador"
+                                        id="cooperador"
+                                        name="cooperador"
                                     >
                                     </Field>
-                                    <label className={classes.text} htmlFor="coperador">
-                                        Es coperador?
+                                    <label className={classes.text} htmlFor="cooperador">
+                                        Es cooperador?
                                     </label>
 
                                 </div>

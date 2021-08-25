@@ -12,6 +12,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { redirect } from "../../Log/actions";
 import Welcome from "../SubComponents/Welcome";
 import AntecedentesPatologicos from "../SubComponents/HistoriaClinica/AntecedentesPatologicos";
+import AntecedentesNoPatologicos from "../SubComponents/HistoriaClinica/AntecedentesNoPatologicos";
+import ShowAntecedentesPatogolicos from "../SubComponents/HistoriaClinica/ShowAntecedentesPatologicos";
+import ShowAntecedentesNoPatogolicos from "../SubComponents/HistoriaClinica/ShowAntecedentesNoPatologicos";
+
 const useStyle = makeStyles((theme) => ({
   magin: {
     margin: theme.spacing(2),
@@ -112,8 +116,11 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     { "Atención": <Attention />},
     { "Agendar Cita": <NuevaCita /> },
     { "AntecedentesPatologicos": <AntecedentesPatologicos /> },
+    {"ShowAntecedentesPatogolicos":<ShowAntecedentesPatogolicos/>},
+    { "AntecedentesNoPatologicos": <AntecedentesNoPatologicos /> },
+    {"ShowAntecedentesNoPatogolicos":<ShowAntecedentesNoPatogolicos/>},
   ];
-  const indexPrivateRoutes = 9; // a partir de este indice loa botones se ocultan
+  const indexPrivateRoutes = 12; // a partir de este indice loa botones se ocultan
 
   useEffect(() => {
 
