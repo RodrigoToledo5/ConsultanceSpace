@@ -1,6 +1,7 @@
-import { Box, Typography, makeStyles } from "@material-ui/core";
-import { Formik } from 'formik'
-
+import { Box, Typography, makeStyles, InputLabel,Button } from "@material-ui/core";
+import { Formik, Field, Form } from 'formik'
+import Alert from '@material-ui/lab/Alert';
+import { useState } from "react";
 
 
 const useStyle = makeStyles((theme) => ({
@@ -10,21 +11,58 @@ const useStyle = makeStyles((theme) => ({
     },
     box: {
         padding: "10px",
-        paddingLeft: "50px",
-        paddingRight: "50px",
         marginLeft: "10px",
         marginRight: "10px",
         marginBottom: "10px",
         display: "flex",
-        flexDirection: "column",
+        flexDirection: "row",
         borderRadius: "10px",
         color: "#159DE9",
+        justifyContent: "flex-start",
+        flexWrap: "wrap",
     },
+    label: {
+        margin: "10px",
+        marginLeft: "15px",
+        marginRight: "15px",
+        padding: "10xp",
+        display: "flex",
+        flexDirection: "row",
+        justifyContent: "flex-start",
+        minWidth: "120px"
+    },
+    asides: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: " space-evenly",
+    },
+    textbox:{
+        display:"flex",
+        flexDirection:"column",
+        padding:"10px",
+        minHeight:"100px"
+    },
+    input:{
+        resize: "none",
+        minWidth:"350px",
+        maxWidth:"350px",
+        minHeight:"80px"
+    },
+    btn:{
+        maxWidth:"150px",
+        marginLeft:"100px",
+        marginRight:"100px"
+    },
+    btn_container:{
+        display:"flex",
+        justifyContent:"flex-end"
+    }
 
 }));
 
 
 export default function AntecedentesPatogolicos() {
+    const [hassend, setHasSend] = useState(false)
     const classes = useStyle();
     /// usamos renderer prop
     return (
@@ -54,7 +92,7 @@ export default function AntecedentesPatogolicos() {
                     enfermedades_infancia: "",
                     accidente: "",//desarrolle,
                     operacion: "",
-                    alergia_medicamento: "",   
+                    alergia_medicamento: "",
                     constitucion: "",
                     complexion: "",
                     facies: "",
@@ -65,539 +103,469 @@ export default function AntecedentesPatogolicos() {
                     comentarios: "",
                 }}
                 onSubmit={
-                    () => {
-                        console.log("form enviado")
+                    (values, { resetForm }) => {
+                        console.log(values,);
+                        resetForm();
+                        setHasSend(true);
+                        setTimeout(() => setHasSend(false), 5000)
                     }
                 }
-                validate={(valores) => {
-                    if (!valores.nombre) {
-                        console.log("ingresa un nombre")
-                    }
-                }}
             >
-                {({ handleSubmit, values, handleChange, handleBlur, errors }) => (
-                    <form onSubmit={handleSubmit}>
+                {() => (
+                    <Form >
                         {/* bolean starts */}
-                        <div>
-                            <label htmlFor="nombre">
-                                Diabetes
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="diabetes"
-                                name="diabetes"
-                                value={values.diabetes}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
+                        <div className={classes.asides}>
+                            <div className={classes.box}>
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="diabetes"
+                                        name="diabetes"
+                                    >
+                                    </Field>
+                                    <label className={classes.text} htmlFor="nombre">
+                                        Diabetes
+                                    </label>
 
-                            </input>
-                        </div>
+                                </div>
 
-                        <div>
-                            <label htmlFor="embarazo">
-                                embarazo
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="embarazo"
-                                name="embarazo"
-                                value={values.embarazo}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="embarazo"
+                                        name="embarazo"
+                                    >
+                                    </Field>
+                                    <label htmlFor="embarazo">
+                                        Embarazo
+                                    </label>
 
-                            </input>
-                        </div>
+                                </div>
 
-                        <div>
-                            <label htmlFor="parasitos">
-                                parasitos
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="parasitos"
-                                name="parasitos"
-                                value={values.parasitos}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="parasitos"
+                                        name="parasitos"
+                                    >
+                                    </Field>
+                                    <label htmlFor="parasitos">
+                                        Parasitos
+                                    </label>
 
-                            </input>
-                        </div>
+                                </div>
 
-                        <div>
-                            <label htmlFor="sarampion">
-                             sarampion
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="sarampion"
-                                name="sarampion"
-                                value={values.sarampion}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="sarampion"
+                                        name="sarampion"
+                                    >
+                                    </Field>
+                                    <label htmlFor="sarampion">
+                                        Sarampión
+                                    </label>
 
-                            </input>
-                        </div>
+                                </div>
 
-                        <div>
-                            <label htmlFor="amigdalitis">
-                                amigdalitis
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="amigdalitis"
-                                name="amigdalitis"
-                                value={values.sarampion}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="amigdalitis"
+                                        name="amigdalitis"
+                                    >
+                                    </Field>
+                                    <label htmlFor="amigdalitis">
+                                        Amigdalitis
+                                    </label>
 
-                            </input>
-                        </div>
+                                </div>
+                            </div>
+                            <div className={classes.box}>
 
-                        <div>
-                            <label htmlFor="epilepsia">
-                                epilepsia
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="epilepsia"
-                                name="epilepsia"
-                                value={values.epilepsia}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="epilepsia"
+                                        name="epilepsia"
+                                    >
+                                    </Field>
+                                    <label htmlFor="epilepsia">
+                                        Epilepsia
+                                    </label>
 
-                            </input>
-                        </div>
+                                </div>
 
-                        <div>
-                            <label htmlFor="transfusion">
-                            transfusion
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="transfusion"
-                                name="transfusion"
-                                value={values.transfusion}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
 
-                            </input>
-                        </div>
 
-                        <div>
-                            <label htmlFor="coperador">
-                                Es coperador?
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="coperador"
-                                name="coperador"
-                                value={values.coperador}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
-                            </input>
-                        </div>
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="hepatitis"
+                                        name="hepatitis"
+                                    >
+                                    </Field>
+                                    <label htmlFor="hepatitis">
+                                        Hepatitis
+                                    </label>
 
-                        <div>
-                            <label htmlFor="orientado">
-                                Esta bien orientado?
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="orientado"
-                                name="orientado"
-                                value={values.orientado}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
-                            </input>
-                        </div>
+                                </div>
 
-                        <div>
-                            <label htmlFor="bajo_tratamiento">
-                                Esta bajo_tratamiento?
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="bajo_tratamiento"
-                                name="bajo_tratamiento"
-                                value={values.bajo_tratamiento}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
-                            </input>
-                        </div>
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="tosferina"
+                                        name="tosferina"
 
-                        <div>
-                            <label htmlFor="pildoras_anticonceptivas">
-                                Toma pildoras anticonceptivas?
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="pildoras_anticonceptivas"
-                                name="pildoras_anticonceptivas"
-                                value={values.pildoras_anticonceptivas}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
-                            </input>
-                        </div>
+                                    >
+                                    </Field>
+                                    <label htmlFor="tosferina">
+                                        Tosferina
+                                    </label>
 
-                        <div>
-                            <label htmlFor="hepatitis">
-                                hepatitis
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="hepatitis"
-                                name="hepatitis"
-                                value={values.hepatitis}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
-                            </input>
-                        </div>
+                                </div>
 
-                        <div>
-                            <label htmlFor="tosferina">
-                                tosferina
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="tosferina"
-                                name="tosferina"
-                                value={values.tosferina}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
-                            </input>
-                        </div>
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="hemorragias"
+                                        name="hemorragias"
+                                    >
+                                    </Field>
+                                    <label htmlFor="hemorragias">
+                                        Hemorragias
+                                    </label>
 
-                        <div>
-                            <label htmlFor="hemorragias">
-                                hemorragias
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="hemorragias"
-                                name="hemorragias"
-                                value={values.hemorragias}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
-                            </input>
-                        </div>
+                                </div>
 
-                        <div>
-                            <label htmlFor="cardiopatias">
-                                cardiopatias
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="cardiopatias"
-                                name="cardiopatias"
-                                value={values.cardiopatias}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
-                            </input>
-                        </div>
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="cardiopatias"
+                                        name="cardiopatias"
+                                    >
+                                    </Field>
+                                    <label htmlFor="cardiopatias">
+                                        Cardiopatías
+                                    </label>
 
-                        <div>
-                            <label htmlFor="hipotension">
-                                hipotension
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="hipotension"
-                                name="hipotension"
-                                value={values.hipotension}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
-                            </input>
-                        </div>
+                                </div>
+                            </div>
+                            <div className={classes.box}>
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="hipotension"
+                                        name="hipotension"
+                                    >
+                                    </Field>
+                                    <label htmlFor="hipotension">
+                                        Hipotensión
+                                    </label>
 
-                        <div>
-                            <label htmlFor="hipertension">
-                                hipertension
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="hipertension"
-                                name="hipertension"
-                                value={values.hipertension}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
-                            </input>
-                        </div>
+                                </div>
 
-                        <div>
-                            <label htmlFor="fiebre_reumatica">
-                                fiebre_reumatica
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="fiebre_reumatica"
-                                name="fiebre_reumatica"
-                                value={values.fiebre_reumatica}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
-                            </input>
-                        </div>
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="hipertension"
+                                        name="hipertension"
+                                    >
+                                    </Field>
+                                    <label htmlFor="hipertension">
+                                        Hipertensión
+                                    </label>
 
-                        <div>
-                            <label htmlFor="paludismo">
-                                paludismo
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="paludismo"
-                                name="paludismo"
-                                value={values.paludismo}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
-                            </input>
-                        </div>
+                                </div>
 
-                        <div>
-                            <label htmlFor="VIH">
-                                VIH
-                            </label>
-                            <input
-                                type="checkbox"
-                                id="VIH"
-                                name="VIH"
-                                value={values.paluVIHdismo}
-                                onChange={handleChange}
-                                onBlur={handleBlur}
-                            >
-                            </input>
-                        </div>
-                        {/* bolean ends*/}
-                         {/* string starts*/}
-                        <div>
-                            <label htmlFor="enfermedades_infancia">
-                                Enfermedades_infancia
-                            </label>
-                            <textarea
-                                type="textarea"
-                                id="enfermedades_infancia"
-                                name="enfermedades_infancia"
-                                placeholder="Detalles..."
-                                value={values.enfermedades_infancia}
-                                onChange={handleChange}
-                            >
-                            </textarea>
-                        </div>
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="fiebre_reumatica"
+                                        name="fiebre_reumatica"
+                                    >
+                                    </Field>
+                                    <label htmlFor="fiebre_reumatica">
+                                        Fiebre reumática
+                                    </label>
 
-                        <div>
-                            <label htmlFor="accidente">
-                                accidente
-                            </label>
-                            <textarea
-                                type="text"
-                                id="accidente"
-                                name="accidente"
-                                placeholder="Detalles..."
-                                value={values.accidente}
-                                onChange={handleChange}
-                            >
-                            </textarea>
-                        </div>
+                                </div>
 
-                        <div>
-                            <label htmlFor="operacion">
-                                operacion
-                            </label>
-                            <textarea
-                                type="text"
-                                id="operacion"
-                                name="operacion"
-                                placeholder="Detalles..."
-                                value={values.accidente}
-                                onChange={handleChange}
-                            >
-                            </textarea>
-                        </div>
-                        
-                        <div>
-                            <label htmlFor="alergia_medicamento">
-                                alergia_medicamento
-                            </label>
-                            <textarea
-                                type="text"
-                                id="alergia_medicamento"
-                                name="alergia_medicamento"
-                                placeholder="Detalles..."
-                                value={values.accidente}
-                                onChange={handleChange}
-                            >
-                            </textarea>
-                        </div>
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="paludismo"
+                                        name="paludismo"
+                                    >
+                                    </Field>
+                                    <label htmlFor="paludismo">
+                                        Paludismo
+                                    </label>
 
-                        <div>
-                            <label htmlFor="alergia">
-                                alergia
-                            </label>
-                            <textarea
-                                type="text"
-                                id="alergia"
-                                name="alergia"
-                                placeholder="Detalles..."
-                                value={values.accidente}
-                                onChange={handleChange}
-                            >
-                            </textarea>
-                        </div>
+                                </div>
 
-                        <div>
-                            <label htmlFor="constitucion">
-                                constitucion
-                            </label>
-                            <textarea
-                                type="text"
-                                id="constitucion"
-                                name="constitucion"
-                                placeholder="Detalles..."
-                                value={values.constitucion}
-                                onChange={handleChange}
-                            >
-                            </textarea>
-                        </div>
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="VIH"
+                                        name="VIH"
+                                    >
+                                    </Field>
+                                    <label htmlFor="VIH">
+                                        VIH/SIDA
+                                    </label>
 
-                        <div>
-                            <label htmlFor="complexion">
-                                complexion
-                            </label>
-                            <textarea
-                                type="text"
-                                id="complexion"
-                                name="complexion"
-                                placeholder="Detalles..."
-                                value={values.complexion}
-                                onChange={handleChange}
-                            >
-                            </textarea>
-                        </div>
+                                </div>
+                            </div>
+                            <div className={classes.box}>
 
-                        <div>
-                            <label htmlFor="facies">
-                                Facies Característica
-                            </label>
-                            <textarea
-                                type="text"
-                                id="facies"
-                                name="facies"
-                                placeholder="Detalles..."
-                                value={values.facies}
-                                onChange={handleChange}
-                            >
-                            </textarea>
-                        </div>
 
-                        <div>
-                            <label htmlFor="conformacion">
-                                Conformacion corporal
-                            </label>
-                            <textarea
-                                type="text"
-                                id="conformacion"
-                                name="conformacion"
-                                placeholder="Detalles..."
-                                value={values.conformacion}
-                                onChange={handleChange}
-                            >
-                            </textarea>
-                        </div>
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="coperador"
+                                        name="coperador"
+                                    >
+                                    </Field>
+                                    <label htmlFor="coperador">
+                                        Es coperador?
+                                    </label>
 
-                        <div>
-                            <label htmlFor="moviemientos_anormales">
-                                moviemientos_anormales
-                            </label>
-                            <textarea
-                                type="text"
-                                id="moviemientos_anormales"
-                                name="moviemientos_anormales"
-                                placeholder="Detalles..."
-                                value={values.moviemientos_anormales}
-                                onChange={handleChange}
-                            >
-                            </textarea>
-                        </div>
+                                </div>
 
-                        <div>
-                            <label htmlFor="marcha_patologicas">
-                                Marcha_patologicas
-                            </label>
-                            <textarea
-                                type="text"
-                                id="moviemientos_anormales"
-                                name="moviemientos_anormales"
-                                placeholder="Detalles..."
-                                value={values.moviemientos_anormales}
-                                onChange={handleChange}
-                            >
-                            </textarea>
-                        </div>
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="orientado"
+                                        name="orientado"
+                                    >
+                                    </Field>
+                                    <label htmlFor="orientado">
+                                        Esta bien orientado?
+                                    </label>
 
-                        <div>
-                            <label htmlFor="ETS">
-                            ETS
-                            </label>
-                            <textarea
-                                type="text"
-                                id="ETS"
-                                name="ETS"
-                                placeholder="Detalles..."
-                                value={values.ETS}
-                                onChange={handleChange}
-                            >
-                            </textarea>
-                        </div>
+                                </div>
 
-                        <div>
-                            <label htmlFor="comentarios">
-                            Comentarios
-                            </label>
-                            <textarea
-                                type="text"
-                                id="comentarios"
-                                name="comentarios"
-                                placeholder="Explayese..."
-                                value={values.comentarios}
-                                onChange={handleChange}
-                            >
-                            </textarea>
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="bajo_tratamiento"
+                                        name="bajo_tratamiento"
+                                    >
+                                    </Field>
+                                    <label htmlFor="bajo_tratamiento">
+                                        Está bajo algún tratamiento médico?
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div className={classes.box}>
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="pildoras_anticonceptivas"
+                                        name="pildoras_anticonceptivas"
+                                    >
+                                    </Field>
+                                    <label htmlFor="pildoras_anticonceptivas">
+                                        Toma píldoras anticonceptivas?
+                                    </label>
+
+                                </div>
+
+                                <div className={classes.label}>
+                                    <Field
+                                        type="checkbox"
+                                        id="transfusion"
+                                        name="transfusion"
+
+                                    >
+                                    </Field>
+                                    <label htmlFor="transfusion">
+                                        Recibió  una transfusión de sangre?
+                                    </label>
+
+                                </div>
+                            </div>
+                            {/* bolean ends*/}
+                            {/* string starts*/}
+                            <div className={classes.box}>
+                                <div className={classes.textbox}>
+                                    <label htmlFor="enfermedades_infancia">
+                                        Qué enfermedades ha padecido durante su infancia?
+                                    </label>
+                                    <Field
+                                        as="textarea"
+                                        id="enfermedades_infancia"
+                                        name="enfermedades_infancia"
+                                        placeholder="Detalles..."
+                                        className={classes.input}
+                                    >
+                                    </Field>
+                                </div>
+
+                                <div className={classes.textbox}>
+                                    <label htmlFor="accidente">
+                                        Ha tenido algún accidente?
+                                    </label>
+                                    <Field
+                                        as="textarea"
+                                        id="accidente"
+                                        name="accidente"
+                                        placeholder="Detalles..."
+                                        className={classes.input}
+                                    >
+                                    </Field>
+                                </div>
+
+                                <div className={classes.textbox}>
+                                    <label htmlFor="operacion">
+                                        Lo han operado alguna vez?
+                                    </label>
+                                    <Field
+                                        as="textarea"
+                                        id="operacion"
+                                        name="operacion"
+                                        placeholder="Detalles..."
+                                        className={classes.input}
+                                    >
+                                    </Field>
+                                </div>
+
+                                <div className={classes.textbox}>
+                                    <label htmlFor="alergia">
+                                        Es alérgico a algún medicamento, alimento u otra causa?
+                                    </label>
+                                    <Field
+                                        as="textarea"
+                                        id="alergia"
+                                        name="alergia"
+                                        placeholder="Detalles..."
+                                        className={classes.input}
+                                    >
+                                    </Field>
+                                </div>
+
+                                <div className={classes.textbox}>
+                                    <label htmlFor="constitucion">
+                                        Constitución
+                                    </label>
+                                    <Field
+                                        as="textarea"
+                                        id="constitucion"
+                                        name="constitucion"
+                                        placeholder="Detalles..."
+                                        className={classes.input}
+                                    >
+                                    </Field>
+                                </div>
+
+                                <div className={classes.textbox}>
+                                    <label htmlFor="complexion">
+                                        Complexión
+                                    </label>
+                                    <Field
+                                        as="textarea"
+                                        id="complexion"
+                                        name="complexion"
+                                        placeholder="Detalles..."
+                                        className={classes.input}
+                                    >
+                                    </Field>
+                                </div>
+
+                                <div className={classes.textbox}>
+                                    <label htmlFor="facies">
+                                        Facies Característica
+                                    </label>
+                                    <Field
+                                        as="textarea"
+                                        id="facies"
+                                        name="facies"
+                                        placeholder="Detalles..."
+                                        className={classes.input}
+                                    >
+                                    </Field>
+                                </div>
+
+                                <div className={classes.textbox}>
+                                    <label htmlFor="conformacion">
+                                        Conformación corporal
+                                    </label>
+                                    <Field
+                                        as="textarea"
+                                        id="conformacion"
+                                        name="conformacion"
+                                        placeholder="Detalles..."
+                                        className={classes.input}
+                                    >
+                                    </Field>
+                                </div>
+
+                                <div className={classes.textbox}>
+                                    <label htmlFor="moviemientos_anormales">
+                                        Moviemientos anormales
+                                    </label>
+                                    <Field
+                                        as="textarea"
+                                        id="moviemientos_anormales"
+                                        name="moviemientos_anormales"
+                                        placeholder="Detalles..."
+                                        className={classes.input}
+                                    >
+                                    </Field>
+                                </div>
+
+                                <div className={classes.textbox}>
+                                    <label htmlFor="marcha_patologicas">
+                                        Marcha patológicas
+                                    </label>
+                                    <Field
+                                        as="textarea"
+                                        id="marcha_patologicas"
+                                        name="marcha_patologicas"
+                                        placeholder="Detalles..."
+                                        className={classes.input}
+                                    >
+                                    </Field>
+                                </div>
+
+                                <div className={classes.textbox}>
+                                    <label htmlFor="ETS">
+                                        Ha pedecido E.T.S?
+                                    </label>
+                                    <Field
+                                        as="textarea"
+                                        id="ETS"
+                                        name="ETS"
+                                        placeholder="Detalles..."
+                                        className={classes.input}
+                                    >
+                                    </Field>
+                                </div>
+
+                                <div className={classes.textbox}>
+                                    <label htmlFor="comentarios">
+                                        Comentarios
+                                    </label>
+                                    <Field
+                                        as="textarea"
+                                        id="comentarios"
+                                        name="comentarios"
+                                        placeholder="Explayese..."
+                                        className={classes.input}
+                                    >
+                                    </Field>
+                                </div>
+                            </div>
+                            
                         </div>
                         {/* string ends*/}
-
-                        <div>
-                            <label htmlFor="correo">
-                                Correo
-                            </label>
-                            <input
-                                type="text"
-                                id="correo"
-                                name="correo"
-                                placeholder="escriba aqui su correo"
-                                value={values.correo}
-                                onChange={handleChange}
-                            >
-                            </input>
+                        <div className={classes.btn_container}>
+                            <Button className={classes.btn} type="submit">Enviar</Button>
                         </div>
-                        <button type="submit">Enviar</button>
-                    </form>)}
+                        {hassend && <Alert>Antecedentes Patologicos enviados</Alert>}
+                    </Form>)}
             </Formik>
         </>
     )
