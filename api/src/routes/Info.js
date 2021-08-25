@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Profesional, Paciente,Especialidad. Horario } = require("../db");
+const { Profesional, Paciente,Especialidad, Horario } = require("../db");
 
 const router = Router();
 
