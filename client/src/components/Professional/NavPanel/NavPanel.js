@@ -11,10 +11,13 @@ import NuevaCita from "../SubComponents/Appointment/NuevaCita/NuevaCita";
 import { useDispatch, useSelector } from "react-redux";
 import { redirect } from "../../Log/actions";
 import Welcome from "../SubComponents/Welcome";
+import SetHorario from "../SubComponents/SetHorarios/SetHorarios";
 import AntecedentesPatologicos from "../SubComponents/HistoriaClinica/AntecedentesPatologicos";
+
 import AntecedentesNoPatologicos from "../SubComponents/HistoriaClinica/AntecedentesNoPatologicos";
 import ShowAntecedentesPatogolicos from "../SubComponents/HistoriaClinica/ShowAntecedentesPatologicos";
 import ShowAntecedentesNoPatogolicos from "../SubComponents/HistoriaClinica/ShowAntecedentesNoPatologicos";
+
 
 const useStyle = makeStyles((theme) => ({
   magin: {
@@ -112,7 +115,7 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     { "Citas agendadas": <Appointment withoutTitle={false} /> },
     { "Inventario": <Stock />},
     { "Profesionales": <Professionals />},
-    { "Finzanzas": <Managment />},
+    { "Set Horarios": <SetHorario />},
     { "Atención": <Attention />},
     { "Agendar Cita": <NuevaCita /> },
     { "AntecedentesPatologicos": <AntecedentesPatologicos /> },
