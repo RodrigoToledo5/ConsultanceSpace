@@ -10,6 +10,7 @@ import ResetPassword from './components/ResetPassword/ResetPassword';
 import PatientsRouter from './components/Log/privateroutes/Patientsrouter';
 import ProfesionalRouter from './components/Log/privateroutes/Profesionalrouter ';
 import GoogleSign from './components/Sign/googlesign';
+import Succes from './components/payments/succes';
 
 
 
@@ -24,6 +25,9 @@ function App() {
       <Route path="/" component={Nav}/>
       <ProfesionalRouter exact path="/profesional-dashboard" component={Dashboard}/> 
       <PatientsRouter exact path="/patient-dashboard" component={PatientsDashboard}/>
+      <Route path="/succes" component={Succes}/> 
+      <Route path="/failure" component={Succes}/> 
+      <Route path="/pending" component={Succes}/> 
       <Route exact path="/" component={Main}/>
       <Route path="/" component={Footer}/>
     </>
