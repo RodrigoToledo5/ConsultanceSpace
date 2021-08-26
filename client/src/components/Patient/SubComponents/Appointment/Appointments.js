@@ -38,7 +38,6 @@ export default function Appointments() {
     let month = (new Date(date)).getMonth() + 1;
     month = month > 9? month.toString() : "0" + month.toString();
     return date.substring(8,10) + "/" + month + "/" + date.substring(11,16);
-    //cita.date.substring(16,21)
   }
   
 
@@ -125,8 +124,8 @@ export default function Appointments() {
     appointment.map((cita) => {
       return {
         id: cita.id,
-        date:  dateLinda(cita.date),
-        hour: cita.date.substring(16,21),
+        date:  cita.date.substring(0,10),
+        hour: cita.date.substring(12,26),
         note: cita.note,
         status: cita.status,
       };

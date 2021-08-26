@@ -1,6 +1,6 @@
 const { Router } = require("express");
 const router = Router();
-const {Profesional, Paciente} = require("../db");
+const {Profesional, Paciente, Horario} = require("../db");
 
 router.get('/relation', async (req, res, next)=>{
     try {
@@ -9,7 +9,7 @@ router.get('/relation', async (req, res, next)=>{
             where: {
                 id: pacienteId
             },
-            include:Profesional
+            include:{model:Profesional, include:Horario}
         })
         return relation ? res.json(relation) : res.send("no encontrado")
     } catch (err) {
