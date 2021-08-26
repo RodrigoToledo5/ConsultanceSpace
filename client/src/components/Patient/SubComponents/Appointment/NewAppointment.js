@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "100px",
   },
+  selectHorario:{
+    width: "150px"
+  }
 }));
 
 export default function NewAppointment() {
@@ -59,7 +62,9 @@ export default function NewAppointment() {
   const [email, setEmail] = useState("");
   const [professionalId, setProf] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedHorario, setSelectedHorario] = useState("");
+  const [selectedHorario, setSelectedHorario] = useState(null);
+  const [horarios, setHorarios] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [note, setNote] = useState("");
   const dias = [
     "domingo",
@@ -70,9 +75,32 @@ export default function NewAppointment() {
     "viernes",
     "sabado",
   ];
+
+  const giveMeHorarios = (date) => {
+    if (professionalId) {
+      setLoading(true);
+      setSelectedHorario(null);
+      setHorarios(null);
+      axios({
+        method: "get",
+        url: `http://localhost:3001/horarios`,
+        params: {
+          day: dias[date.getDay()],
+          profesionalId: professionalId,
+          date: dateLinda(date),
+        },
+      }).then(function (response) {
+        setHorarios(response.data);
+        setLoading(false);
+      });
+    }
+  };
+
   const handleDateChange = (date) => {
     setSelectedDate(date);
+    giveMeHorarios(date);
   };
+
   const handleProfessionalChange = (e) => {
     setProf(e.target.value);
   };
@@ -94,11 +122,12 @@ export default function NewAppointment() {
         ).usuarioEmail
       );
       setPatientName(professionals.fullName);
+      giveMeHorarios(selectedDate);
     }
   }, [professionalId]);
 
   const handleSubmit = () => {
-    if (professionalId && selectedDate && note && selectedHorario) {
+    if (professionalId && selectedDate && note && selectedHorario && !loading) {
       return false;
     }
     return true;
@@ -155,12 +184,8 @@ export default function NewAppointment() {
   };
 
   const agendarButton = () => {
-    console.log(dateLinda(selectedDate) + ":" + selectedHorario);
     const dateStr =
-      dateLinda(selectedDate) +
-      " a las " +
-      selectedHorario +
-      "hs";
+      dateLinda(selectedDate) + " a las " + selectedHorario + "hs";
     const props = {
       title: "Agendar",
       buttonOk: "Agendar",
@@ -191,23 +216,23 @@ export default function NewAppointment() {
       const prof = professionals.profesionals.find(
         (p) => p.id === professionalId
       );
-      if (prof) {
+      if (prof && horarios) {
         //prof.horario[]
         let disponibles = prof.horario[dias[selectedDate.getDay()]];
         if (!disponibles) disponibles = [];
-        return disponibles.map((hora, i)=>(
-          <MenuItem key={i} value={hora}>
-            {hora}
-          </MenuItem>)
-        );
+        return disponibles.map((hora, i) => (
+          <MenuItem key={i} value={hora} disabled={!(horarios.includes(hora))}>
+            {`${hora}${horarios.includes(hora) ? "" : " (YA RESERVADO)"}`}
+          </MenuItem>
+        ));
       }
     }
     return [];
   };
 
   const handleHorarioSelect = (e) => {
-    setSelectedHorario(e.target.value)
-  }
+    setSelectedHorario(e.target.value);
+  };
 
   return (
     <div>
@@ -233,6 +258,7 @@ export default function NewAppointment() {
               margin="normal"
               id="time-picker"
               label="Elegir Horario"
+              className={classes.selectHorario}
               select
               value={selectedHorario}
               onChange={handleHorarioSelect}
