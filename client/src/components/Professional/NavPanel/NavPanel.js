@@ -17,6 +17,7 @@ import AntecedentesPatologicos from "../SubComponents/HistoriaClinica/Antecedent
 import AntecedentesNoPatologicos from "../SubComponents/HistoriaClinica/AntecedentesNoPatologicos";
 import ShowAntecedentesPatogolicos from "../SubComponents/HistoriaClinica/ShowAntecedentesPatologicos";
 import ShowAntecedentesNoPatogolicos from "../SubComponents/HistoriaClinica/ShowAntecedentesNoPatologicos";
+import { red } from "@material-ui/core/colors";
 
 
 const useStyle = makeStyles((theme) => ({
@@ -61,6 +62,8 @@ const useStyle = makeStyles((theme) => ({
     justifyContent: "space-evenly",
     "@media (max-width:900px)": {
       borderTopLeftRadius: '0px',
+      paddingLeft: "20px",
+      paddingRight: "20px",
       borderTopRightRadius: '10px',
       borderBottomLeftRadius: '10px',
       borderBottomRightRadius: '10px',
@@ -85,13 +88,15 @@ const useStyle = makeStyles((theme) => ({
     alignContent: "center",
     justifyContent: "space-evenly",
     "@media (max-width:900px)": {
+      paddingLeft: "20px",
+      paddingRight: "20px",
       borderTopLeftRadius: '0px',
       borderTopRightRadius: '10px',
       borderBottomLeftRadius: '10px',
       borderBottomRightRadius: '10px',
       position: 'absolute',
       zIndex: '2',
-      left: '-260px',
+      left: '-340px',
       transition: '1s ease all'
     },
 
@@ -99,6 +104,10 @@ const useStyle = makeStyles((theme) => ({
   btn: {
     marginTop: "-5px",
     marginBottom: "-5px",
+    "@media (max-width:300px)":{
+      paddingLeft: '5px',
+      paddingRight: '5px'
+    }
   },
 }));
 
