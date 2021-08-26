@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "100px",
   },
+  selectHorario:{
+    width: "150px"
+  }
 }));
 
 export default function NewAppointment() {
@@ -54,18 +57,50 @@ export default function NewAppointment() {
   );
   const user = useSelector((store) => store.reducerLog.info);
   const pacienteId = user.id;
-  const [patientName, setPatientName] = useState("")
-  const [professionalName, setProfessionalName] = useState("")
-  const [email, setEmail] = useState("")
+  const [patientName, setPatientName] = useState("");
+  const [professionalName, setProfessionalName] = useState("");
+  const [email, setEmail] = useState("");
   const [professionalId, setProf] = useState("");
-  const [selectedDate, setSelectedDate] = useState(
-    new Date().toString().substr(0, 21)
-  );
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [selectedHorario, setSelectedHorario] = useState(null);
+  const [horarios, setHorarios] = useState(null);
+  const [loading, setLoading] = useState(false);
   const [note, setNote] = useState("");
+  const dias = [
+    "domingo",
+    "lunes",
+    "martes",
+    "miercoles",
+    "jueves",
+    "viernes",
+    "sabado",
+  ];
+
+  const giveMeHorarios = (date) => {
+    if (professionalId) {
+      setLoading(true);
+      setSelectedHorario(null);
+      setHorarios(null);
+      axios({
+        method: "get",
+        url: `http://localhost:3001/horarios`,
+        params: {
+          day: dias[date.getDay()],
+          profesionalId: professionalId,
+          date: dateLinda(date),
+        },
+      }).then(function (response) {
+        setHorarios(response.data);
+        setLoading(false);
+      });
+    }
+  };
 
   const handleDateChange = (date) => {
-    setSelectedDate(date.toString().substr(0, 21));
+    setSelectedDate(date);
+    giveMeHorarios(date);
   };
+
   const handleProfessionalChange = (e) => {
     setProf(e.target.value);
   };
@@ -74,19 +109,25 @@ export default function NewAppointment() {
     setNote(e.target.value);
   };
 
-  
-  
-  useEffect(()=>{
-    if(professionals && professionals.profesionals && professionalId ){
-      setProfessionalName (professionals.profesionals.find((profesional) => profesional.id === professionalId).fullName);
-      setEmail(professionals.profesionals.find((profesional) => profesional.id === professionalId).usuarioEmail);
+  useEffect(() => {
+    if (professionals && professionals.profesionals && professionalId) {
+      setProfessionalName(
+        professionals.profesionals.find(
+          (profesional) => profesional.id === professionalId
+        ).fullName
+      );
+      setEmail(
+        professionals.profesionals.find(
+          (profesional) => profesional.id === professionalId
+        ).usuarioEmail
+      );
       setPatientName(professionals.fullName);
+      giveMeHorarios(selectedDate);
     }
-  },[professionalId])
-  
+  }, [professionalId]);
 
   const handleSubmit = () => {
-    if ( professionalId && selectedDate && note) {
+    if (professionalId && selectedDate && note && selectedHorario && !loading) {
       return false;
     }
     return true;
@@ -97,7 +138,7 @@ export default function NewAppointment() {
 
   const reLoad = () => {
     dispatch(getAppointment(pacienteId, true));
-    sendMail(patientName, professionalName, email, selectedDate )
+    sendMail(patientName, professionalName, email, selectedDate);
   };
   const createAppointment = (profesionalId, pacienteId, date, note) => {
     return axios({
@@ -112,34 +153,39 @@ export default function NewAppointment() {
     }).then((res) => (res.status === 200 ? true : false));
   };
 
-  const sendMail = ( patientName, professionalName, email, selectedDate ) => {
+  const sendMail = (patientName, professionalName, email, selectedDate) => {
     return axios({
       method: "POST",
       url: "http://localhost:3001/sendEmail",
-      data:{
+      data: {
         paciente: true,
         professional: email,
         subject: "Cita agendada por: " + patientName,
-        text: "Hola " + professionalName + "," + patientName + " ha agendado una cita para la fecha " + dateLinda(selectedDate) +
-        " a las " +
-        selectedDate.substring(16, 21) +
-        "hs"
-      }
-    })
-  }
+        text:
+          "Hola " +
+          professionalName +
+          "," +
+          patientName +
+          " ha agendado una cita para la fecha " +
+          dateLinda(selectedDate) +
+          " a las " +
+          selectedHorario +
+          "hs",
+      },
+    });
+  };
   const dateLinda = (date) => {
-    let month = new Date(date).getMonth() + 1;
+    const dateStr = date.toString().substr(0, 21);
+    let month = date.getMonth() + 1;
     month = month > 9 ? month.toString() : "0" + month.toString();
-    return date.substring(8, 10) + "/" + month + "/" + date.substring(11, 16);
-    //cita.date.substring(16,21)
+    return (
+      dateStr.substring(8, 10) + "/" + month + "/" + dateStr.substring(11, 15)
+    );
   };
 
   const agendarButton = () => {
     const dateStr =
-      dateLinda(selectedDate) +
-      " a las " +
-      selectedDate.substring(16, 21) +
-      "hs";
+      dateLinda(selectedDate) + " a las " + selectedHorario + "hs";
     const props = {
       title: "Agendar",
       buttonOk: "Agendar",
@@ -149,7 +195,7 @@ export default function NewAppointment() {
         return createAppointment(
           professionalId,
           pacienteId,
-          selectedDate,
+          dateLinda(selectedDate) + ":" + selectedHorario,
           note
         );
       },
@@ -163,6 +209,29 @@ export default function NewAppointment() {
       redirect: reLoad,
     };
     return <DialogRequestButton props={props} />;
+  };
+
+  const HorarioSelect = () => {
+    if (professionals.profesionals) {
+      const prof = professionals.profesionals.find(
+        (p) => p.id === professionalId
+      );
+      if (prof && horarios) {
+        //prof.horario[]
+        let disponibles = prof.horario[dias[selectedDate.getDay()]];
+        if (!disponibles) disponibles = [];
+        return disponibles.map((hora, i) => (
+          <MenuItem key={i} value={hora} disabled={!(horarios.includes(hora))}>
+            {`${hora}${horarios.includes(hora) ? "" : " (YA RESERVADO)"}`}
+          </MenuItem>
+        ));
+      }
+    }
+    return [];
+  };
+
+  const handleHorarioSelect = (e) => {
+    setSelectedHorario(e.target.value);
   };
 
   return (
@@ -185,16 +254,17 @@ export default function NewAppointment() {
                 "aria-label": "change date",
               }}
             />
-            <KeyboardTimePicker
+            <TextField
               margin="normal"
               id="time-picker"
               label="Elegir Horario"
-              value={selectedDate}
-              onChange={handleDateChange}
-              KeyboardButtonProps={{
-                "aria-label": "change time",
-              }}
-            />
+              className={classes.selectHorario}
+              select
+              value={selectedHorario}
+              onChange={handleHorarioSelect}
+            >
+              {HorarioSelect()}
+            </TextField>
             <TextField
               id="standard-basic"
               className={classes.label}

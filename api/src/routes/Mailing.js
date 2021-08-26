@@ -8,7 +8,6 @@ const { GMAIL, GMAIL_PASS } = process.env;
 router.post('/sendEmail', (req,res)=>{
     const {paciente, profesional, patient, professional, subject, text} = req.body;
     console.log( profesional, patient, subject, text)
-
     if(paciente){
     var transporter = nodemailer.createTransport({
         host: "smtp.gmail.com",

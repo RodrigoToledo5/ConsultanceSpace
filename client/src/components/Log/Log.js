@@ -189,7 +189,6 @@ useEffect(() => {
       const res = await firebase
         .auth()
         .signInWithEmailAndPassword(input.email, input.password);
-        console.log(firebase.auth().currentUser);
 
       //hariamos un llamado al back  con toda la informacion del usuario
       
