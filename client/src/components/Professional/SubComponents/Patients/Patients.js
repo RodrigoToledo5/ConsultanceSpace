@@ -129,7 +129,7 @@ export default function Patients(){
       setTimeout(() => {
         setAdded(false)
         dispatch(redirect(0));
-      }, 2000);
+      }, 1000);
     }
     
     return(
