@@ -32,7 +32,7 @@ router.get("/horarios", async (req, res, next) => {
       [Op.like] : "%" + date + "%"
     } } });
     let arr = horarios[day];
-    arr = arr.filter((h)=> (!(citas.reduce((acc, cv)=> (acc + (cv.date.includes(h))),false))));
+    if (arr) arr = arr.filter((h)=> (!(citas.reduce((acc, cv)=> (acc + (cv.date.includes(h))),false))));
     res.send(arr);
   } catch (err) {
     next(err);
