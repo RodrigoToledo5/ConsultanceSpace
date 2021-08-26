@@ -20,7 +20,7 @@ router.use(express.json());
 
     //Routes
     router.post('/checkout', (req, res, next) => {
-        console.log(req.body)
+        console.log("back_urls")
     // Crea un objeto de preferencia
     let preference = {
         items: [
@@ -29,18 +29,22 @@ router.use(express.json());
             unit_price: parseInt(req.body.price),
             quantity: 1,
         },
-        /* {
-            redirect_urls: { failure: '', pending: '', success: '' },
-        }, */
+        ],
+        /* "purpose": 'wallet_purchase', */
+        "back_urls": {
+            "success": "http://localhost:3000/succes",
+            "failure": "http://localhost:3000/failure",
+            "pending": "http://localhost:3000/pending"
+        },
+        "auto_return": "approved",
         
-        ]
-
     };
+    console.log(preference);
     
     mercadopago.preferences.create(preference)
     .then(function(response){
 
-        console.log(response.body)
+        //console.log(response.body)
         res.redirect(response.body.init_point)
    
     }).catch(function(error){
