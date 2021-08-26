@@ -116,7 +116,6 @@ export default function NuevaCita() {
   const HorarioSelect = () => {
     if(horarios){
         let disponibles = user.horario[dias[date.getDay()]];
-        console.log(disponibles);
         if (!disponibles) disponibles = [];
         return disponibles.map((hora, i) => (
           <MenuItem key={i} value={hora} disabled={!(horarios.includes(hora))}>

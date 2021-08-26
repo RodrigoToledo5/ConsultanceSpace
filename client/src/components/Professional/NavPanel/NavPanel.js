@@ -18,6 +18,7 @@ import AntecedentesNoPatologicos from "../SubComponents/HistoriaClinica/Antecede
 import ShowAntecedentesPatogolicos from "../SubComponents/HistoriaClinica/ShowAntecedentesPatologicos";
 import ShowAntecedentesNoPatogolicos from "../SubComponents/HistoriaClinica/ShowAntecedentesNoPatologicos";
 import { red } from "@material-ui/core/colors";
+import FinalDate from "../SubComponents/Appointment/FinalCita/FinalCita";
 
 
 const useStyle = makeStyles((theme) => ({
@@ -131,8 +132,9 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     {"ShowAntecedentesPatogolicos":<ShowAntecedentesPatogolicos/>},
     { "AntecedentesNoPatologicos": <AntecedentesNoPatologicos /> },
     {"ShowAntecedentesNoPatogolicos":<ShowAntecedentesNoPatogolicos/>},
+    {"FinalDate" : <FinalDate />},
   ];
-  const indexPrivateRoutes = 12; // a partir de este indice loa botones se ocultan
+  const indexPrivateRoutes = 13; // a partir de este indice loa botones se ocultan
 
   useEffect(() => {
 
