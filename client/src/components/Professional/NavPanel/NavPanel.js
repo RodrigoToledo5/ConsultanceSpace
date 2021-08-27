@@ -13,10 +13,10 @@ import { redirect } from "../../Log/actions";
 import Welcome from "../SubComponents/Welcome";
 import SetHorario from "../SubComponents/SetHorarios/SetHorarios";
 import AntecedentesPatologicos from "../SubComponents/HistoriaClinica/AntecedentesPatologicos";
-
 import AntecedentesNoPatologicos from "../SubComponents/HistoriaClinica/AntecedentesNoPatologicos";
 import ShowAntecedentesPatogolicos from "../SubComponents/HistoriaClinica/ShowAntecedentesPatologicos";
 import ShowAntecedentesNoPatogolicos from "../SubComponents/HistoriaClinica/ShowAntecedentesNoPatologicos";
+import Treatments from "../SubComponents/Treatments/Treatments";
 import { red } from "@material-ui/core/colors";
 
 
@@ -131,8 +131,12 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     {"ShowAntecedentesPatogolicos":<ShowAntecedentesPatogolicos/>},
     { "AntecedentesNoPatologicos": <AntecedentesNoPatologicos /> },
     {"ShowAntecedentesNoPatogolicos":<ShowAntecedentesNoPatogolicos/>},
+    { "Managment": <Managment/> },
+    {"Treatments": <Treatments/>}
+    
+    
   ];
-  const indexPrivateRoutes = 12; // a partir de este indice loa botones se ocultan
+  const indexPrivateRoutes = 14; // a partir de este indice loa botones se ocultan
 
   useEffect(() => {
 
