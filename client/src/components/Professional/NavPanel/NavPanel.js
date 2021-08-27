@@ -131,7 +131,7 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     { "Agendar Cita": <NuevaCita /> },
     { "Managment": <Managment/> },
     {"Treatments": <Treatments/>},
-    {"Historia Clinica":<HistoriaClinica/>} 
+    {"Historia Clinica":<HistoriaClinica/>},
     {"FinalDate" : <FinalDate />},
   ];
   const indexPrivateRoutes = 11; // a partir de este indice loa botones se ocultan
