@@ -15,7 +15,8 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { redirect, setCita } from "../../../../Log/actions";
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -39,7 +40,14 @@ const useStyle = makeStyles((theme) => ({
 export default function Citas({ citas, reLoad }) {
   const classes = useStyle();
   const api = "http://localhost:3001";
+  const [redirectFlag, setRdF] = useState(false);
   const user = useSelector((store) => store.reducerLog.info);
+  const citaRedirect = useSelector((store) => store.reducerLog.actCita);
+
+  useEffect(()=>{
+    if(redirectFlag){dispatch(redirect(12))}else{setRdF(true);}},[citaRedirect]);
+
+  const dispatch = useDispatch();
 
   const dateLinda = (date) => {
     const dateStr = date.toString().substr(0, 21);
@@ -90,7 +98,7 @@ export default function Citas({ citas, reLoad }) {
         <Button
           style={{ marginLeft: 16 }}
           onClick={() => {
-            console.log(params.row.col6);
+            dispatch(setCita(actCitas.find((c)=>(c.id === params.id))));
           }}
         >
           Completar

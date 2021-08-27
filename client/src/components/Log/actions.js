@@ -5,6 +5,7 @@ export const INFO_USER = 'INFO_USER';
 export const DESLOG = 'DESLOG';
 export const REDIRECT = 'REDIRECT';
 export const SET_PATIENT = 'SET_PATIENT';
+export const SET_CITA = 'ACT_CITA';
 
 const api = 'http://localhost:3001';
 
@@ -38,5 +39,9 @@ export const setPatient=(patient)=>(dispatch)=>{
 
 export const desLog=()=>(dispatch)=>{
     dispatch({ type: DESLOG})
+}
+
+export const setCita=(cita)=>(dispatch)=>{
+    dispatch({ type: SET_CITA, payload:cita})
 }
 

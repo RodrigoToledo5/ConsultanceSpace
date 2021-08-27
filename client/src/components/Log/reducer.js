@@ -1,10 +1,11 @@
-import { POST_LOG, DESLOG, INFO_USER, REDIRECT, SET_PATIENT } from "./actions";
+import { POST_LOG, DESLOG, INFO_USER, REDIRECT, SET_PATIENT, SET_CITA } from "./actions";
 
 const initialState = {
-  user: {}, // mail y tipo del usuario logeado
-  info: {}, // hard info del user creado
-  redirect: null, // string para cambiar el renderizada de componentes de NavPanel
+  user: {},                                 // mail y tipo del usuario logeado
+  info: {},                                 // hard info del user creado
+  redirect: null,                           // string para cambiar el renderizada de componentes de NavPanel
   actPatient: { fullName: null, id: null }, // paciente usado para NuevaCita, cargado desde el boton de Mis Pacientes
+  actCita: {},                              // cita usada para finalDate
 };
 
 export default function reducerLog(state = initialState, action) {
@@ -36,6 +37,12 @@ export default function reducerLog(state = initialState, action) {
       return {
         ...state,
         actPatient: action.payload,
+      };
+    }
+    case SET_CITA: {
+      return {
+        ...state,
+        actCita: action.payload,
       };
     }
     default:

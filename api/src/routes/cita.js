@@ -81,7 +81,8 @@ router.put("/cita", async (req, res, next) => {
       date && (cita.date = date);
       note && (cita.note = note);
       await cita.save();
-      return res.status(200).send("cita modificada");
+      const pac = await Paciente.findOne({ where: { id: cita.pacienteId } });
+      return res.status(200).send({ ...cita.dataValues, pacienteFullName: pac.fullName });
     }
     return res.status(200).send("id incorrecto");
   } catch (err) {

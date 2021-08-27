@@ -18,6 +18,7 @@ import ShowAntecedentesPatogolicos from "../SubComponents/HistoriaClinica/ShowAn
 import ShowAntecedentesNoPatogolicos from "../SubComponents/HistoriaClinica/ShowAntecedentesNoPatologicos";
 import Treatments from "../SubComponents/Treatments/Treatments";
 import { red } from "@material-ui/core/colors";
+import FinalDate from "../SubComponents/Appointment/FinalCita/FinalCita";
 import HistoriaClinica from "../SubComponents/HistoriaClinica/HistoriaClinica";
 
 
@@ -131,10 +132,9 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     { "Managment": <Managment/> },
     {"Treatments": <Treatments/>},
     {"Historia Clinica":<HistoriaClinica/>} 
+    {"FinalDate" : <FinalDate />},
   ];
   const indexPrivateRoutes = 11; // a partir de este indice loa botones se ocultan
-
-
 
   useEffect(() => {
 
