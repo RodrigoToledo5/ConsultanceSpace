@@ -91,8 +91,7 @@ Paciente.hasMany(Cita);
 Cita.belongsTo(Paciente);
 
 //tratamientos profesional
-Cita.hasOne(Tratamientos);
-
+Cita.hasMany(Tratamientos);
 Tratamientos.belongsTo(Cita)
 
 //AntecedentesPatologicos paciente

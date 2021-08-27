@@ -1,5 +1,5 @@
 const { Router } = require("express");
-const { Cita, Paciente, Profesional } = require("../db");
+const { Cita, Paciente, Profesional, Tratamientos } = require("../db");
 const router = Router();
 
 // Usar de la siguiente manera
@@ -15,6 +15,7 @@ router.post("/cita", async (req, res, next) => {
       if (profesionalId) {
         let citas = await Cita.findAll({
           where: { profesionalId: profesionalId },
+          include: {model: Tratamientos }
         });
         citas  = citas.map((c) => c.dataValues);
         const pacs = await Paciente.findAll();
@@ -25,7 +26,7 @@ router.post("/cita", async (req, res, next) => {
         return res.status(200).send(citas);
       }
       if (pacienteId) {
-        let citas = await Cita.findAll({ where: { pacienteId: pacienteId } });
+        let citas = await Cita.findAll({ where: { pacienteId: pacienteId },include: { model: Tratamiento } });
         citas = citas.map((c) => c.dataValues);
         const pros = await Profesional.findAll();
         citas = citas.map((c) => {
