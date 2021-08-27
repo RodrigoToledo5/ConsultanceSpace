@@ -1,16 +1,18 @@
-import { Box, Typography, makeStyles, InputLabel,Button } from "@material-ui/core";
+import { Box, Typography, makeStyles, InputLabel, Button } from "@material-ui/core";
 import { Formik, Field, Form } from 'formik'
 import Alert from '@material-ui/lab/Alert';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 const api = 'http://localhost:3001';
+
 
 
 const useStyle = makeStyles((theme) => ({
 
     text: {
         color: "#159DE9",
-        marginTop:"3px"
+        marginTop: "3px"
     },
     box: {
         padding: "10px",
@@ -33,53 +35,55 @@ const useStyle = makeStyles((theme) => ({
         flexDirection: "row",
         justifyContent: "flex-start",
         minWidth: "120px",
-        alignItems:"center"
+        alignItems: "center"
     },
     asides: {
         display: "flex",
         flexDirection: "column",
         justifyContent: " space-evenly",
     },
-    textbox:{
-        display:"flex",
-        flexDirection:"column",
-        padding:"10px",
-        minHeight:"100px"
+    textbox: {
+        display: "flex",
+        flexDirection: "column",
+        padding: "10px",
+        minHeight: "100px"
     },
-    input:{
+    input: {
         resize: "none",
-        minWidth:"350px",
-        maxWidth:"350px",
-        minHeight:"80px",
-        padding:"5px"
+        minWidth: "350px",
+        maxWidth: "350px",
+        minHeight: "80px",
+        padding: "5px"
     },
-    btn:{
-        maxWidth:"150px",
-        marginLeft:"100px",
-        marginRight:"100px"
+    btn: {
+        maxWidth: "150px",
+        marginLeft: "100px",
+        marginRight: "100px"
     },
-    btn_container:{
-        display:"flex",
-        justifyContent:"flex-end"
+    btn_container: {
+        display: "flex",
+        justifyContent: "flex-end"
     },
-    checkbox:{
-        cursor:"pointer",
-        width:"20px",
-        height:"20px",
+    checkbox: {
+        cursor: "pointer",
+        width: "20px",
+        height: "20px",
     },
-    title:{
-        margin:"10px",
-        textAlign:"center",
-        fontFamily:"Lato",
-        fontSize:"20px"
+    title: {
+        margin: "10px",
+        textAlign: "center",
+        fontFamily: "Lato",
+        fontSize: "20px"
     }
 
 }));
 
 
-export default function AntecedentesPatogolicos() {
+export default function AntecedentesPatogolicos({idPaciente:idPaciente}) {
     const [hassend, setHasSend] = useState(false)
     const classes = useStyle();
+    const patient = useSelector((store) => store.reducerLog.actPatient);
+    const historia = useSelector(state => state.reducerHistory.history)
     /// usamos renderer prop
     return (
         <>
@@ -117,19 +121,30 @@ export default function AntecedentesPatogolicos() {
                     marcha_patologicas: "",
                     ETS: "",//explayese 
                     comentarios: "",
-                    antecedentesPatologicos:true,
-                    idPaciente:1,
+                    antecedentesPatologicos: true,
+                    idPaciente: idPaciente,
                 }}
                 onSubmit={
                     async (values, { resetForm }) => {
+                        console.log(historia.antecedentesPatologico)
+                        if(!historia.antecedentesPatologico){
+                            const send = await axios({
+                                method: 'POST',
+                                url: `${api}/medicalRecord`,
+                                data: values
+                            })
+                            console.log(send);
+                        }
+                        else{
+                            const send = await axios({
+                                method: 'PUT',
+                                url: `${api}/medicalRecord`,
+                                data: values
+                            })
+                            console.log(send);
+                        }
+
                         
-                        const send = await axios({
-                            method: 'POST',
-                            url: `${api}/medicalRecord`,
-                            data: values
-                        })
-                        
-                        console.log(send);
                         resetForm();
                         setHasSend(true);
                         setTimeout(() => setHasSend(false), 5000)
@@ -584,11 +599,11 @@ export default function AntecedentesPatogolicos() {
                                     </Field>
                                 </div>
                             </div>
-                            
+
                         </div>
                         {/* string ends*/}
                         <div className={classes.btn_container}>
-                            <Button className={classes.btn} type="submit">Enviar</Button>
+                            <Button className={classes.btn} type="submit">{!historia.antecedentesPatologico?"Cargar":"Actualizar"}</Button>
                         </div>
                         {hassend && <Alert>Antecedentes Patologicos enviados</Alert>}
                     </Form>)}

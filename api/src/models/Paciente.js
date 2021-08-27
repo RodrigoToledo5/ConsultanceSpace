@@ -31,6 +31,14 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING,
 			allowNull: false
 		},
+		genero:{
+			type: DataTypes.STRING,
+			allowNull: true
+		},
+		estado_civil:{
+			type: DataTypes.STRING,
+			allowNull: true
+		},
 		fullName: {
 			type: DataTypes.VIRTUAL,
 			get: function() {

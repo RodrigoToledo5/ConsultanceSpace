@@ -3,6 +3,7 @@ import { Formik, Field, Form } from 'formik'
 import Alert from '@material-ui/lab/Alert';
 import { useState } from "react";
 import axios from "axios";
+import { useSelector } from "react-redux";
 const api = 'http://localhost:3001';
 
 
@@ -77,9 +78,10 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 
-export default function AntecedentesNoPatogolicos() {
+export default function AntecedentesNoPatogolicos({idPaciente:idPaciente}) {
     const [hassend, setHasSend] = useState(false)
     const classes = useStyle();
+    const historia = useSelector(state => state.reducerHistory.history)
     /// usamos renderer prop
     return (
         <>
@@ -95,18 +97,28 @@ export default function AntecedentesNoPatogolicos() {
                     toxicomanias: "",
                     comentarios: "",
                     antecedentesNoPatologicos: true,
-                    idPaciente: 1,
+                    idPaciente: idPaciente,
                 }}
                 onSubmit={
                     async (values, { resetForm }) => {
+                        if(!historia.antecedentesNoPatologico){
+                            const send = await axios({
+                                method: 'POST',
+                                url: `${api}/medicalRecord`,
+                                data: values
+                            })
+                            console.log("no tiene");
+                        }
+                        else{
+                            const send = await axios({
+                                method: 'PUT',
+                                url: `${api}/medicalRecord`,
+                                data: values
+                            })
+                            console.log(values);
+                        }
 
-                        const send = await axios({
-                            method: 'POST',
-                            url: `${api}/medicalRecord`,
-                            data: values
-                        })
 
-                        console.log(send);
                         resetForm();
                         setHasSend(true);
                         setTimeout(() => setHasSend(false), 5000)
@@ -249,7 +261,7 @@ export default function AntecedentesNoPatogolicos() {
                         </div>
                         {/* string ends*/}
                     <div className={classes.btn_container}>
-                        <Button className={classes.btn} type="submit">Enviar</Button>
+                        <Button className={classes.btn} type="submit">{historia.antecedentesNoPatologico?"Actualizar":"Enviar"}</Button>
                     </div>
                     {hassend && <Alert>Antecedentes Patologicos enviados</Alert>}
                 </Form>)}

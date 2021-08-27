@@ -38,6 +38,7 @@ export default function MyPatients() {
   const patients = useSelector(
     (store) => store.reducerAddPatients.MyPatientsList
   );
+  const [redir, setRedir] = useState("")
   const reset = useSelector((store) => store.reducerAddPatients.reset);
   const user = useSelector((store) => store.reducerLog.user);
   const info = useSelector((store) => store.reducerLog.info);
@@ -45,7 +46,6 @@ export default function MyPatients() {
   const dispatch = useDispatch();
   const [select, setSelect] = useState([]);
   const [firstRender, setFirstRender] = useState(true);
-
   const [disable, setDisable] = useState(false);
 
   useEffect(() => {
@@ -55,7 +55,8 @@ export default function MyPatients() {
 
   useEffect(() => {
     if (!firstRender) {
-      dispatch(redirect(7));
+      if(redir==="Hacer Cita") dispatch(redirect(7));
+      if(redir==="Historia Clinica") dispatch(redirect(8));
     } else {
       setFirstRender(false);
     }
@@ -72,9 +73,29 @@ export default function MyPatients() {
           onClick={() => {
             const patient = patients.find((p) => p.id === params.id);
             dispatch(setPatient(patient));
+            setRedir("Hacer Cita");
           }}
         >
           Reservar
+        </Button>
+      </strong>
+    );
+  };
+
+  const renderPatientHistory = (params) => {
+    return (
+      <strong>
+        <Button
+          size="small"
+          style={{ marginLeft: 16 }}
+          disabled={disable}
+          onClick={() => {
+            const patient = patients.find((p) => p.id === params.id);
+            dispatch(setPatient(patient));
+            setRedir("Historia Clinica")
+          }}
+        >
+          Ver
         </Button>
       </strong>
     );
@@ -86,6 +107,13 @@ export default function MyPatients() {
       headerName: "Hacer Cita",
       width: 150,
       renderCell: renderPatientButton,
+      disableClickEventBubbling: true,
+    },
+    {
+      field: "b2",
+      headerName: "Historia Clinica",
+      width: 150,
+      renderCell: renderPatientHistory,
       disableClickEventBubbling: true,
     },
     { field: "dni", headerName: "Cedula", width: 120 },

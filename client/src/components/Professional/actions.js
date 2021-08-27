@@ -6,6 +6,7 @@ export const ADD_PATIENT = 'ADD_PATIENT';
 export const GET_MYPATIENTS = 'GET_MYPATIENTS';
 export const REMOVE_MYPATIENTS = 'REMOVE_MYPATIENTS';
 export const CLEAR_MY_PATIENTS = 'CLEAR_MY_PATIENTS';
+export const GET_EARNINGS = 'GET_EARNINGS';
 
 export const searchprofesional = (input)=>{
     if(input.includes('@')){
@@ -62,3 +63,14 @@ export const clearMypatients = ()=>{
         type: CLEAR_MY_PATIENTS,
     }
 }
+
+export const getEarnings = () => {
+    return async (dispatch)=>{
+        const earnings = await axios.get(`${api}/treatmentsAll`)
+        dispatch({type: GET_EARNINGS, payload: earnings.data})
+    }
+}
+
+
+
+
