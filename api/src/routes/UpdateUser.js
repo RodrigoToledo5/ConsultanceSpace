@@ -22,12 +22,15 @@ router.put("/updateUser", async (req, res, next) => {
     country,
     speciality,
     clearespeciality,
+    genero,
+    estado_civil
   } = req.body;
-  console.log(clearespeciality)
+  console.log("el body es ",req.body,"y la direccion es", typeof address);
   //fecha=(birth.substring(0,birth.length-14))
   //console.log(speciality)
   try{
     const user=await Usuario.findByPk(email);
+    console.log("el user traido es",user);
     if(user.tipo_usuario==="profesional"){
       if(clearespeciality==="true"){
         console.log("paso")
@@ -114,7 +117,9 @@ router.put("/updateUser", async (req, res, next) => {
     }
     
     if(user.tipo_usuario==="paciente"){
+      console.log("ingreso a la parte de actualizacion de pacientes")
       if(name&&typeof name ==="string"){
+
         console.log(user.tipo_usuario)
         await Paciente.update({
           nombre:name.toUpperCase()
@@ -122,7 +127,7 @@ router.put("/updateUser", async (req, res, next) => {
           id:id,
         }});
       }
-      if(lastName&&typeof lastName ==="string"){
+      if(lastName && typeof lastName === "string"){
         await Paciente.update({
           apellidos:lastName.toUpperCase(),
         },{where:{
@@ -136,30 +141,47 @@ router.put("/updateUser", async (req, res, next) => {
           id:id,
         }});
       }
-      if(fecha){
+      if(birth){
         await Paciente.update({
-          fecha_de_nacimiento:fecha,
+          fecha_de_nacimiento:birth,
         },{where:{
           id:id,
         }});
       }
-      if(address&&typeof address ==="string"){
+      if(address){
+        console.log("ingreso a direccion")
         await Paciente.update({
           direccion:address,
         },{where:{
           id:id,
         }});
       }
-      if(phone&&typeof phone ==="number"){
+      if(phone){
         await Paciente.update({
           telefono:phone,
         },{where:{
           id:id,
         }});
       }
-      if(country&&typeof country ==="string"){
+      if(country){
         await Paciente.update({
           pais:country,
+        },{where:{
+          id:id,
+        }});
+      }
+      if(genero){
+        console.log("ingreso a la parte de genero", genero)
+        await Paciente.update({
+          genero:genero,
+        },{where:{
+          id:id,
+        }});
+      }
+      if(estado_civil){
+        console.log("ingreso a la parte de estado_civil")
+        await Paciente.update({
+          estado_civil:estado_civil,
         },{where:{
           id:id,
         }});
