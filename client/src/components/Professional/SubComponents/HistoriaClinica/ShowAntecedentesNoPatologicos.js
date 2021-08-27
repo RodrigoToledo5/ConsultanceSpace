@@ -4,6 +4,8 @@ import Alert from '@material-ui/lab/Alert';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Pdf from "react-to-pdf";
+import { useSelector } from "react-redux";
+
 
 const api = 'http://localhost:3001';
 
@@ -91,15 +93,20 @@ const useStyle = makeStyles((theme) => ({
 }));
 const ref=React.createRef()
 
-export default function ShowAntecedentesPatogolicos({ idPaciente }) {
-    const [historia, setHistoria] = useState({})
+export default function ShowAntecedentesNoPatogolicos({ idPaciente:idPaciente}) {
+    //const [historia, setHistoria] = useState({})
     const classes = useStyle();
+    const historia = useSelector(state => state.reducerHistory.history)
     /// usamos renderer prop
-    useEffect(async () => {
-        const res = await axios.get(`${api}/medicalRecord?idPaciente=1`)
-        console.log(res)
-        setHistoria(res.data);
-    }, [setHistoria])
+    // async function callmedicalrecord(){
+    //     const res=await axios.get(`${api}/medicalRecord?idPaciente=${idPaciente}`)
+    //     setHistoria(res.data);
+        
+     
+    // }
+    // useEffect(async () => {
+    //     callmedicalrecord()
+    // }, [])
     function formatName(string){
         if(string){
             return string[0]+string.substring(1,string.length).toLowerCase()
