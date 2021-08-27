@@ -132,6 +132,8 @@ export default function Profile({ onClick ,handleEdit:handleEdit}) {
     const [onfocuslastname, setOnFocusLastName] = useState(false);
     const [onfocusphone, setOnFocusPhone] = useState(false);
     const [onfocusaddres, setOnFocusAdress] = useState(false);
+    const [onfocusgenre, setOnFocusGenre] = useState(false);
+    const [onfocusMaritalStatus, setOnFocusMaritalStatus] = useState(false);
     const [specialidad,setEspecialidad]=useState("");
 
     const [load, setLoad] = useState("");
@@ -148,6 +150,8 @@ export default function Profile({ onClick ,handleEdit:handleEdit}) {
         birth: profile.fecha_de_nacimiento,
         address: '',
         country: '',
+        genero: '',
+        estado_civil: '',
         id: '',
     });
 
@@ -188,6 +192,8 @@ export default function Profile({ onClick ,handleEdit:handleEdit}) {
             phone: '',
             address: '',
             country: '',
+            genero: '',
+            estado_civil: '',
             id: '',
         })
         setLoad("cargando");
@@ -278,7 +284,48 @@ export default function Profile({ onClick ,handleEdit:handleEdit}) {
                             autoComplete="off"
                         />
                     </FormControl>
-
+                    {
+                        profileinfo.tipo_usuario === "paciente"  && (
+                        <>
+                        <FormControl className={classes.form}>
+                            <TextField
+                                className={classes.textfield}
+                                value={patient.genero}
+                                onChange={(event) => onHandleChange(event)}
+                                label={!onfocusgenre ? profile.genero || "Agregue un genero" : "Genero"}
+                                onFocus={() => setOnFocusGenre(!onfocusgenre)}
+                                onBlur={() => setOnFocusGenre(!onfocusgenre)}
+                                size="small"
+                                variant="outlined"
+                                color="secondary"
+                                name="genero"
+                                InputProps={{
+                                    className: classes.input,
+                                }}
+                                autoComplete="off"
+                            />
+                        </FormControl>
+                        <FormControl className={classes.form}>
+                            <TextField
+                                className={classes.textfield}
+                                value={patient.estado_civil}
+                                onChange={(event) => onHandleChange(event)}
+                                label={!onfocusMaritalStatus ? profile.estado_civil || "Agregue su estado civil" : "Estado Civil"}
+                                onFocus={() => setOnFocusMaritalStatus(!onfocusMaritalStatus)}
+                                onBlur={() => setOnFocusMaritalStatus(!onfocusMaritalStatus)}
+                                size="small"
+                                variant="outlined"
+                                color="secondary"
+                                name="estado_civil"
+                                InputProps={{
+                                    className: classes.input,
+                                }}
+                                autoComplete="off"
+                            />
+                        </FormControl>
+                        </>
+                        )
+                    }
                     <FormControl className={classes.datebox}>
                         <KeyboardDatePicker
                             minDate="1900-01-01"
