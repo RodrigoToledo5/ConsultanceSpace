@@ -136,28 +136,29 @@ router.put("/updateUser", async (req, res, next) => {
           id:id,
         }});
       }
-      if(fecha){
+      if(birth){
         await Paciente.update({
-          fecha_de_nacimiento:fecha,
+          fecha_de_nacimiento:birth,
         },{where:{
           id:id,
         }});
       }
-      if(address&&typeof address ==="string"){
+      if(address){
+        console.log(address)
         await Paciente.update({
           direccion:address,
         },{where:{
           id:id,
         }});
       }
-      if(phone&&typeof phone ==="number"){
+      if(phone){
         await Paciente.update({
           telefono:phone,
         },{where:{
           id:id,
         }});
       }
-      if(country&&typeof country ==="string"){
+      if(country){
         await Paciente.update({
           pais:country,
         },{where:{

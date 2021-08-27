@@ -18,6 +18,7 @@ import AntecedentesNoPatologicos from "../SubComponents/HistoriaClinica/Antecede
 import ShowAntecedentesPatogolicos from "../SubComponents/HistoriaClinica/ShowAntecedentesPatologicos";
 import ShowAntecedentesNoPatogolicos from "../SubComponents/HistoriaClinica/ShowAntecedentesNoPatologicos";
 import { red } from "@material-ui/core/colors";
+import HistoriaClinica from "../SubComponents/HistoriaClinica/HistoriaClinica";
 
 
 const useStyle = makeStyles((theme) => ({
@@ -127,12 +128,9 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     { "Set Horarios": <SetHorario />},
     { "Atención": <Attention />},
     { "Agendar Cita": <NuevaCita /> },
-    { "AntecedentesPatologicos": <AntecedentesPatologicos /> },
-    {"ShowAntecedentesPatogolicos":<ShowAntecedentesPatogolicos/>},
-    { "AntecedentesNoPatologicos": <AntecedentesNoPatologicos /> },
-    {"ShowAntecedentesNoPatogolicos":<ShowAntecedentesNoPatogolicos/>},
+    {"Historia Clinica":<HistoriaClinica/>}
   ];
-  const indexPrivateRoutes = 12; // a partir de este indice loa botones se ocultan
+  const indexPrivateRoutes = 8; // a partir de este indice loa botones se ocultan
 
   useEffect(() => {
 

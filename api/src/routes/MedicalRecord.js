@@ -126,6 +126,7 @@ router.get("/medicalRecord", async (req, res) => {
   const medicalRecordPatologicos = await Paciente.findByPk(idPaciente, {
     include: [AntecedentesPatologicos, AntecedentesNoPatologicos],
   });
+  
   return res.status(200).json(medicalRecordPatologicos);
 });
 
@@ -589,9 +590,10 @@ router.put("/medicalRecord", async (req, res, next) => {
   }
 
   if (antecedentesNoPatologicos) {
+    
     try {
       const patient = await Paciente.findByPk(idPaciente);
-      const idNoPatologicos = patient.antecedentesPatologicoId;
+      const idNoPatologicos = patient.antecedentesNoPatologicoId;
       if (alimentacion) {
         await AntecedentesNoPatologicos.update(
           {
@@ -691,7 +693,7 @@ router.put("/medicalRecord", async (req, res, next) => {
       if (comentarios) {
         await AntecedentesNoPatologicos.update(
           {
-            comentarios,
+            comentarios:comentarios,
           },
           {
             where: {
