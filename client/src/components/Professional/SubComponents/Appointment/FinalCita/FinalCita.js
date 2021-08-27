@@ -1,7 +1,15 @@
-import { Box, Typography, makeStyles, TextField } from "@material-ui/core";
+import {
+  Box,
+  Typography,
+  makeStyles,
+  TextField,
+  Button,
+  MenuItem,
+} from "@material-ui/core";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
+import { setCita } from "../../../../Log/actions";
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -14,9 +22,9 @@ const useStyle = makeStyles((theme) => ({
     borderRadius: "10px",
     color: "#159DE9",
   },
-  textField:{
-      margin:"10px"
-  }
+  textField: {
+    margin: "10px",
+  },
 }));
 
 export default function FinalDate() {
@@ -24,7 +32,9 @@ export default function FinalDate() {
   const classes = useStyle();
   const user = useSelector((store) => store.reducerLog.info);
   const cita = useSelector((store) => store.reducerLog.actCita);
+  const [status, setStatus] = useState(cita.status);
   const [citas, setCitas] = useState([]);
+  const dispatch = useDispatch();
   // const loadData = async () => {
   //   axios({
   //     method: 'POST',
@@ -35,10 +45,21 @@ export default function FinalDate() {
 
   // useEffect(()=>{loadData()},[]);
 
+  const handleSubmit = () => {
+      axios({
+        method: "PUT",
+        url: `${api}/cita`,
+        data: { id: cita.id, status: status },
+      }).then((res) => {
+        dispatch(setCita(res.data));
+      });
+    };
+
+
   const arrDisableTextField = [
-    { textName: "Dia", prop: cita.date.substring(0,10) },
+    { textName: "Dia", prop: cita.date.substring(0, 10) },
     { textName: "Paciente", prop: cita.pacienteFullName },
-    { textName: "Horario", prop: cita.date.substring(11,24) },
+    { textName: "Horario", prop: cita.date.substring(11, 24) },
     { textName: "Motivo", prop: cita.note },
   ];
 
@@ -61,6 +82,25 @@ export default function FinalDate() {
       {arrDisableTextField.map((obj, i) =>
         DisableTextField(obj.textName, obj.prop, i)
       )}
+      <TextField
+        label="Estado"
+        className={classes.textField}
+        variant="outlined"
+        InputProps={{ className: classes.labelTextField }}
+        name="name"
+        select
+        value={status}
+        autoComplete="off"
+        disabled={cita.status}
+        onChange={(e) => {
+          setStatus(e.target.value);
+        }}
+      >
+        <MenuItem value={"AUSENTE"}>AUSENTE</MenuItem>
+        <MenuItem value={"ASISTIO"}>ASISTIO</MenuItem>
+        <MenuItem value={"CANCELADA"}>CANCELADA</MenuItem>
+      </TextField>
+      <Button onClick={handleSubmit}>COMPLETAR</Button>
     </Box>
   );
 }

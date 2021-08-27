@@ -98,7 +98,7 @@ export default function Citas({ citas, reLoad }) {
         <Button
           style={{ marginLeft: 16 }}
           onClick={() => {
-            dispatch(setCita(citas.find((c)=>(c.id = params.id))));
+            dispatch(setCita(actCitas.find((c)=>(c.id === params.id))));
           }}
         >
           Completar
