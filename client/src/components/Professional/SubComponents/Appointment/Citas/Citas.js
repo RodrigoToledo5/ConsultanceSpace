@@ -45,7 +45,7 @@ export default function Citas({ citas, reLoad }) {
   const citaRedirect = useSelector((store) => store.reducerLog.actCita);
 
   useEffect(()=>{
-    if(redirectFlag){dispatch(redirect(12))}else{setRdF(true);}},[citaRedirect]);
+    if(redirectFlag){dispatch(redirect(11))}else{setRdF(true);}},[citaRedirect]);
 
   const dispatch = useDispatch();
 
