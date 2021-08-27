@@ -25,12 +25,12 @@ router.put("/updateUser", async (req, res, next) => {
     genero,
     estado_civil
   } = req.body;
-  console.log("el body es ",req.body,"y la direccion es", typeof address);
+  //console.log("el body es ",req.body,"y la direccion es", typeof address);
   //fecha=(birth.substring(0,birth.length-14))
   //console.log(speciality)
   try{
     const user=await Usuario.findByPk(email);
-    console.log("el user traido es",user);
+    
     if(user.tipo_usuario==="profesional"){
       if(clearespeciality==="true"){
         console.log("paso")
@@ -43,7 +43,7 @@ router.put("/updateUser", async (req, res, next) => {
       if(speciality){
         //console.log("paso ")
         var profe=await Profesional.findByPk(id);
-        console.log(profe.especialidad)
+       
         const espec=await Especialidad.findOne({ where: {nombre: speciality } })
         espec.addProfesional(id)
         //deprecated
@@ -117,7 +117,7 @@ router.put("/updateUser", async (req, res, next) => {
     }
     
     if(user.tipo_usuario==="paciente"){
-      console.log("ingreso a la parte de actualizacion de pacientes")
+     
       if(name&&typeof name ==="string"){
 
         console.log(user.tipo_usuario)
@@ -149,7 +149,6 @@ router.put("/updateUser", async (req, res, next) => {
         }});
       }
       if(address){
-        console.log("ingreso a direccion")
         await Paciente.update({
           direccion:address,
         },{where:{
@@ -171,7 +170,7 @@ router.put("/updateUser", async (req, res, next) => {
         }});
       }
       if(genero){
-        console.log("ingreso a la parte de genero", genero)
+      
         await Paciente.update({
           genero:genero,
         },{where:{
@@ -179,7 +178,7 @@ router.put("/updateUser", async (req, res, next) => {
         }});
       }
       if(estado_civil){
-        console.log("ingreso a la parte de estado_civil")
+        
         await Paciente.update({
           estado_civil:estado_civil,
         },{where:{
