@@ -179,6 +179,21 @@ export default function Citas({ citas, reLoad }) {
     },
   ];
 
+  const sendMail = ( patientName, idPatient, professionalName, date) => {
+    return axios({
+      method: "POST",
+      url: "http://localhost:3001/sendEmail",
+      data:{
+        profesional: true,
+        idPatient: idPatient,
+        subject: "Cita cancelada por: " + professionalName,
+        text: "Hola " + patientName + ", " + professionalName + " ha cancelado la cita para la fecha " + date.substring(0,10) +
+        " en el horario " +
+        date.substring(11,26)
+      }
+    })
+  }
+
   const sendData = () => {
     return axios({
       method: "DELETE",
@@ -187,6 +202,8 @@ export default function Citas({ citas, reLoad }) {
         id: actCita.id,
       },
     }).then((res) => {
+      if (res.status === 200) {
+      sendMail(actCita.pacienteFullName, actCita.pacienteId, user.fullName, actCita.date )};
       return res.status === 200 ? true : false;
     });
   };
