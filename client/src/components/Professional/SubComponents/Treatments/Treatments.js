@@ -85,7 +85,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Treatments(props) {
+export default function Treatments({citumId}) {
   const classes = useStyles();
   const [treatment, setTreatment] = useState({
     treatmentName: "",
@@ -93,7 +93,7 @@ export default function Treatments(props) {
     price: 0,
     payment_method: "",
     status: "",
-    citumId:1
+    citumId:citumId
   });
 
   const handleChange = (e) => {

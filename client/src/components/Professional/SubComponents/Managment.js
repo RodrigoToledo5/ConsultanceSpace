@@ -75,7 +75,30 @@ export default function Managment() {
   const date = new Date("2021-08-26T18:56:42.951Z");
   const resultado = date.getDay();
   console.log(resultado);
- 
+  const dateLinda = (date) => {
+    const dateStr = date.toString().substr(0, 21);
+    let month = date.getMonth() + 1;
+    month = month > 9 ? month.toString() : "0" + month.toString();
+    return (
+      dateStr.substring(8, 10) + "/" + month + "/" + dateStr.substring(11, 15)
+    );
+  };
+  console.log(date);
+
+  const dias = [
+    "domingo",
+    "lunes",
+    "martes",
+    "miercoles",
+    "jueves",
+    "viernes",
+    "sabado",
+  ];
+
+  console.log(dateLinda(date));
+  
+  console.log(dias[date.getDay()])
+
 //0 domingo 1 lunes......
 
   useEffect(() => {

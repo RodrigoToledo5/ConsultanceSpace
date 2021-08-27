@@ -10,6 +10,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setCita } from "../../../../Log/actions";
+import Treatments from "../../Treatments/Treatments";
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -100,6 +101,7 @@ export default function FinalDate() {
         <MenuItem value={"ASISTIO"}>ASISTIO</MenuItem>
         <MenuItem value={"CANCELADA"}>CANCELADA</MenuItem>
       </TextField>
+      <Treatments citumId={cita.id} />
       <Button onClick={handleSubmit}>COMPLETAR</Button>
     </Box>
   );
