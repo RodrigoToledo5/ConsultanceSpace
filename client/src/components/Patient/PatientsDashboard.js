@@ -2,9 +2,11 @@ import { Box, makeStyles } from "@material-ui/core";
 import NavPanel from "./NavPanel/NavPanel";
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux";
+import Alert from "@material-ui/lab/Alert";
 import { getInfo } from "../Log/actions";
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
+import Profile from '../Header/Buttons/Profile';
 
 const useStyle=makeStyles(theme=>({
     menu:{
@@ -66,6 +68,11 @@ const useStyle=makeStyles(theme=>({
         marginBottom:theme.spacing(8),
         display:'flex',
         flexDirection:'row'
+    },
+    alert:{
+        padding: '10px',
+        //background: 'green',
+        margin: '10px 0'
     }
 
 }))
@@ -76,10 +83,16 @@ export default function PatientsDashboard(){
     const [actComponent, updateComponent] = useState(null);
     const [showMenu, setShowMenu] = useState(false);
     const user = useSelector((store) => store.reducerLog.user);
+    const userInfo = useSelector((store) => store.reducerLog.info);
+    const [editprofile, setEditProfile] = useState(false);
     const dispatch = useDispatch();
     useEffect(()=>{
         dispatch(getInfo({...user}));
     },[])
+
+    function handleEdit() {
+        setEditProfile(!editprofile)
+    }
     return(
         <Box className ={classes.container} >
             <Box className= { showMenu? classes.iconActive : classes.icon }>
@@ -89,6 +102,19 @@ export default function PatientsDashboard(){
                                 : 
                                 <MenuIcon onClick ={() => setShowMenu(!showMenu)}/>
                         }
+            </Box>
+            <Box className={classes.alert}>
+                {
+                    userInfo.estado_civil && userInfo.genero ? 
+                    null 
+                        : 
+                    (<>
+                        <Alert  severity="warning">
+                            Por favor configure su estado civil y su genero en la sección Mi Perfil <a href="#" onClick={()=> handleEdit()}>Aquí</a>
+                        </Alert>
+                        {editprofile && <Profile handleEdit={handleEdit}/>}
+                    </>)
+                }
             </Box>
             <Box className={classes.box}>
                 <NavPanel updateComponent={updateComponent} showMenu = {showMenu} setShowMenu={setShowMenu}/>
