@@ -142,8 +142,8 @@ export default function NuevaCita() {
       },
     }).then((res) => {
       setFinalMsg(res.status === 200 ? "Cita creada" : "Error");
+     if(res.status === 200) sendMail(patientName, professionalName, email, date, selectedHorario);
     });
-    sendMail(patientName, professionalName, email, date )
   };
 
   const handleMotivo = (e) => {
@@ -170,7 +170,7 @@ export default function NuevaCita() {
 
   useEffect(()=>{giveMeHorarios(date);getInfo(forInfo);},[])
 
-  const sendMail = ( patientName, professionalName, email, date ) => {
+  const sendMail = ( patientName, professionalName, email, date, time ) => {
     return axios({
       method: "POST",
       url: "http://localhost:3001/sendEmail",
@@ -178,10 +178,9 @@ export default function NuevaCita() {
         profesional: true,
         patient: email,
         subject: "Cita agendada por: " + professionalName,
-        text: "Hola " + patientName + "," + professionalName + " ha agendado una cita para la fecha " + dateLinda(date) +
-        " a las " +
-        date  +
-        "hs"
+        text: "Hola " + patientName + ", " + professionalName + " ha agendado una cita para la fecha " + dateLinda(date) +
+        " en el horario " +
+        time
       }
     })
   }

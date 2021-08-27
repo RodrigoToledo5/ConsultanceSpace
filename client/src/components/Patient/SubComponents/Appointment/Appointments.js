@@ -24,6 +24,7 @@ export default function Appointments() {
   const classes = useStyle();
   const dispatch = useDispatch();
   const appointment = useSelector((store) => store.reducerPatient.appointment);
+  const profs = useSelector((store) => store.reducerPatient.professionals.profesionals);
   const user = useSelector((store) => store.reducerLog.info);
   const pacienteId = user.id;
   const get = true;
@@ -40,6 +41,20 @@ export default function Appointments() {
     return date.substring(8,10) + "/" + month + "/" + date.substring(11,16);
   }
   
+  const sendMail = ( patientName, email, professionalName, date) => {
+    return axios({
+      method: "POST",
+      url: "http://localhost:3001/sendEmail",
+      data:{
+        paciente: true,
+        professional: email,
+        subject: "Cita cancelada por: " + patientName,
+        text: "Hola " + professionalName + ", " + patientName + " ha cancelado la cita para la fecha " + date.substring(0,10) +
+        " en el horario " +
+        date.substring(11,26)
+      }
+    })
+  }
 
   const renderDeleteButton = (params) => {
     const props = {
@@ -80,6 +95,9 @@ export default function Appointments() {
         id: actCita.id,
       },
     }).then((res) => {
+      if (res.status === 200){
+        const email = profs.find((p)=>(p.id === actCita.profesionalId)).usuarioEmail;
+        sendMail(user.fullName, email, actCita.profesionalFullName, actCita.date)} 
       return res.status === 200 ? true : false;
     });
   };
