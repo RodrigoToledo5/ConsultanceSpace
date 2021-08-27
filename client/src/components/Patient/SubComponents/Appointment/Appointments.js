@@ -38,12 +38,10 @@ export default function Appointments() {
     let month = (new Date(date)).getMonth() + 1;
     month = month > 9? month.toString() : "0" + month.toString();
     return date.substring(8,10) + "/" + month + "/" + date.substring(11,16);
-    //cita.date.substring(16,21)
   }
   
 
   const renderDeleteButton = (params) => {
-    const dateStr = dateLinda(actCita.date) + " a las " + actCita.date.substring(16,21) + "hs";
     const props = {
       styles: {
         color: "brown",
@@ -55,7 +53,7 @@ export default function Appointments() {
         setActCita(appointment.find((a) => (a.id = params.id)));
       },
       req: sendData,
-      quest: `Desea eliminar ${actCita.note} con ${actCita.profesionalFullName} agendada para el ${dateStr}`,
+      quest: `Desea eliminar ${actCita.note} con ${actCita.profesionalFullName} agendada para el ${actCita.date.substring(0,10)} en el horario ${actCita.date.substring(11,24)}`,
       msgOk: "Cita eliminada",
       msgFalse: "Error",
       redirect: reLoad,
@@ -125,8 +123,8 @@ export default function Appointments() {
     appointment.map((cita) => {
       return {
         id: cita.id,
-        date:  dateLinda(cita.date),
-        hour: cita.date.substring(16,21),
+        date:  cita.date.substring(0,10),
+        hour: cita.date.substring(11,26),
         note: cita.note,
         status: cita.status,
       };

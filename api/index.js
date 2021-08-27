@@ -18,7 +18,7 @@ const {Especialidad} = require('./src/db');
 
 
 
-conn.sync({ force: false}).then(() => {
+conn.sync({ force: false }).then(() => {
   especialidadesjson.forEach(async (especialidad)=>{
     try{
       await Especialidad.findOrCreate({

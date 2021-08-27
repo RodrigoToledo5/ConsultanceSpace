@@ -9,6 +9,13 @@ import { DataGrid } from "@material-ui/data-grid";
 import DeleteIcon from "@material-ui/icons/Delete";
 import axios from "axios";
 import DialogRequestButton from "../../../../Templates/DialogRequestButton";
+import DateFnsUtils from "@date-io/date-fns";
+import {
+  KeyboardTimePicker,
+  KeyboardDatePicker,
+  MuiPickersUtilsProvider,
+} from "@material-ui/pickers";
+import { useSelector } from "react-redux";
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -32,31 +39,40 @@ const useStyle = makeStyles((theme) => ({
 export default function Citas({ citas, reLoad }) {
   const classes = useStyle();
   const api = "http://localhost:3001";
+  const user = useSelector((store) => store.reducerLog.info);
 
-  // si generar un date limpio es este quilombo
-  const dateObj = new Date();
-  let month = dateObj.getUTCMonth() + 1; //months from 1-12
-  if (month < 10) month = "0" + month;
-  let day = dateObj.getUTCDate();
-  if (day < 10) day = "0" + day;
-  const year = dateObj.getUTCFullYear();
-  const newdate = year + "-" + month + "-" + day;
-  // fin de la generacion de date
+  const dateLinda = (date) => {
+    const dateStr = date.toString().substr(0, 21);
+    let month = date.getMonth() + 1;
+    month = month > 9 ? month.toString() : "0" + month.toString();
+    return (
+      dateStr.substring(8, 10) + "/" + month + "/" + dateStr.substring(11, 15)
+    );
+  };
+
+  const dias = [
+    "domingo",
+    "lunes",
+    "martes",
+    "miercoles",
+    "jueves",
+    "viernes",
+    "sabado",
+  ];
 
   const [actCitas, setActCitas] = useState(citas);
-  const [input, setInput] = useState({ date: newdate });
+  const [input, setInput] = useState({ date: new Date() });
   const handleInput = (e) => {
     setInput({
-      ...input,
-      [e.target.name]: e.target.value,
+      date:e,
     });
   };
 
   useEffect(() => {
-    // citas date format 2021-08-19T02:03:30.142Z
-    const day = parseInt(input.date.substring(8, 10), 10);
+    // citas date format "01/09/2021:16:00 - 17:00"
+    const day = dateLinda(input.date);
     const arr = citas.filter(
-      (c) => parseInt(c.date.substring(8, 10), 10) === day
+      (c) => c.date.substring(0, 2) === day.substring(0, 2)
     );
     setActCitas([...arr]);
   }, [input.date, citas]);
@@ -68,6 +84,7 @@ export default function Citas({ citas, reLoad }) {
   const [rows, setRows] = useState([]);
 
   const renderCompleteButton = (params) => {
+    if(typeof params.id === 'string'){return "-"}
     return (
       <strong>
         <Button
@@ -83,6 +100,7 @@ export default function Citas({ citas, reLoad }) {
   };
 
   const renderPatientButton = (params) => {
+    if(typeof params.id === 'string'){return "-"}
     return (
       <strong>
         <Button
@@ -98,15 +116,11 @@ export default function Citas({ citas, reLoad }) {
     );
   };
 
-  const dateLinda = (date) => {
-    let month = (new Date(date)).getMonth() + 1;
-    month = month > 9? month.toString() : "0" + month.toString();
-    return date.substring(8,10) + "/" + month + "/" + date.substring(11,16);
-    //cita.date.substring(16,21)
-  }
+
 
   const renderDeleteButton = (params) => {
-    const dateStr = dateLinda(actCita.date) + " a las " + actCita.date.substring(16,21) + "hs";
+    if(typeof params.id === 'string'){return "-"}
+    const dateStr = "";
     const props = {
       styles: {
         color: "brown",
@@ -118,7 +132,7 @@ export default function Citas({ citas, reLoad }) {
         setActCita(actCitas.find((c) => (c.id = params.id)));
       },
       req: sendData,
-      quest: `Desea eliminar ${actCita.note} con ${actCita.pacienteFullName} agendada para el ${dateStr}`,
+      quest: `Desea eliminar ${actCita.note} con ${actCita.pacienteFullName} agendada para el ${actCita.date.substring(0,10)} en el horario ${actCita.date.substring(11,24)}`,
       msgOk: "Cita eliminada",
       msgFalse: "Error",
       redirect: reLoad,
@@ -168,42 +182,67 @@ export default function Citas({ citas, reLoad }) {
       return res.status === 200 ? true : false;
     });
   };
-
   useEffect(() => {
+    let horas = user.horario[dias[input.date.getDay()]];
+    if (!horas) horas = [];
+    let citasAndHorarios = [...horas, ...actCitas];
+    const forFilter = actCitas.map((cita)=>(cita.date.substring(11, 26)));
+    citasAndHorarios = citasAndHorarios.filter((obj)=>{
+      if(typeof obj === 'string'){
+        if(forFilter.includes(obj)) return false
+      } return true;
+    });
     setRows(
-      actCitas.map((c) => {
-        const newDate = c.date.includes("T")? c.date.substring(11, 16) :  c.date.substring(16, 21);
+      citasAndHorarios.map((c,i) => {
+        if(typeof c === 'string'){
+          return {
+            id: 'F' + i,
+            horario: c + ' (LIBRE)',
+            pacienteName: '-',
+            note: '-',
+          }
+        }else{
+        const newDate = c.date.substring(11, 26);
         return {
           id: c.id,
-          horario: newDate + "hs",
+          horario: newDate,
           pacienteName: c.pacienteFullName,
           note: c.note,
-        };
+        };}
       })
     );
   }, [actCitas]);
+
+  // forGrid
+  const [sortModel, setSortModel] = useState([
+    {
+      field: 'horario',
+      sort: 'asc',
+    },
+  ]);
+
   return (
+    <MuiPickersUtilsProvider utils={DateFnsUtils}>
     <Box className={classes.box}>
-      <Box>Dia</Box>
       <form className={classes.container} noValidate>
-        <TextField
-          id="date"
-          name="date"
-          type="date"
-          defaultValue={newdate}
-          className={classes.textField}
-          onChange={(e) => {
-            handleInput(e);
-          }}
-          InputLabelProps={{
-            shrink: true,
-          }}
-        />
+      <KeyboardDatePicker
+              name="date"
+              margin="normal"
+              id="date-picker-dialog"
+              label="Dia"
+              format="MM/dd/yyyy"
+              value={input.date}
+              onChange={handleInput}
+              KeyboardButtonProps={{
+                "aria-label": "change date",
+              }}
+            />
       </form>
       <Box>
         <div style={{ height: 400, width: "100%" }}>
           <DataGrid
             className={classes.grid}
+            sortModel={sortModel}
             rows={rows}
             columns={columns}
             pageSize={20}
@@ -212,5 +251,6 @@ export default function Citas({ citas, reLoad }) {
         </div>
       </Box>
     </Box>
+    </MuiPickersUtilsProvider>
   );
 }

@@ -10,6 +10,7 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
+  MenuItem
 } from "@material-ui/core";
 import DateFnsUtils from "@date-io/date-fns";
 import {
@@ -21,7 +22,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Appointment from "../Appointment";
-import { redirect } from "../../../../Log/actions";
+import { getInfo, redirect } from "../../../../Log/actions";
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -58,17 +59,76 @@ const useStyle = makeStyles((theme) => ({
 export default function NuevaCita() {
   const api = "http://localhost:3001";
   const classes = useStyle();
+  const forInfo = useSelector((store)=>store.reducerLog.user);
   const user = useSelector((store) => store.reducerLog.info);
   const patient = useSelector((store) => store.reducerLog.actPatient);
-  const [date, setDate] = useState(new Date().toString().substr(0, 21));
+  const [date, setDate] = useState(new Date());
   const [motivo, setMotivo] = useState("Consulta");
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const [finalMsg, setFinalMsg] = useState("");
-  const [patientName, setPatientName] = useState("")
-  const [professionalName, setProfessionalName] = useState("")
-  const [email, setEmail] = useState("")
+  const [patientName, setPatientName] = useState("");
+  const [professionalName, setProfessionalName] = useState("");
+  const [email, setEmail] = useState("");
   const dispatch = useDispatch();
+
+  const dias = [
+    "domingo",
+    "lunes",
+    "martes",
+    "miercoles",
+    "jueves",
+    "viernes",
+    "sabado",
+  ];
+  const [selectedHorario, setSelectedHorario] = useState(null);
+  const [horarios, setHorarios] = useState(null);
+
+  const dateLinda = (date) => {
+    const dateStr = date.toString().substr(0, 21);
+    let month = date.getMonth() + 1;
+    month = month > 9 ? month.toString() : "0" + month.toString();
+    return (
+      dateStr.substring(8, 10) + "/" + month + "/" + dateStr.substring(11, 15)
+    );
+  };
+
+  const giveMeHorarios = (date) => {
+    if (user.id) {
+      setLoading(true);
+      setSelectedHorario(null);
+      setHorarios(null);
+      axios({
+        method: "get",
+        url: `http://localhost:3001/horarios`,
+        params: {
+          day: dias[date.getDay()],
+          profesionalId: user.id,
+          date: dateLinda(date),
+        },
+      }).then(function (response) {
+        setHorarios(response.data);
+        setLoading(false);
+      });
+    }
+  };
+
+  const HorarioSelect = () => {
+    if(horarios){
+        let disponibles = user.horario[dias[date.getDay()]];
+        console.log(disponibles);
+        if (!disponibles) disponibles = [];
+        return disponibles.map((hora, i) => (
+          <MenuItem key={i} value={hora} disabled={!(horarios.includes(hora))}>
+            {`${hora}${horarios.includes(hora) ? "" : " (YA RESERVADO)"}`}
+          </MenuItem>
+        ));} return []
+  };
+
+  const handleHorarioSelect = (e) => {
+    setSelectedHorario(e.target.value);
+  };
+
   const sendData = () => {
     setOpen(false);
     setLoading(true);
@@ -78,7 +138,7 @@ export default function NuevaCita() {
       data: {
         profesionalId: user.id,
         pacienteId: patient.id,
-        date: date,
+        date: dateLinda(date) + ":" + selectedHorario,
         note: motivo,
       },
     }).then((res) => {
@@ -87,28 +147,18 @@ export default function NuevaCita() {
     sendMail(patientName, professionalName, email, date )
   };
 
-  const dateLinda = (date) => {
-    let month = new Date(date).getMonth() + 1;
-    month = month > 9 ? month.toString() : "0" + month.toString();
-    return date.substring(8, 10) + "/" + month + "/" + date.substring(11, 16);
-    //cita.date.substring(16,21)
-  };
-
   const handleMotivo = (e) => {
     if (e.target.value.length < 10) setMotivo(e.target.value);
   };
 
   const handleDateChange = (newDate) => {
-    setDate(newDate.toString().substr(0, 21));
-  };
-
-  const handleHourChange = (time) => {
-    const hoursAndMins = time.toLocaleString().substring(10, 15);
-    setDate({ ...date, hour: time });
+    setDate(newDate);
+    giveMeHorarios(newDate);
   };
 
   const handleSubmit = () => {
-    setOpen(true);
+    if(selectedHorario){
+    setOpen(true);}
   };
 
   useEffect(()=>{
@@ -119,7 +169,7 @@ export default function NuevaCita() {
     }
   },[user, patient])
 
-  console.log(user.fullName)
+  useEffect(()=>{giveMeHorarios(date);getInfo(forInfo);},[])
 
   const sendMail = ( patientName, professionalName, email, date ) => {
     return axios({
@@ -131,7 +181,7 @@ export default function NuevaCita() {
         subject: "Cita agendada por: " + professionalName,
         text: "Hola " + patientName + "," + professionalName + " ha agendado una cita para la fecha " + dateLinda(date) +
         " a las " +
-        date.substring(16, 21) +
+        date  +
         "hs"
       }
     })
@@ -183,17 +233,17 @@ export default function NuevaCita() {
                 "aria-label": "change date",
               }}
             />
-            <KeyboardTimePicker
-              name="hour"
+            <TextField
               margin="normal"
               id="time-picker"
-              label="Horario"
-              value={date}
-              onChange={handleDateChange}
-              KeyboardButtonProps={{
-                "aria-label": "change time",
-              }}
-            />
+              label="Elegir Horario"
+              className={classes.selectHorario}
+              select
+              value={selectedHorario}
+              onChange={handleHorarioSelect}
+            >
+              {HorarioSelect()}
+            </TextField>
             <Button onClick={handleSubmit} className={classes.button}>
               {" "}
               Crear cita
@@ -216,7 +266,7 @@ export default function NuevaCita() {
         >
           <DialogTitle id="alert-dialog-title">{`¿Desea agendar ${motivo} con ${
             patient.fullName
-          } el ${dateLinda(date)} ?`}</DialogTitle>
+          } el ${dateLinda(date)} en el horario ${selectedHorario}?`}</DialogTitle>
           <DialogActions>
             <Button
               onClick={() => {

@@ -4,6 +4,7 @@ import Alert from '@material-ui/lab/Alert';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Pdf from "react-to-pdf";
+import { useSelector } from "react-redux";
 
 const api = 'http://localhost:3001';
 
@@ -91,15 +92,19 @@ const useStyle = makeStyles((theme) => ({
 }));
 const ref=React.createRef()
 
-export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
-    const [historia, setHistoria] = useState({})
+export default function ShowAntecedentesPatogolicos({ idPaciente:idPaciente }) {
+    //const [historia, setHistoria] = useState({})
     const classes = useStyle();
+    //const patient = useSelector((store) => store.reducerLog.actPatient);
+    const historia = useSelector(state => state.reducerHistory.history)
+    // async function callmedicalrecord(){
+    //     const res=await axios.get(`${api}/medicalRecord?idPaciente=${idPaciente}`)
+    //     setHistoria(res.data);
+    // }
     /// usamos renderer prop
-    useEffect(async () => {
-        const res = await axios.get(`${api}/medicalRecord?idPaciente=1`)
-        console.log(res)
-        setHistoria(res.data);
-    }, [setHistoria])
+    // useEffect( () => {
+    //     callmedicalrecord()
+    // }, [])
     function formatName(string){
         if(string){
             return string[0]+string.substring(1,string.length).toLowerCase()
@@ -117,10 +122,10 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                 } 
             </Typography>
             <Typography className={classes.date}>
-               Creado: {historia.antecedentesNoPatologico&&historia.antecedentesNoPatologico.createdAt}
+               Creado: {historia.antecedentesPatologico&&historia.antecedentesPatologico.createdAt}
             </Typography>
             <Typography>
-               Actualizado: {historia.antecedentesNoPatologico&&historia.antecedentesNoPatologico.updatedAt}
+               Actualizado: {historia.antecedentesPatologico&&historia.antecedentesPatologico.updatedAt}
             </Typography>
             {/* bolean starts */}
                 <div className={classes.asides}>
@@ -134,7 +139,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="diabetes"
                                 name="diabetes"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.diabetes === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.diabetes === true ? " Si" : " No"}
                             </Typography>
 
                         </div>
@@ -147,7 +152,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="embarazo"
                                 name="embarazo"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.embarazo === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.embarazo === true ? " Si" : " No"}
                             </Typography>
                         </div>
 
@@ -160,7 +165,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="parasitos"
                                 name="parasitos"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.parasito === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.parasito === true ? " Si" : " No"}
                             </Typography>
 
                         </div>
@@ -174,7 +179,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="sarampion"
                                 name="sarampion"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.sarampion === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.sarampion === true ? " Si" : " No"}
                             </Typography>
                         </div>
 
@@ -187,7 +192,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="amigdalitis"
                                 name="amigdalitis"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.amigdalitis === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.amigdalitis === true ? " Si" : " No"}
                             </Typography>
                         </div>
                     </div>
@@ -202,7 +207,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="epilepsia"
                                 name="epilepsia"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.epilepsia === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.epilepsia === true ? " Si" : " No"}
                             </Typography>
 
 
@@ -218,7 +223,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="hepatitis"
                                 name="hepatitis"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.hepatitis === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.hepatitis === true ? " Si" : " No"}
                             </Typography>
                         </div>
 
@@ -231,7 +236,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 name="tosferina"
 
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.tosferina === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.tosferina === true ? " Si" : " No"}
                             </Typography>
 
 
@@ -245,7 +250,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="hemorragias"
                                 name="hemorragias"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.hemorragias === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.hemorragias === true ? " Si" : " No"}
                             </Typography>
                         </div>
 
@@ -257,7 +262,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="cardiopatias"
                                 name="cardiopatias"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.cardiopatias === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.cardiopatias === true ? " Si" : " No"}
                             </Typography>
 
                         </div>
@@ -272,7 +277,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="hipotension"
                                 name="hipotension"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.hipotension === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.hipotension === true ? " Si" : " No"}
                             </Typography>
                         </div>
 
@@ -284,7 +289,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="hipertension"
                                 name="hipertension"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.hipertension === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.hipertension === true ? " Si" : " No"}
                             </Typography>
                         </div>
 
@@ -296,7 +301,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="fiebre_reumatica"
                                 name="fiebre_reumatica"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.fiebre_reumatica === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.fiebre_reumatica === true ? " Si" : " No"}
                             </Typography>
 
 
@@ -310,7 +315,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="paludismo"
                                 name="paludismo"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.paludismo === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.paludismo === true ? " Si" : " No"}
                             </Typography>
 
 
@@ -324,7 +329,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="VIH"
                                 name="VIH"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.VIH === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.VIH === true ? " Si" : " No"}
                             </Typography>
 
 
@@ -341,7 +346,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="cooperador"
                                 name="cooperador"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.cooperador === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.cooperador === true ? " Si" : " No"}
                             </Typography>
 
 
@@ -355,7 +360,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="orientado"
                                 name="orientado"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.orientado === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.orientado === true ? " Si" : " No"}
 
                             </Typography>
 
@@ -370,7 +375,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="bajo_tratamiento"
                                 name="bajo_tratamiento"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.bajo_tratamiento === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.bajo_tratamiento === true ? " Si" : " No"}
                             </Typography>
 
 
@@ -385,7 +390,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="pildoras_anticonceptivas"
                                 name="pildoras_anticonceptivas"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.pildoras_anticonceptivas === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.pildoras_anticonceptivas === true ? " Si" : " No"}
                             </Typography>
                         </div>
 
@@ -397,7 +402,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 id="transfusion"
                                 name="transfusion"
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.transfusion === true ? " Si" : " No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.transfusion === true ? " Si" : " No"}
                             </Typography>
 
 
@@ -415,7 +420,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 name="enfermedades_infancia"
                                 className={classes.input}
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.enfermedades_infancia ? historia.antecedentesNoPatologico.enfermedades_infancia : "No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.enfermedades_infancia ? historia.antecedentesPatologico.enfermedades_infancia : "No"}
 
                             </Typography>
                         </div>
@@ -429,7 +434,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 name="accidente"
                                 className={classes.input}
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.accidente ? historia.antecedentesNoPatologico.accidente : "No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.accidente ? historia.antecedentesPatologico.accidente : "No"}
 
                             </Typography>
                         </div>
@@ -443,7 +448,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 name="operacion"
                                 className={classes.input}
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.operacion ? historia.antecedentesNoPatologico.operacion : "No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.operacion ? historia.antecedentesPatologico.operacion : "No"}
 
                             </Typography>
                         </div>
@@ -457,7 +462,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 name="alergia"
                                 className={classes.input}
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.alergia ? historia.antecedentesNoPatologico.alergia : "No"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.alergia ? historia.antecedentesPatologico.alergia : "No"}
                             </Typography>
                         </div>
 
@@ -470,7 +475,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 name="constitucion"
                                 className={classes.input}
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.constitucion ? historia.antecedentesNoPatologico.constitucion : "Sin completar"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.constitucion ? historia.antecedentesPatologico.constitucion : "Sin completar"}
                             </Typography>
                         </div>
 
@@ -483,7 +488,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 name="complexion"
                                 className={classes.input}
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.complexion ? historia.antecedentesNoPatologico.complexion : "Sin completar"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.complexion ? historia.antecedentesPatologico.complexion : "Sin completar"}
                             </Typography>
                         </div>
 
@@ -496,7 +501,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 name="facies"
                                 className={classes.input}
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.facies ? historia.antecedentesNoPatologico.facies : "Sin completar"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.facies ? historia.antecedentesPatologico.facies : "Sin completar"}
                             </Typography>
                         </div>
 
@@ -509,7 +514,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 name="conformacion"
                                 className={classes.input}
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.conformacion ? historia.antecedentesNoPatologico.conformacion : "Sin completar"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.conformacion ? historia.antecedentesPatologico.conformacion : "Sin completar"}
 
                             </Typography>
                         </div>
@@ -523,7 +528,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 name="moviemientos_anormales"
                                 className={classes.input}
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.moviemientos_anormales ? historia.antecedentesNoPatologico.moviemientos_anormales : "Sin completar"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.moviemientos_anormales ? historia.antecedentesPatologico.moviemientos_anormales : "Sin completar"}
 
                             </Typography>
                         </div>
@@ -538,7 +543,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 placeholder="Detalles..."
                                 className={classes.input}
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.marcha_patologicas ? historia.antecedentesNoPatologico.marcha_patologicas : "Sin completar"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.marcha_patologicas ? historia.antecedentesPatologico.marcha_patologicas : "Sin completar"}
                             </Typography>
                         </div>
 
@@ -552,7 +557,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 placeholder="Detalles..."
                                 className={classes.input}
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.ETS ? historia.antecedentesNoPatologico.ETS : "Sin completar"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.ETS ? historia.antecedentesPatologico.ETS : "Sin completar"}
 
                             </Typography>
                         </div>
@@ -566,7 +571,7 @@ export default function ShowAntecedentesNoPatogolicos({ idPaciente }) {
                                 name="comentarios"
                                 className={classes.input}
                             >
-                                {historia.antecedentesNoPatologico && historia.antecedentesNoPatologico.comentarios ? historia.antecedentesNoPatologico.comentarios : "Sin completar"}
+                                {historia.antecedentesPatologico && historia.antecedentesPatologico.comentarios ? historia.antecedentesPatologico.comentarios : "Sin completar"}
                             </Typography>
                         </div>
                     </div>
