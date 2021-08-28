@@ -1,22 +1,11 @@
 export default function contadordeletras(string,flag=false){//cuenta hasta 30
-   
-    var aux=string.substring(0,30);
-    //console.log(aux)
-    ///console.log(string)
-    if(typeof(aux)==="string"&&aux.length<30){
-        
-        
-        return flag;   
+    if(typeof(string)==="string"&&string.substring(0,30).includes(' ')&&string.length<=30) {
+        console.log(string.substring(0,30))
+        flag=false
+    } 
+    if(typeof(string)==="string"&&string.length>30){
+        flag=true;
+        return contadordeletras(string.substring(30),flag);
     }
-    else{
-        if(typeof(string)==="string"&&string.length>=30){
-
-            if(typeof(aux)==="string"&&aux.includes(' '))return flag=false
-            else {
-                flag=true;
-                contadordeletras(string.substring(30),flag);
-            
-            }
-        }
-    }
+    return flag;   
 }

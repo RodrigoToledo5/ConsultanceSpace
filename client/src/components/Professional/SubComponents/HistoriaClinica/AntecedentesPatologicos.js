@@ -161,40 +161,40 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente,setActual
                     if(contadordeletras(valores.comentarios)){
                         errors.comentarios=' Por favor no ingrese palabras muy grandes'
                     }
-                    if(!valores.enfermedades_infancia.includes(' ')&&valores.enfermedades_infancia.length>30){
+                    if(contadordeletras(valores.enfermedades_infancia)){
                         errors.enfermedades_infancia=' Por favor no ingrese palabras muy grandes'
                     }
-                    if(!valores.accidente.includes(' ')&&valores.accidente.length>30){
+                    if(contadordeletras(valores.accidente)){
                         errors.accidente=' Por favor no ingrese palabras muy grandes'
                     }
-                    if(!valores.operacion.includes(' ')&&valores.operacion.length>30){
+                    if(contadordeletras(valores.operacion)){
                         errors.operacion=' Por favor no ingrese palabras muy grandes'
                     }
-                    if(!valores.alergia.includes(' ')&&valores.alergia.length>30){
+                    if(contadordeletras(valores.alergia)){
                         errors.alergia=' Por favor no ingrese palabras muy grandes'
                     }
-                    if(!valores.constitucion.includes(' ')&&valores.constitucion.length>30){
+                    if(contadordeletras(valores.constitucion)){
                         errors.constitucion=' Por favor no ingrese palabras muy grandes'
                     }
-                    if(!valores.complexion.includes(' ')&&valores.complexion.length>30){
+                    if(contadordeletras(valores.complexion)){
                         errors.complexion=' Por favor no ingrese palabras muy grandes'
                     }
-                    if(!valores.facies.includes(' ')&&valores.facies.length>30){
+                    if(contadordeletras(valores.facies)){
                         errors.facies=' Por favor no ingrese palabras muy grandes'
                     }
-                    if(!valores.conformacion.includes(' ')&&valores.conformacion.length>30){
+                    if(contadordeletras(valores.conformacion)){
                         errors.conformacion=' Por favor no ingrese palabras muy grandes'
                     }
-                    if(!valores.moviemientos_anormales.includes(' ')&&valores.moviemientos_anormales.length>30){
+                    if(contadordeletras(valores.moviemientos_anormales)){
                         errors.moviemientos_anormales=' Por favor no ingrese palabras muy grandes'
                     }
-                    if(!valores.moviemientos_anormales.includes(' ')&&valores.moviemientos_anormales.length>30){
+                    if(contadordeletras(valores.moviemientos_anormales)){
                         errors.moviemientos_anormales=' Por favor no ingrese palabras muy grandes'
                     }
-                    if(!valores.marcha_patologicas.includes(' ')&&valores.marcha_patologicas.length>30){
+                    if(contadordeletras(valores.marcha_patologicas)){
                         errors.marcha_patologicas=' Por favor no ingrese palabras muy grandes'
                     }
-                    if(!valores.ETS.includes(' ')&&valores.ETS.length>30){
+                    if(contadordeletras(valores.ETS)){
                         errors.ETS=' Por favor no ingrese palabras muy grandes'
                     }
                     return errors;
