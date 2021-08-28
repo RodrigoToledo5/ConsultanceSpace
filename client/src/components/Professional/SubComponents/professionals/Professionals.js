@@ -1,8 +1,10 @@
-import { Box, Typography, makeStyles} from "@material-ui/core";
+import { Box, Typography, makeStyles,Button} from "@material-ui/core";
 import { DataGrid } from "@material-ui/data-grid";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import SearchBar from "../../SearchBar";
 import { searchprofesional } from '../../actions';
+import { redirect, setPatient } from "../../../Log/actions";
+import { useEffect, useState } from "react";
 
 
 const useStyle = makeStyles((theme) => ({
@@ -30,9 +32,44 @@ const useStyle = makeStyles((theme) => ({
 
 export default function Professionals(){
     const classes = useStyle();
+    const dispatch = useDispatch()
     const professionals = useSelector(store => store.reducerSearchProfesional.profesionales);
+    const [redir, setRedir] = useState("")
+    const actPatient = useSelector((store) => store.reducerLog.actPatient);
+    const patients = useSelector(
+        (store) => store.reducerAddPatients.MyPatientsList
+      );
+    useEffect(() => {
+        if(redir==="Hacer Cita") dispatch(redirect(5));
+      }, [actPatient]);
+
+    const renderPatientHistory = (params) => {
+        return (
+          <strong>
+            <Button
+              size="small"
+              style={{ marginLeft: 0 }}
+            //   disabled={disable}
+               onClick={() => {
+                 const patient = patients.find((p) => p.id === params.id);
+                 dispatch(setPatient(patient));
+                 setRedir("Historia Clinica")
+               }}
+            >
+              Enviar mail
+            </Button>
+          </strong>
+        );
+      };
 
     const columns = [
+        {
+            field: "b2",
+            headerName: "Mailing",
+            width: 150,
+            renderCell: renderPatientHistory,
+            disableClickEventBubbling: true,
+          },
         { field: 'dni', headerName: 'Cedula', width: 120 },
         {
             field: 'name',
