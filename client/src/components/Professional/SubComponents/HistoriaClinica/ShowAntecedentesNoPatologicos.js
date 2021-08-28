@@ -51,13 +51,16 @@ const useStyle = makeStyles((theme) => ({
         padding: "10px",
         minHeight: "100px",
         maxWidth:"350px",
+        border:"solid 1px black"
     },
     input: {
         resize: "none",
         minWidth: "350px",
         maxWidth: "350px",
         minHeight: "80px",
-        padding: "5px"
+        padding: "5px",
+        textAlign:"justify",
+        border:"solid 1px black"
     },
     btn: {
         maxWidth: "150px",
@@ -93,7 +96,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 const ref=React.createRef()
 
-export default function ShowAntecedentesNoPatogolicos({ idPaciente:idPaciente}) {
+export default function ShowAntecedentesNoPatogolicos() {
     //const [historia, setHistoria] = useState({})
     const classes = useStyle();
     const historia = useSelector(state => state.reducerHistory.history)

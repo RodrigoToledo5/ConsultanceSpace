@@ -15,6 +15,9 @@ const api = 'http://localhost:3001';
 
 
 const useStyle = makeStyles((theme) => ({
+    constainer:{
+        fontFamily:"Lato"
+    },
     title: {
         margin: "10px",
         textAlign: "center",
@@ -30,6 +33,24 @@ const useStyle = makeStyles((theme) => ({
     btn:{
         margin:"10px",
         width: "200px",
+    },
+    head:{
+        display:"flex",
+        flexDirection:"column",
+        borderBottom:"1px solid black",
+        borderTop:"1px solid black",
+        margin:"10px",
+    },
+    data:{
+        display:"flex",
+        margin:"3px",
+    },
+    alert:{
+        margin:"10px",
+        display:"flex",
+        flexDirection:"column",
+        justifyContent: "center",
+        alignItems: "center",
     }
 }));
 
@@ -38,9 +59,11 @@ var ref = React.createRef();
 export default function HistoriaClinica() {
     const patient = useSelector((store) => store.reducerLog.actPatient);
     const classes = useStyle();
+    const [actualizar, setActualizar] = useState("no");
     const [seccion, setSeccion] = useState("");
     const historia = useSelector(state => state.reducerHistory.history)
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+
 
     /// usamos renderer prop
     function formatName(string) {
@@ -51,17 +74,16 @@ export default function HistoriaClinica() {
 
     }
     function handleClick(event) {
-        console.log(patient.id)
+        //console.log(patient.id)
         setSeccion(event.target.outerText)
     }
     useEffect(() => {
-        dispatch(searchHistory(patient.id))
-    }, [dispatch, patient.id])
-    useEffect(()=>{
-        dispatch(searchHistory(patient.id))
-    },[dispatch,patient.id,seccion])
+        if(actualizar==="True")dispatch(searchHistory(patient.id))
+        else dispatch(searchHistory(patient.id))
+    }, [dispatch, patient.id,actualizar])
+    
     return (
-        <div>
+        <div className={classes.container}>
             <div >
                 <Typography className={classes.title}>Historia Clinica:{" "}
                     {
@@ -86,28 +108,59 @@ export default function HistoriaClinica() {
                 </Button>}
                 </div>
             </div>
-
+            <div className={classes.head}>
+                <div className={classes.data}>
+                    <Typography>País:</Typography>
+                    <Typography>{historia&&historia.pais}</Typography>
+                </div>
+                <div className={classes.data}>
+                    <Typography>Dirección:</Typography>
+                    <Typography>{historia&&historia.direccion}</Typography>
+                </div>
+                <div className={classes.data}>
+                    <Typography>Fecha de nacimiento:</Typography>
+                    <Typography>{historia.fecha_de_nacimiento&&historia.fecha_de_nacimiento.substring(0,historia.fecha_de_nacimiento.length-14)}</Typography>
+                </div>
+                
+                <div className={classes.data}>
+                    <Typography>Género:</Typography>
+                    <Typography>{historia&&historia.genero?historia.genero:" Sin Completar"}</Typography>
+                   
+                </div>
+                <div className={classes.data}>
+                    <Typography>Estado civil:</Typography>
+                    <Typography>{historia&&historia.estado_civil?historia.estado_civil:" Sin Completar"}</Typography>
+                </div>
+                
+            </div>
+            <div className={classes.alert}>
+                {!historia.genero&&<Alert severity="warning">Por favor pida a su paciente que complete su género</Alert>}
+                {!historia.genero&&<Alert severity="warning">Por favor pida a su paciente que complete su estado civil</Alert>}
+                {!historia.antecedentesPatologico&&<Alert severity="warning"> Faltan cargar los antecedentes patologicos</Alert>}
+                {!historia.antecedentesNoPatologico&&<Alert severity="warning"> Faltan cargar los antecedentes no patologicos</Alert>}
+            </div>
             {     
             seccion === "CARGAR ANTECEDENTES PATOLOGICOS" &&
                 <AntecedentesPatogolicos 
                     idPaciente={patient.id}
-                    historia={historia}
+                    setActualizar={(event)=>setActualizar(event)}
+                    
                 />}
 
             {seccion === "CARGAR ANTECEDENTES NO PATOLOGICOS"&&
                 <AntecedentesNoPatogolicos
                     idPaciente={patient.id} 
-                    historia={historia}
+                    setActualizar={(event)=>setActualizar(event)}
                 />
             }
             {seccion === "VER ANTECEDENTES PATOLOGICOS"&&
                 <ShowAntecedentesPatogolicos 
-                    idPaciente={patient.id}
+                    
                 />
             }
             {seccion === "VER ANTECEDENTES NO PATOLOGICOS" &&
                 <ShowAntecedentesNoPatogolicos 
-                    idPaciente={patient.id}
+                    
                 />
             }
 

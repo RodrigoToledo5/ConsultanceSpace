@@ -50,13 +50,17 @@ const useStyle = makeStyles((theme) => ({
         padding: "10px",
         minHeight: "100px",
         maxWidth:"350px",
+        flexWrap:"wrap"
     },
     input: {
         resize: "none",
         minWidth: "350px",
         maxWidth: "350px",
         minHeight: "80px",
-        padding: "5px"
+        padding: "5px",
+        textAlign:"justify",
+        
+        paddin:"1px"
     },
     btn: {
         maxWidth: "150px",
@@ -92,7 +96,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 const ref=React.createRef()
 
-export default function ShowAntecedentesPatogolicos({ idPaciente:idPaciente }) {
+export default function ShowAntecedentesPatogolicos() {
     //const [historia, setHistoria] = useState({})
     const classes = useStyle();
     //const patient = useSelector((store) => store.reducerLog.actPatient);
@@ -562,7 +566,7 @@ export default function ShowAntecedentesPatogolicos({ idPaciente:idPaciente }) {
                             </Typography>
                         </div>
 
-                        <div className={classes.textbox}>
+                        <Box className={classes.textbox}>
                             <label htmlFor="comentarios">
                                 Comentarios
                             </label>
@@ -570,10 +574,11 @@ export default function ShowAntecedentesPatogolicos({ idPaciente:idPaciente }) {
                                 id="comentarios"
                                 name="comentarios"
                                 className={classes.input}
+                                
                             >
                                 {historia.antecedentesPatologico && historia.antecedentesPatologico.comentarios ? historia.antecedentesPatologico.comentarios : "Sin completar"}
                             </Typography>
-                        </div>
+                        </Box>
                     </div>
 
                 </div>
