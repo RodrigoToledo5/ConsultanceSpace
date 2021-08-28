@@ -1,17 +1,21 @@
 import { Box, Typography, makeStyles, InputLabel, Button } from "@material-ui/core";
-import { Formik, Field, Form } from 'formik'
+import { Formik, Field, Form,ErrorMessage } from 'formik'
 import Alert from '@material-ui/lab/Alert';
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 const api = 'http://localhost:3001';
 
 
 const useStyle = makeStyles((theme) => ({
-
+    errors:{
+        color:"#CC0000",
+        fontFamily:"Lato",
+    },
     text: {
         color: "#159DE9",
-        marginTop: "3px"
+        marginTop: "3px",
+        fontFamily:"Lato"
     },
     box: {
         padding: "10px",
@@ -78,11 +82,14 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 
-export default function AntecedentesNoPatogolicos({idPaciente:idPaciente}) {
+export default function AntecedentesNoPatogolicos({idPaciente:idPaciente,setActualizar}) {
     const [hassend, setHasSend] = useState(false)
     const classes = useStyle();
     const historia = useSelector(state => state.reducerHistory.history)
     /// usamos renderer prop
+    useEffect(() => {
+        setActualizar("Actualizo patologicos")
+    },[setActualizar])
     return (
         <>
             <Formik
@@ -98,6 +105,29 @@ export default function AntecedentesNoPatogolicos({idPaciente:idPaciente}) {
                     comentarios: "",
                     antecedentesNoPatologicos: true,
                     idPaciente: idPaciente,
+                }}
+                validate={(valores)=>{
+                    let errors={};
+                    console.log(valores)
+                    if(!valores.alimentacion.includes(' ')&&valores.alimentacion.length>30){
+                        errors.alimentacion=' Por favor no ingrese palabras muy grandes'
+                    }
+                    if(!valores.higiene_corporal.includes(' ')&&valores.higiene_corporal.length>30){
+                        errors.higiene_corporal=' Por favor no ingrese palabras muy grandes'
+                    }
+                    if(!valores.higiene_bucal.includes(' ')&&valores.higiene_bucal.length>30){
+                        errors.higiene_bucal=' Por favor no ingrese palabras muy grandes'
+                    }
+                    if(!valores.vacunas.includes(' ')&&valores.vacunas.length>30){
+                        errors.vacunas=' Por favor no ingrese palabras muy grandes'
+                    }
+                    if(!valores.toxicomanias.includes(' ')&&valores.toxicomanias.length>30){
+                        errors.toxicomanias=' Por favor no ingrese palabras muy grandes'
+                    }
+                    if(!valores.comentarios.includes(' ')&&valores.comentarios.length>30){
+                        errors.comentarios=' Por favor no ingrese palabras muy grandes'
+                    }
+                    return errors;
                 }}
                 onSubmit={
                     async (values, { resetForm }) => {
@@ -118,14 +148,14 @@ export default function AntecedentesNoPatogolicos({idPaciente:idPaciente}) {
                             console.log(values);
                         }
 
-
+                        setActualizar("TRUE")
                         resetForm();
                         setHasSend(true);
                         setTimeout(() => setHasSend(false), 5000)
                     }
                 }
             >
-                {() => (
+                {({errors}) => (
                     <Form >
                         <Typography className={classes.title}>Antecedente No patológico </Typography>
                         {/* bolean starts */}
@@ -187,6 +217,9 @@ export default function AntecedentesNoPatogolicos({idPaciente:idPaciente}) {
                                     className={classes.input}
                                 >
                                 </Field>
+                                <ErrorMessage  name="alimentacion" component={()=>(
+                                        errors.alimentacion&& <div className={classes.errors}>{errors.alimentacion};</div> 
+                                    )}/> 
                             </div>
 
                             <div className={classes.textbox}>
@@ -201,6 +234,9 @@ export default function AntecedentesNoPatogolicos({idPaciente:idPaciente}) {
                                     className={classes.input}
                                 >
                                 </Field>
+                                <ErrorMessage  name="higiene_corporal" component={()=>(
+                                        errors.higiene_corporal&& <div className={classes.errors}>{errors.higiene_corporal};</div> 
+                                    )}/> 
                             </div>
 
                             <div className={classes.textbox}>
@@ -215,6 +251,9 @@ export default function AntecedentesNoPatogolicos({idPaciente:idPaciente}) {
                                     className={classes.input}
                                 >
                                 </Field>
+                                <ErrorMessage  name="higiene_bucal" component={()=>(
+                                        errors.higiene_bucal&& <div className={classes.errors}>{errors.higiene_bucal};</div> 
+                                    )}/> 
                             </div>
 
                             <div className={classes.textbox}>
@@ -229,6 +268,9 @@ export default function AntecedentesNoPatogolicos({idPaciente:idPaciente}) {
                                     className={classes.input}
                                 >
                                 </Field>
+                                <ErrorMessage  name="vacunas" component={()=>(
+                                        errors.vacunas&& <div className={classes.errors}>{errors.vacunas};</div> 
+                                    )}/> 
                             </div>
 
                             <div className={classes.textbox}>
@@ -243,6 +285,9 @@ export default function AntecedentesNoPatogolicos({idPaciente:idPaciente}) {
                                     className={classes.input}
                                 >
                                 </Field>
+                                <ErrorMessage  name="toxicomanias" component={()=>(
+                                        errors.toxicomanias&& <div className={classes.errors}>{errors.toxicomanias};</div> 
+                                    )}/> 
                             </div>
 
                             <div className={classes.textbox}>
@@ -257,6 +302,9 @@ export default function AntecedentesNoPatogolicos({idPaciente:idPaciente}) {
                                     className={classes.input}
                                 >
                                 </Field>
+                                <ErrorMessage  name="comentarios" component={()=>(
+                                        errors.comentarios&& <div className={classes.errors}>{errors.comentarios};</div> 
+                                    )}/>   
                             </div>
                         </div>
                         {/* string ends*/}

@@ -1,15 +1,18 @@
 import { Box, Typography, makeStyles, InputLabel, Button } from "@material-ui/core";
-import { Formik, Field, Form } from 'formik'
+import { Formik, Field, Form ,ErrorMessage} from 'formik'
 import Alert from '@material-ui/lab/Alert';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import contadordeletras from "./function";
 const api = 'http://localhost:3001';
 
 
 
 const useStyle = makeStyles((theme) => ({
-
+    errors:{
+        color:"#CC0000"
+    },
     text: {
         color: "#159DE9",
         marginTop: "3px"
@@ -46,7 +49,7 @@ const useStyle = makeStyles((theme) => ({
         display: "flex",
         flexDirection: "column",
         padding: "10px",
-        minHeight: "100px"
+        minHeight: "100px",
     },
     input: {
         resize: "none",
@@ -79,11 +82,14 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 
-export default function AntecedentesPatogolicos({idPaciente:idPaciente}) {
+export default function AntecedentesPatogolicos({idPaciente:idPaciente,setActualizar}) {
     const [hassend, setHasSend] = useState(false)
     const classes = useStyle();
     const patient = useSelector((store) => store.reducerLog.actPatient);
-    const historia = useSelector(state => state.reducerHistory.history)
+    const historia = useSelector(state => state.reducerHistory.history);
+    useEffect(() => {
+        setActualizar("Actualizo patologicos")
+    },[setActualizar])
     /// usamos renderer prop
     return (
         <>
@@ -112,7 +118,7 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente}) {
                     enfermedades_infancia: "",
                     accidente: "",//desarrolle,
                     operacion: "",
-                    alergia_medicamento: "",
+                    alergia: "",
                     constitucion: "",
                     complexion: "",
                     facies: "",
@@ -125,8 +131,8 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente}) {
                     idPaciente: idPaciente,
                 }}
                 onSubmit={
-                    async (values, { resetForm }) => {
-                        console.log(historia.antecedentesPatologico)
+                    async (values, { resetForm ,errors}) => {
+                        
                         if(!historia.antecedentesPatologico){
                             const send = await axios({
                                 method: 'POST',
@@ -143,15 +149,58 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente}) {
                             })
                             console.log(send);
                         }
-
-                        
                         resetForm();
                         setHasSend(true);
                         setTimeout(() => setHasSend(false), 5000)
+                        setActualizar("True")
                     }
                 }
+                validate={(valores)=>{
+                    let errors={};
+                    console.log(valores)
+                    if(contadordeletras(valores.comentarios)){
+                        errors.comentarios=' Por favor no ingrese palabras muy grandes'
+                    }
+                    if(!valores.enfermedades_infancia.includes(' ')&&valores.enfermedades_infancia.length>30){
+                        errors.enfermedades_infancia=' Por favor no ingrese palabras muy grandes'
+                    }
+                    if(!valores.accidente.includes(' ')&&valores.accidente.length>30){
+                        errors.accidente=' Por favor no ingrese palabras muy grandes'
+                    }
+                    if(!valores.operacion.includes(' ')&&valores.operacion.length>30){
+                        errors.operacion=' Por favor no ingrese palabras muy grandes'
+                    }
+                    if(!valores.alergia.includes(' ')&&valores.alergia.length>30){
+                        errors.alergia=' Por favor no ingrese palabras muy grandes'
+                    }
+                    if(!valores.constitucion.includes(' ')&&valores.constitucion.length>30){
+                        errors.constitucion=' Por favor no ingrese palabras muy grandes'
+                    }
+                    if(!valores.complexion.includes(' ')&&valores.complexion.length>30){
+                        errors.complexion=' Por favor no ingrese palabras muy grandes'
+                    }
+                    if(!valores.facies.includes(' ')&&valores.facies.length>30){
+                        errors.facies=' Por favor no ingrese palabras muy grandes'
+                    }
+                    if(!valores.conformacion.includes(' ')&&valores.conformacion.length>30){
+                        errors.conformacion=' Por favor no ingrese palabras muy grandes'
+                    }
+                    if(!valores.moviemientos_anormales.includes(' ')&&valores.moviemientos_anormales.length>30){
+                        errors.moviemientos_anormales=' Por favor no ingrese palabras muy grandes'
+                    }
+                    if(!valores.moviemientos_anormales.includes(' ')&&valores.moviemientos_anormales.length>30){
+                        errors.moviemientos_anormales=' Por favor no ingrese palabras muy grandes'
+                    }
+                    if(!valores.marcha_patologicas.includes(' ')&&valores.marcha_patologicas.length>30){
+                        errors.marcha_patologicas=' Por favor no ingrese palabras muy grandes'
+                    }
+                    if(!valores.ETS.includes(' ')&&valores.ETS.length>30){
+                        errors.ETS=' Por favor no ingrese palabras muy grandes'
+                    }
+                    return errors;
+                }}
             >
-                {() => (
+                {({errors}) => (
                     <Form >
                         <Typography className={classes.title}>Antecedente patológico </Typography>
                         {/* bolean starts */}
@@ -443,6 +492,9 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente}) {
                                         className={classes.input}
                                     >
                                     </Field>
+                                    <ErrorMessage  name="enfermedades_infancia" component={()=>(
+                                        errors.enfermedades_infancia&& <div className={classes.errors}>{errors.enfermedades_infancia};</div> 
+                                    )}/>
                                 </div>
 
                                 <div className={classes.textbox}>
@@ -457,6 +509,9 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente}) {
                                         className={classes.input}
                                     >
                                     </Field>
+                                    <ErrorMessage  name="accidente" component={()=>(
+                                        errors.accidente&& <div className={classes.errors}>{errors.accidente};</div> 
+                                    )}/>
                                 </div>
 
                                 <div className={classes.textbox}>
@@ -471,6 +526,9 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente}) {
                                         className={classes.input}
                                     >
                                     </Field>
+                                    <ErrorMessage  name="operacion" component={()=>(
+                                        errors.operacion&& <div className={classes.errors}>{errors.operacion};</div> 
+                                    )}/>
                                 </div>
 
                                 <div className={classes.textbox}>
@@ -485,6 +543,9 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente}) {
                                         className={classes.input}
                                     >
                                     </Field>
+                                    <ErrorMessage  name="alergia" component={()=>(
+                                        errors.alergia&& <div className={classes.errors}>{errors.alergia};</div> 
+                                    )}/>
                                 </div>
 
                                 <div className={classes.textbox}>
@@ -499,6 +560,9 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente}) {
                                         className={classes.input}
                                     >
                                     </Field>
+                                    <ErrorMessage  name="constitucion" component={()=>(
+                                        errors.constitucion&& <div className={classes.errors}>{errors.constitucion};</div> 
+                                    )}/>
                                 </div>
 
                                 <div className={classes.textbox}>
@@ -513,6 +577,9 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente}) {
                                         className={classes.input}
                                     >
                                     </Field>
+                                    <ErrorMessage  name="complexion" component={()=>(
+                                        errors.complexion&& <div className={classes.errors}>{errors.complexion};</div> 
+                                    )}/>
                                 </div>
 
                                 <div className={classes.textbox}>
@@ -527,6 +594,9 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente}) {
                                         className={classes.input}
                                     >
                                     </Field>
+                                    <ErrorMessage  name="facies" component={()=>(
+                                        errors.facies&& <div className={classes.errors}>{errors.facies};</div> 
+                                    )}/> 
                                 </div>
 
                                 <div className={classes.textbox}>
@@ -541,6 +611,9 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente}) {
                                         className={classes.input}
                                     >
                                     </Field>
+                                    <ErrorMessage  name="conformacion" component={()=>(
+                                        errors.conformacion&& <div className={classes.errors}>{errors.conformacion};</div> 
+                                    )}/> 
                                 </div>
 
                                 <div className={classes.textbox}>
@@ -555,6 +628,9 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente}) {
                                         className={classes.input}
                                     >
                                     </Field>
+                                    <ErrorMessage  name="moviemientos_anormales" component={()=>(
+                                        errors.moviemientos_anormales&& <div className={classes.errors}>{errors.moviemientos_anormales};</div> 
+                                    )}/> 
                                 </div>
 
                                 <div className={classes.textbox}>
@@ -569,6 +645,9 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente}) {
                                         className={classes.input}
                                     >
                                     </Field>
+                                    <ErrorMessage  name="marcha_patologicas" component={()=>(
+                                        errors.marcha_patologicas&& <div className={classes.errors}>{errors.marcha_patologicas};</div> 
+                                    )}/> 
                                 </div>
 
                                 <div className={classes.textbox}>
@@ -583,6 +662,9 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente}) {
                                         className={classes.input}
                                     >
                                     </Field>
+                                    <ErrorMessage  name="ETS" component={()=>(
+                                        errors.ETS&& <div className={classes.errors}>{errors.ETS};</div> 
+                                    )}/>  
                                 </div>
 
                                 <div className={classes.textbox}>
@@ -597,6 +679,9 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente}) {
                                         className={classes.input}
                                     >
                                     </Field>
+                                    <ErrorMessage  name="comentarios" component={()=>(
+                                        errors.comentarios&& <div className={classes.errors}>{errors.comentarios};</div> 
+                                    )}/>                               
                                 </div>
                             </div>
 
