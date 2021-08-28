@@ -1,4 +1,4 @@
-import { Box, makeStyles } from "@material-ui/core";
+import {Container, Box, makeStyles } from "@material-ui/core";
 import NavPanel from "./NavPanel/NavPanel";
 import React, {useState, useEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux";
@@ -70,10 +70,18 @@ const useStyle=makeStyles(theme=>({
         flexDirection:'row'
     },
     alert:{
+        display:"flex",
         padding: '10px',
         //background: 'green',
-        margin: '10px 0'
+        margin: '10px ',
+        justifyContent:"flex-end",
+        marginRight:"40vh",
+        marginLeft:"40vh",
+        "@media (max-width:900px)": {
+            marginRight:"10vh",
+            marginLeft:"10vh"
     }
+}
 
 }))
 
@@ -94,7 +102,7 @@ export default function PatientsDashboard(){
         setEditProfile(!editprofile)
     }
     return(
-        <Box className ={classes.container} >
+        <Container className ={classes.container} >
             <Box className= { showMenu? classes.iconActive : classes.icon }>
                         {
                             showMenu ? 
@@ -120,6 +128,6 @@ export default function PatientsDashboard(){
                 <NavPanel updateComponent={updateComponent} showMenu = {showMenu} setShowMenu={setShowMenu}/>
                 <Box width="100%">{actComponent}</Box>
             </Box>
-        </Box>
+        </Container>
     )
 }

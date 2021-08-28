@@ -9,6 +9,7 @@ import Attention from "../SubComponents/Attention";
 import Professionals from "../../Professional/SubComponents/professionals/Professionals";
 import Managment from "../SubComponents/Managment";
 import Welcome from "../SubComponents/Welcome";
+import Mail from "../../SendMail/mail";
 
 const useStyle = makeStyles((theme) => ({
   magin: {
@@ -72,7 +73,7 @@ const useStyle = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     borderRadius: "10px",
-    minHeight: "120vh",
+    minHeight: "80vh",
     alignContent: "center",
     "@media (max-width:900px)": {
       borderTopLeftRadius: '0px',
@@ -88,6 +89,8 @@ const useStyle = makeStyles((theme) => ({
   btn: {
     marginTop: "25px",
     marginBottom: "25px",
+    minWidth:"100px",
+    minHeight:"60px"
   },
 }));
 //Administra el componente a renderizar y muestra los botones y opciones
@@ -100,6 +103,7 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     { "Citas agendadas": <Appointment />  },
     { "Atención": <Attention /> },
     {"Gestion de pagos": <Managment /> },
+    {"Enviar mail": <Mail/> },
     
     
   ];
