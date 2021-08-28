@@ -35,12 +35,6 @@ export default function Appointments() {
     note: "",
   });
 
-  const dateLinda = (date) => {
-    let month = (new Date(date)).getMonth() + 1;
-    month = month > 9? month.toString() : "0" + month.toString();
-    return date.substring(8,10) + "/" + month + "/" + date.substring(11,16);
-  }
-  
   const sendMail = ( patientName, email, professionalName, date) => {
     return axios({
       method: "POST",

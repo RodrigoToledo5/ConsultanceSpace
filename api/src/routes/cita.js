@@ -26,7 +26,7 @@ router.post("/cita", async (req, res, next) => {
         return res.status(200).send(citas);
       }
       if (pacienteId) {
-        let citas = await Cita.findAll({ where: { pacienteId: pacienteId },include: { model: Tratamiento } });
+        let citas = await Cita.findAll({ where: { pacienteId: pacienteId },include: { model: Tratamientos } });
         citas = citas.map((c) => c.dataValues);
         const pros = await Profesional.findAll();
         citas = citas.map((c) => {
