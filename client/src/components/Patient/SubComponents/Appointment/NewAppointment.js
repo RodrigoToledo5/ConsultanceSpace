@@ -56,6 +56,7 @@ export default function NewAppointment() {
     (store) => store.reducerPatient.professionals
   );
   const user = useSelector((store) => store.reducerLog.info);
+  const appointment = useSelector((store) => store.reducerPatient.appointment);
   const pacienteId = user.id;
   const [patientName, setPatientName] = useState("");
   const [professionalName, setProfessionalName] = useState("");
@@ -100,6 +101,12 @@ export default function NewAppointment() {
     setSelectedDate(date);
     giveMeHorarios(date);
   };
+
+  useEffect(()=>{
+    setHorarios(null);
+    setSelectedHorario(null);
+    giveMeHorarios(selectedDate);
+  },[appointment]);
 
   const handleProfessionalChange = (e) => {
     setProf(e.target.value);
