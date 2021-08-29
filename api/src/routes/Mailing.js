@@ -74,7 +74,7 @@ router.post("/sendEmail", async (req, res) => {
 });
 
 router.post("/contactEmail", async (req, res) => {
-
+  console.log(req.body)
   const {
     emailProfesional,
     emailPaciente,
@@ -96,7 +96,7 @@ router.post("/contactEmail", async (req, res) => {
     });
 
     var mailOptions = {
-      from: "Gestor médico Consultance Space",
+      from: emailPaciente,
       to: emailProfesional,
       subject: subject,
       text: text,
@@ -120,8 +120,8 @@ router.post("/contactEmail", async (req, res) => {
     });
 
     var mailOptions = {
-      from: "Gestor médico Consultance Space",
-      to: emailPaciente,
+      from: emailPaciente,
+      to: emailProfesional,//cuidado porque aca es para cuando se envia de profesional a profesional
       subject: subject,
       text: text,
     };

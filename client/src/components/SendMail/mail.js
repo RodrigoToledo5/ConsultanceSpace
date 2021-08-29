@@ -93,16 +93,19 @@ export default function Mail(){
     const [hassend, setHasSend] = useState(false)
     const classes = useStyle();
     const nombre = useSelector(state => state.reducerLog.info.fullName);
-    const email=useSelector(state=>state.reducerLog.info.usuarioEmail)
+    const email=useSelector(state=>state.reducerLog.info.usuarioEmail);
+    const destitymail=useSelector(state=>state.reducerLog.actPatient.usuarioEmail);//es el target en realidad no es un paciente
+    const rol=useSelector(state=>state.reducerLog.user.tipo_usuario);
     const user=useUser();
     return(
         <Formik
                 initialValues={{
                     mensaje: "",
                     subjet:`Mensaje de ${nombre}`,
-                    mailtarget: "",
-                    mailseader: email,
-                    paciente:true,
+                    emailProfesional: destitymail,
+                    emailPaciente: email,
+                    isPatient:rol==="paciente"?true:false,
+                    isProfessional:rol==="profesional"?true:false,
                 }}
                 validate={(valores)=>{
                     let errors={};
@@ -113,23 +116,12 @@ export default function Mail(){
                 }}
                 onSubmit={
                     async (values, { resetForm }) => {
-                        // if(!historia.antecedentesNoPatologico){
-                        //     const send = await axios({
-                        //         method: 'POST',
-                        //         url: `${api}/medicalRecord`,
-                        //         data: values
-                        //     })
-                        //     console.log("no tiene");
-                        // }
-                        // else{
-                        //     const send = await axios({
-                        //         method: 'PUT',
-                        //         url: `${api}/medicalRecord`,
-                        //         data: values
-                        //     })
-                        //     console.log(values);
-                        // }
-                        console.log(values)
+                         const send = await axios({
+                                method: 'POST',
+                                url: `${api}/contactEmail`,
+                                data: values
+                            })
+                        console.log(send)
                         resetForm();
                         setHasSend(true);
                         setTimeout(() => setHasSend(false), 5000)
@@ -138,7 +130,7 @@ export default function Mail(){
             >
                 {({errors}) => (
                     <Form >
-                        <Typography className={classes.title}>Mensaje a:mail@gnerico.com</Typography>
+                        <Typography className={classes.title}>Mensaje a: {destitymail}</Typography>
                         
                         {/* string starts*/}
                         <div className={classes.box}>

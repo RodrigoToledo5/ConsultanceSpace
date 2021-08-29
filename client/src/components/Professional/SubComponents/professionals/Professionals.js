@@ -35,13 +35,13 @@ export default function Professionals(){
     const dispatch = useDispatch()
     const professionals = useSelector(store => store.reducerSearchProfesional.profesionales);
     const [redir, setRedir] = useState("")
-    const actPatient = useSelector((store) => store.reducerLog.actPatient);
+    const actPatient = useSelector((store) => store.reducerLog.actPatient);//target 
     const patients = useSelector(
-        (store) => store.reducerAddPatients.MyPatientsList
+        (store) => store.reducerSearchProfesional.profesionales
       );
     useEffect(() => {
-        if(redir==="Hacer Cita") dispatch(redirect(5));
-      }, [actPatient]);
+        if(redir==="Enviar mail") dispatch(redirect(3));
+      }, [actPatient,redir]);
 
     const renderPatientHistory = (params) => {
         return (
@@ -51,9 +51,9 @@ export default function Professionals(){
               style={{ marginLeft: 0 }}
             //   disabled={disable}
                onClick={() => {
-                 const patient = patients.find((p) => p.id === params.id);
-                 dispatch(setPatient(patient));
-                 setRedir("Historia Clinica")
+                 const professional = professionals.find((p) => p.id === params.id);
+                 dispatch(setPatient(professional));
+                 setRedir("Enviar mail")
                }}
             >
               Enviar mail
