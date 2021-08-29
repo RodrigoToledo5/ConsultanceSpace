@@ -22,30 +22,22 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Roboto",
   },
   principal: {
-    marginTop: "100px",
+    marginTop: "20px",
     display: "flex",
     justifyContent: "center",
   },
   divStyle: {
     paddingTop: "5%",
     backgroundColor: "#E8EEF4",
-    width: "60%",
+    width: "100%",
     borderRadius: "10px",
-    marginTop: "85px",
+    marginTop: "20px",
     marginBottom: "5%",
     paddingBottom: "5%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    "@media (max-width : 500px)": {
-      width: "100%",
-      paddingRight: "30px",
-    },
-    "@media (max-width : 1200px)": {
-      width: "100%",
-      paddingRight: "30px",
-    },
   },
   firstGrid: {
     display: "flex",
@@ -85,7 +77,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Treatments({citumId}) {
+export default function Treatments({citumId, load}) {
   const classes = useStyles();
   const [treatment, setTreatment] = useState({
     treatmentName: "",
@@ -124,15 +116,13 @@ export default function Treatments({citumId}) {
       url: "http://localhost:3001/treatments",
       data: treatment
     })
-      .then((res)=> console.log(res))
+      .then((res)=> {console.log(res);load();})
   }
-
-console.log(treatment)
 
   return (
     <div>
       <Container className={classes.divStyle}>
-        <h2 className={classes.title}>Tratamiento del día</h2>
+        <h2 className={classes.title}>Agregar tratamiento</h2>
         <Grid className={classes.firstGrid}>
           <Grid item md={12} className={classes.gridInputs}>
             <FormControl className={classes.form}>
@@ -193,9 +183,6 @@ console.log(treatment)
                 onChange={(event) => handleChange(event)}
                 value={treatment.payment_method}>
                 <MenuItem value="efectivo">Efectivo</MenuItem>
-                <MenuItem value="Transferencia Bancaria">
-                  Transferencia Bancaria
-                </MenuItem>
                 <MenuItem value="tarjeta de credito">
                   Tarjeta de Débito
                 </MenuItem>

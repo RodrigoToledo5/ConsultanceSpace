@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setCita } from "../../../../Log/actions";
 import Treatments from "../../Treatments/Treatments";
+import TreatmentCard from "../../Treatments/TreatmentCard/TreatmentCard";
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -20,12 +21,17 @@ const useStyle = makeStyles((theme) => ({
   box: {
     display: "flex",
     flexDirection: "column",
+    alignItems:"center",
     borderRadius: "10px",
     color: "#159DE9",
   },
   textField: {
     margin: "10px",
+    width: "100%",
   },
+  title:{
+    margin: "10px",
+  }
 }));
 
 export default function FinalDate() {
@@ -78,8 +84,18 @@ export default function FinalDate() {
     />
   );
 
+  const ifStatus = () => {
+    if(!cita.status) return(
+      <Box style={{display:"flex", flexDirection:"column"}}>
+      <Treatments citumId={cita.id} load={handleSubmit}/>
+      <Button onClick={handleSubmit}>COMPLETAR</Button>
+      </Box>
+    )
+  }
+
   return (
     <Box className={classes.box}>
+    <Typography variant="h3" className={classes.title}>Detalle Cita</Typography>
       {arrDisableTextField.map((obj, i) =>
         DisableTextField(obj.textName, obj.prop, i)
       )}
@@ -101,8 +117,9 @@ export default function FinalDate() {
         <MenuItem value={"ASISTIO"}>ASISTIO</MenuItem>
         <MenuItem value={"CANCELADA"}>CANCELADA</MenuItem>
       </TextField>
-      <Treatments citumId={cita.id} />
-      <Button onClick={handleSubmit}>COMPLETAR</Button>
+      <Typography variant="h5" className={classes.title}>Tratamientos realizados</Typography>
+      {cita.tratamientos.map((t,i)=>(<TreatmentCard tratamiento={t} key={i}/>))}
+      {ifStatus()}
     </Box>
   );
 }
