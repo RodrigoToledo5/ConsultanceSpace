@@ -289,9 +289,11 @@ export default function NewAppointment() {
             >
               {professionals.profesionals &&
                 professionals.profesionals.map((option) => (
+                  <>
+                  {option.profesionalPaciente.disable? null :
                   <MenuItem key={option.id} value={option.id}>
-                    {option.fullName}
-                  </MenuItem>
+                     {option.fullName}
+                  </MenuItem>}</>
                 ))}
             </TextField>
             {agendarButton()}
