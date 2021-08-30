@@ -48,8 +48,6 @@ export default function Patients(){
     const classes = useStyle();
     const patients = useSelector(store => store.reducerSearchPatients.patients);
     const professional = useSelector(store => store.reducerLog.user);
-    //console.log("el professional es", professional);
-    //console.log(patients);
     const dispatch = useDispatch()
 
     const columns = [
@@ -100,7 +98,6 @@ export default function Patients(){
       },
     ];
     
-    // const rows = [];
     const rows = patients && patients.map(patient => {
       return {
         id: patient.id,

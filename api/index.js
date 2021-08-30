@@ -33,7 +33,7 @@ conn.sync({ force: false }).then(() => {
   })
   
   console.log("Loaded");
-  server.listen(3001, () => {
+  server.listen(3005, () => {
     console.log("%s listening at 3001");
   });
 });

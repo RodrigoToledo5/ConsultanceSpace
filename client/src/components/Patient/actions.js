@@ -1,5 +1,6 @@
 import axios from "axios";
-const api = 'http://localhost:3001';
+import { API } from "../..";
+
 export const GET_APPOINTMENT_PATIENT = 'GET_APPOINTMENT_PATIENT';
 export const GET_PROFESSIONAL = 'GET_PROFESSIONAL';
 
@@ -7,7 +8,7 @@ export const getAppointment =  (pacienteId, get)=>{
    return  async (dispatch)=>{
          await axios({
             method: 'POST',
-            url: `${api}/cita`,
+            url: `${API}/cita`,
             data: 
             { 
             pacienteId: pacienteId, 
@@ -19,7 +20,7 @@ export const getAppointment =  (pacienteId, get)=>{
 
 export const getProfessional = (pacienteId) => {
    return async (dispatch) =>{
-      const professionals = await axios.get(`${api}/relation?pacienteId=${pacienteId}`);
+      const professionals = await axios.get(`${API}/relation?pacienteId=${pacienteId}`);
       dispatch({type:GET_PROFESSIONAL, payload: professionals.data})
    }
 }

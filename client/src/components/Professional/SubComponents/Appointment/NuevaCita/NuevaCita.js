@@ -7,14 +7,11 @@ import {
   Button,
   Dialog,
   DialogActions,
-  DialogContent,
-  DialogContentText,
   DialogTitle,
   MenuItem
 } from "@material-ui/core";
 import DateFnsUtils from "@date-io/date-fns";
 import {
-  KeyboardTimePicker,
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
@@ -23,6 +20,7 @@ import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import Appointment from "../Appointment";
 import { getInfo, redirect } from "../../../../Log/actions";
+import { API } from "../../../../..";
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -100,7 +98,7 @@ export default function NuevaCita() {
       setHorarios(null);
       axios({
         method: "get",
-        url: `http://localhost:3001/horarios`,
+        url: `${API}/horarios`,
         params: {
           day: dias[date.getDay()],
           profesionalId: user.id,
@@ -133,7 +131,7 @@ export default function NuevaCita() {
     setLoading(true);
     axios({
       method: "POST",
-      url: `${api}/cita`,
+      url: `${API}/cita`,
       data: {
         profesionalId: user.id,
         pacienteId: patient.id,
@@ -173,7 +171,7 @@ export default function NuevaCita() {
   const sendMail = ( patientName, professionalName, email, date, time ) => {
     return axios({
       method: "POST",
-      url: "http://localhost:3001/sendEmail",
+      url: `${API}/sendEmail`,
       data:{
         profesional: true,
         patient: email,

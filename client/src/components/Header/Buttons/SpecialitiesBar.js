@@ -1,18 +1,10 @@
-
-
-import {Button,Box, FormControl,MenuItem,InputLabel,Select} from '@material-ui/core/'
-import { makeStyles,TextField,Typography} from '@material-ui/core';
-import { blue, red} from '@material-ui/core/colors';
-import { useFirebaseApp, useUser } from "reactfire";
+import {FormControl,MenuItem,InputLabel,Select} from '@material-ui/core/'
+import { makeStyles} from '@material-ui/core';
+import { blue} from '@material-ui/core/colors';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect, useState } from 'react';
-import { getSpecialities, updateProfile } from './redux/actionUpdate';
-import DateFnsUtils from "@date-io/date-fns";
-import {
-  KeyboardTimePicker,
-  KeyboardDatePicker,
-  MuiPickersUtilsProvider,
-} from "@material-ui/pickers";
+import { useEffect} from 'react';
+import { getSpecialities} from './redux/actionUpdate';
+
 
 const useStyle=makeStyles(theme=>({
     btn:{

@@ -1,7 +1,6 @@
 import {
   Box,
   makeStyles,
-  TextField,
   Button,
 } from "@material-ui/core";
 import { useEffect, useState } from "react";
@@ -11,12 +10,13 @@ import axios from "axios";
 import DialogRequestButton from "../../../../Templates/DialogRequestButton";
 import DateFnsUtils from "@date-io/date-fns";
 import {
-  KeyboardTimePicker,
   KeyboardDatePicker,
+  KeyboardTimePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import { useDispatch, useSelector } from "react-redux";
 import { redirect, setCita } from "../../../../Log/actions";
+import { API } from "../../../../..";
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -39,7 +39,6 @@ const useStyle = makeStyles((theme) => ({
 
 export default function Citas({ citas, reLoad }) {
   const classes = useStyle();
-  const api = "http://localhost:3001";
   const [redirectFlag, setRdF] = useState(false);
   const user = useSelector((store) => store.reducerLog.info);
   const citaRedirect = useSelector((store) => store.reducerLog.actCita);
@@ -128,7 +127,6 @@ export default function Citas({ citas, reLoad }) {
 
   const renderDeleteButton = (params) => {
     if(typeof params.id === 'string'){return "-"}
-    const dateStr = "";
     const props = {
       styles: {
         color: "brown",
@@ -182,7 +180,7 @@ export default function Citas({ citas, reLoad }) {
   const sendMail = ( patientName, idPatient, professionalName, date) => {
     return axios({
       method: "POST",
-      url: "http://localhost:3001/sendEmail",
+      url: `${API}/sendEmail`,
       data:{
         profesional: true,
         idPatient: idPatient,
@@ -197,7 +195,7 @@ export default function Citas({ citas, reLoad }) {
   const sendData = () => {
     return axios({
       method: "DELETE",
-      url: `${api}/cita`,
+      url: `${API}/cita`,
       data: {
         id: actCita.id,
       },

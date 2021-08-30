@@ -10,6 +10,8 @@ import theme from './materialUi/';
 import {FirebaseAppProvider} from 'reactfire';
 import firebaseConfig from './firebase/firebase';
 
+export const API = "https://consultancespace.herokuapp.com";
+
 ReactDOM.render(
     <Provider store={store}> 
       <ThemeProvider theme={theme}>

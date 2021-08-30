@@ -12,6 +12,7 @@ import {
   MenuItem,
   Button,
 } from "@material-ui/core";
+import { API } from "../../../..";
 
 const useStyles = makeStyles((theme) => ({
   "& .MuiInputBase-root": {
@@ -110,13 +111,15 @@ export default function Treatments({citumId, load}) {
    
   }
 
+  
+
   const addTreatment = (treatment) => {
     return axios({
       method:"POST",
-      url: "http://localhost:3001/treatments",
+      url: `${API}/treatments`,
       data: treatment
     })
-      .then((res)=> {console.log(res);load();})
+      .then((res)=> {load();})
   }
 
   return (

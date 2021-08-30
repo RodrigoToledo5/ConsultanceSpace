@@ -12,12 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { redirect } from "../../Log/actions";
 import Welcome from "../SubComponents/Welcome";
 import SetHorario from "../SubComponents/SetHorarios/SetHorarios";
-import AntecedentesPatologicos from "../SubComponents/HistoriaClinica/AntecedentesPatologicos";
-import AntecedentesNoPatologicos from "../SubComponents/HistoriaClinica/AntecedentesNoPatologicos";
-import ShowAntecedentesPatogolicos from "../SubComponents/HistoriaClinica/ShowAntecedentesPatologicos";
-import ShowAntecedentesNoPatogolicos from "../SubComponents/HistoriaClinica/ShowAntecedentesNoPatologicos";
 import Treatments from "../SubComponents/Treatments/Treatments";
-import { red } from "@material-ui/core/colors";
 import FinalDate from "../SubComponents/Appointment/FinalCita/FinalCita";
 import HistoriaClinica from "../SubComponents/HistoriaClinica/HistoriaClinica";
 

@@ -9,9 +9,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend
+  Legend,
 } from "recharts";
-
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -31,47 +30,19 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-
-
 export default function Managment() {
   const classes = useStyle();
-  const dispatch = useDispatch()
-  const earnings = useSelector((state)=> state.reducerSearchPatients.earnings)
-
-  const dateLinda = (date) => {
-    const dateStr = date.toString().substr(0, 21);
-    let month = date.getMonth() + 1;
-    month = month > 9 ? month.toString() : "0" + month.toString();
-    return (
-      dateStr.substring(8, 10) + "/" + month + "/" + dateStr.substring(11, 15)
-    );
-  };
-
- 
+  const dispatch = useDispatch();
+  const earnings = useSelector((state) => state.reducerSearchPatients.earnings);
 
   const data = [
-    {name: "domingo",
-    ingresos: 0,
-    amt: 0},
-    {name: "lunes",
-    ingresos: 0,
-    amt: 0},
-    {name: "martes",
-    ingresos: 0,
-    amt: 0},
-    {name: "miercoles",
-    ingresos: 0,
-    amt: 0},
-    {name: "jueves",
-    ingresos: 0,
-    amt: 0},
-    {name: "viernes",
-    ingresos: 0,
-    amt: 0},
-    {name: "sabado",
-    ingresos: 0,
-    amt: 0}
-    
+    { name: "domingo", ingresos: 0, amt: 0 },
+    { name: "lunes", ingresos: 0, amt: 0 },
+    { name: "martes", ingresos: 0, amt: 0 },
+    { name: "miercoles", ingresos: 0, amt: 0 },
+    { name: "jueves", ingresos: 0, amt: 0 },
+    { name: "viernes", ingresos: 0, amt: 0 },
+    { name: "sabado", ingresos: 0, amt: 0 },
   ];
 
   const dias = [
@@ -85,47 +56,31 @@ export default function Managment() {
   ];
 
   // console.log(dateLinda(date));
-  
- 
 
-//0 domingo 1 lunes......
+  //0 domingo 1 lunes......
 
   useEffect(() => {
     dispatch(getEarnings());
   }, [dispatch]);
 
-
-  const weeklyEarnings = (name, ingresos)=>{
-    let index = data.findIndex(data => data.name === name)
-    console.log("está en el indice", index)
-    if(index === -1) {
-      data.push({name, ingresos, amt:ingresos*2})
+  const weeklyEarnings = (name, ingresos) => {
+    let index = data.findIndex((data) => data.name === name);
+    if (index === -1) {
+      data.push({ name, ingresos, amt: ingresos * 2 });
+    } else {
+      data[index].ingresos = data[index].ingresos + ingresos;
     }
-    else{
-     data[index].ingresos = data[index].ingresos+ingresos
-    }
-  }
+  };
 
+  earnings &&
+    earnings.map((elemento) => {
+      let date = dias[new Date(elemento.createdAt).getDay()];
+      let ingresos = elemento.price;
 
-  earnings && earnings.map(elemento =>{
-    let date = dias[new Date(elemento.createdAt).getDay()]
-    let ingresos = elemento.price
+      return weeklyEarnings(date, ingresos);
+    });
 
-    return (
-      weeklyEarnings(date, ingresos)
-    )
-    
-  })
-
-  weeklyEarnings("lunes", 2300, 2300)
-
-  
-  console.log(data)
-
-
-
-
-
+  weeklyEarnings("lunes", 2300, 2300);
 
   return (
     <Box className={classes.box}>

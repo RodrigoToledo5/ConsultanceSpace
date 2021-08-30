@@ -1,6 +1,5 @@
 export default function contadordeletras(string,flag=false){//cuenta hasta 30
     if(typeof(string)==="string"&&string.substring(0,30).includes(' ')&&string.length<=30) {
-        console.log(string.substring(0,30))
         flag=false
     } 
     if(typeof(string)==="string"&&string.length>30){

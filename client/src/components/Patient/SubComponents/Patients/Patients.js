@@ -29,7 +29,6 @@ const useStyle = makeStyles((theme) => ({
 export default function Patients(){
     const classes = useStyle();
     const patients = useSelector(store => store.reducerSearchPatients.patients);
-    console.log(patients);
 
     const columns = [
       { field: 'id', headerName: 'ID', width: 110 },
