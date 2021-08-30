@@ -6,12 +6,13 @@ import {
   Button,
   MenuItem,
 } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setCita } from "../../../../Log/actions";
 import Treatments from "../../Treatments/Treatments";
 import TreatmentCard from "../../Treatments/TreatmentCard/TreatmentCard";
+import { API } from "../../../../..";
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -35,27 +36,15 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 export default function FinalDate() {
-  const api = "http://localhost:3001";
   const classes = useStyle();
-  const user = useSelector((store) => store.reducerLog.info);
   const cita = useSelector((store) => store.reducerLog.actCita);
   const [status, setStatus] = useState(cita.status);
-  const [citas, setCitas] = useState([]);
   const dispatch = useDispatch();
-  // const loadData = async () => {
-  //   axios({
-  //     method: 'POST',
-  //     url: `${api}/cita`,
-  //     data: { profesionalId:user.id ,get: true}
-  // }).then((res)=>{
-  //     setCitas(res.data);})}
-
-  // useEffect(()=>{loadData()},[]);
 
   const handleSubmit = () => {
       axios({
         method: "PUT",
-        url: `${api}/cita`,
+        url: `${API}/cita`,
         data: { id: cita.id, status: status },
       }).then((res) => {
         dispatch(setCita(res.data));

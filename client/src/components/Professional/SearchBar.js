@@ -40,7 +40,6 @@ const useStyle = makeStyles((theme) => ({
     }
     const handleSubmit = (e)=>{
         e.preventDefault();
-        console.log(props.getAction);
         dispatch(props.getAction(name)) 
     }
 

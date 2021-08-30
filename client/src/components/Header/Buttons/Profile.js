@@ -174,7 +174,6 @@ export default function Profile({ onClick ,handleEdit:handleEdit}) {
         }));
     }
     const onHandleDate = (date) => {
-        console.log({ ...patient, birth: date })
         setPatient({
             ...patient,
             birth: date
@@ -339,27 +338,6 @@ export default function Profile({ onClick ,handleEdit:handleEdit}) {
                     </FormControl>
 
                     {profileinfo && profileinfo.tipo_usuario === "profesional" && <SpecialitiesBar setEspecialidad={setEspecialidad}/>}
-                    {/* <FormControl variant="outlined" className={classes.formControl}>
-                        <InputLabel id="demo-simple-select-outlined-label">Especialidad</InputLabel>
-                        <Select
-                            label="speciality"
-                            labelId="especialidades"
-                            id="speciality"
-                            className={classes.selectEmpty}
-                            inputProps={{ className: classes.labelTextField }}
-                            name="speciality"
-                            onChange={(event) => onHandleChangeEspecialidad(event)}
-                            
-                        >
-                            {especialidades && especialidades.map((speciality, i) => {
-                                return (
-                                    <MenuItem key={i} value={speciality.nombre}  >
-                                            <em>{speciality.nombre}</em>
-                                    </MenuItem>
-                                )
-                            })}
-                        </Select>
-                    </FormControl> */}
                     <FormControl variant="outlined" className={classes.formControl}>
                         <InputLabel  id="demo-simple-select-outlined-label">{profile.pais.substring(0, 27)}</InputLabel>
                         <Select

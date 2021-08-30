@@ -7,6 +7,7 @@ import { getAppointment } from "../../actions";
 import DeleteIcon from "@material-ui/icons/Delete";
 import DialogRequestButton from "../../../Templates/DialogRequestButton";
 import axios from "axios";
+import { API } from "../../../..";
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -38,7 +39,7 @@ export default function Appointments() {
   const sendMail = ( patientName, email, professionalName, date) => {
     return axios({
       method: "POST",
-      url: "http://localhost:3001/sendEmail",
+      url: `${API}/sendEmail`,
       data:{
         paciente: true,
         professional: email,
@@ -81,10 +82,9 @@ export default function Appointments() {
   const reLoad = () => {dispatch(getAppointment(pacienteId, get));}
 
   const sendData = () => {
-    const api = "http://localhost:3001";
     return axios({
       method: "DELETE",
-      url: `${api}/cita`,
+      url: `${API}/cita`,
       data: {
         id: actCita.id,
       },

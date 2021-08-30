@@ -1,8 +1,6 @@
 import Button from '@material-ui/core/Button'
 import { Box, makeStyles} from '@material-ui/core';
-import { useHistory } from 'react-router-dom';
 import {useUser,useFirebaseApp } from "reactfire";
-import { useState } from 'react';
 import Alert from '@material-ui/lab/Alert';
 const useStyle=makeStyles(theme=>({
     btn:{
@@ -27,14 +25,11 @@ const useStyle=makeStyles(theme=>({
 
 export default function ButtonProfile({onClick:onClick}){
     const user=useUser();
-    let history=useHistory();
     const classes=useStyle();
     const firebase=useFirebaseApp();
-    console.log(user.data.emailVerified)
     async function handleClick(event){
         onClick(event);
         if(!user.data.emailVerified)await firebase.auth().currentUser.sendEmailVerification();
-        console.log(user.data.emailVerified);
     }
 
     return(

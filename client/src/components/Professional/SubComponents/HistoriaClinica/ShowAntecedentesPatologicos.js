@@ -1,13 +1,7 @@
-import { Box, Typography, makeStyles, InputLabel, Button } from "@material-ui/core";
+import { Box, Typography, makeStyles, Button } from "@material-ui/core";
 import React from 'react';
-import Alert from '@material-ui/lab/Alert';
-import { useEffect, useState } from "react";
-import axios from "axios";
 import Pdf from "react-to-pdf";
 import { useSelector } from "react-redux";
-
-const api = 'http://localhost:3001';
-
 
 const useStyle = makeStyles((theme) => ({
 

@@ -4,7 +4,8 @@ import Alert from '@material-ui/lab/Alert';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
-const api = 'http://localhost:3001';
+import { API } from "../../../..";
+
 
 
 const useStyle = makeStyles((theme) => ({
@@ -108,7 +109,6 @@ export default function AntecedentesNoPatogolicos({idPaciente:idPaciente,setActu
                 }}
                 validate={(valores)=>{
                     let errors={};
-                    console.log(valores)
                     if(!valores.alimentacion.includes(' ')&&valores.alimentacion.length>30){
                         errors.alimentacion=' Por favor no ingrese palabras muy grandes'
                     }
@@ -134,18 +134,16 @@ export default function AntecedentesNoPatogolicos({idPaciente:idPaciente,setActu
                         if(!historia.antecedentesNoPatologico){
                             const send = await axios({
                                 method: 'POST',
-                                url: `${api}/medicalRecord`,
+                                url: `${API}/medicalRecord`,
                                 data: values
                             })
-                            console.log("no tiene");
                         }
                         else{
                             const send = await axios({
                                 method: 'PUT',
-                                url: `${api}/medicalRecord`,
+                                url: `${API}/medicalRecord`,
                                 data: values
                             })
-                            console.log(values);
                         }
 
                         setActualizar("TRUE")

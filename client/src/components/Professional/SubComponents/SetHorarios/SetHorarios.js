@@ -4,8 +4,6 @@ import {
   Typography,
   makeStyles,
   FormControl,
-  InputLabel,
-  Select,
   MenuItem,
   TextField,
   Button,
@@ -20,6 +18,7 @@ import {
 } from "@material-ui/pickers";
 import { getInfo } from "../../../Log/actions";
 import axios from "axios";
+import { API } from "../../../..";
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -171,9 +170,10 @@ export default function SetHorario() {
     if (index > -1) actDay.splice(index,1);
     let forSend = {};
     forSend[toKill.day] = [...actDay];
+    
     axios({
       method: "POST",
-      url: "http://localhost:3001/horarios",
+      url: `${API}/horarios`,
       data: {
         profesionalId: user.id,
         days: forSend,
@@ -194,7 +194,7 @@ export default function SetHorario() {
     forSend[turno.dia] = [...actDay, cleanStr];
     axios({
       method: "POST",
-      url: "http://localhost:3001/horarios",
+      url: `${API}/horarios`,
       data: {
         profesionalId: user.id,
         days: forSend,

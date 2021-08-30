@@ -1,11 +1,11 @@
-import { Box, Typography, makeStyles, InputLabel, Button } from "@material-ui/core";
+import {  Typography, makeStyles, Button } from "@material-ui/core";
 import { Formik, Field, Form ,ErrorMessage} from 'formik'
 import Alert from '@material-ui/lab/Alert';
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
 import contadordeletras from "./function";
-const api = 'http://localhost:3001';
+import { API } from "../../../..";
 
 
 
@@ -136,18 +136,16 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente,setActual
                         if(!historia.antecedentesPatologico){
                             const send = await axios({
                                 method: 'POST',
-                                url: `${api}/medicalRecord`,
+                                url: `${API}/medicalRecord`,
                                 data: values
                             })
-                            console.log(send);
                         }
                         else{
                             const send = await axios({
                                 method: 'PUT',
-                                url: `${api}/medicalRecord`,
+                                url: `${API}/medicalRecord`,
                                 data: values
                             })
-                            console.log(send);
                         }
                         resetForm();
                         setHasSend(true);
@@ -157,7 +155,6 @@ export default function AntecedentesPatogolicos({idPaciente:idPaciente,setActual
                 }
                 validate={(valores)=>{
                     let errors={};
-                    console.log(valores)
                     if(contadordeletras(valores.comentarios)){
                         errors.comentarios=' Por favor no ingrese palabras muy grandes'
                     }

@@ -1,17 +1,10 @@
 import {
-  Box,
   Typography,
   makeStyles,
-  TextField,
-  Button,
-  MenuItem,
   Card,
 } from "@material-ui/core";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import axios from "axios";
-import { setCita } from "../../../../Log/actions";
-import Treatments from "../../Treatments/Treatments";
 
 const useStyle = makeStyles((theme) => ({
   card: {
@@ -43,14 +36,8 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 export default function TreatmentCard({ tratamiento }) {
-  const api = "http://localhost:3001";
   const classes = useStyle();
-  const user = useSelector((store) => store.reducerLog.info);
   const cita = useSelector((store) => store.reducerLog.actCita);
-  const [status, setStatus] = useState(cita.status);
-  const [citas, setCitas] = useState([]);
-  const dispatch = useDispatch();
-  console.log(tratamiento);
   return (
     <Card className={classes.card}>
       <h2 className={classes.title}>{tratamiento.treatmentName}</h2>
