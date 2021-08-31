@@ -85,6 +85,12 @@ const useStyle = makeStyles((theme) => ({
         textAlign: "center",
         fontFamily: "Lato",
         fontSize: "30px"
+    },
+    title: {
+        margin: "10px",
+        textAlign: "center",
+        fontFamily: "Lato",
+        fontSize: "30px"
     }
 
 }));
