@@ -74,7 +74,7 @@ router.post("/sendEmail", async (req, res) => {
 });
 
 router.post("/contactEmail", async (req, res) => {
-  console.log(req.body)
+  
   const {
     emailProfesional,
     emailPaciente,
@@ -83,6 +83,13 @@ router.post("/contactEmail", async (req, res) => {
     isPatient,
     isProfessional
   } = req.body;
+  console.log(
+    emailProfesional,
+    emailPaciente,
+    subject,
+    text,
+    isPatient,
+    isProfessional)
 
   if (isPatient) {
     var transporter = nodemailer.createTransport({
@@ -94,6 +101,7 @@ router.post("/contactEmail", async (req, res) => {
         pass: GMAIL_PASS,
       },
     });
+    
 
     var mailOptions = {
       from: emailPaciente,
@@ -101,6 +109,8 @@ router.post("/contactEmail", async (req, res) => {
       subject: subject,
       text: text,
     };
+    
+
     transporter.sendMail(mailOptions, (error, info) => {
       error
         ? res.status(500).send(error.message)

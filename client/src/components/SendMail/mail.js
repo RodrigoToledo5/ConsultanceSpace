@@ -4,6 +4,8 @@ import { makeStyles,Typography,Button } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { Formik, Field, Form,ErrorMessage } from 'formik';
 import { useUser } from 'reactfire';
+import { API } from '../..';
+import axios from 'axios';
 
 const useStyle = makeStyles((theme) => ({
     errors:{
@@ -102,8 +104,8 @@ export default function Mail(){
     return(
         <Formik
                 initialValues={{
-                    mensaje: "",
-                    subjet:`Mensaje de ${nombre}`,
+                    text: "",
+                    subject:`Mensaje de ${nombre}`,
                     emailProfesional: destitymail,
                     emailPaciente: email,
                     isPatient:rol==="paciente"?true:false,
@@ -111,19 +113,21 @@ export default function Mail(){
                 }}
                 validate={(valores)=>{
                     let errors={};
-                    if(!valores.mensaje){
-                        errors.mensaje=' Por favor escriba su mensaje'
+                    if(!valores.text){
+                        errors.text=' Por favor escriba su text'
                     }
                     return errors;
                 }}
                 onSubmit={
                     async (values, { resetForm }) => {
+                        values.text=`Mensaje:${values.text}, Enviado desde: ${email}`;
                          const send = await axios({
                                 method: 'POST',
-                                url: `${api}/contactEmail`,
+                                url: `${API}/contactEmail`,
                                 data: values
                             })
- 
+                        console.log(values)
+                        console.log(send)
                         resetForm();
                         setHasSend(true);
                         setTimeout(() => setHasSend(false), 5000)
@@ -142,14 +146,14 @@ export default function Mail(){
                                 </label>
                                 <Field
                                     as="textarea"
-                                    id="mensaje"
-                                    name="mensaje"
+                                    id="text"
+                                    name="text"
                                     placeholder="Escriba su mensaje..."
                                     className={classes.input}
                                 >
                                 </Field>
-                                <ErrorMessage  name="mensaje" component={()=>(
-                                        errors.mensaje&& <div className={classes.errors}>{errors.mensaje};</div> 
+                                <ErrorMessage  name="text" component={()=>(
+                                        errors.text&& <div className={classes.errors}>{errors.text};</div> 
                                     )}/> 
                             </div>                      
                         </div>
