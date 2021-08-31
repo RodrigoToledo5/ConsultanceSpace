@@ -61,7 +61,6 @@ export default function HistoriaClinica() {
     const historia = useSelector(state => state.reducerHistory.history)
     const dispatch = useDispatch();
 
-
     /// usamos renderer prop
     function formatName(string) {
         if (string) {
