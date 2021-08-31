@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from "react";
 import AppBar from "@material-ui/core/AppBar";
 import Toolbar from "@material-ui/core/Toolbar";
-import { makeStyles, Typography, Box, Button } from "@material-ui/core";
+import { makeStyles, Box } from "@material-ui/core";
 import { useSelector, useDispatch } from "react-redux";
-import ButtonLogout from "./Buttons/ButtonLogout";
 import ButtonLogin from "./Buttons/ButtonLogin";
 import ButtonSignIn from "./Buttons/ButtonSignIn";
 import ButtonHome from "./Buttons/ButtonHome";

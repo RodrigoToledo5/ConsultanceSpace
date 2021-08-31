@@ -60,7 +60,6 @@ router.post("/newUser", async (req, res, next) => {
         pais: country,
       });
       await createdPatient.setUsuario(email);
-      console.log(createdPatient);
       return res.status(200).send("Registro exitoso");
     } catch (err) {
       next(err);
@@ -91,7 +90,6 @@ router.post("/newUser", async (req, res, next) => {
         emptyArr,
       });
       await stock.setUsuario(email);
-      console.log("el profesional creado es",createdProfesional);
       return res.status(200).json(createdProfesional);
     } catch (err) {
       next(err);

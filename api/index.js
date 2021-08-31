@@ -18,7 +18,7 @@ const {Especialidad} = require('./src/db');
 
 
 
-conn.sync({ force: true }).then(() => {
+conn.sync({ force: false }).then(() => {
   especialidadesjson.forEach(async (especialidad)=>{
     try{
       await Especialidad.findOrCreate({
@@ -33,7 +33,7 @@ conn.sync({ force: true }).then(() => {
   })
   
   console.log("Loaded");
-  server.listen(3001, () => {
+  server.listen(3005, () => {
     console.log("%s listening at 3001");
   });
 });

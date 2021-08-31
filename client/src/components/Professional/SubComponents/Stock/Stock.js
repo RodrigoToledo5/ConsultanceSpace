@@ -12,6 +12,7 @@ import React, { useEffect, useState } from "react";
 import StockCard from "./StockCard/StockCard";
 import AddIcon from "@material-ui/icons/Add";
 import { useSelector } from "react-redux";
+import { API } from "../../../..";
 const axios = require("axios");
 
 export default function Stock() {
@@ -20,7 +21,7 @@ export default function Stock() {
   const loadData = () => {
     axios({
       method: "get",
-      url: `http://localhost:3001/stock`,
+      url: `${API}/stock`,
       params: { email: user.email },
     }).then(function (response) {
       updateStock([...response.data]);
@@ -32,7 +33,6 @@ export default function Stock() {
 
   const useStyle = makeStyles((theme) => ({
     paperContainer: {
-      //margin:"10px"
       color: "white",
       backgroundColor: "#2196f3",
     },

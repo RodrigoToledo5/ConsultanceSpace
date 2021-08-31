@@ -14,13 +14,13 @@ import {
   CircularProgress,
 } from "@material-ui/core";
 import { useState } from "react";
+import { API } from "../../../../..";
 
 const axios = require("axios");
 
 export default function StockCard({ data, email, updateStock, index }) {
   const useStyle = makeStyles((theme) => ({
     paperContainer: {
-      //margin:"10px"
       color: "white",
       backgroundColor: "#2196f3",
     },
@@ -56,7 +56,7 @@ export default function StockCard({ data, email, updateStock, index }) {
   const backReq = (method) => {
     axios({
       method: method,
-      url: `http://localhost:3001/stock`,
+      url: `${API}/stock`,
       data: { email: email, item: objKey, quantity: parseInt(value, 10) },
     }).then(function (response) {
       setMode("normal");

@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import Citas from "./Citas/Citas";
 import axios from "axios";
-
+import {API} from "../../../../index";
 const useStyle = makeStyles((theme) => ({
     text: {
       color: "#159DE9",
@@ -18,14 +18,14 @@ const useStyle = makeStyles((theme) => ({
   }));
 
 export default function Appointment({withoutTitle}){
-    const api = 'http://localhost:3001';
+
     const classes = useStyle();
     const user = useSelector((store) => store.reducerLog.info);
     const [citas, setCitas] = useState([])
     const loadData = async () => {
       axios({
         method: 'POST',
-        url: `${api}/cita`,
+        url: `${API}/cita`,
         data: { profesionalId:user.id ,get: true}
     }).then((res)=>{
         setCitas(res.data);})}

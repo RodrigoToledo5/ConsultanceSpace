@@ -1,14 +1,10 @@
-import React, {useEffect, useState} from 'react'
-import { useDispatch, useSelector } from "react-redux";
-import { Box, Container, makeStyles,Typography,Button } from "@material-ui/core";
+import React, { useState} from 'react'
+import { useSelector } from "react-redux";
+import { makeStyles,Typography,Button } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
-import MenuIcon from '@material-ui/icons/Menu';
-import CloseIcon from '@material-ui/icons/Close';
-import axios from "axios";
 import { Formik, Field, Form,ErrorMessage } from 'formik';
 import { useUser } from 'reactfire';
 
-const api = 'http://localhost:3001';
 const useStyle = makeStyles((theme) => ({
     errors:{
         color:"#CC0000",
@@ -127,7 +123,7 @@ export default function Mail(){
                                 url: `${api}/contactEmail`,
                                 data: values
                             })
-                        console.log(send)
+ 
                         resetForm();
                         setHasSend(true);
                         setTimeout(() => setHasSend(false), 5000)

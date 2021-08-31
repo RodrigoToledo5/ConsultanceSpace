@@ -75,7 +75,7 @@ router.put("/cita", async (req, res, next) => {
   try {
     if (id) {
       let cita = await Cita.findOne({
-        where: { id: id },
+        where: { id: id },include: { model: Tratamientos } 
       });
       if (!cita) return res.status(200).send("la cita no existe");
       status && (cita.status = status);

@@ -6,15 +6,13 @@ import { getAppointment, getProfessional } from "../../actions";
 import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
 import {
-  KeyboardTimePicker,
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-import { Button, Container, makeStyles, Typography } from "@material-ui/core";
-import EventAvailableIcon from "@material-ui/icons/EventAvailable";
-import TextField from "@material-ui/core/TextField";
+import { Container, makeStyles, Typography, TextField } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import DialogRequestButton from "../../../Templates/DialogRequestButton";
+import { API } from "../../../..";
 
 const useStyles = makeStyles((theme) => ({
   container: {
@@ -84,7 +82,7 @@ export default function NewAppointment() {
       setHorarios(null);
       axios({
         method: "get",
-        url: `http://localhost:3001/horarios`,
+        url: `${API}/horarios`,
         params: {
           day: dias[date.getDay()],
           profesionalId: professionalId,
@@ -150,7 +148,7 @@ export default function NewAppointment() {
   const createAppointment = (profesionalId, pacienteId, date, note) => {
     return axios({
       method: "POST",
-      url: "http://localhost:3001/cita",
+      url: `${API}/cita`,
       data: {
         profesionalId: profesionalId,
         pacienteId: pacienteId,
@@ -163,7 +161,7 @@ export default function NewAppointment() {
   const sendMail = (patientName, professionalName, email, selectedDate) => {
     return axios({
       method: "POST",
-      url: "http://localhost:3001/sendEmail",
+      url: `${API}/sendEmail`,
       data: {
         paciente: true,
         professional: email,
@@ -291,9 +289,11 @@ export default function NewAppointment() {
             >
               {professionals.profesionals &&
                 professionals.profesionals.map((option) => (
+                  <>
+                  {option.profesionalPaciente.disable? null :
                   <MenuItem key={option.id} value={option.id}>
-                    {option.fullName}
-                  </MenuItem>
+                     {option.fullName}
+                  </MenuItem>}</>
                 ))}
             </TextField>
             {agendarButton()}

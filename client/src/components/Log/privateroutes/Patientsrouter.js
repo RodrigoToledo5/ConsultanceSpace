@@ -1,7 +1,6 @@
 import {Route, Redirect} from 'react-router-dom'
 import {useSelector} from 'react-redux';
-import PatientsDashboard from '../../Patient/PatientsDashboard';
-import {useUser,useFirebaseApp } from "reactfire";
+import {useUser} from "reactfire";
 
 export default function PatientsRouter({component:Component,...rest}){
     const user = useSelector((store) => store.reducerLog.user)
