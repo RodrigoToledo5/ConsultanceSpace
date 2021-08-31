@@ -15,7 +15,7 @@ import {
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import { useDispatch, useSelector } from "react-redux";
-import { redirect, setCita } from "../../../../Log/actions";
+import { redirect, setCita, setPatient } from "../../../../Log/actions";
 import { API } from "../../../../..";
 
 const useStyle = makeStyles((theme) => ({
@@ -44,7 +44,15 @@ export default function Citas({ citas, reLoad }) {
   const citaRedirect = useSelector((store) => store.reducerLog.actCita);
 
   useEffect(()=>{
-    if(redirectFlag){dispatch(redirect(11))}else{setRdF(true);}},[citaRedirect]);
+    if(redirectFlag === "cita"){
+      dispatch(redirect(11))}
+      if(redirectFlag === "ficha"){
+        axios({
+          method: "GET",
+          url: `${API}/patients`,
+          params: {nombre:citaRedirect.pacienteFullName},
+        }).then((res)=>{dispatch(setPatient(res.data[0]));dispatch(redirect(10)) })
+        }},[citaRedirect]);
 
   const dispatch = useDispatch();
 
@@ -97,6 +105,7 @@ export default function Citas({ citas, reLoad }) {
         <Button
           style={{ marginLeft: 16 }}
           onClick={() => {
+            setRdF("cita");
             dispatch(setCita(actCitas.find((c)=>(c.id === params.id))));
           }}
         >
@@ -114,7 +123,8 @@ export default function Citas({ citas, reLoad }) {
           size="small"
           style={{ marginLeft: 16 }}
           onClick={() => {
-            console.log(params.row.col6);
+            setRdF("ficha");
+            dispatch(setCita(actCitas.find((c)=>(c.id === params.id))));
           }}
         >
           Ficha
@@ -206,7 +216,7 @@ export default function Citas({ citas, reLoad }) {
     });
   };
   useEffect(() => {
-    let horas = user.horario[dias[input.date.getDay()]];
+    let horas = user.horario? user.horario[dias[input.date.getDay()]] : null;
     if (!horas) horas = [];
     let citasAndHorarios = [...horas, ...actCitas];
     const forFilter = actCitas.map((cita)=>(cita.date.substring(11, 26)));
