@@ -38,8 +38,13 @@ module.exports = (sequelize) => {
 				return `${this.nombre} ${this.apellidos}`;
 			},
 		},
-	},{
-		timestamps: false,
-
+		token:{
+			type:DataTypes.STRING,
+			allowNull: true
+		},
+		suscripcion:{
+			type:DataTypes.STRING,
+			allowNull: true
+		}
 	});
 };
