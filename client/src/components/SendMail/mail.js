@@ -105,7 +105,7 @@ export default function Mail(){
         <Formik
                 initialValues={{
                     text: "",
-                    subjet:`Mensaje de ${nombre}`,
+                    subject:`Mensaje de ${nombre}`,
                     emailProfesional: destitymail,
                     emailPaciente: email,
                     isPatient:rol==="paciente"?true:false,
@@ -120,13 +120,14 @@ export default function Mail(){
                 }}
                 onSubmit={
                     async (values, { resetForm }) => {
+                        values.text=`Mensaje:${values.text}, Enviado desde: ${email}`;
                          const send = await axios({
                                 method: 'POST',
                                 url: `${API}/contactEmail`,
                                 data: values
                             })
-                            console.log(values)
-                            console.log(send)
+                        console.log(values)
+                        console.log(send)
                         resetForm();
                         setHasSend(true);
                         setTimeout(() => setHasSend(false), 5000)
