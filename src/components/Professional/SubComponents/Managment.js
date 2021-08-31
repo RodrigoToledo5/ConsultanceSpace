@@ -1,6 +1,6 @@
 import { Box, Typography, makeStyles } from "@material-ui/core";
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getEarnings } from "../actions";
 import {
   BarChart,
@@ -12,44 +12,6 @@ import {
   Legend
 } from "recharts";
 
-
-const data = [
-  {
-    name: "Lunes",
-    ingresos: 2400,
-    amt: 2400,
-  },
-  {
-    name: "Martes",
-    ingresos: 1398,
-    amt: 2210,
-  },
-  {
-    name: "Miércoles",
-    ingresos: 9800,
-    amt: 2290,
-  },
-  {
-    name: "Jueves",
-    ingresos: 3908,
-    amt: 2000,
-  },
-  {
-    name: "Viernes",
-    ingresos: 4800,
-    amt: 2181,
-  },
-  {
-    name: "Sábado",
-    ingresos: 3800,
-    amt: 2500,
-  },
-  {
-    name: "Domingo",
-    ingresos: 4300,
-    amt: 2100,
-  },
-];
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -69,12 +31,13 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
+
+
 export default function Managment() {
   const classes = useStyle();
   const dispatch = useDispatch()
-  const date = new Date("2021-08-26T18:56:42.951Z");
-  const resultado = date.getDay();
-  console.log(resultado);
+  const earnings = useSelector((state)=> state.reducerSearchPatients.earnings)
+
   const dateLinda = (date) => {
     const dateStr = date.toString().substr(0, 21);
     let month = date.getMonth() + 1;
@@ -83,7 +46,33 @@ export default function Managment() {
       dateStr.substring(8, 10) + "/" + month + "/" + dateStr.substring(11, 15)
     );
   };
-  console.log(date);
+
+ 
+
+  const data = [
+    {name: "domingo",
+    ingresos: 0,
+    amt: 0},
+    {name: "lunes",
+    ingresos: 0,
+    amt: 0},
+    {name: "martes",
+    ingresos: 0,
+    amt: 0},
+    {name: "miercoles",
+    ingresos: 0,
+    amt: 0},
+    {name: "jueves",
+    ingresos: 0,
+    amt: 0},
+    {name: "viernes",
+    ingresos: 0,
+    amt: 0},
+    {name: "sabado",
+    ingresos: 0,
+    amt: 0}
+    
+  ];
 
   const dias = [
     "domingo",
@@ -95,15 +84,48 @@ export default function Managment() {
     "sabado",
   ];
 
-  console.log(dateLinda(date));
+  // console.log(dateLinda(date));
   
-  console.log(dias[date.getDay()])
+ 
 
 //0 domingo 1 lunes......
 
   useEffect(() => {
     dispatch(getEarnings());
   }, [dispatch]);
+
+
+  const weeklyEarnings = (name, ingresos)=>{
+    let index = data.findIndex(data => data.name === name)
+    console.log("está en el indice", index)
+    if(index === -1) {
+      data.push({name, ingresos, amt:ingresos*2})
+    }
+    else{
+     data[index].ingresos = data[index].ingresos+ingresos
+    }
+  }
+
+
+  earnings && earnings.map(elemento =>{
+    let date = dias[new Date(elemento.createdAt).getDay()]
+    let ingresos = elemento.price
+
+    return (
+      weeklyEarnings(date, ingresos)
+    )
+    
+  })
+
+  weeklyEarnings("lunes", 2300, 2300)
+
+  
+  console.log(data)
+
+
+
+
+
 
   return (
     <Box className={classes.box}>

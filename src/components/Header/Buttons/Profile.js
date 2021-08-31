@@ -361,7 +361,7 @@ export default function Profile({ onClick ,handleEdit:handleEdit}) {
                         </Select>
                     </FormControl> */}
                     <FormControl variant="outlined" className={classes.formControl}>
-                        <InputLabel  id="demo-simple-select-outlined-label">{profile.pais&&profile.pais.substring(0, 27)}</InputLabel>
+                        <InputLabel  id="demo-simple-select-outlined-label">{profile.pais.substring(0, 27)}</InputLabel>
                         <Select
                             label={profile.pais}
                             labelId="countries"
