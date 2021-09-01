@@ -16,6 +16,7 @@ router.use(require("./Specialities"))
 router.use(require("./checkout"))
 router.use(require("./Mailing"))
 router.use(require("./ProfesionalToken"))
+router.use(require("./Profesionalpayments"))
 router.use(require("./DisablePatients"))
 router.use(require("./horarios"))
 router.use(require("./AddPatients"));
