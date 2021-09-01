@@ -20,6 +20,7 @@ import {
   Slider,
   Box,
   Typography,
+  Snackbar
 } from "@material-ui/core";
 import Alert from "@material-ui/lab/Alert";
 import { blue } from "@material-ui/core/colors";
@@ -146,6 +147,7 @@ export default function Sign() {
   const [email, setEmail] = useState("");
   const [load, setLoad] = useState("");
   const [pass, setPass] = useState("");
+  const [open, setOpen] = useState(false);
   const [passconfirmation, setPassConfirmation] = useState("");
   const [errors, setErrors] = useState({});
   const [patient, setPatient] = useState({
@@ -201,6 +203,11 @@ export default function Sign() {
     );
   };
 
+  const handleClose = () => {
+    setOpen(false);
+    window.location.reload();
+  }
+
   const onHandleSubmit = async (e) => {
     e.preventDefault();
     if (
@@ -215,27 +222,37 @@ export default function Sign() {
       patient.type &&
       Object.keys(errors).length === 0
     ) {
+      var emailExist = "";
       setLoad("cargando");
       dispatch(setFlagLog(true));
-      await firebase.auth().createUserWithEmailAndPassword(email, pass);
-      await firebase.auth().currentUser.sendEmailVerification();
-      //await firebase.auth().signOut();
-      dispatch(postSignIn(patient));
-      setPatient({
-        dni: "",
-        name: "",
-        lastName: "",
-        email: "",
-        phone: "",
-        birth: "",
-        address: "",
-        country: "",
+      await firebase.auth().createUserWithEmailAndPassword(email, pass)
+      .catch((err)=>{
+        emailExist = err.message
       });
-      setLoad("cargando");
-      setEmail("");
-      setPass("");
-      setPassConfirmation("");
-      history.push("/login");
+
+      if(emailExist){
+        setOpen(true);
+      }else{
+        await firebase.auth().currentUser.sendEmailVerification();
+        //await firebase.auth().signOut();
+        dispatch(postSignIn(patient));
+
+        setPatient({
+          dni: "",
+          name: "",
+          lastName: "",
+          email: "",
+          phone: "",
+          birth: "",
+          address: "",
+          country: "",
+        });
+        setLoad("cargando");
+        setEmail("");
+        setPass("");
+        setPassConfirmation("");
+        history.push("/login");
+      }
     } else {
       setLoad("");
     }
@@ -293,12 +310,25 @@ export default function Sign() {
       }
   }
 
+  const snackbarNotify = () => {
+    return (
+      <div>
+        <Snackbar anchorOrigin={{ vertical: 'top', horizontal: 'center' }} open={open} onClose={handleClose}>
+          <Alert onClose={handleClose} severity="error">
+            El email ya existe
+          </Alert>
+        </Snackbar>
+      </div>
+    )
+  }
+
   return (
     <>
       <Box>
         <Container className={classes.divStyle}>
           <h2 className={classes.title}>Registrate</h2>
           {alertFunction()}
+          {snackbarNotify()}
           <form onSubmit={onHandleSubmit}>
             <Box className={clsx(classes.margin, classes.boxSlider)}>
               <Box className={classes.boxSliderText}>

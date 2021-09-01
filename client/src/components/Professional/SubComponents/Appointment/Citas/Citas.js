@@ -1,7 +1,6 @@
 import {
   Box,
   makeStyles,
-  TextField,
   Button,
 } from "@material-ui/core";
 import { useEffect, useState } from "react";
@@ -11,12 +10,13 @@ import axios from "axios";
 import DialogRequestButton from "../../../../Templates/DialogRequestButton";
 import DateFnsUtils from "@date-io/date-fns";
 import {
-  KeyboardTimePicker,
   KeyboardDatePicker,
+  KeyboardTimePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
 import { useDispatch, useSelector } from "react-redux";
-import { redirect, setCita } from "../../../../Log/actions";
+import { redirect, setCita, setPatient } from "../../../../Log/actions";
+import { API } from "../../../../..";
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -39,13 +39,20 @@ const useStyle = makeStyles((theme) => ({
 
 export default function Citas({ citas, reLoad }) {
   const classes = useStyle();
-  const api = "http://localhost:3001";
   const [redirectFlag, setRdF] = useState(false);
   const user = useSelector((store) => store.reducerLog.info);
   const citaRedirect = useSelector((store) => store.reducerLog.actCita);
 
   useEffect(()=>{
-    if(redirectFlag){dispatch(redirect(11))}else{setRdF(true);}},[citaRedirect]);
+    if(redirectFlag === "cita"){
+      dispatch(redirect(11))}
+      if(redirectFlag === "ficha"){
+        axios({
+          method: "GET",
+          url: `${API}/patients`,
+          params: {nombre:citaRedirect.pacienteFullName},
+        }).then((res)=>{dispatch(setPatient(res.data[0]));dispatch(redirect(10)) })
+        }},[citaRedirect]);
 
   const dispatch = useDispatch();
 
@@ -98,6 +105,7 @@ export default function Citas({ citas, reLoad }) {
         <Button
           style={{ marginLeft: 16 }}
           onClick={() => {
+            setRdF("cita");
             dispatch(setCita(actCitas.find((c)=>(c.id === params.id))));
           }}
         >
@@ -115,7 +123,8 @@ export default function Citas({ citas, reLoad }) {
           size="small"
           style={{ marginLeft: 16 }}
           onClick={() => {
-            console.log(params.row.col6);
+            setRdF("ficha");
+            dispatch(setCita(actCitas.find((c)=>(c.id === params.id))));
           }}
         >
           Ficha
@@ -128,7 +137,6 @@ export default function Citas({ citas, reLoad }) {
 
   const renderDeleteButton = (params) => {
     if(typeof params.id === 'string'){return "-"}
-    const dateStr = "";
     const props = {
       styles: {
         color: "brown",
@@ -182,7 +190,7 @@ export default function Citas({ citas, reLoad }) {
   const sendMail = ( patientName, idPatient, professionalName, date) => {
     return axios({
       method: "POST",
-      url: "http://localhost:3001/sendEmail",
+      url: `${API}/sendEmail`,
       data:{
         profesional: true,
         idPatient: idPatient,
@@ -197,7 +205,7 @@ export default function Citas({ citas, reLoad }) {
   const sendData = () => {
     return axios({
       method: "DELETE",
-      url: `${api}/cita`,
+      url: `${API}/cita`,
       data: {
         id: actCita.id,
       },
@@ -208,7 +216,7 @@ export default function Citas({ citas, reLoad }) {
     });
   };
   useEffect(() => {
-    let horas = user.horario[dias[input.date.getDay()]];
+    let horas = user.horario? user.horario[dias[input.date.getDay()]] : null;
     if (!horas) horas = [];
     let citasAndHorarios = [...horas, ...actCitas];
     const forFilter = actCitas.map((cita)=>(cita.date.substring(11, 26)));

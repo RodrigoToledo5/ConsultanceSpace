@@ -12,12 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { redirect } from "../../Log/actions";
 import Welcome from "../SubComponents/Welcome";
 import SetHorario from "../SubComponents/SetHorarios/SetHorarios";
-import AntecedentesPatologicos from "../SubComponents/HistoriaClinica/AntecedentesPatologicos";
-import AntecedentesNoPatologicos from "../SubComponents/HistoriaClinica/AntecedentesNoPatologicos";
-import ShowAntecedentesPatogolicos from "../SubComponents/HistoriaClinica/ShowAntecedentesPatologicos";
-import ShowAntecedentesNoPatogolicos from "../SubComponents/HistoriaClinica/ShowAntecedentesNoPatologicos";
 import Treatments from "../SubComponents/Treatments/Treatments";
-import { red } from "@material-ui/core/colors";
 import FinalDate from "../SubComponents/Appointment/FinalCita/FinalCita";
 import HistoriaClinica from "../SubComponents/HistoriaClinica/HistoriaClinica";
 
@@ -127,14 +122,15 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     { "Inventario": <Stock />},
     { "Profesionales": <Professionals />},
     { "Set Horarios": <SetHorario />},
-    { "Atención": <Attention />},
-    { "Agendar Cita": <NuevaCita /> },
     { "Ingresos": <Managment/> },
+    /* Rutas ocultas */
+    { "Agendar Cita": <NuevaCita /> },
+    { "Atención": <Attention />},
     {"Treatments": <Treatments/>},
     {"Historia Clinica":<HistoriaClinica/>},
     {"FinalDate" : <FinalDate />},
   ];
-  const indexPrivateRoutes = 11; // a partir de este indice loa botones se ocultan
+  const indexPrivateRoutes = 7; // a partir de este indice loa botones se ocultan
 
   useEffect(() => {
 

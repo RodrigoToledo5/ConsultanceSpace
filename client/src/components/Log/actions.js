@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API } from "../..";
 
 export const POST_LOG = 'POST_LOG';
 export const INFO_USER = 'INFO_USER';
@@ -7,13 +8,13 @@ export const REDIRECT = 'REDIRECT';
 export const SET_PATIENT = 'SET_PATIENT';
 export const SET_CITA = 'ACT_CITA';
 
-const api = 'http://localhost:3001';
+
 
 export const postLogIn = (email)=>{
     return async (dispatch) => {
     const res = await axios({
             method: 'POST',
-            url: `${api}/login`,
+            url: `${API}/login`,
             data: {email}
         })
     dispatch({ type: POST_LOG, payload:  res.data })
@@ -23,7 +24,7 @@ export const getInfo = (user)=>{
     return async (dispatch) => {
     const res = await axios({
             method: 'POST',
-            url: `${api}/info`,
+            url: `${API}/info`,
             data: user
         })
     dispatch({ type: INFO_USER, payload:  res.data })

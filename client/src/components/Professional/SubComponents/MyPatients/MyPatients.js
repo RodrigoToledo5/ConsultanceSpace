@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { redirect, setPatient } from "../../../Log/actions";
 import { getMyPatients } from "../../actions";
 import axios from "axios";
+import { API } from "../../../..";
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -56,7 +57,7 @@ export default function MyPatients() {
   useEffect(() => {
     if (!firstRender) {
       if(redir==="Hacer Cita") dispatch(redirect(7));
-      if(redir==="Historia Clinica") dispatch(redirect(8));
+      if(redir==="Historia Clinica") dispatch(redirect(10));
     } else {
       setFirstRender(false);
     }
@@ -183,7 +184,6 @@ export default function MyPatients() {
 
   const handleDelete = async (e) => {
     e.preventDefault();
-    const api = "http://localhost:3001";
     const data = {
       profesionalId: info.id,
       pacienteIds: select,
@@ -191,7 +191,7 @@ export default function MyPatients() {
     };
     await axios({
       method: "POST",
-      url: `${api}/disablePatients`,
+      url: `${API}/disablePatients`,
       data: data,
     });
     dispatch(getMyPatients(user.email));

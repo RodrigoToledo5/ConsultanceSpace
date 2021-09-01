@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
 import React, { useCallback, useEffect, useState } from "react";
-import { useFirebaseApp, useUser } from "reactfire";
+import { useFirebaseApp} from "reactfire";
 import app from "firebase/app";
 import "firebase/auth";
 import "../../firebase/firebase";
@@ -9,7 +9,6 @@ import { Link } from "react-router-dom";
 import { makeStyles, Button, Box, TextField } from "@material-ui/core";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import GTranslateIcon from "@material-ui/icons/GTranslate";
-import Alert from "@material-ui/lab/Alert";
 import { postLogIn } from "./actions";
 
 const useStyle = makeStyles((theme) => ({
@@ -216,7 +215,6 @@ useEffect(() => {
   const logInGoogle = async () => {
     const provider = new app.auth.GoogleAuthProvider();
     const res = await firebase.auth().signInWithPopup(provider);
-    console.log(res);
     if(!res.user.emailVerified){
       await firebase.auth().currentUser.sendEmailVerification();
     }

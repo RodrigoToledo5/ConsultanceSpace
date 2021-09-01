@@ -73,4 +73,78 @@ router.post("/sendEmail", async (req, res) => {
   }
 });
 
+router.post("/contactEmail", async (req, res) => {
+  
+  const {
+    emailProfesional,
+    emailPaciente,
+    subject,
+    text,
+    isPatient,
+    isProfessional
+  } = req.body;
+  console.log(
+    emailProfesional,
+    emailPaciente,
+    subject,
+    text,
+    isPatient,
+    isProfessional)
+
+  if (isPatient) {
+    var transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: GMAIL,
+        pass: GMAIL_PASS,
+      },
+    });
+    
+
+    var mailOptions = {
+      from: emailPaciente,
+      to: emailProfesional,
+      subject: subject,
+      text: text,
+    };
+    
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      error
+        ? res.status(500).send(error.message)
+        : res.status(200).json(req.body);
+    });
+  }
+
+  if (isProfessional) {
+    var transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: GMAIL,
+        pass: GMAIL_PASS,
+      },
+    });
+
+    var mailOptions = {
+      from: emailPaciente,
+      to: emailProfesional,//cuidado porque aca es para cuando se envia de profesional a profesional
+      subject: subject,
+      text: text,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+      console.log("se envio correo desde professional dashboard");
+      error
+        ? res.status(500).send(error.message)
+        : res.status(200).json(req.body);
+    });
+  }
+});
+
+
+
 module.exports = router;

@@ -17,9 +17,8 @@ import {
   YAxis,
   CartesianGrid,
   Tooltip,
-  Legend
+  Legend,
 } from "recharts";
-
 
 const useStyle = makeStyles((theme) => ({
   text: {
@@ -39,10 +38,9 @@ const useStyle = makeStyles((theme) => ({
   },
 }));
 
-
-
 export default function Managment() {
   const classes = useStyle();
+
   const dispatch = useDispatch()
   const [initialDate, setInitialDate] = useState(new Date())
   const [finalDate, setFinalDate] = useState(new Date())
@@ -60,6 +58,7 @@ const sumarDias = (date) =>{
   return myDate;
 }
 
+
   const handleDateChange = (date) => {
     setInitialDate(date)
     setFinalDate(sumarDias(date))
@@ -67,6 +66,7 @@ const sumarDias = (date) =>{
  
  
   const data = [
+
     {name: "lunes",
     ingresos: 0},
     {name: "martes",
@@ -81,7 +81,7 @@ const sumarDias = (date) =>{
     ingresos: 0},
     {name: "domingo",
     ingresos: 0}
-    
+
   ];
 
   const dias = [
@@ -182,6 +182,7 @@ const sumarDias = (date) =>{
         }
         rows.push(array);
       }
+
     });
 
 

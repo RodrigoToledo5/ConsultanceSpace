@@ -1,9 +1,7 @@
-import { Box, Typography, makeStyles, InputLabel, Button } from "@material-ui/core";
+import { Typography, makeStyles, Button } from "@material-ui/core";
 import React from 'react';
 import Alert from '@material-ui/lab/Alert';
 import { useEffect, useState } from "react";
-import axios from "axios";
-import Pdf from "react-to-pdf";
 import { useSelector, useDispatch } from "react-redux";
 import AntecedentesPatogolicos from "./AntecedentesPatologicos";
 import AntecedentesNoPatogolicos from "./AntecedentesNoPatologicos";
@@ -11,7 +9,6 @@ import ShowAntecedentesNoPatogolicos from "./ShowAntecedentesNoPatologicos";
 import ShowAntecedentesPatogolicos from "./ShowAntecedentesPatologicos";
 import { searchHistory } from "./actions";
 
-const api = 'http://localhost:3001';
 
 
 const useStyle = makeStyles((theme) => ({
@@ -63,7 +60,6 @@ export default function HistoriaClinica() {
     const [seccion, setSeccion] = useState("");
     const historia = useSelector(state => state.reducerHistory.history)
     const dispatch = useDispatch();
-
 
     /// usamos renderer prop
     function formatName(string) {
