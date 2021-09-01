@@ -35,6 +35,6 @@ conn.sync({ force: true }).then(() => {
   
   console.log("Loaded");
   server.listen(port, () => {
-    console.log("%s listening at ${port}");
+    console.log(`%s listening at ${port}`);
   });
 });

@@ -3,6 +3,7 @@ import Alert from "@material-ui/lab/Alert";
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
+import { API } from '../..';
 
 const useStyle = makeStyles(theme => ({
   magin: {
@@ -55,12 +56,12 @@ function PaymentsConfig() {
   async function captureToken() {
     if (window.location.pathname === "/payments") {
       const token = window.location.href.substring(window.location.href.indexOf("code="), window.location.href.indexOf("&state=client"));
-      console.log(token)
+      console.log(token.substring(5))
       
       const send = await axios({
         method: 'POST',
         url: `${API}/profesionaltoken`,
-        data: {code:token}
+        data: {code:token.substring(5)}
       })
       console.log(send)
       console.log("paso")
