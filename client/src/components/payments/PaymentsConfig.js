@@ -2,8 +2,10 @@ import { Box, makeStyles } from '@material-ui/core';
 import Alert from "@material-ui/lab/Alert";
 import axios from 'axios';
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { API } from '../..';
+import { getInfo } from '../Log/actions';
 
 const useStyle = makeStyles(theme => ({
   magin: {
@@ -52,6 +54,11 @@ const useStyle = makeStyles(theme => ({
 
 function PaymentsConfig() {
   var history = useHistory()
+  const dispatch=useDispatch();
+  const id = useSelector(state => state.reducerLog.info.id);
+  const profile = useSelector(state => state.reducerLog.user)
+
+  
   const classes = useStyle();
   async function captureToken() {
     if (window.location.pathname === "/payments") {
@@ -61,7 +68,7 @@ function PaymentsConfig() {
       const send = await axios({
         method: 'POST',
         url: `${API}/profesionaltoken`,
-        data: {code:token.substring(5)}
+        data: {code:token.substring(5),id:id}
       })
       console.log(send)
       console.log("paso")
@@ -72,11 +79,16 @@ function PaymentsConfig() {
     //     data: values
     // })
   }
+  useEffect(() => {
+    console.log({...profile})
+    dispatch(getInfo({...profile}))
+  })
   //console.log(window.location.href)
   useEffect(() => {
-    captureToken();
-
-  }, [])
+    if(id!==undefined){
+      captureToken();
+    }
+  }, [id])
   return (
     <Box className={classes.box_container}>
       <Box className={classes.box} marginBottom="10px">
