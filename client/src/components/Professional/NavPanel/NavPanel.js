@@ -129,7 +129,7 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     { "Set Horarios": <SetHorario />},
     { "Atención": <Attention />},
     { "Agendar Cita": <NuevaCita /> },
-    { "Managment": <Managment/> },
+    { "Ingresos": <Managment/> },
     {"Treatments": <Treatments/>},
     {"Historia Clinica":<HistoriaClinica/>},
     {"FinalDate" : <FinalDate />},

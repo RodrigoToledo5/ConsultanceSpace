@@ -1,8 +1,8 @@
-import { GET_PATIENT, GET_EARNINGS } from "./actions";
+import { GET_PATIENT, GET_APPOINTMENTS } from "./actions";
 
 const initialState={
     patients:[],
-    earnings:[]
+    earnings:[],
 }
 
 export default function reducerSearchPatients (state=initialState, action){
@@ -12,12 +12,11 @@ export default function reducerSearchPatients (state=initialState, action){
                 ...state,
                 patients: action.payload
             }
-        case GET_EARNINGS:
+        case GET_APPOINTMENTS:
             return {
                 ...state,
                 earnings: action.payload
             }
-
         default:
             return state
     }
