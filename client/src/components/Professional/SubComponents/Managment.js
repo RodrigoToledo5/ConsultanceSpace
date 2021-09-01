@@ -161,7 +161,7 @@ const sumarDias = (date) =>{
   
 
     const rows = [];
-    earnings &&
+    earnings  &&
     earnings.forEach((cita) => {
       const day = cita.date.substring(0,2);
       const month = cita.date.substring(3,5);
@@ -171,7 +171,7 @@ const sumarDias = (date) =>{
       initialDate.setHours(0,0,0,0);
       finalDate.setHours(0,0,0,0);
       // console.log(dates>=initialDate && dates<finalDate )
-      if(dates>=initialDate && dates<finalDate ){
+      if(earnings.treatment && dates>=initialDate && dates<finalDate  ){
         let array = {
           id: cita.id,
           fullName: cita.pacienteFullName,

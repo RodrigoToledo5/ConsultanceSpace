@@ -13,6 +13,7 @@ import {
   Button,
 } from "@material-ui/core";
 import { API } from "../../../..";
+import { useSelector } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   "& .MuiInputBase-root": {
@@ -80,6 +81,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Treatments({citumId, load}) {
   const classes = useStyles();
+  const profesional = useSelector(state=>state.reducerLog.info)
+  const paciente = useSelector(state=>state.reducerLog.actPatient)
   const [treatment, setTreatment] = useState({
     treatmentName: "",
     description: "",
@@ -100,6 +103,7 @@ export default function Treatments({citumId, load}) {
     e.preventDefault();
     if(treatment.treatmentName && treatment.description && treatment.price && treatment.payment_method && treatment.status){
       addTreatment(treatment)
+      sendPayment(profesional.id, paciente.id, treatment.price, treatment.description)
       setTreatment({
         treatmentName: "",
         description: "",
@@ -108,10 +112,7 @@ export default function Treatments({citumId, load}) {
         status: ""
         })
     }
-   
   }
-
-  
 
   const addTreatment = (treatment) => {
     return axios({
@@ -120,6 +121,19 @@ export default function Treatments({citumId, load}) {
       data: treatment
     })
       .then((res)=> {load();})
+  }
+
+  const sendPayment = (idprofesional, idpaciente, price, descripcion) => {
+    return axios({
+      method:"POST",
+      url: `${API}/profesionalpayments`,
+      data: {
+        idprofesional,
+        idpaciente,
+        price,
+        descripcion
+      }
+    }).then(res=> console.log("Pago enviado al paciente"))
   }
 
   return (
