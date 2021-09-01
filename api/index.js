@@ -19,7 +19,7 @@ let port= process.env.PORT||3005
 
 
 
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: true }).then(() => {
   especialidadesjson.forEach(async (especialidad)=>{
     try{
       await Especialidad.findOrCreate({
