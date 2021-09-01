@@ -57,7 +57,7 @@ export default function MyPatients() {
   useEffect(() => {
     if (!firstRender) {
       if(redir==="Hacer Cita") dispatch(redirect(7));
-      if(redir==="Historia Clinica") dispatch(redirect(8));
+      if(redir==="Historia Clinica") dispatch(redirect(10));
     } else {
       setFirstRender(false);
     }

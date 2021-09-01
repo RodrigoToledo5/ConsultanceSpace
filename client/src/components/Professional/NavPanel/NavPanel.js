@@ -123,15 +123,18 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     { "Inventario": <Stock />},
     { "Profesionales": <Professionals />},
     { "Set Horarios": <SetHorario />},
-    { "Atención": <Attention />},
+    { "Ingresos": <Managment/> },
+    /* Rutas ocultas */
     { "Agendar Cita": <NuevaCita /> },
-    { "Managment": <Managment/> },
+    { "Atención": <Attention />},
     {"Treatments": <Treatments/>},
     {"Historia Clinica":<HistoriaClinica/>},
     {"FinalDate" : <FinalDate />},
     {"Configuracion":<Configuracion/>}
   ];
+
   const indexPrivateRoutes = 13; // a partir de este indice loa botones se ocultan
+
 
   useEffect(() => {
 

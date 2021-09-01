@@ -7,6 +7,7 @@ export const GET_MYPATIENTS = 'GET_MYPATIENTS';
 export const REMOVE_MYPATIENTS = 'REMOVE_MYPATIENTS';
 export const CLEAR_MY_PATIENTS = 'CLEAR_MY_PATIENTS';
 export const GET_EARNINGS = 'GET_EARNINGS';
+export const GET_APPOINTMENTS = 'GET_APPOINTMENTS'
 
 export const searchprofesional = (input)=>{
     if(input.includes('@')){
@@ -70,6 +71,22 @@ export const getEarnings = () => {
         dispatch({type: GET_EARNINGS, payload: earnings.data})
     }
 }
+
+export const getAppointment =  (profesionalId, get)=>{
+    return  async (dispatch)=>{
+          await axios({
+             method: 'POST',
+             url: `${api}/cita`,
+             data: 
+             { 
+            profesionalId: profesionalId, 
+             get: get
+             }
+         }).then((res)=> dispatch({type:GET_APPOINTMENTS, payload: res.data})) 
+    }
+ }
+
+
 
 
 

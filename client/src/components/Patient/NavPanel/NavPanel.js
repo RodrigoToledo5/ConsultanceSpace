@@ -104,8 +104,6 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     { "Atención": <Attention /> },
     {"Gestion de pagos": <Managment /> },
     {"Enviar mail": <Mail/> },
-    
-    
   ];
   useEffect(() => {
     updateComponent(<Welcome/>);
