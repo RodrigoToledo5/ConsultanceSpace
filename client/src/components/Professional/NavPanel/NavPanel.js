@@ -122,7 +122,7 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     { "Inventario": <Stock />},
     { "Profesionales": <Professionals />},
     { "Set Horarios": <SetHorario />},
-    { "Managment": <Managment/> },
+    { "Ingresos": <Managment/> },
     /* Rutas ocultas */
     { "Agendar Cita": <NuevaCita /> },
     { "Atención": <Attention />},
