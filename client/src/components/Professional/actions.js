@@ -76,7 +76,7 @@ export const getAppointment =  (profesionalId, get)=>{
     return  async (dispatch)=>{
           await axios({
              method: 'POST',
-             url: `${api}/cita`,
+             url: `${API}/cita`,
              data: 
              { 
             profesionalId: profesionalId, 
