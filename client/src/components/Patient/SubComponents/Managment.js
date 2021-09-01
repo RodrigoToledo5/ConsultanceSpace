@@ -118,7 +118,7 @@ export default function Managment(){
                   <h3  className={classes.title}>Precio $4,000</h3>
                   
                   <Box className={classes.form}>
-                                <form className={classes.form}  action="http://localhost:3001/checkout" method="POST" >
+                                <form className={classes.form}  action="http://localhost:3005/checkout" method="POST" >
                                     <input type="hidden" name="title" value="Opercacion" />
                                     <input type="hidden" name="price" value="4000" />
                                     <Button className={classes.btn} type="submit" value="pagar">pagar</Button>
