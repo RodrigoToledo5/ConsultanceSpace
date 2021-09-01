@@ -15,6 +15,7 @@ import SetHorario from "../SubComponents/SetHorarios/SetHorarios";
 import Treatments from "../SubComponents/Treatments/Treatments";
 import FinalDate from "../SubComponents/Appointment/FinalCita/FinalCita";
 import HistoriaClinica from "../SubComponents/HistoriaClinica/HistoriaClinica";
+import Configuracion from "../SubComponents/ConfiguracionDePagos/Configuracion";
 
 
 const useStyle = makeStyles((theme) => ({
@@ -128,8 +129,9 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     {"Treatments": <Treatments/>},
     {"Historia Clinica":<HistoriaClinica/>},
     {"FinalDate" : <FinalDate />},
+    {"Configuracion":<Configuracion/>}
   ];
-  const indexPrivateRoutes = 11; // a partir de este indice loa botones se ocultan
+  const indexPrivateRoutes = 13; // a partir de este indice loa botones se ocultan
 
   useEffect(() => {
 
