@@ -8,6 +8,7 @@ const router = Router();
 
 router.post("/info", async (req, res, next) => {
   const { email, tipo_usuario} = req.body;
+  console.log(email, tipo_usuario)
   try {
     if(tipo_usuario === "profesional"){
         const prof = await Profesional.findOne({ where: { usuarioEmail: email },include:[Especialidad, Horario] })
