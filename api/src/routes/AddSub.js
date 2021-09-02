@@ -1,16 +1,22 @@
 const { Router } = require("express");
-const { Profesional } = require("../db");
+const { Profesional, Pago } = require("../db");
 const router = Router();
 
 // Enivas ID del profesional y se suman 30 dias a la subscripcion :)
 router.post("/addSub", async (req, res, next) => {
-  const { id } = req.body;
+  const { id, token } = req.body;
+  console.log(id, token)
   try {
-    if (id) {
+    if (id && token) {
       let prof = await Profesional.findOne({
         where: { id: id },
       });
       if (!prof) return res.status(200).send("id incorrecto");
+      console.log(id, token)
+      let pago = await Pago.findOne({
+        where: { profesionalId: id , comprobante:token, completado:false },
+      });
+      if(pago){
       if (subVencida(prof.subscripcion)) {
         prof.subscripcion = dateLinda(new Date().addDays(30));
       } else {
@@ -24,7 +30,9 @@ router.post("/addSub", async (req, res, next) => {
         prof.subscripcion = dateLinda(dates.addDays(30));
       }
       await prof.save();
-      return res.status(200).send(prof);
+      pago.completado = true;
+      await pago.save();
+      return res.status(200).send(prof);}
     }
     return res.status(200).send("id incorrecto");
   } catch (err) {

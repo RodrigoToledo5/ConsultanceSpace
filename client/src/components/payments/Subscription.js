@@ -61,38 +61,25 @@ function Subscripcion() {
   
   const classes = useStyle();
   async function captureToken() {
-    if (window.location.pathname === "/payments") {
-      const token = window.location.href.substring(window.location.href.indexOf("code="), window.location.href.indexOf("&state=client"));
-      console.log(token.substring(5))
-      
+    if (window.location.pathname === "/subscription") {
+      const token = window.location.href.substring(window.location.href.indexOf("wallet="), window.location.href.indexOf("&id="));
+      const id = window.location.href.substring(window.location.href.indexOf("id="), window.location.href.indexOf("&success=done"));
+
       const send = await axios({
         method: 'POST',
-        url: `${API}/profesionaltoken`,
-        data: {code:token.substring(5),id:id}
+        url: `${API}/addSub`,
+        data: {token:token.substring(7),id:id.substring(3)}
       })
-      console.log(send)
-      console.log("paso")
+
     }
-    //   const send = await axios({
-    //     method: 'POST',
-    //     url: `${API}/profesionaltoken`,
-    //     data: values
-    // })
   }
   useEffect(() => {
-    console.log({...profile})
-    dispatch(getInfo({...profile}))
-  })
-  //console.log(window.location.href)
-  useEffect(() => {
-    if(id!==undefined){
       captureToken();
-    }
-  }, [id])
+  }, [captureToken])
   return (
     <Box className={classes.box_container}>
       <Box className={classes.box} marginBottom="10px">
-        <Alert severity="success"> Se configuro su sistema de pagos</Alert>
+        <Alert severity="success"> Se han añadido 30 dias a su subscripcion</Alert>
       </Box>
     </Box>
   );
