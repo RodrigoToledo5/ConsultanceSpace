@@ -9,7 +9,12 @@ import {
   KeyboardDatePicker,
   MuiPickersUtilsProvider,
 } from "@material-ui/pickers";
-import { Container, makeStyles, Typography, TextField } from "@material-ui/core";
+import {
+  Container,
+  makeStyles,
+  Typography,
+  TextField,
+} from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import DialogRequestButton from "../../../Templates/DialogRequestButton";
 import { API } from "../../../..";
@@ -42,9 +47,9 @@ const useStyles = makeStyles((theme) => ({
   input: {
     width: "100px",
   },
-  selectHorario:{
-    width: "150px"
-  }
+  selectHorario: {
+    width: "150px",
+  },
 }));
 
 export default function NewAppointment() {
@@ -61,7 +66,7 @@ export default function NewAppointment() {
   const [email, setEmail] = useState("");
   const [professionalId, setProf] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
-  const [selectedHorario, setSelectedHorario] = useState(null);
+  const [selectedHorario, setSelectedHorario] = useState("");
   const [horarios, setHorarios] = useState(null);
   const [loading, setLoading] = useState(false);
   const [note, setNote] = useState("");
@@ -100,11 +105,11 @@ export default function NewAppointment() {
     giveMeHorarios(date);
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     setHorarios(null);
     setSelectedHorario(null);
     giveMeHorarios(selectedDate);
-  },[appointment]);
+  }, [appointment]);
 
   const handleProfessionalChange = (e) => {
     setProf(e.target.value);
@@ -226,7 +231,7 @@ export default function NewAppointment() {
         let disponibles = prof.horario[dias[selectedDate.getDay()]];
         if (!disponibles) disponibles = [];
         return disponibles.map((hora, i) => (
-          <MenuItem key={i} value={hora} disabled={!(horarios.includes(hora))}>
+          <MenuItem key={i} value={hora} disabled={!horarios.includes(hora)}>
             {`${hora}${horarios.includes(hora) ? "" : " (YA RESERVADO)"}`}
           </MenuItem>
         ));
@@ -234,7 +239,6 @@ export default function NewAppointment() {
     }
     return [];
   };
-
   const handleHorarioSelect = (e) => {
     setSelectedHorario(e.target.value);
   };
@@ -288,13 +292,13 @@ export default function NewAppointment() {
               onChange={handleProfessionalChange}
             >
               {professionals.profesionals &&
-                professionals.profesionals.map((option) => (
-                  <>
-                  {option.profesionalPaciente.disable? null :
-                  <MenuItem key={option.id} value={option.id}>
-                     {option.fullName}
-                  </MenuItem>}</>
-                ))}
+                professionals.profesionals
+                  .filter((option) => !option.profesionalPaciente.disable)
+                  .map((pro) => (
+                    <MenuItem key={pro.id} value={pro.id}>
+                      {pro.fullName}
+                    </MenuItem>
+                  ))}
             </TextField>
             {agendarButton()}
           </Grid>
