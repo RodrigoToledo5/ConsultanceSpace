@@ -99,12 +99,13 @@ export default function Treatments({citumId, load}) {
     });
   };
 
+  
   const onSubmit = (e)=>{
     e.preventDefault();
     if(treatment.treatmentName && treatment.description && treatment.price && treatment.payment_method && treatment.status){
         if(treatment.payment_method === "tarjeta de credito" || treatment.payment_method === "tarjeta de debito" ){
           addTreatment(treatment)
-          sendPayment(profesional.id, paciente.id, treatment.price, treatment.description)
+          sendPayment(profesional.id, paciente.id, treatment.price, treatment.treatmentName, treatment.description)
           setTreatment({
             treatmentName: "",
             description: "",
@@ -137,7 +138,7 @@ export default function Treatments({citumId, load}) {
       .then((res)=> {load();})
   }
 
-  const sendPayment = (idprofesional, idpaciente, price, descripcion) => {
+  const sendPayment = (idprofesional, idpaciente, price, title, descripcion) => {
     return axios({
       method:"POST",
       url: `${API}/profesionalpayments`,
@@ -145,6 +146,7 @@ export default function Treatments({citumId, load}) {
         idprofesional,
         idpaciente,
         price,
+        title,
         descripcion
       }
     }).then(res=> console.log("Pago enviado al paciente"))
