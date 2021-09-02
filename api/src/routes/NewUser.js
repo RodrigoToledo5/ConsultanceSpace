@@ -21,6 +21,7 @@ const {
   Horario,
   Pago
 } = require("../db");
+const CLIENT = require("../..");
 const router = Router();
 
 //ROUTE TO CREATE PATIENTS AND PROFESSIONALS
@@ -126,9 +127,9 @@ router.post("/newUser", async (req, res, next) => {
         ],
         /* "purpose": 'wallet_purchase', */
         "back_urls": {
-            "success": `http://localhost:3000/succes?wallet=${comprobante}&id=${createdProfesional.id}`,
-            "failure": "http://localhost:3000/failure",
-            "pending": "http://localhost:3000/pending"
+            "success": `${CLIENT}/succes?wallet=${comprobante}&id=${createdProfesional.id}`,
+            "failure": `${CLIENT}/failure`,
+            "pending": `${CLIENT}/pending`
         },
         "auto_return": "approved",
         
@@ -160,8 +161,8 @@ router.post("/newUser", async (req, res, next) => {
       transporter.sendMail({
         from: GMAIL,
         to: email,
-        subject: 'Pago de la suscripcion',
-        text: 'Paga la suscripcion por favor ' + response.body.init_point,
+        subject: 'Informacion de la suscripcion a ConsultanceSpace',
+        text: 'Felicidades por comenzar con ConsultanceSpace, actualmente se te ha dado un mes de suscripcion gratuito si quieres agregar un mes mas puedes adquirirlo en el siguiente link  ' + response.body.init_point,
       },function(error,info){
         if(error){
           console.log("hubo un error")
