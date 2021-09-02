@@ -75,6 +75,7 @@ router.post("/newUser", async (req, res, next) => {
         direccion: address,
         fecha_de_nacimiento: birth,
         pais: country,
+        subscripcion: dateLinda((new Date).addDays(30)),
       });
       await createdProfesional.setUsuario(email);
 
@@ -105,5 +106,24 @@ router.get("/specialtys", async (req, res, next) => {
   const specialties = await Especialidad.findAll();
   res.status(200).json(specialties);
 });
+
+// AUXILIAR FUNCS
+
+//Deja las dates como un bello string
+const dateLinda = (date) => {
+  const dateStr = date.toString().substr(0, 21);
+  let month = date.getMonth() + 1;
+  month = month > 9 ? month.toString() : "0" + month.toString();
+  return (
+    dateStr.substring(8, 10) + "/" + month + "/" + dateStr.substring(11, 15)
+  );
+};
+
+//Asi es el prototipado champagne
+Date.prototype.addDays = function(days) {
+  var date = new Date(this.valueOf());
+  date.setDate(date.getDate() + days);
+  return date;
+}
 
 module.exports = router;

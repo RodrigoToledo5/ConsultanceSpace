@@ -20,6 +20,6 @@ router.use(require("./DisablePatients"))
 router.use(require("./horarios"))
 router.use(require("./AddPatients"));
 router.use(require("./MedicalRecord"));
-
+router.use(require("./AddSub"));
 
 module.exports = router;

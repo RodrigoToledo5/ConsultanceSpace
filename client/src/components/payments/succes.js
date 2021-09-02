@@ -1,6 +1,10 @@
 import {  Box,makeStyles} from '@material-ui/core';
 import Alert from "@material-ui/lab/Alert";
 import { useHistory } from 'react-router-dom';
+import { API } from '../..';
+import { getInfo } from '../Log/actions';
+import axios from "axios";
+import { useSelector } from 'react-redux';
 
 const useStyle=makeStyles(theme=>({
   magin:{
@@ -47,10 +51,21 @@ const useStyle=makeStyles(theme=>({
 }))
 
 function Succes() {
-  var history = useHistory()
+  const info = useSelector((store) => store.reducerLog.info);
+  const user = useSelector((store) => store.reducerLog.user);
+  var history = useHistory();
   function checkPath(){
     setTimeout(()=>history.push('/'), 5000)
     if(window.location.pathname.includes('/succes')){
+      axios({
+        method: "POST",
+        url: `${API}/addSub`,
+        data: {
+          id: info.id
+        },
+      }).then(function (response) {
+        getInfo({...user});
+      });
       return 'succes'
     }
     if(window.location.pathname.includes('/failure')){
@@ -67,7 +82,7 @@ function Succes() {
         <Box className={classes.box} marginBottom="10px">
 
           {
-            checkPath() === 'succes' && <Alert severity="success"> Se realizo el pago </Alert>
+            checkPath() === 'succes' && <Alert severity="success"> Se han agregado 30 dias a su subscripcion </Alert>
           }
           {
             checkPath() === 'failure' && <Alert severity="error"> El pago fallo </Alert>

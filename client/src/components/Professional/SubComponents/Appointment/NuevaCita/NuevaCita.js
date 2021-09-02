@@ -55,7 +55,6 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 export default function NuevaCita() {
-  const api = "http://localhost:3001";
   const classes = useStyle();
   const forInfo = useSelector((store)=>store.reducerLog.user);
   const user = useSelector((store) => store.reducerLog.info);
