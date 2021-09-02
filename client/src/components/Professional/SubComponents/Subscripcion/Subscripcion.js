@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { redirect } from "../../../Log/actions";
 import Payout from "./Payout/Payout";
-
+import Alert from "@material-ui/lab/Alert";
 const useStyle = makeStyles((theme) => ({}));
 
 //Administra el componente a renderizar y muestra los botones y opciones
@@ -37,7 +37,8 @@ export default function Subscripcion({
   }, [info]);
 
 
-  return <Box>{
+  return <Box>
+    {
     death? ` Su subscripcion ha terminado el ${info.subscripcion}` :
     ` Su subscripcion termina el ${info.subscripcion}`}
     <Payout />
