@@ -136,7 +136,7 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     {"FinalDate" : <FinalDate />},
   ];
 
-  const indexPrivateRoutes = 8; //partir de este indice loa botones se ocultan
+  const indexPrivateRoutes = 9; //partir de este indice loa botones se ocultan
 
 
   useEffect(() => {
