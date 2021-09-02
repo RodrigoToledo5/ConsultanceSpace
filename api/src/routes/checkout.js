@@ -21,12 +21,13 @@ router.use(express.json());
     //Routes
     router.post('/checkout', (req, res, next) => {
         console.log("back_urls")
+        const {price}=req.body
     // Crea un objeto de preferencia
     let preference = {
         items: [
         {
             title: req.body.title,
-            unit_price: parseInt(req.body.price),
+            unit_price: parseInt(price),//un precio 1000
             quantity: 1,
         },
         ],
@@ -43,10 +44,8 @@ router.use(express.json());
     
     mercadopago.preferences.create(preference)
     .then(function(response){
-
         //console.log(response.body)
         res.redirect(response.body.init_point)
-   
     }).catch(function(error){
         console.log(error);
     });

@@ -90,6 +90,11 @@ router.post("/newUser", async (req, res, next) => {
         emptyArr,
       });
       await stock.setUsuario(email);
+      /////////
+
+
+
+      ////////
       return res.status(200).json(createdProfesional);
     } catch (err) {
       next(err);
