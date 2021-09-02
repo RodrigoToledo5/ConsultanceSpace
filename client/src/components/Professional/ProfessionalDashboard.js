@@ -1,8 +1,8 @@
-import { Box, Container, makeStyles } from "@material-ui/core";
+import { Box, Container, makeStyles,Typography } from "@material-ui/core";
 import NavPanel from "./NavPanel/NavPanel";
 import React, {useEffect, useState} from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import { getInfo } from "../Log/actions";
+import { getInfo, redirect } from "../Log/actions";
 import Alert from "@material-ui/lab/Alert";
 import MenuIcon from '@material-ui/icons/Menu';
 import CloseIcon from '@material-ui/icons/Close';
@@ -98,6 +98,11 @@ const useStyle=makeStyles(theme=>({
     field:{
         padding: '0'
     },
+    alert:{
+        margin:"10px",
+        minWidth:"200px",
+        borderRadius:"5px"
+    }
     
     
 }))
@@ -109,7 +114,12 @@ export default function Dashboard(){
     const [showMenu, setShowMenu] = useState(false);
     const [editprofile, setEditProfile] = useState(false);
     const user = useSelector((store) => store.reducerLog.user);
+    const token = useSelector(state => state.reducerLog.info.token)
     const dispatch = useDispatch();
+    
+    function handleredirect(){
+        dispatch(redirect(8))
+    }
 
     useEffect(()=>{
         dispatch(getInfo({...user}));
@@ -149,12 +159,21 @@ export default function Dashboard(){
                     })
                     :
                     <>
-                        <Alert  severity="warning">
-                            Por favor configure su especialidad en la sección Mi Perfil para que los pacientes puedan buscarlo por su especialidad <a href="#" onClick={() => handleEdit()}>Aquí</a>
+                        <Alert className={classes.alert} severity="warning">
+                            <Typography className={classes.text}>
+                                Por favor configure su especialidad en la sección Mi Perfil para que los pacientes puedan buscarlo por su especialidad <a href="#" onClick={() => handleEdit()}>Aquí</a>
+                            </Typography>
                         </Alert>
                         {editprofile && <Profile handleEdit={handleEdit}/>}
                     </>}
+                    {!token&&
+                        <Alert className={classes.alert}  severity="warning">
+                             <Typography className={classes.text}>
+                                Por favor configure su sistema de pagos en configuración <a href="#" onClick={() => handleredirect()}>Aquí</a>
+                            </Typography>
+                        </Alert>}
                     </Box>
+                    
                 </Box>
                 <Box className ={classes.field}>{actComponent}</Box>
             </Box>
