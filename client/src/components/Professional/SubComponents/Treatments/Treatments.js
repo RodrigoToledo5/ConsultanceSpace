@@ -102,15 +102,29 @@ export default function Treatments({citumId, load}) {
   const onSubmit = (e)=>{
     e.preventDefault();
     if(treatment.treatmentName && treatment.description && treatment.price && treatment.payment_method && treatment.status){
-      addTreatment(treatment)
-      sendPayment(profesional.id, paciente.id, treatment.price, treatment.description)
-      setTreatment({
-        treatmentName: "",
-        description: "",
-        price: 0,
-        payment_method: "",
-        status: ""
-        })
+        if(treatment.payment_method === "tarjeta de credito" || treatment.payment_method === "tarjeta de debito" ){
+          addTreatment(treatment)
+          sendPayment(profesional.id, paciente.id, treatment.price, treatment.description)
+          setTreatment({
+            treatmentName: "",
+            description: "",
+            price: 0,
+            payment_method: "",
+            status: ""
+            })
+        }
+        else{
+          addTreatment(treatment)
+          setTreatment({
+            treatmentName: "",
+            description: "",
+            price: 0,
+            payment_method: "",
+            status: ""
+            })
+
+        }
+      
     }
   }
 
