@@ -46,7 +46,6 @@ export default function Managment() {
   const [finalDate, setFinalDate] = useState(new Date())
   const profesionalId = useSelector((state)=> state.reducerLog.info)
   const earnings = useSelector(state=> state.reducerSearchPatients.earnings)
-  const patient = useSelector(state=>state.reducerSearchPatients.patient)
   const get = true;
 
   
@@ -170,15 +169,14 @@ const sumarDias = (date) =>{
       dates.setHours(0,0,0,0);
       initialDate.setHours(0,0,0,0);
       finalDate.setHours(0,0,0,0);
-      // console.log(dates>=initialDate && dates<finalDate )
-      if(earnings.treatment && dates>=initialDate && dates<finalDate  ){
+      if( cita.tratamientos.length>0 && dates>=initialDate && dates<finalDate  ){
         let array = {
           id: cita.id,
           fullName: cita.pacienteFullName,
           lastName:  cita.note,
           dateOfPay: cita.date.substring(0,10),
-          treatment: cita.tratamientos[0].treatmentName,
-          paymentValue: cita.tratamientos[0].price,
+          treatment: cita.tratamientos ? cita.tratamientos[0].treatmentName : "",
+          paymentValue: cita.tratamientos ? cita.tratamientos[0].price : "",
         }
         rows.push(array);
       }
