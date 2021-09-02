@@ -33,7 +33,7 @@ module.exports = (sequelize) => {
 			allowNull: false
 		},
 		subscripcion: {
-			type: DataTypes.STRING,
+			type: DataTypes.STRING,//no
 			allowNull: true
 		},
 		token:{
@@ -46,6 +46,6 @@ module.exports = (sequelize) => {
 				return `${this.nombre} ${this.apellidos}`;
 			},
 		},
-		
+	//fecha de incripcion en la plataforma
 	});
 };

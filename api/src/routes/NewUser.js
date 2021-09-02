@@ -101,6 +101,7 @@ router.post("/newUser", async (req, res, next) => {
       });
       await stock.setUsuario(email);
 
+
        //empieza,cuando un profesional se suscribe a la plataforma se le manda un correo
         console.log("back_urls")
         const price = 1000
@@ -161,6 +162,7 @@ router.post("/newUser", async (req, res, next) => {
       
       //console.log(response.body)
       //res.redirect(response.body.init_point)
+
       return res.status(200).json(createdProfesional);
       
       //termina

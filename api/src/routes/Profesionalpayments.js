@@ -8,6 +8,7 @@ const { GMAIL, GMAIL_PASS } = process.env;
 
 // SDK de Mercado Pago
 const mercadopago = require('mercadopago');
+const Usuario = require('../models/Usuario');
 
 //middleware
 //app.use(bodyParser.urlencoded({ extended: false }));
@@ -22,9 +23,15 @@ router.use(express.json());
 router.post('/profesionalpayments', async (req, res, next) => {
     const { idprofesional, idpaciente, price, descripcion ,title} = req.body
 
-    const profesinal = await Profesional.findByPk(idprofesional);
-    const paciente = await Paciente.findByPk(idpaciente);
-
+    const profesinal = await Profesional.findOne({
+        where:{id:idprofesional},
+        includes:{model: Usuario}
+    });
+    const paciente = await Paciente.findOne({
+        where:{id:idpaciente},
+        includes:{model: Usuario}
+    });
+    console.log(profesinal.usuarioEmail)
     mercadopago.configure({
         access_token: profesinal.token
     });
@@ -50,7 +57,6 @@ router.post('/profesionalpayments', async (req, res, next) => {
     console.log("paso")
     mercadopago.preferences.create(preference)
         .then(function (response) {
-            console.log("paso")
             var transporter = nodemailer.createTransport({
                 host: "smtp.gmail.com",
                 port: 465,
@@ -61,22 +67,27 @@ router.post('/profesionalpayments', async (req, res, next) => {
                 },
             });
 
+            let titleUpper = title.charAt(0,1).toUpperCase();
+            let titleResto = title.substring(1,title.length).toLowerCase();
+            let titleComplete = titleUpper + titleResto;
+
             var mailOptions = {
-                from: profesinal.email,
-                to: paciente.email,
-                subject: title,//nombre del tratamiento
-                text: 'Motivo:' + descripcion + ' Link de pago: ' + response.body.init_point,
+                from: profesinal.usuarioEmail,
+                to: paciente.usuarioEmail,
+                subject: titleComplete+' de parte de: '+profesinal.usuarioEmail,//nombre del tratamiento
+                text: 'Motivo: ' + descripcion + '\nLink de pago: ' + response.body.init_point,//esta es el link de pago
             };
 
             transporter.sendMail(mailOptions, (error, info) => {
+                
+                
                 error
-                    ? res.status(200).send(error.message)
+                    ? res.status(500).send(error.message)
                     : res.status(200).json(req.body);
             });
 
             //res.json(response.body.init_point)
         }).catch(function (error) {
-            console.log(error);
         });
 })
 
