@@ -74,7 +74,6 @@ const useStyles = makeStyles((theme) => ({
     marginRight: "20px",
   },
   formAdress: {
-    marginLeft: "10px",
     "@media (max-width : 500px)": {
       marginLeft: "0",
     },
@@ -137,6 +136,9 @@ const useStyles = makeStyles((theme) => ({
       fontSize: "15px",
     },
   },
+  grids: {
+    width: "100%"
+  }
 }));
 
 export default function Sign() {
@@ -478,7 +480,7 @@ export default function Sign() {
                   />
                 </FormControl>
               </Grid>
-              <Grid item md={12}>
+              <Grid item md={12} className={classes.grids}>
                 <FormControl className={classes.form}>
                   <TextField
                     label="Telefono"
@@ -495,7 +497,7 @@ export default function Sign() {
                     autoComplete="off"
                   />
                 </FormControl>
-                <FormControl className={classes.form}>
+                <FormControl className={classes.form} style={{width: "46%"}}>
                   <TextField
                     // helperText="Fecha de nacimiento"
                     id="birth"
@@ -511,7 +513,7 @@ export default function Sign() {
                   />
                 </FormControl>
               </Grid>
-              <Grid item md={12}>
+              <Grid item md={12} className={classes.grids}>
                 <FormControl className={clsx(classes.form, classes.formAdress)}>
                   <TextField
                     label="Dirección"
@@ -529,6 +531,7 @@ export default function Sign() {
                 <FormControl
                   variant="outlined"
                   className={clsx(classes.formControl)}
+                  style={{width: "46%", margin: "3% 0 0 3%"}}
                 >
                   <InputLabel id="demo-simple-select-outlined-label">
                     Selecciona tu pais
@@ -544,6 +547,7 @@ export default function Sign() {
                     value={patient.country}
                     error={errors.country && errors.country.length > 0}
                     helperText={errors.country}
+                    style={{width: "100%"}}
                   >
                     {countries &&
                       countries.map((country, i) => {
