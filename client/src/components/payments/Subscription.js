@@ -42,10 +42,14 @@ const useStyle = makeStyles(theme => ({
     },
   },
   box: {
+    height:"400px",
     width: "300px",
+    marginTop:"20vh",
     '@media (min-width:600px)': {
       width: "600px",
-      margin: "10px"
+      margin: "10px",
+      marginTop:"35vh",
+      
     }
   },
 
@@ -60,26 +64,40 @@ function Subscripcion() {
 
   
   const classes = useStyle();
-  async function captureToken() {
-    if (window.location.pathname === "/subscription") {
-      const token = window.location.href.substring(window.location.href.indexOf("wallet="), window.location.href.indexOf("&id="));
-      const id = window.location.href.substring(window.location.href.indexOf("id="), window.location.href.indexOf("&success=done"));
+  // async function captureToken() {
+  //   if (window.location.pathname === "/subscription") {
+  //     const token = window.location.href.substring(window.location.href.indexOf("wallet="), window.location.href.indexOf("&id="));
+  //     const id = window.location.href.substring(window.location.href.indexOf("id="), window.location.href.indexOf("&success=done"));
 
-      const send = await axios({
-        method: 'POST',
-        url: `${API}/addSub`,
-        data: {token:token.substring(7),id:id.substring(3)}
-      })
+  //     const send = await axios({
+  //       method: 'POST',
+  //       url: `${API}/addSub`,
+  //       data: {token:token.substring(7),id:id.substring(3)}
+  //     })
 
-    }
-  }
+  //   }
+  // }
   useEffect(() => {
+    async function captureToken() {
+      if (window.location.pathname === "/subscription") {
+        const token = window.location.href.substring(window.location.href.indexOf("wallet="), window.location.href.indexOf("&id="));
+        const id = window.location.href.substring(window.location.href.indexOf("id="), window.location.href.indexOf("&success=done"));
+        
+        const send = await axios({
+          method: 'POST',
+          url: `${API}/addSub`,
+          data: {token:token.substring(7),id:id.substring(3)}
+        })
+  
+      }
+    } 
+      console.log(window.location.href.substring(window.location.href.indexOf("id=")))
       captureToken();
-  }, [captureToken])
+  }, [])
   return (
     <Box className={classes.box_container}>
       <Box className={classes.box} marginBottom="10px">
-        <Alert severity="success"> Se han añadido 30 dias a su subscripcion</Alert>
+        {window.location.href.indexOf("id=")!==-1&&<Alert severity="success"> Se han añadido 30 dias a su subscripcion</Alert>}
       </Box>
     </Box>
   );
