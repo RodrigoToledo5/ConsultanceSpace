@@ -37,9 +37,9 @@ export default function Professionals(){
     const [redir, setRedir] = useState("")
     const actPatient = useSelector((store) => store.reducerLog.actPatient);//target 
     const user = useSelector((store) => store.reducerLog.user);
-    const patients = useSelector(
-        (store) => store.reducerSearchProfesional.profesionales
-      );
+    // const patients = useSelector(
+    //     (store) => store.reducerSearchProfesional.profesionales
+    //   );
     useEffect(() => {
         if(redir==="Enviar mail"){
 

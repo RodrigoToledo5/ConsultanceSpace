@@ -1,4 +1,4 @@
-import { Box, Typography, makeStyles } from "@material-ui/core";
+import { Box, makeStyles } from "@material-ui/core";
 import Appointments from './Appointment/Appointments'
 import NewAppointment from './Appointment/NewAppointment'
 

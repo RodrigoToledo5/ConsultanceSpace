@@ -1,10 +1,10 @@
-import { Box, Button, makeStyles } from "@material-ui/core";
+import { Box } from "@material-ui/core";
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { redirect } from "../../../Log/actions";
+import { useSelector } from "react-redux";
+//import { redirect } from "../../../Log/actions";
 import Payout from "./Payout/Payout";
 import Alert from "@material-ui/lab/Alert";
-const useStyle = makeStyles((theme) => ({}));
+//const useStyle = makeStyles((theme) => ({}));
 
 //Administra el componente a renderizar y muestra los botones y opciones
 export default function Subscripcion({
@@ -12,9 +12,9 @@ export default function Subscripcion({
   showMenu,
   setShowMenu,
 }) {
-  const classes = useStyle();
-  const rerender = useSelector((store) => store.reducerLog.redirect);
-  const dispatch = useDispatch();
+  //const classes = useStyle();
+  //const rerender = useSelector((store) => store.reducerLog.redirect);
+  //const dispatch = useDispatch();
   const info = useSelector((store) => store.reducerLog.info);
   const [death, setDeath] = useState(false);
 
@@ -24,7 +24,7 @@ export default function Subscripcion({
     const year = match.substring(6,10);
     const dates = new Date (month + "/" +  day  + "/" +  year);
     dates.setHours(0,0,0,0);
-    const today = new Date;
+    const today = new Date();
     today.setHours(0,0,0,0);
     return dates < today
 

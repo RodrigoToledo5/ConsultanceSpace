@@ -23,7 +23,7 @@ const useStyle=makeStyles(theme=>({
 
 }))
 
-export default function ButtonProfile({onClick:onClick}){
+export default function ButtonProfile({onClick}){
     const user=useUser();
     const classes=useStyle();
     const firebase=useFirebaseApp();

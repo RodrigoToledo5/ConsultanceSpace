@@ -3,7 +3,7 @@ import es from "date-fns/locale/es";
 import { Box, Typography, makeStyles, Grid,  } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAppointment, getPatientPay } from "../actions";
+import { getAppointment } from "../actions";
 import { DataGrid } from '@material-ui/data-grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {

@@ -1,7 +1,7 @@
 import { Typography, makeStyles, Button, Box } from "@material-ui/core";
 import React from 'react';
 import Alert from '@material-ui/lab/Alert';
-import { useEffect, useState } from "react";
+//import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import IMG from"../../../../assets/img/configuracion/configuracion.gif"
 
@@ -73,14 +73,14 @@ const useStyle = makeStyles((theme) => ({
     }
 }));
 
-var ref = React.createRef();
+//var ref = React.createRef();
 
 
 export default function Configuracion() {
-    const patient = useSelector((store) => store.reducerLog.actPatient);
+    //const patient = useSelector((store) => store.reducerLog.actPatient);
     const classes = useStyle();
-    const historia = useSelector(state => state.reducerHistory.history)
-    const dispatch = useDispatch();
+    //const historia = useSelector(state => state.reducerHistory.history)
+    //const dispatch = useDispatch();
 
 
     /// usamos renderer prop

@@ -121,8 +121,8 @@ const useStyle = makeStyles(theme => ({
 }))
 
 
-export default function Profile({ onClick ,handleEdit:handleEdit}) {
-    let history = useHistory();
+export default function Profile({ onClick ,handleEdit}) {
+    //let history = useHistory();
     const classes = useStyle();
     const user = useUser();
     const countries = useSelector((state) => state.reducerSign.countries);

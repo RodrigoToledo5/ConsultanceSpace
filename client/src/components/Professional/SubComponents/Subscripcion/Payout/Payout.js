@@ -2,7 +2,6 @@ import { Box, Typography, makeStyles, Button, Card} from "@material-ui/core";
 import React from 'react';
 import { API } from "../../../../..";
 import { useSelector } from "react-redux";
-
 const useStyle = makeStyles((theme) => ({
   principal: {
     marginTop: "15px",

@@ -1,4 +1,4 @@
-import { Box, Typography, makeStyles, InputLabel, Button } from "@material-ui/core";
+import { Typography, makeStyles, Button } from "@material-ui/core";
 import { Formik, Field, Form,ErrorMessage } from 'formik'
 import Alert from '@material-ui/lab/Alert';
 import { useEffect, useState } from "react";
@@ -83,7 +83,7 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 
-export default function AntecedentesNoPatogolicos({idPaciente:idPaciente,setActualizar}) {
+export default function AntecedentesNoPatogolicos({ idPaciente,setActualizar }) {
     const [hassend, setHasSend] = useState(false)
     const classes = useStyle();
     const historia = useSelector(state => state.reducerHistory.history)

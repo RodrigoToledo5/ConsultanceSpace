@@ -1,4 +1,4 @@
-import { Box, Typography, makeStyles, responsiveFontSizes } from "@material-ui/core";
+import {  makeStyles } from "@material-ui/core";
 import Carousel from "react-material-ui-carousel";
 import img1 from "../../../assets/img/etc/welcome.jpg";
 import img2 from "../../../assets/img/etc/welcome1.jpg";

@@ -24,7 +24,7 @@ export default function Attention(){
     return(
         <Box className={classes.box}>
             <Typography variant='h4' color='blue'>Attention</Typography>
-            <img src={devImg} />
+            <img src={devImg} alt="attention Patient" />
         </Box>
     )
 }

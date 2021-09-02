@@ -48,7 +48,7 @@ const useStyle = makeStyles(theme => ({
         fontSize: "10px"
     }
 }))
-export default function ButtonProfileActive({ onClick, setLogFlag: setLogFlag, setProfile: setProfile }) {
+export default function ButtonProfileActive({ onClick, setLogFlag, setProfile }) {
     const [editprofile, setEditProfile] = useState(false);
     const profile = useSelector(state => state.reducerLog.user)
     const info = useSelector(state => state.reducerLog.info)
@@ -78,7 +78,7 @@ export default function ButtonProfileActive({ onClick, setLogFlag: setLogFlag, s
             </Button>
             <Box className={classes.menu}>
                 <Button className={classes.head}>
-                    <img className={classes.pick} src={checkpick()}></img>
+                    <img className={classes.pick} src={checkpick()} alt="desconocido"></img>
                 </Button>
                 <Button className={classes.head}>
                     {info && info.fullName}

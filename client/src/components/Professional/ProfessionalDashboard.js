@@ -56,6 +56,7 @@ const useStyle=makeStyles(theme=>({
             display: 'flex',
             justifyContent: 'flexStart',
             position: 'absolute',
+            cursor: 'pointer',
             width: '50px',
             transition: '3s ease all'
         },
@@ -69,6 +70,7 @@ const useStyle=makeStyles(theme=>({
             display: 'flex',
             justifyContent: 'flexStart',
             position: 'absolute',
+            cursor: 'pointer',
             transition: '1s ease all'
         },
     },

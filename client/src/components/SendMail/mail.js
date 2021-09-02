@@ -84,13 +84,6 @@ const useStyle = makeStyles((theme) => ({
         fontFamily: "Lato",
         fontSize: "30px"
     },
-    title: {
-        margin: "10px",
-        textAlign: "center",
-        fontFamily: "Lato",
-        fontSize: "30px"
-    }
-
 }));
 
 export default function Mail(){

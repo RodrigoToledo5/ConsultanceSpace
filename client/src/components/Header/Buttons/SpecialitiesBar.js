@@ -79,7 +79,7 @@ const useStyle=makeStyles(theme=>({
     position:"fixed",
 },
 }))
-export default function SpecialitiesBar({setEspecialidad:setEspecialidad}){
+export default function SpecialitiesBar({setEspecialidad}){
     const dispatch = useDispatch();
     const classes=useStyle();
     useEffect(()=>{

@@ -3,7 +3,7 @@ import Alert from "@material-ui/lab/Alert";
 import axios from 'axios';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+//import { useHistory } from 'react-router-dom';
 import { API } from '../..';
 import { getInfo } from '../Log/actions';
 
@@ -53,7 +53,7 @@ const useStyle = makeStyles(theme => ({
 
 
 function PaymentsConfig() {
-  var history = useHistory()
+  //var history = useHistory()
   const dispatch=useDispatch();
   const id = useSelector(state => state.reducerLog.info.id);
   const profile = useSelector(state => state.reducerLog.user)
