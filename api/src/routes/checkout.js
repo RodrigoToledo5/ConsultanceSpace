@@ -1,8 +1,7 @@
 const express = require('express');
 const { Router } = require("express");
 const router = Router();
-const { Profesional, Paciente } = require("../db");
-//const bodyParser = require('body-parser')
+
 
 // SDK de Mercado Pago
 const mercadopago = require ('mercadopago');
@@ -14,7 +13,7 @@ router.use(express.json());
 
     // Agrega credenciales
     mercadopago.configure({
-        access_token: 'TEST-4368674018898438-082515-54ad589484f8898752167ffad077862b-812337429'
+        access_token: 'APP_USR-5695753117844767-081805-6df2734e30e78f9a416ef743c8da938b-249576982'
     });
     
 
