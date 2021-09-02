@@ -17,8 +17,7 @@ const {especialidadesjson}  = require("./especialidades.js");
 const {Especialidad} = require('./src/db');
 let port= process.env.PORT||3005
 
-// CLIENT PARA LAS REDIRECCIONES DE PAGO DE SUBSCRIPCION, CAMBIAR AL HACER DEPLOY O LO QUE SEA
-const CLIENT = "http://localhost:3001"
+
 
 conn.sync({ force: false }).then(() => {
   especialidadesjson.forEach(async (especialidad)=>{
@@ -40,4 +39,3 @@ conn.sync({ force: false }).then(() => {
   });
 });
 
-module.exports = CLIENT;

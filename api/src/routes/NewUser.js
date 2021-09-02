@@ -21,7 +21,7 @@ const {
   Horario,
   Pago
 } = require("../db");
-const CLIENT = require("../..");
+const { CLIENT } = process.env;
 const router = Router();
 
 //ROUTE TO CREATE PATIENTS AND PROFESSIONALS
@@ -127,7 +127,7 @@ router.post("/newUser", async (req, res, next) => {
         ],
         /* "purpose": 'wallet_purchase', */
         "back_urls": {
-            "success": `${CLIENT}/succes?wallet=${comprobante}&id=${createdProfesional.id}`,
+            "success": `${CLIENT}/subscription?wallet=${comprobante}&id=${createdProfesional.id}`,
             "failure": `${CLIENT}/failure`,
             "pending": `${CLIENT}/pending`
         },

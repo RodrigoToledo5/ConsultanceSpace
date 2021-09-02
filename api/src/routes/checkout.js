@@ -1,14 +1,15 @@
 const express = require('express');
 const { Router, response } = require("express");
 const router = Router();
-const { Profesional, Paciente } = require("../db");
-const CLIENT = require('../..');
+const { Profesional, Paciente, Pago } = require("../db");
+const {uuid} =require('uuidv4');
+const { CLIENT } = process.env;
+
 //const bodyParser = require('body-parser')
 
 
 // SDK de Mercado Pago
 const mercadopago = require ('mercadopago');
-
 
 //middleware
 //app.use(bodyParser.urlencoded({ extended: false }));
@@ -17,13 +18,15 @@ router.use(express.json());
 
     // Agrega credenciales
     mercadopago.configure({
-        access_token: 'APP_USR-5695753117844767-081805-6df2734e30e78f9a416ef743c8da938b-249576982'
+        access_token: "TEST-2493068614496087-083120-0c3b82567a44843c9b0b934a8f58510d-816657501" ,
+        //access_token: 'APP_USR-5695753117844767-081805-6df2734e30e78f9a416ef743c8da938b-249576982'
     });
 
 
     //Routes
     router.post('/checkout', (req, res, next) => {
         console.log("back_urls")
+        console.log(req.body);
         const price=1000;
         const {id}=req.body
         const comprobante=uuid();

@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { API } from "../../../../..";
+import { useSelector } from "react-redux";
 
 const FORM_ID = 'payment-form';
 
@@ -94,7 +95,7 @@ const useStyle = makeStyles((theme) => ({
 
 export default function Payout(){
     const classes = useStyle();
-
+    const profesionalId = useSelector(state => state.reducerLog.info.id)
     return(
         <Box className={classes.principal}>
         <Box className={classes.container}>
@@ -119,7 +120,7 @@ export default function Payout(){
                   <Box className={classes.form}>
                                 <form className={classes.form}  action={`${API}/checkout`} method="POST" >
                                     <input type="hidden" name="title" value="Subscripcion Consultance Space" />
-                                    <input type="hidden" name="price" value="1000" />
+                                    <input type="hidden" name="id" value={profesionalId} />
                                     <Button className={classes.btn} type="submit" value="pagar">pagar</Button>
                                     
                                 </form>
