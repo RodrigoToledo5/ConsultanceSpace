@@ -1,16 +1,10 @@
-import { Box, Typography, makeStyles, Button } from "@material-ui/core";
-//importaciones para mercadopago
+import { Box, Typography, makeStyles, Button, Card} from "@material-ui/core";
 import React from 'react';
-//import { useParams } from "react-router-dom";
-//import axios from "axios";
 import { API } from "../../../../..";
 import { useSelector } from "react-redux";
-
-//const FORM_ID = 'payment-form';
-
 const useStyle = makeStyles((theme) => ({
   principal: {
-    marginTop: "60px",
+    marginTop: "15px",
     display: "flex",
     justifyContent: "center",
     // backgroundColor: 'blue',
@@ -33,13 +27,13 @@ const useStyle = makeStyles((theme) => ({
   },
   container: {
     marginBottom: "50px",
-    width: "65%",
+    width: "70%",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
     background: "#E8EEF4",
-    borderRadius: "10px",
+    borderRadius: "15px",
     paddingBottom: "20px",
     "@media (max-width : 900px)": {
       width: "70%",
@@ -54,10 +48,8 @@ const useStyle = makeStyles((theme) => ({
     width: "100%",
   },
   btn: {
-    marginTop: "20px",
+    marginTop: "3px",
     width: "200%",
-    backgroundColor: "#1F6186",
-    color: "white",
     fontFamily: "Roboto",
   },
   text: {
@@ -72,7 +64,7 @@ const useStyle = makeStyles((theme) => ({
   title: {
     color: "#159DE9",
     fontFamily: "Roboto",
-    padding: "2px",
+    padding: "1px",
     width: "-10px",
     height: "-20px"
   },
@@ -90,7 +82,27 @@ const useStyle = makeStyles((theme) => ({
   position: {
     position: "relative",
   },
-
+  bullet: {
+    margin: '15px',
+    transform: 'scale(0.9)',
+    marginBottom: 10,
+    width: "64%",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    background: "#2196f3",
+    borderRadius: "20px",
+    paddingBottom: "15px",
+    minWidth: 290,
+  },
+  titleCard: {
+    color: "#FFFFFF",
+    fontFamily: "Roboto",
+    padding: "5px",
+    width: "-10px",
+    height: "-20px"
+  }
 }));
 
 export default function Payout(){
@@ -99,30 +111,30 @@ export default function Payout(){
     return(
         <Box className={classes.principal}>
         <Box className={classes.container}>
-            <h3  className={classes.title}>Managment</h3>
-    <Box className={classes.container}>
-      <Typography className={classes.title} variant="h3" component="h3" >Detalle de productos</Typography>
+            <Card className={classes.bullet} variant="elevated" >
+    <Box className={classes.bullet}>
+      {/* <h3  className={classes.titleCard}>Managment</h3> */}
+      <Typography className={classes.titleCard} variant="h4" component="h3" >Detalle del pago</Typography>
       <Box className={classes.box} >
         <Box className={classes.items} >
           <Box className={classes.items}>
           <Box className={classes.items}>
-            <h3  className={classes.title}>Operacion</h3>
+            {/* <h3  className={classes.title}>Operacion</h3> */}
           </Box>
             <Box  className={classes.items}>
                 {/* <img src="./assets/cardiologia.jfif" alt="foto del producto" ></img> */}
-                <hr/>
-                <h3  className={classes.title} > Subscripcion </h3> 
+                
+                <h3  className={classes.titleCard} > Subscripcion mensual</h3> 
                 <br/>
-                  <p className={classes.text}> Agregar un mes a su subscripcion </p>
+                  <p className={classes.titleCard}> Agregar un mes a su subscripcion </p>
                   <hr/>
-                  <h3  className={classes.title}>Precio $1,000</h3>
+                  <h3  className={classes.titleCard}>Precio $1,000</h3>
                   
                   <Box className={classes.form}>
                                 <form className={classes.form}  action={`${API}/checkout`} method="POST" >
                                     <input type="hidden" name="title" value="Subscripcion Consultance Space" />
                                     <input type="hidden" name="id" value={profesionalId} />
-                                    <Button className={classes.btn} type="submit" value="pagar">pagar</Button>
-                                    
+                                    <Button color="default" className={classes.btn} type="submit" value="pagar">pagar</Button>
                                 </form>
                             </Box>
                           </Box> 
@@ -130,7 +142,7 @@ export default function Payout(){
                       </Box> 
                   </Box>
                 </Box>
-              
+                </Card>
               </Box>
         </Box>     
     )
