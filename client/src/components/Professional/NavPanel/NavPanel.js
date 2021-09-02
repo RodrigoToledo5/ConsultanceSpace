@@ -1,5 +1,5 @@
 import { Box, Button, makeStyles } from "@material-ui/core";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Appointment from "../SubComponents/Appointment/Appointment";
 import Attention from "../SubComponents/Attention";
 import Patients from "../SubComponents/Patients/Patients";
@@ -15,6 +15,7 @@ import SetHorario from "../SubComponents/SetHorarios/SetHorarios";
 import Treatments from "../SubComponents/Treatments/Treatments";
 import FinalDate from "../SubComponents/Appointment/FinalCita/FinalCita";
 import HistoriaClinica from "../SubComponents/HistoriaClinica/HistoriaClinica";
+import Subscripcion from "../SubComponents/Subscripcion/Subscripcion";
 import Configuracion from "../SubComponents/ConfiguracionDePagos/Configuracion";
 
 
@@ -113,7 +114,9 @@ const useStyle = makeStyles((theme) => ({
 export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
   const classes = useStyle();
   const rerender = useSelector((store) => store.reducerLog.redirect);
+  const info = useSelector((store) => store.reducerLog.info);
   const dispatch = useDispatch();
+  const [bloqueo, setBloqueo] = useState(false)
 
   //Objeto de componentes y nombres
   const routes = [
@@ -130,10 +133,11 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     {"Treatments": <Treatments/>},
     {"Historia Clinica":<HistoriaClinica/>},
     {"FinalDate" : <FinalDate />},
+    {"Subscripcion" : <Subscripcion />},
     {"Configuracion":<Configuracion/>}
   ];
 
-  const indexPrivateRoutes = 13; // a partir de este indice loa botones se ocultan
+  const indexPrivateRoutes = 20; //partir de este indice loa botones se ocultan
 
 
   useEffect(() => {
@@ -150,6 +154,27 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     };
   }, [rerender]);
 
+  const subVencida = (match) => { // devuelve true si vencio la suscripcion
+    const day = match.substring(0,2);
+    const month = match.substring(3,5);
+    const year = match.substring(6,10);
+    const dates = new Date (month + "/" +  day  + "/" +  year);
+    dates.setHours(0,0,0,0);
+    const today = new Date;
+    today.setHours(0,0,0,0);
+    return dates < today
+
+  }
+
+  useEffect(() => {
+    if(info.subscripcion){
+      if(subVencida(info.subscripcion)){
+        dispatch(redirect(12));
+        setBloqueo(true);
+      }
+    }
+  }, [info]);
+
   const update = async(r) => {
     await updateComponent(r[Object.keys(r)[0]]);
     setShowMenu(false)
@@ -161,7 +186,7 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
           key={i}
           className={classes.btn}
           onClick={() => {
-            update(r);
+            bloqueo || update(r);
           }}
         >
           {Object.keys(r)[0]}

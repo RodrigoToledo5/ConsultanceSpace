@@ -1,10 +1,14 @@
 const express = require('express');
 const { Router, response } = require("express");
 const router = Router();
+const { Profesional, Paciente } = require("../db");
+const CLIENT = require('../..');
+//const bodyParser = require('body-parser')
 
 
 // SDK de Mercado Pago
 const mercadopago = require ('mercadopago');
+
 
 //middleware
 //app.use(bodyParser.urlencoded({ extended: false }));
@@ -15,7 +19,7 @@ router.use(express.json());
     mercadopago.configure({
         access_token: 'APP_USR-5695753117844767-081805-6df2734e30e78f9a416ef743c8da938b-249576982'
     });
-    
+
 
     //Routes
     router.post('/checkout', (req, res, next) => {
@@ -42,9 +46,9 @@ router.use(express.json());
         ],
         /* "purpose": 'wallet_purchase', */
         "back_urls": {
-            "success": `http://localhost:3000/subscription?wallet=${comprobante}&id=${id}&success=done`,
-            "failure": "http://localhost:3000/failure",
-            "pending": "http://localhost:3000/pending"
+            "success": `${CLIENT}/subscription?wallet=${comprobante}&id=${id}&success=done`,
+            "failure": `${CLIENT}/failure`,
+            "pending": `${CLIENT}/pending`
         },
         "auto_return": "approved",
         
