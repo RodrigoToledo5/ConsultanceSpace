@@ -1,8 +1,11 @@
 const { Router } = require("express");
 const nodemailer = require("nodemailer");
 const { GMAIL, GMAIL_PASS } = process.env;
+
 // SDK de Mercado Pago
 const mercadopago = require ('mercadopago');
+const {uuid} =require('uuidv4')
+
 
 // Agrega credenciales
 mercadopago.configure({
@@ -15,7 +18,8 @@ const {
   Profesional,
   Especialidad,
   Stock,
-  Horario
+  Horario,
+  Pago
 } = require("../db");
 const router = Router();
 
@@ -101,7 +105,12 @@ router.post("/newUser", async (req, res, next) => {
       });
       await stock.setUsuario(email);
 
-
+      const comprobante=uuid();
+      const pago =await Pago.create({
+        comprobante: comprobante,
+        completado:false,
+      });
+      await pago.setProfesional(createdProfesional.id)
        //empieza,cuando un profesional se suscribe a la plataforma se le manda un correo
         console.log("back_urls")
         const price = 1000
@@ -116,7 +125,7 @@ router.post("/newUser", async (req, res, next) => {
         ],
         /* "purpose": 'wallet_purchase', */
         "back_urls": {
-            "success": "http://localhost:3000/succes",
+            "success": `http://localhost:3000/succes?wallet=${comprobante}&id=${createdProfesional.id}`,
             "failure": "http://localhost:3000/failure",
             "pending": "http://localhost:3000/pending"
         },

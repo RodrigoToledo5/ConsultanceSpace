@@ -22,7 +22,8 @@ router.use(express.json());
 //Routes
 router.post('/profesionalpayments', async (req, res, next) => {
     const { idprofesional, idpaciente, price, descripcion ,title} = req.body
-
+    console.log(idprofesional, idpaciente, price, descripcion ,title)
+    console.log("profesionalpayment")
     const profesinal = await Profesional.findOne({
         where:{id:idprofesional},
         includes:{model: Usuario}
@@ -67,14 +68,14 @@ router.post('/profesionalpayments', async (req, res, next) => {
                 },
             });
 
-            let titleUpper = title.charAt(0,1).toUpperCase();
-            let titleResto = title.substring(1,title.length).toLowerCase();
-            let titleComplete = titleUpper + titleResto;
+            //let titleUpper = title.charAt(0,1).toUpperCase();
+            //let titleResto = title.substring(1,title.length).toLowerCase();
+            //let titleComplete = titleUpper + titleResto;
 
             var mailOptions = {
                 from: profesinal.usuarioEmail,
                 to: paciente.usuarioEmail,
-                subject: titleComplete+' de parte de: '+profesinal.usuarioEmail,//nombre del tratamiento
+                subject: 'Tratamiento de parte de: '+profesinal.usuarioEmail,//nombre del tratamiento
                 text: 'Motivo: ' + descripcion + '\nLink de pago: ' + response.body.init_point,//esta es el link de pago
             };
 
@@ -88,6 +89,7 @@ router.post('/profesionalpayments', async (req, res, next) => {
 
             //res.json(response.body.init_point)
         }).catch(function (error) {
+            console.log(error)
         });
 })
 

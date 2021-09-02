@@ -1,5 +1,5 @@
 const express = require('express');
-const { Router } = require("express");
+const { Router, response } = require("express");
 const router = Router();
 
 
@@ -20,9 +20,19 @@ router.use(express.json());
     //Routes
     router.post('/checkout', (req, res, next) => {
         console.log("back_urls")
-        const {price}=req.body
-    // Crea un objeto de preferencia
+        const price=1000;
+        const {id}=req.body
+        const comprobante=uuid();
+        Pago.create({
+            comprobante: comprobante,
+            completado:false,
+        }).then((response)=>{
+            response.setProfesional(id)
+        }).catch((error)=>{
+            console.log(error)
+        })
     let preference = {
+        
         items: [
         {
             title: req.body.title,
@@ -32,7 +42,7 @@ router.use(express.json());
         ],
         /* "purpose": 'wallet_purchase', */
         "back_urls": {
-            "success": "http://localhost:3000/succes",
+            "success": `http://localhost:3000/subscription?wallet=${comprobante}&id=${id}&success=done`,
             "failure": "http://localhost:3000/failure",
             "pending": "http://localhost:3000/pending"
         },
