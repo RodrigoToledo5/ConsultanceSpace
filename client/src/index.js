@@ -9,6 +9,7 @@ import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './materialUi/';
 import {FirebaseAppProvider} from 'reactfire';
 import firebaseConfig from './firebase/firebase';
+
 //https://auth.mercadopago.com.ar/authorization?client_id=2493068614496087&response_type=code&platform_id=mp&redirect_uri=https://consultancespace.vercel.app/payments&state=client
 //export const API = "https://consultancespace.herokuapp.com";
 export const API = "http://localhost:3005";
