@@ -1,6 +1,6 @@
 import {Box, Typography, makeStyles, Button } from "@material-ui/core";
 import { DataGrid } from '@material-ui/data-grid';
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {addPatient,getPatient} from '../../actions'
 import SearchBar from "../../SearchBar";

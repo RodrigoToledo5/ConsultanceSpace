@@ -1,7 +1,7 @@
 import { Box, Button, makeStyles } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import Appointment from "../SubComponents/Appointment/Appointment";
-import Attention from "../SubComponents/Attention";
+//import Attention from "../SubComponents/Attention";
 import Patients from "../SubComponents/Patients/Patients";
 import Professionals from "../SubComponents/professionals/Professionals";
 import Managment from "../SubComponents/Managment";
@@ -159,7 +159,7 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     const year = match.substring(6,10);
     const dates = new Date (month + "/" +  day  + "/" +  year);
     dates.setHours(0,0,0,0);
-    const today = new Date;
+    const today = new Date();
     today.setHours(0,0,0,0);
     return dates < today
 

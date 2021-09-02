@@ -82,10 +82,10 @@ const useStyle = makeStyles((theme) => ({
 }));
 
 
-export default function AntecedentesPatogolicos({idPaciente:idPaciente,setActualizar}) {
+export default function AntecedentesPatogolicos({idPaciente,setActualizar}) {
     const [hassend, setHasSend] = useState(false)
     const classes = useStyle();
-    const patient = useSelector((store) => store.reducerLog.actPatient);
+    //const patient = useSelector((store) => store.reducerLog.actPatient);
     const historia = useSelector(state => state.reducerHistory.history);
     useEffect(() => {
         setActualizar("Actualizo patologicos")

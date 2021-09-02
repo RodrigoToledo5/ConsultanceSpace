@@ -51,7 +51,7 @@ const useStyle = makeStyles((theme) => ({
     }
 }));
 
-var ref = React.createRef();
+//var ref = React.createRef();
 
 export default function HistoriaClinica() {
     const patient = useSelector((store) => store.reducerLog.actPatient);

@@ -1,10 +1,4 @@
-import {
-  Typography,
-  makeStyles,
-  Card,
-} from "@material-ui/core";
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { Typography, makeStyles, Card } from "@material-ui/core";
 
 const useStyle = makeStyles((theme) => ({
   card: {
@@ -37,7 +31,7 @@ const useStyle = makeStyles((theme) => ({
 
 export default function TreatmentCard({ tratamiento }) {
   const classes = useStyle();
-  const cita = useSelector((store) => store.reducerLog.actCita);
+  //const cita = useSelector((store) => store.reducerLog.actCita);
   return (
     <Card className={classes.card}>
       <h2 className={classes.title}>{tratamiento.treatmentName}</h2>

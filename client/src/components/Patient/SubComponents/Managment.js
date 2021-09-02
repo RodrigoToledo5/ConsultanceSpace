@@ -1,11 +1,11 @@
-import { Box, Typography, makeStyles, Button, FormControl, InputLabel } from "@material-ui/core";
-import devImg from "../../../assets/img/etc/inDev.png"
+import { Box, Typography, makeStyles, Button } from "@material-ui/core";
+//import devImg from "../../../assets/img/etc/inDev.png"
 //importaciones para mercadopago
-import React, { useEffect, useState } from 'react';
-import { useParams } from "react-router-dom";
-import axios from "axios";
+import React from 'react';
+//import { useParams } from "react-router-dom";
+//import axios from "axios";
 
-const FORM_ID = 'payment-form';
+//const FORM_ID = 'payment-form';
 
 const useStyle = makeStyles((theme) => ({
   principal: {

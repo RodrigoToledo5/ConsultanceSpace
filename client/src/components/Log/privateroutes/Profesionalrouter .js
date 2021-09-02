@@ -1,7 +1,7 @@
 import { Route, Redirect, useHistory } from 'react-router-dom'
 import { useSelector } from 'react-redux';
-import Dashboard from '../../Professional/ProfessionalDashboard';
-import { useUser, useFirebaseApp } from "reactfire";
+//import Dashboard from '../../Professional/ProfessionalDashboard';
+import { useUser } from "reactfire";
 
 
 export default function ProfesionalRouter({ component: Component, ...rest }) {
