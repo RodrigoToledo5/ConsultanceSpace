@@ -19,7 +19,7 @@ let port= process.env.PORT||3005
 
 
 
-conn.sync({ force: false }).then(() => {
+conn.sync({ force: true }).then(() => {
   especialidadesjson.forEach(async (especialidad)=>{
     try{
       await Especialidad.findOrCreate({
@@ -34,7 +34,7 @@ conn.sync({ force: false }).then(() => {
   })
   
   console.log("Loaded");
-  server.listen(3005, () => {
-    console.log("%s listening at 3005");
+  server.listen(port, () => {
+    console.log(`%s listening at ${port}`);
   });
 });

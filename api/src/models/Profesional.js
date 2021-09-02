@@ -32,14 +32,20 @@ module.exports = (sequelize) => {
 			type: DataTypes.STRING,
 			allowNull: false
 		},
+		subscripcion: {
+			type: DataTypes.STRING,//no
+			allowNull: true
+		},
+		token:{
+			type: DataTypes.STRING,
+			allowNull: true
+		},
 		fullName: {
 			type: DataTypes.VIRTUAL,
 			get:function(){
 				return `${this.nombre} ${this.apellidos}`;
 			},
 		},
-	},{
-		timestamps: false,
-
+	//fecha de incripcion en la plataforma
 	});
 };

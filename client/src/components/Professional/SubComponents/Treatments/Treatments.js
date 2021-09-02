@@ -99,6 +99,7 @@ export default function Treatments({citumId, load}) {
     });
   };
 
+  
   const onSubmit = (e)=>{
     e.preventDefault();
     if(treatment.treatmentName && treatment.description && treatment.price && treatment.payment_method && treatment.status){

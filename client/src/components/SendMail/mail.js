@@ -120,7 +120,7 @@ export default function Mail(){
                 }}
                 onSubmit={
                     async (values, { resetForm }) => {
-                        values.text=`Mensaje:${values.text}, Enviado desde: ${email}`;
+                        //values.text=`Mensaje: ${values.text},/n Enviado desde: ${email}`;
                          const send = await axios({
                                 method: 'POST',
                                 url: `${API}/contactEmail`,
