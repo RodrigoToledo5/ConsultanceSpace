@@ -180,8 +180,7 @@ export default function Profile({ onClick ,handleEdit:handleEdit}) {
         })
     }
 
-    const onHandleSubmit = async (e) => {
-
+    const onHandleSubmit = (e) => {
         dispatch(updateProfile({ ...patient, email: profile.usuarioEmail, id: profile.id,speciality:specialidad }));
         setPatient({
             dni: '',

@@ -10,6 +10,8 @@ import Professionals from "../../Professional/SubComponents/professionals/Profes
 import Managment from "../SubComponents/Managment";
 import Welcome from "../SubComponents/Welcome";
 import Mail from "../../SendMail/mail";
+import { useDispatch, useSelector } from "react-redux";
+import { redirect } from "../../Log/actions";
 
 const useStyle = makeStyles((theme) => ({
   magin: {
@@ -96,7 +98,8 @@ const useStyle = makeStyles((theme) => ({
 //Administra el componente a renderizar y muestra los botones y opciones
 export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
   const classes = useStyle();
-
+  const rerender = useSelector((store) => store.reducerLog.redirect);
+  const dispatch = useDispatch();
 //Objeto de componentes y nombres
   const routes = [
     { "Buscar profesional": <Professionals/>},
@@ -105,6 +108,9 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     {"Gestion de pagos": <Managment /> },
     {"Enviar mail": <Mail/> },
   ];
+
+  const indexPrivateRoutes = 2;
+
   useEffect(() => {
     updateComponent(<Welcome/>);
   }, []);
@@ -112,9 +118,16 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     await updateComponent(r[Object.keys(r)[0]]);
     setShowMenu(false)
   };
+  useEffect(() => {
+    if(Number.isInteger(rerender)){
+      const key = Object.keys(routes[rerender])[0];
+      updateComponent(routes[rerender][key]);
+      dispatch(redirect(null));
+    };
+  }, [rerender]);
   return (
     <Box className={showMenu ? classes.boxActive : classes.box }>
-      {routes.map((r, i) => (
+      {routes.map((r, i) => (i < indexPrivateRoutes? (
         <Button
           key={i}
           className={classes.btn}
@@ -123,8 +136,8 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
           }}
         >
           {Object.keys(r)[0]}
-        </Button>
-      ))}
+        </Button>) : "")
+      )}
     </Box>
   );
 }

@@ -36,11 +36,14 @@ export default function Professionals(){
     const professionals = useSelector(store => store.reducerSearchProfesional.profesionales);
     const [redir, setRedir] = useState("")
     const actPatient = useSelector((store) => store.reducerLog.actPatient);//target 
+    const user = useSelector((store) => store.reducerLog.user);
     const patients = useSelector(
         (store) => store.reducerSearchProfesional.profesionales
       );
     useEffect(() => {
-        if(redir==="Enviar mail") dispatch(redirect(3));
+        if(redir==="Enviar mail"){
+
+           user.tipo_usuario === "profesional" ? dispatch(redirect(3)) : dispatch(redirect(4));}
       }, [actPatient,redir]);
 
     const renderPatientHistory = (params) => {

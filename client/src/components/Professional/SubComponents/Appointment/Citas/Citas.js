@@ -45,13 +45,13 @@ export default function Citas({ citas, reLoad }) {
 
   useEffect(()=>{
     if(redirectFlag === "cita"){
-      dispatch(redirect(11))}
+      dispatch(redirect(12))}
       if(redirectFlag === "ficha"){
         axios({
           method: "GET",
           url: `${API}/patients`,
           params: {nombre:citaRedirect.pacienteFullName},
-        }).then((res)=>{dispatch(setPatient(res.data[0]));dispatch(redirect(10)) })
+        }).then((res)=>{dispatch(setPatient(res.data[0]));dispatch(redirect(11)) })
         }},[citaRedirect]);
 
   const dispatch = useDispatch();
