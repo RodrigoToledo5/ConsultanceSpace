@@ -12,7 +12,8 @@ const useStyle = makeStyles((theme) => ({
     constainer: {
         fontFamily: "Lato",
         display:"flex",
-        flexDirection:"column"
+        flexDirection:"column",
+        
     },
     title: {
         margin:"10px",
@@ -25,7 +26,10 @@ const useStyle = makeStyles((theme) => ({
         flexDirection: "row",
         justifyContent: "space-evenly",
         flexWrap: "Wrap",
-        margin:"10px"
+        margin:"10px",
+        '@media (max-width:600px)': {
+            justifyContent: "center",
+          }
     },
     btn: {
         margin: "10px",
@@ -52,7 +56,7 @@ const useStyle = makeStyles((theme) => ({
         alignItems: "center",
     },
     text: {
-        minHeight: "200px",
+        Height: "200px",
         maxWidth: "200px",
         textAlign: "justify",
         padding:"60px",
@@ -69,7 +73,10 @@ const useStyle = makeStyles((theme) => ({
         backgroundSize: "cover",
         borderRadius:"10px",
         minHeight:"200xp",
-        minWidth:"600px"
+        minWidth:"600px",
+        '@media (max-width:600px)': {
+            minWidth:"200px"
+          }
     }
 }));
 
