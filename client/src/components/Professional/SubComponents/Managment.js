@@ -1,9 +1,9 @@
 import 'date-fns';
 import es from "date-fns/locale/es";
-import { Box, Typography, makeStyles, Grid,  } from "@material-ui/core";
+import { Box, Typography, makeStyles, Grid, TextField } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getAppointment, getPatientPay } from "../actions";
+import { getAppointment } from "../actions";
 import { DataGrid } from '@material-ui/data-grid';
 import DateFnsUtils from '@date-io/date-fns';
 import {
@@ -18,9 +18,15 @@ import {
   CartesianGrid,
   Tooltip,
   Legend,
+  ResponsiveContainer
 } from "recharts";
 
 const useStyle = makeStyles((theme) => ({
+  title:{
+    color: "#159DE9",
+    marginTop:"5%"
+
+  },
   text: {
     color: "#159DE9",
   },
@@ -35,7 +41,13 @@ const useStyle = makeStyles((theme) => ({
     flexDirection: "column",
     borderRadius: "10px",
     color: "#159DE9",
+    "@media (max-width : 500px)": {
+      width: "100%",
+    },
   },
+  label:{
+    color: "#000000 !important  "
+  }
 }));
 
 export default function Managment() {
@@ -48,6 +60,14 @@ export default function Managment() {
   const earnings = useSelector(state=> state.reducerSearchPatients.earnings)
   const get = true;
 
+  const dateLinda = (date) => {
+    const dateStr = date.toString().substr(0, 21);
+    let month = date.getMonth() + 1;
+    month = month > 9 ? month.toString() : "0" + month.toString();
+    return (
+      dateStr.substring(8, 10) + "/" + month + "/" + dateStr.substring(11, 15)
+    );
+  };
   
 
 const sumarDias = (date) =>{
@@ -175,27 +195,31 @@ const sumarDias = (date) =>{
           fullName: cita.pacienteFullName,
           lastName:  cita.note,
           dateOfPay: cita.date.substring(0,10),
-          treatment: cita.tratamientos ? cita.tratamientos[0].treatmentName : "",
-          paymentValue: cita.tratamientos ? cita.tratamientos[0].price : "",
+          treatment: cita.tratamientos ? cita.tratamientos.map((elemento)=>{ return elemento.treatmentName }) : "",
+          paymentValue: cita.tratamientos ? cita.tratamientos.map((elemento)=>{ return elemento.price }) : "",
         }
         rows.push(array);
       }
 
     });
 
+    
 
   return (
     <>
     <Box>
+    <Typography variant="h4" className={classes.title}>
+        Ingresos Diarios
+      </Typography>
     <MuiPickersUtilsProvider utils={DateFnsUtils} locale={es}>
-      <Grid container justifyContent="space-around">
+      <Grid container justifyContent="space-around" alignItems= "center">
         <KeyboardDatePicker
           disableToolbar
           variant="inline"
           format="dd/MMMM/yyyy"
           margin="normal"
           id="date-picker-inline"
-          label="Periodo de ingresos"
+          label="Fecha inicial"
           value={initialDate}
           onChange={handleDateChange}
           helperText = "Selecciona un inicio de semana"
@@ -204,14 +228,12 @@ const sumarDias = (date) =>{
             'aria-label': 'change date',
           }}
         />
+         <TextField disabled  inputProps={{ className: classes.label }} label="Fecha final" value={dateLinda(finalDate)} />
         </Grid>
         </MuiPickersUtilsProvider>
     </Box>
-    <Box className={classes.box}>
-      <Typography variant="h4" color="blue">
-        Ingresos Diarios
-      </Typography>
-      <BarChart width={730} height={250} data={data}>
+    <ResponsiveContainer width="95%" height="30%">
+      <BarChart  margin={{ top: 5, right: 30, left: 20, bottom: 5 }} data={data}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="name" />
         <YAxis />
@@ -219,9 +241,8 @@ const sumarDias = (date) =>{
         <Legend />
         <Bar dataKey="ingresos" fill="#2196f3" />
       </BarChart>
-    </Box>
-    
-    <div style={{ height: 400, width: '100%' }}>
+      </ResponsiveContainer>
+    <div style={{ height: 400, width: '90%', marginLeft:"5%"}}>
       <DataGrid
         rows={rows}
         columns={columns}
