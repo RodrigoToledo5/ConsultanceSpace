@@ -47,7 +47,11 @@ const useStyle = makeStyles((theme) => ({
         display:"flex",
         flexDirection:"column",
         justifyContent: "center",
-        alignItems: "center",
+        alignItems: "stretch",
+    },
+    alertbox:{
+        marginTop:"5px",
+        marginBottom:"5px"
     }
 }));
 
@@ -130,10 +134,30 @@ export default function HistoriaClinica() {
                 
             </div>
             <div className={classes.alert}>
-                {!historia.genero&&<Alert severity="warning">Por favor pida a su paciente que complete su género</Alert>}
-                {!historia.genero&&<Alert severity="warning">Por favor pida a su paciente que complete su estado civil</Alert>}
-                {!historia.antecedentesPatologico&&<Alert severity="warning"> Faltan cargar los antecedentes patologicos</Alert>}
-                {!historia.antecedentesNoPatologico&&<Alert severity="warning"> Faltan cargar los antecedentes no patologicos</Alert>}
+                {!historia.genero&&
+                    <Alert severity="warning" className={classes.alertbox}>
+                        <Typography>
+                            Por favor pida a su paciente que complete su género
+                        </Typography>
+                    </Alert>}
+                {!historia.genero&& 
+                    <Alert severity="warning" className={classes.alertbox}>
+                        <Typography>
+                            Por favor pida a su paciente que complete su estado civil
+                        </Typography>
+                    </Alert>}
+                {!historia.antecedentesPatologico&&
+                    <Alert severity="warning" className={classes.alertbox}> 
+                        <Typography>
+                            Faltan cargar los antecedentes patologicos
+                        </Typography>
+                    </Alert>}
+                {!historia.antecedentesNoPatologico&&
+                <Alert severity="warning" className={classes.alertbox}> 
+                    <Typography>
+                        Faltan cargar los antecedentes no patologicos
+                    </Typography>  
+                </Alert>}
             </div>
             {     
             seccion === "CARGAR ANTECEDENTES PATOLOGICOS" &&

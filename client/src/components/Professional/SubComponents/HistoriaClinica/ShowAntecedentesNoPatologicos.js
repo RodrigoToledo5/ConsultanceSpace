@@ -45,7 +45,6 @@ const useStyle = makeStyles((theme) => ({
         padding: "10px",
         minHeight: "100px",
         maxWidth:"350px",
-        border:"solid 1px black"
     },
     input: {
         resize: "none",
@@ -54,7 +53,6 @@ const useStyle = makeStyles((theme) => ({
         minHeight: "80px",
         padding: "5px",
         textAlign:"justify",
-        border:"solid 1px black"
     },
     btn: {
         maxWidth: "150px",
