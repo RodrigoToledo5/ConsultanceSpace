@@ -42,9 +42,12 @@ const useStyle=makeStyles(theme=>({
   },
   box:{
     width:"300px",
+    height:"50vh",
+    marginTop:"25vh",
     '@media (min-width:600px)': {
       width:"600px",
-      margin:"10px"
+      marginTop:"40px",
+      height:"50vh",
     }
   },
 
@@ -82,13 +85,22 @@ function Succes() {
         <Box className={classes.box} marginBottom="10px">
 
           {
-            checkPath() === 'succes' && <Alert severity="success"> Se han agregado 30 dias a su subscripcion </Alert>
+            checkPath() === 'succes' && 
+            <Alert severity="success"> 
+              Se han agregado 30 dias a su subscripcion 
+            </Alert>
           }
           {
-            checkPath() === 'failure' && <Alert severity="error"> El pago fallo </Alert>
+            checkPath() === 'failure' && 
+            <Alert severity="error"> 
+              El pago fallo 
+            </Alert>
           }
           {
-            checkPath() === 'pending' && <Alert severity="info">El pago esta pendiente </Alert>
+            checkPath() === 'pending' && 
+            <Alert severity="info">
+              El pago esta pendiente 
+            </Alert>
           }
         </Box>
     </Box>

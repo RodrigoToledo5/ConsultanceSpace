@@ -1,4 +1,4 @@
-import { Box, makeStyles } from '@material-ui/core';
+import { Box, makeStyles,Typography } from '@material-ui/core';
 import Alert from "@material-ui/lab/Alert";
 import axios from 'axios';
 import { useEffect } from 'react';
@@ -24,8 +24,12 @@ const useStyle = makeStyles(theme => ({
   },
   text: {
     color: "#159DE9",
-    marginRight: theme.spacing(100),
-    marginLeft: theme.spacing(5)
+    textAlign:"center",
+    position:'relative',
+    left:"-10px",
+    '@media (min-width:600px)': {
+      left:"50%"
+    },
   },
   box_container: {
     marginTop: theme.spacing(10),
@@ -33,6 +37,7 @@ const useStyle = makeStyles(theme => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "center",
+    height:"100vh",
     '@media (min-width:600px)': {
       marginTop: theme.spacing(10),
       alignItems: "center",
@@ -92,7 +97,11 @@ function PaymentsConfig() {
   return (
     <Box className={classes.box_container}>
       <Box className={classes.box} marginBottom="10px">
-        <Alert severity="success"> Se configuro su sistema de pagos</Alert>
+        <Alert severity="success"> 
+          <Typography className={classes.text}>
+            Se configuro su sistema de pagos
+          </Typography>
+        </Alert>
       </Box>
     </Box>
   );
