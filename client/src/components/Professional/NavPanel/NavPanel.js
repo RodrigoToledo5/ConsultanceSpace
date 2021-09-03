@@ -170,7 +170,7 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
   useEffect(() => {
     if(info.subscripcion){
       if(subVencida(info.subscripcion)){
-        dispatch(redirect(12));
+        dispatch(redirect(7));
         setBloqueo(true);
       }
     }
