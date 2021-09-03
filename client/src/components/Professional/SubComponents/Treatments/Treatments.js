@@ -111,7 +111,8 @@ export default function Treatments({citumId, load}) {
             description: "",
             price: 0,
             payment_method: "",
-            status: ""
+            status: "",
+            citumId: citumId,
             })
         }
         else{
@@ -121,7 +122,9 @@ export default function Treatments({citumId, load}) {
             description: "",
             price: 0,
             payment_method: "",
-            status: ""
+            status: "",
+            citumId: citumId,
+            
             })
 
         }

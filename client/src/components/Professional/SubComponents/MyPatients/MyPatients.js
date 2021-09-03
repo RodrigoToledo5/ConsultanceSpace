@@ -189,14 +189,14 @@ export default function MyPatients() {
       pacienteIds: select,
       disable: !disable,
     };
-    await axios({
+    axios({
       method: "POST",
       url: `${API}/disablePatients`,
       data: data,
-    });
+    }).then(()=>{
     dispatch(getMyPatients(user.email));
     setDisable(!disable);
-    setSelect([]);
+    setSelect([]);})
   };
 
   return (

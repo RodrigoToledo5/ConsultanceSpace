@@ -31,7 +31,6 @@ const useStyle = makeStyles((theme) => ({
         flexDirection: "row",
         justifyContent: "flex-start",
         minWidth: "120px",
-        
         alignItems: "center"
     },
     asides: {
@@ -45,6 +44,9 @@ const useStyle = makeStyles((theme) => ({
         padding: "10px",
         minHeight: "100px",
         maxWidth:"350px",
+
+        marginLeft:"5px",
+
     },
     input: {
         resize: "none",
