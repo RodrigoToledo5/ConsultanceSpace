@@ -43,7 +43,7 @@ export default function Professionals(){
     useEffect(() => {
         if(redir==="Enviar mail"){
 
-           user.tipo_usuario === "profesional" ? dispatch(redirect(3)) : dispatch(redirect(4));}
+           user.tipo_usuario === "profesional" ? dispatch(redirect(13)) : dispatch(redirect(4));}
       }, [actPatient,redir]);
 
     const renderPatientHistory = (params) => {

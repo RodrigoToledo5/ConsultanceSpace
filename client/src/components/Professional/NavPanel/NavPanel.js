@@ -17,6 +17,7 @@ import FinalDate from "../SubComponents/Appointment/FinalCita/FinalCita";
 import HistoriaClinica from "../SubComponents/HistoriaClinica/HistoriaClinica";
 import Subscripcion from "../SubComponents/Subscripcion/Subscripcion";
 import Configuracion from "../SubComponents/ConfiguracionDePagos/Configuracion";
+import Mail from "../../SendMail/mail";
 
 
 const useStyle = makeStyles((theme) => ({
@@ -134,6 +135,7 @@ export default function NavPanel({ updateComponent, showMenu, setShowMenu }) {
     {"Treatments": <Treatments/>},
     {"Historia Clinica":<HistoriaClinica/>},
     {"FinalDate" : <FinalDate />},
+    {"Mailing" : <Mail />},
   ];
 
   const indexPrivateRoutes = 9; //partir de este indice loa botones se ocultan

@@ -5,7 +5,8 @@ const path = require("path");
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
 const sequelize = new Sequelize(
-  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/consultas`,
+  //`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/consultas`,
+  "postgres://zngfqqxm:1RqQfyE1V8T9mfOdJj9_mwW5ODsPI2vm@motty.db.elephantsql.com/zngfqqxm",
   {
     logging: false, // set to console.log to see the raw SQL queries
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
