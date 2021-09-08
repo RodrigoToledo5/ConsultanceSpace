@@ -87,7 +87,7 @@ function Succes() {
           {
             checkPath() === 'succes' && 
             <Alert severity="success"> 
-              Se han agregado 30 dias a su subscripcion 
+              Su pago se acreditado con exito. 
             </Alert>
           }
           {
